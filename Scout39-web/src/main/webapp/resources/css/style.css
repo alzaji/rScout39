@@ -2,7 +2,6 @@
 /* Required for full background image */
 
 html,
-header,
 .view {
     height: 100%;
 }
@@ -15,8 +14,7 @@ body{
 
 @media (max-width: 740px) {
     html,
-    body,
-    header,
+    body,    
     .view {
         height: 100vh;
     }
