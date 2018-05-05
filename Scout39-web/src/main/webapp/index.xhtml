@@ -11,7 +11,34 @@
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <ui:composition template="templates/footer.xhtml"/>
+        <ui:composition template="templates/principal.xhtml">
+            <ui:define name="content">
+                <!-- Full Page Intro -->
+            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('bg2.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                <!-- Mask & flexbox options-->
+                <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                    <!-- Content -->
+                    <div class="container">
+                        <!--Grid row-->
+                        <div class="row wow fadeIn">
+                            <!--Grid column-->
+                            <div class="col-md-12 text-center">
+                                <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp">Scout39 Santo Ángel</h1>
+                                <h5 class="pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5 wow fadeInUp" data-wow-delay="0.2s">It comes with a lot of new features, easy to follow videos and images. Check it out now!</h5>
+                            </div>
+                            <!--Grid column-->
+                        </div>
+                        <!--Grid row-->
+                    </div>
+                    <!-- Content -->
+                </div>
+                <!-- Mask & flexbox options-->
+            </div>
+            <!-- Full Page Intro -->
+            </ui:define>
+        </ui:composition>
+
+
 
         <h:outputScript name="js/jquery-3.2.1.min.js"/>
         <h:outputScript name="js/popper.min.js"/>

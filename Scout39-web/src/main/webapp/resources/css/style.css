@@ -1,1 +1,78 @@
 /* Your custom styles */
+/* Required for full background image */
+
+html,
+header,
+.view {
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 740px) {
+    html,
+    body,
+    header,
+    .view {
+        height: 100vh;
+    }
+}
+
+.nav-link{
+    color: white;
+}
+
+.top-nav-collapse {
+    background-color: #00695c   !important;
+    color: white;
+}
+
+.btn-login{
+    border-radius: 40px;
+}
+
+.btn-join{
+    border-radius: 40px;
+}
+
+.navbar:not(.top-nav-collapse) {
+    background: rgba(180, 224, 220, 0.5) !important; 
+}
+
+.text-color {
+    color: #111 !important;
+}
+
+@media (max-width: 768px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #00695c   !important;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 850px) {
+    .navbar:not(.top-nav-collapse) {
+        background: #00695c   !important;
+        color: white;
+    }
+}
+
+h1 {
+    letter-spacing: 8px;
+    color: white;
+
+}
+
+h5 {
+    letter-spacing: 3px;
+    color: white; 
+}
+
+.hr-light {
+    border-top: 3px solid #fff;
+    width: 80px;
+}
+

@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/mdb.min.css"/>
+        <h:outputStylesheet name="css/style.css"/>      
+    </h:head>
+
+    <h:body>
+
+        <!-- Main navigation -->
+        <header>
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar ">
+                <div class="container">
+                    <a class="navbar-brand" href="index.xhtml">
+                        <strong class="text-color">Grupo Scout 39 Santo Ángel</strong>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-color" href="#">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-color" href="#footer">Contacto</a>
+                            </li>
+                        </ul>
+
+                        <form class="form-inline">
+                            <div class="md-form mt-0">
+                                <a class="btn btn-teal btn-rounded  btn-login" data-toggle="modal" data-target="#modalLRForm">
+                                    <i class="fa fa-user left"></i> Iniciar Sesión</a>
+                            </div>
+                        </form>
+                        <form class="form-inline">
+                            <div class="md-form mt-0 ">
+                                <a class="btn btn-teal btn-rounded  btn-join" href="unete.xhtml">
+                                    <i class="fa fa-user-plus left"></i>Únete</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar -->            
+        </header>
+        <!-- Main navigation -->
+
+        <!--Modal: LoginForm-->
+        <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal" role="document">
+                <!--Content-->
+                <div class="modal-content">
+
+                    <!--Modal cascading tabs-->
+                    <div class="modal-c-tabs">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tabs-2 text-center" role="tablist">
+                            <li class="nav-item">
+                                <span class="nav-link active" data-toggle="tab" role="tab">
+                                    <i class="fa fa-user mr-1"></i> Iniciar Sesión</span>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panels -->
+                        <div class="tab-content">
+                            <!--Panel 7-->
+                            <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+
+                                <!--Body-->
+                                <div class="modal-body mb-1">
+                                    <div class="md-form form-sm mb-5">
+                                        <i class="fa fa-user-circle prefix"></i>
+                                        <input type="text" id="modalLRInput10" class="form-control form-control-sm validate"/>
+                                        <label data-error="wrong" data-success="right" for="modalLRInput10">Alias o identificación</label>
+                                    </div>
+
+                                    <div class="md-form form-sm mb-4">
+                                        <i class="fa fa-lock prefix"></i>
+                                        <input type="password" id="modalLRInput11" class="form-control form-control-sm validate"/>
+                                        <label data-error="wrong" data-success="right" for="modalLRInput11">Contraseña</label>
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <button class="btn btn-info">Iniciar Sesión
+                                            <i class="fa fa-sign-in ml-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <!--Footer-->
+                                <div class="modal-footer">
+                                    <div class="options text-center text-md-right mt-1">
+
+                                        <p>¿Olvidaste la
+                                            <a class="blue-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
+                                        </p>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                </div>
+
+                            </div>
+                            <!--/.Panel 7-->
+                        </div>
+
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!--Modal: LoginForm-->
+
+        <!--Modal: OlvidastePassword-->
+        <div class="modal fade" id="modalForgotPassForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal" role="document">
+                <!--Content-->
+                <div class="modal-content">
+
+                    <!--Modal cascading tabs-->
+                    <div class="modal-c-tabs">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs tabs-2 text-center" role="tablist">
+                            <li class="nav-item">
+                                <span class="nav-link active" data-toggle="tab" role="tab">
+                                    <i class="fa fa-user mr-1"></i> Restablecer contraseña</span>
+                            </li>
+                        </ul>
+
+                        <!-- Tab panels -->
+                        <div class="tab-content">
+                            <!--Panel 7-->
+                            <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                                <p class="mr-5 ml-5" align="center">Introduce la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para
+                                    restablecer tu contraseña.</p>
+                                <!--Body-->
+                                <div class="modal-body mb-1">
+                                    <div class="md-form form-sm mb-5">
+                                        <i class="fa fa-envelope prefix"></i>
+                                        <input type="text" id="modalPassInput10" class="form-control form-control-sm validate"/>
+                                        <label data-error="wrong" data-success="right" for="modalPassInput10">Correo electrónico</label>
+                                    </div>
+
+                                    <div class="text-center mt-2">
+                                        <button class="btn btn-info">Enviar
+                                            <i class="fa fa-sign-in ml-1"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/.Panel 7-->
+                        </div>
+
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!--Modal: OlvidastePassword-->
+
+        <ui:insert name="content"/>
+
+        <!--Footer-->
+        <footer class="page-footer font-small teal darken-3 pt-4 mt-4" id="footer">
+
+            <!--Footer Links-->
+            <div class="container-fluid text-center text-md-left">
+                <div class="row">
+
+                    <!--First column-->
+                    <div class="col-md-6">
+                        <h5 class="text-uppercase">Footer Content</h5>
+                        <p>Here you can use rows and columns here to organize your footer content.</p>
+                    </div>
+                    <!--/.First column-->
+
+                    <!--Second column-->
+                    <div class="col-md-">
+                        <h5 class="text-uppercase">Links</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#!">Link 2</a>
+                            </li>
+                            <li>
+                                <a href="#!">Link 3</a>
+                            </li>
+                            <li>
+                                <a href="#!">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.Second column-->
+                </div>
+            </div>
+            <!--/.Footer Links-->
+
+            <!--Copyright-->
+            <div class="footer-copyright py-3 text-center teal-darken-4">
+                © 2018 Copyright:
+                <a href="index.html"> Scout39 Santo Ángel </a>
+            </div>
+            <!--/.Copyright-->
+
+        </footer>
+        <!--/.Footer-->
+
+        <h:outputScript name="js/jquery-3.2.1.min.js"/>
+        <h:outputScript name="js/popper.min.js"/>
+        <h:outputScript name="js/bootstrap.min.js"/>
+        <h:outputScript name="js/mdb.min.js"/>
+    </h:body>
+
+</html>
