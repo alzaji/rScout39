@@ -32,29 +32,71 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link text-color" href="#">Inicio</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-color" href="#footer">Contacto</a>
-                            </li>
+                            <c:choose>
+                                <c:when test="#{empty controlAutorizacion.usuario.roles.nombrerol}">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-color" href="#">Inicio</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-color" href="#footer">Contacto</a>
+                                    </li>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterTHA'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterKIM'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterSIRYU'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterALMOGAMA'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'EducandoTHA'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'EducandoKIM'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'EducandoSIRYU'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                                <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'EducandoALMOGAMA'}">
+                                    <ui:insert name="navbar"/>
+                                </c:when>
+                            </c:choose>
                         </ul>
 
-                        <form class="form-inline">
-                            <div class="md-form mt-0">
-                                <a class="btn btn-teal btn-rounded  btn-login" data-toggle="modal" data-target="#modalLRForm">
-                                    <i class="fa fa-user left"></i> Iniciar Sesión</a>
-                            </div>
-                        </form>
-                        <form class="form-inline">
-                            <div class="md-form mt-0 ">
-                                <a class="btn btn-teal btn-rounded  btn-join" href="unete.xhtml">
-                                    <i class="fa fa-user-plus left"></i>Únete</a>
-                            </div>
-                        </form>
+                        <c:choose>
+                            <c:when test="#{empty controlAutorizacion.usuario}">
+                                <form class="form-inline">
+                                    <div class="md-form mt-0">
+                                        <a class="btn btn-teal btn-rounded btn-login" data-toggle="modal" data-target="#modalLRForm">
+                                            <i class="fa fa-user left"></i> Iniciar Sesión</a>
+                                    </div>
+                                </form>
+                                <form class="form-inline">
+                                    <div class="md-form mt-0 ">
+                                        <a class="btn btn-teal btn-rounded  btn-join" href="unete.xhtml">
+                                            <i class="fa fa-user-plus left"></i>Únete</a>
+                                    </div>
+                                </form>
+                            </c:when>
+                            <c:otherwise>
+                                <h:form id="conSesion">
+                                    <h:commandLink class="btn btn-red btn-rounded btn-login" value="Cerrar sesión" action="#{controlAutorizacion.logout()}">
+                                        <i class="fa fa-sign-out ml-1"></i>
+                                    </h:commandLink>
+                                </h:form>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </nav>
@@ -176,162 +218,165 @@
         <!--Modal: OlvidastePassword-->
 
         <!-- Full Page Intro -->
-        <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-            <!-- Mask & flexbox options-->
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                <!-- Content -->
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row wow fadeIn">
-                        <!--Grid column-->
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+        <c:choose>
+            <c:when test="#{empty controlAutorizacion.usuario}">
+                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="container">
+                            <!--Grid row-->
+                            <div class="row wow fadeIn">
+                                <!--Grid column-->
+                                <div class="col-md-12 text-center">
+                                    <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                </div>
+                                <!--Grid column-->
+                            </div>
+                            <!--Grid row-->
                         </div>
-                        <!--Grid column-->
+                        <!-- Content -->
                     </div>
-                    <!--Grid row-->
+                    <!-- Mask & flexbox options-->
                 </div>
-                <!-- Content -->
-            </div>
-            <!-- Mask & flexbox options-->
-        </div>
-        <!-- Full Page Intro -->
-        <!--Projects section v.3-->
-        <section class="mr-5 ml-5" id="sectionAboutUs">
+                <!-- Full Page Intro -->
+                <!--Projects section v.3-->
+                <section class="mr-5 ml-5" id="sectionAboutUs">
 
-            <!--Section heading-->
-            <h2 class="text-center h1 my-5">
-                <strong><ui:insert name="sectionh">Our best projects</ui:insert></strong>
-            </h2>
-            <!--Section description-->
-            <p class="px-xl-5 text-center grey-text mb-5">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <!--Grid row-->
-            <div class="row">
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5">
-
-                    <!--Image-->
-                    <img src="./resources/img/bg.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-7 pl-lg-5 pb-4">
-
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-book fa-2x cyan-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Education</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
-                        </div>
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-code fa-2x red-text"></i>
-                        </div>
-                        <div class="col-10 ">
-                            <h5 class="font-weight-bold black-text">Technology</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
-                        </div>
-                    </div>
-                    <!--Grid row-->
+                    <!--Section heading-->
+                    <h2 class="text-center h1 my-5">
+                        <strong><ui:insert name="sectionh">Our best projects</ui:insert></strong>
+                    </h2>
+                    <!--Section description-->
+                    <p class="px-xl-5 text-center grey-text mb-5">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
                     <!--Grid row-->
                     <div class="row">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-money fa-2x deep-purple-text"></i>
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5">
+
+                            <!--Image-->
+                            <img src="./resources/img/bg.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
+
                         </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Finance</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-xl-7 pl-lg-5 pb-4">
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-book fa-2x cyan-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Education</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-code fa-2x red-text"></i>
+                                </div>
+                                <div class="col-10 ">
+                                    <h5 class="font-weight-bold black-text">Technology</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-money fa-2x deep-purple-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Finance</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--/Grid row-->
+
                         </div>
+                        <!--Grid column-->
+
                     </div>
-                    <!--/Grid row-->
+                    <!--Grid row-->
 
-                </div>
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
-
-            <hr/>
-
-            <!--Grid row-->
-            <div class="row pt-5">
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-7 mb-3">
+                    <hr/>
 
                     <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-bar-chart fa-2x indigo-text"></i>
+                    <div class="row pt-5">
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-xl-7 mb-3">
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-bar-chart fa-2x indigo-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Marketing</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-music fa-2x pink-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Entertainment</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fa fa-smile-o fa-2x blue-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Communication</h5>
+                                    <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
+                                        assumenda voluptate velit.</p>
+                                </div>
+                            </div>
+                            <!--/Grid row-->
+
                         </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Marketing</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-xl-5 mb-3">
+
+                            <!--Image-->
+                            <img src="./resources/img/bg1.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
+
                         </div>
+                        <!--Grid column-->
+
                     </div>
                     <!--Grid row-->
 
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-music fa-2x pink-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Entertainment</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
-                        </div>
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fa fa-smile-o fa-2x blue-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Communication</h5>
-                            <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima
-                                assumenda voluptate velit.</p>
-                        </div>
-                    </div>
-                    <!--/Grid row-->
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-5 mb-3">
-
-                    <!--Image-->
-                    <img src="./resources/img/bg1.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
-
-                </div>
-                <!--Grid column-->
-
-            </div>
-            <!--Grid row-->
-
-        </section>
-        <!--Projects section v.3-->
-
+                </section>
+                <!--Projects section v.3-->
+            </c:when>
+        </c:choose>
         <!--Footer-->
         <footer class="page-footer font-small teal darken-3 pt-4 mt-4" id="footer">
 

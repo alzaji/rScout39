@@ -37,18 +37,25 @@ public class Login {
     public Login() {
         usuarios = new ArrayList<Usuario>();
         usuarios.add(newUsuario("Coord1", "1234", "Coordinador1", ".", "coordinador@scout39.org", new Date(), newRol("Coordinador")));
-        usuarios.add(newUsuario("ScouterTHA", "1234", "Scouter", "THA", "scoutertha@scout39.org", new Date(),newRol("ScouterTHA")));
-        usuarios.add(newUsuario("ScouterKIM", "1234", "Scouter", "KIM", "scouterkim@scout39.org", new Date(),newRol("ScouterKIM")));
-        usuarios.add(newUsuario("ScouterSIRYU", "1234", "Scouter", "SIRYU", "scoutersiryu@scout39.org", new Date(),newRol("ScouterSIRYU")));
-        usuarios.add(newUsuario("ScouterALMOGAMA", "1234", "Scouter", "ALMOGAMA", "scouteralmogama@scout39.org", new Date(),newRol("ScouterALMOGAMA")));
-        
+        usuarios.add(newUsuario("ScouterTHA", "1234", "Scouter", "THA", "scoutertha@scout39.org", new Date(), newRol("ScouterTHA")));
+        usuarios.add(newUsuario("ScouterKIM", "1234", "Scouter", "KIM", "scouterkim@scout39.org", new Date(), newRol("ScouterKIM")));
+        usuarios.add(newUsuario("ScouterSIRYU", "1234", "Scouter", "SIRYU", "scoutersiryu@scout39.org", new Date(), newRol("ScouterSIRYU")));
+        usuarios.add(newUsuario("ScouterALMOGAMA", "1234", "Scouter", "ALMOGAMA", "scouteralmogama@scout39.org", new Date(), newRol("ScouterALMOGAMA")));
+        usuarios.add(newUsuario("EducandoTHA", "1234", "Educando", "THA", "educandotha@scout39.org", new Date(), newRol("EducandoTHA")));
+        usuarios.add(newUsuario("EducandoKIM", "1234", "Educando", "KIM", "educandokim@scout39.org", new Date(), newRol("EducandoKIM")));
+        usuarios.add(newUsuario("EducandoSIRYU", "1234", "Educando", "SIRYU", "educandosiryu@scout39.org", new Date(), newRol("EducandoSIRYU")));
+        usuarios.add(newUsuario("EducandoALMOGAMA", "1234", "Educando", "ALMOGAMA", "educandoalmogama@scout39.org", new Date(), newRol("EducandoALMOGAMA")));
+
         roles = new ArrayList<Roles>();
         roles.add(newRol("Coordinador"));
         roles.add(newRol("ScouterTHA"));
         roles.add(newRol("ScouterKIM"));
         roles.add(newRol("ScouterSIRYU"));
         roles.add(newRol("ScouterALMOGAMA"));
-        
+        roles.add(newRol("EducandoKIM"));
+        roles.add(newRol("EducandoSIRYU"));
+        roles.add(newRol("EducandoTHA"));
+        roles.add(newRol("EducandoTHA"));
 
     }
 
@@ -126,13 +133,13 @@ public class Login {
 
         return usuario;
     }
-    
-    private Roles newRol(String nombrerol){
-        
+
+    private Roles newRol(String nombrerol) {
+
         Roles rol = new Roles();
-        
+
         rol.setNombrerol(nombrerol);
-        
-        return rol; 
+
+        return rol;
     }
 }
