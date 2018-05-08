@@ -24,7 +24,9 @@
             <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar ">
                 <div class="container">
                     <a class="navbar-brand" href="index.xhtml">
-                        <strong class="text-color">Grupo Scout 39 Santo Ángel</strong>
+                        <strong class="text-color">
+                             <ui:insert name="title">Plantilla Landing</ui:insert>
+                        </strong>
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +47,16 @@
                                     </li>
                                 </c:when>
                                 <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
-                                    <ui:insert name="navbar"/>
+                                    <li class="nav-item">
+                                        <ui:insert name="link1"/>
+                                    </li>
+                                    <li class="nav-item">
+                                        <ui:insert name="link2"/>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-color" href="#footer">Contacto</a>
+                                    </li>
+                                
                                 </c:when>
                                 <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterTHA'}">
                                     <ui:insert name="navbar"/>
@@ -377,6 +388,7 @@
                 <!--Projects section v.3-->
             </c:when>
         </c:choose>
+        <ui:insert name="eventos"></ui:insert>
         <!--Footer-->
         <footer class="page-footer font-small teal darken-3 pt-4 mt-4" id="footer">
 
