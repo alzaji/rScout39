@@ -59,6 +59,18 @@ public class Login {
 
     }
 
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public List<Roles> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
+    }
+
     public String getUsuario() {
         return usuario;
     }
