@@ -38,7 +38,7 @@ body{
 }
 
 .navbar:not(.top-nav-collapse) {
-    background: rgba(180, 224, 220, 0.5) !important; 
+    background: #00695c  !important; 
 }
 
 .text-color {

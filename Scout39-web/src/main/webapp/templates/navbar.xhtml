@@ -132,13 +132,13 @@
                                     <div class="md-form form-sm mb-5">
                                         <i class="fa fa-user-circle prefix"></i>
                                         <h:inputText id="modalLRInput10" class="form-control form-control-sm validate" value="#{login.usuario}"/>
-                                        <label data-error="wrong" data-success="right" for="modalLRInput10">Alias o identificación</label>
+                                        <label data-error="No coincide" data-success="Correcto" for="modalLRInput10">Alias o identificación</label>
                                     </div>
 
                                     <div class="md-form form-sm mb-4">
                                         <i class="fa fa-lock prefix"></i>
                                         <h:inputSecret id="modalLRInput11" class="form-control form-control-sm validate" value="#{login.contrasenia}"/>
-                                        <label data-error="wrong" data-success="right" for="modalLRInput11">Contraseña</label>
+                                        <label data-error="No coincide" data-success="Correcto" for="modalLRInput11">Contraseña</label>
                                     </div>
                                     <div class="text-center mt-2">
                                         <h:commandLink class="btn btn-info btn-default" value="Iniciar Sesión" action="#{login.autenticar()}">
