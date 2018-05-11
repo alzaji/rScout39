@@ -53,9 +53,6 @@
                                     <li class="nav-item">
                                         <ui:insert name="link2"/>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-color" href="#footer">Contacto</a>
-                                    </li>
                                 
                                 </c:when>
                                 <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterTHA'}">
@@ -151,7 +148,7 @@
                                             <label data-error="wrong" data-success="right" for="modalLRInput11">Contraseña</label>
                                         </div>
                                         <div class="text-center mt-2">
-                                            <h:commandLink class="btn btn-info" value="Iniciar Sesión" action="#{login.autenticar()}">
+                                            <h:commandLink class="btn btn-info btn-default" value="Iniciar Sesión" action="#{login.autenticar()}">
                                                 <i class="fa fa-sign-in ml-1"></i>
                                             </h:commandLink>
                                         </div>
@@ -162,10 +159,10 @@
                                     <div class="options text-center text-md-right mt-1">
 
                                         <p>¿Olvidaste la
-                                            <a class="blue-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
+                                            <a class="teal-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
                                         </p>
                                     </div>
-                                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                                 </div>
 
                             </div>
@@ -210,10 +207,10 @@
                                     </div>
 
                                     <div class="text-center mt-2">
-                                        <button class="btn btn-info">Enviar
+                                        <button class="btn btn-default">Enviar
                                             <i class="fa fa-sign-in ml-1"></i>
                                         </button>
-                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
 
@@ -389,6 +386,7 @@
             </c:when>
         </c:choose>
         <ui:insert name="eventos"></ui:insert>
+        <ui:insert name="tablaUsuarios"></ui:insert>
         <!--Footer-->
         <footer class="page-footer font-small teal darken-3 pt-4 mt-4" id="footer">
 

@@ -3,17 +3,10 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <ui:define name="title">Coordinador</ui:define>
-    <ui:define name="navbar">
-        <li class="nav-item">
-                                        <a class="nav-link text-color" href="#">Inicio</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-color" href="#footer">Contacto</a>
-                                    </li>
-    </ui:define>
+    <ui:define name="title">Coordinador</ui:define>    
+    <ui:define name="link1"><h:link class="nav-link text-color" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
+    <ui:define name="link2"><h:link class="nav-link text-color" outcome="index.xhtml" value="Roles"/></ui:define>
+    
+    
     <ui:define name="sectionh">Novedades</ui:define>
    </ui:composition>
