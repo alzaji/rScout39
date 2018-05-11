@@ -86,14 +86,14 @@
                             <c:when test="#{empty controlAutorizacion.usuario}">
                                 <form class="form-inline">
                                     <div class="md-form mt-0">
-                                        <a class="btn btn-teal btn-rounded btn-login" data-toggle="modal" data-target="#modalLRForm">
+                                        <a class="btn btn-teal btn-rounded btn-login" name="iniciarSesion" data-toggle="modal" data-target="#modalLRForm">
                                             <i class="fa fa-user left"></i> Iniciar Sesión</a>
                                     </div>
                                 </form>
                                 <form class="form-inline">
                                     <div class="md-form mt-0 ">
-                                        <a class="btn btn-teal btn-rounded  btn-join" href="unete.xhtml">
-                                            <i class="fa fa-user-plus left"></i>Únete</a>
+                                        <h:link class="btn btn-teal btn-rounded  btn-join" outcome="unete.xhtml">
+                                            <i class="fa fa-user-plus left"></i>Únete</h:link>
                                     </div>
                                 </form>
                             </c:when>
