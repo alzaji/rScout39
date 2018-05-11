@@ -92,20 +92,22 @@
                         </c:when>
                         <c:otherwise>                           
                             <!-- Boton perfil de Usuario -->
-                            <div class="btn-group">
-                                <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola pepito</button>
+                            <h:form id="conSesion">
+                                <div class="btn-group">
+                                    <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola pepito</button>
 
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fa fa-user left"></i> Mi perfil</a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fa fa-calendar left"></i> Mis eventos</a>
-                                    <a class="dropdown-item" href="#">
-                                        <i class="fa fa-cog left"></i> Configuración</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Cerrar sesión</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-user left"></i> Mi perfil</a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-calendar left"></i> Mis eventos</a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa fa-cog left"></i> Configuración</a>
+                                        <div class="dropdown-divider"></div>
+                                        <h:commandLink class="dropdown-item" action="#{controlAutorizacion.logout()}" value="Cerrar sesión"/>
+                                    </div>
                                 </div>
-                            </div>
+                            </h:form>
                         </c:otherwise>
                     </c:choose>
                 </div>
