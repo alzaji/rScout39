@@ -6,7 +6,6 @@
 package org.siliconvalley.scout39.vista;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,7 +25,8 @@ import org.siliconvalley.scout39.modelo.*;
 public class beanEventos implements Serializable {
 
     private long idEvento = 1;
-        
+
+    private Eventos evento;
     private List<Eventos> eventosTHA;
     private List<Eventos> eventosSIRYU;
     private List<Eventos> eventosKIM;
@@ -36,7 +36,9 @@ public class beanEventos implements Serializable {
 
     public beanEventos() {
         eventosTHA = new ArrayList<>();
-        eventosSIRYU = new ArrayList<>();        
+        eventosSIRYU = new ArrayList<>();
+        eventosSIRYU.add(crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
+        eventosSIRYU.add(crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
         eventosKIM = new ArrayList<>();
         eventosALMOGAMA = new ArrayList<>();
     }
@@ -45,21 +47,21 @@ public class beanEventos implements Serializable {
         switch (control.getUsuario().getRoles().getNombrerol()) {
 
             case "ScouterTHA":
-            case "EducandoTHA":                 
-                 return eventosTHA;
-                
+            case "EducandoTHA":
+                return eventosTHA;
+
             case "ScouterKIM":
             case "EducandoKIM":
-                 return eventosKIM;
-                               
+                return eventosKIM;
+
             case "ScouterSIRYU":
             case "EducandoSIRYU":
-                 return eventosSIRYU;                
-               
+                return eventosSIRYU;
+
             case "ScouterALMOGAMA":
-            case "EducandoALMOGAMA":                
-                 return eventosALMOGAMA;
-                
+            case "EducandoALMOGAMA":
+                return eventosALMOGAMA;
+
             default:
                 return new ArrayList<Eventos>();
         }
@@ -82,14 +84,23 @@ public class beanEventos implements Serializable {
     }
 
     private Eventos crearEvento(String nombre, String descripcion, Date fecha, BigDecimal latitud, BigDecimal longitud) {
-        Eventos evento = new Eventos();
-        evento.setId(idEvento);
-        idEvento++;
+        Eventos evento = new Eventos();       
+        evento.setNombre(nombre);
+        evento.setId(idEvento);       
+        idEvento++;                
         evento.setDescripcion(descripcion);
         evento.setFecha(fecha);
         evento.setLatitud(latitud);
         evento.setLongitud(longitud);
         return evento;
+    }
+
+    public Eventos getEvento() {
+        return evento;
+    }
+
+    public void setEvento(Eventos evento) {
+        this.evento = evento;
     }
 
     public List<Eventos> getEventosTHA() {
@@ -101,7 +112,6 @@ public class beanEventos implements Serializable {
     }
 
     public List<Eventos> getEventosSIRYU() {
-        eventosSIRYU.add(crearEvento("Evento de Prueba", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
         return eventosSIRYU;
     }
 

@@ -2,117 +2,118 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"                
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Siryu</ui:define>
     <ui:define name="seccionnav">GRUPO SIRYU</ui:define>
     <ui:define name="eventos">
-        
+
         <!-- Section: Blog v.1 -->
         <div class="col">
-        <section class="mr-5 ml-6" id="eventos">
+            <section class="mr-5 ml-6">
+                <div class="row my-5">
+                    <div class="col-6 col-sm-4"></div>
+                    <!-- Section heading -->
+                    <h2 class="h1-responsive font-weight-bold text-center col-6 col-sm-4" id="eventos">Eventos</h2>
+                    <c:if test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterSIRYU'}">
+                        <div class="text-left col-6 col-sm-4">
+                            <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
+                        </div>
+                    </c:if>
+                </div>
+                <c:forEach items="#{beanEventos.eventosSIRYU}" var="evento">
+                    <!-- Grid row -->
+                    <div class="row">
 
-            <!-- Section heading -->
-            <h2 class="h1-responsive font-weight-bold text-center my-5">Próximos Eventos</h2>
-           
-            <c:forEach items="#{beanEventos.eventosSIRYU}" var="evento">
-            <!-- Grid row -->
-            <div class="row">
+                        <!-- Grid column -->
+                        <div class="col-lg-5">
+                            <h:form 
+                            <div id="map-container-#{evento.id.toString()}" class="z-depth-1 mapa" style="height: 300px; width: 300px"></div>
 
-                <!-- Grid column -->
-                <div class="col-lg-5">
+                        </div>
+                        <!-- Grid column -->
 
-                    <!-- Featured image -->
-                    <div class="view overlay rounded z-depth-2 mb-lg-0 mb-4">
-                        <div id="map-container" class="rounded z-depth-1-half map-container" style="height: 200px"></div>
-                        <a>
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
+                        <!-- Grid column -->
+                        <div class="col-lg-7">
+
+                            <!-- Category -->
+                            <a href="#!" class="green-text"><h6 class="font-weight-bold mb-3"><i class="fa fa-calendar pr-2"></i>Evento</h6></a>
+                            <!-- Post title -->
+                            <h3 class="font-weight-bold mb-3"><strong>#{evento.nombre}</strong></h3>                            
+                            <!-- Excerpt -->
+                            <p>#{evento.descripcion}</p>
+                            <!-- Post data -->
+                            <p>#{evento.fecha.toGMTString()}</p>
+                            <!-- Read more button -->
+                            <a class="btn btn-success btn-md">Read more</a>
+
+                        </div>
+                        <!-- Grid column -->
+
                     </div>
+                    <!-- Grid row -->
 
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-lg-6">
-
-                    <!-- Category -->
-                    <a href="#!" class="green-text"><h6 class="font-weight-bold mb-3"><i class="fa fa-calendar"></i> Evento</h6></a>
-                    <!-- Post title -->
-                    <h3 class="font-weight-bold mb-3"><strong>#{evento.nombre}</strong></h3>
-                    <!-- Excerpt -->
-                    <p>#{evento.descripcion}</p>
-                    <!-- Post data -->                    
-                    <!-- Read more button -->
-                    <a class="btn btn-success btn-md">Más Información</a>
-
-                </div>
-                <!-- Grid column -->
-
-            </div>
-            <!-- Grid row -->
-
-            <hr class="my-5"/>
-            </c:forEach>
-            
-        </section>
-        <!-- Section: Blog v.1 -->
-        </div>
-            <div class="text-center">
-        <a href="" class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
-    </div>
-    <div class="modal fade" id="modalCrearEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Crear Evento</h4>
-                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <form>
-
-                        <!-- Material input text -->
-                        <div class="md-form">
-                            <i class="fa fa-font prefix grey-text"></i>
-                            <h:inputText class="form-control"/>
-                            <h:outputLabel for="materialFormNombreEvento">Nombre Evento</h:outputLabel>
+                    <hr class="my-5"/>
+                               
+                            </c:forEach>
+                            
+                            </section>
+                            <!-- Section: Blog v.1 -->
                         </div>
 
-                        <div class="md-form">
-                            <i class="fa fa-font prefix grey-text"></i>
-                            <h:inputTextarea cols="20" rows="5" class="form-control"/>
-                            <h:outputLabel for="materialFormDescripcionEvento">Descripcion Evento</h:outputLabel>
-                        </div>
+                        <div class="modal fade" id="modalCrearEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Crear Evento</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <form>
 
-                        <div class="md-form">
-                            <i class="fa fa-calendar prefix grey-text"></i>
-                            <h:inputText class="form-control"/>
-                            <h:outputLabel for="materialFormFechaEvento">Fecha Evento</h:outputLabel>
-                        </div>
+                                            <!-- Material input text -->
+                                            <div class="md-form">
+                                                <i class="fa fa-font prefix grey-text"></i>
+                                                <h:inputText class="form-control"/>
+                                                <h:outputLabel for="materialFormNombreEvento">Nombre Evento</h:outputLabel>
+                                            </div>
 
-                        <div class="md-form">
-                            <i class="fa fa-compass prefix grey-text"></i>
-                            <h:inputText class="form-control"/>
-                            <h:outputLabel for="materialFormLatitudEvento">Latitud</h:outputLabel>
-                        </div>
+                                            <div class="md-form">
+                                                <i class="fa fa-font prefix grey-text"></i>
+                                                <h:inputTextarea cols="20" rows="5" class="form-control"/>
+                                                <h:outputLabel for="materialFormDescripcionEvento">Descripcion Evento</h:outputLabel>
+                                            </div>
 
-                        <div class="md-form">
-                            <i class="fa fa-compass prefix grey-text"></i>
-                            <h:inputText class="form-control"/>
-                            <h:outputLabel for="materialFormFechaEvento">Longitud</h:outputLabel>
-                        </div>
+                                            <div class="md-form">
+                                                <i class="fa fa-calendar prefix grey-text"></i>
+                                                <h:inputText class="form-control"/>
+                                                <h:outputLabel for="materialFormFechaEvento">Fecha Evento</h:outputLabel>
+                                            </div>
 
-                        <div class="text-center mt-4">
-                            <h:commandButton class="btn btn-primary" value="Crear" type="submit"/>
-                        </div>
-                    </form>
-                    
-                </div>
+                                            <div class="md-form">
+                                                <i class="fa fa-compass prefix grey-text"></i>
+                                                <h:inputText class="form-control"/>
+                                                <h:outputLabel for="materialFormLatitudEvento">Latitud</h:outputLabel>
+                                            </div>
 
-            </div>
-        </div>
-    </div>
-    </ui:define>
-    <ui:define name="sectionh">Nuestros mejores proyectos</ui:define>
-</ui:composition>
+                                            <div class="md-form">
+                                                <i class="fa fa-compass prefix grey-text"></i>
+                                                <h:inputText class="form-control"/>
+                                                <h:outputLabel for="materialFormFechaEvento">Longitud</h:outputLabel>
+                                            </div>
+
+                                            <div class="text-center mt-4">
+                                                <h:commandButton class="btn btn-primary" value="Crear" type="submit"/>
+                                            </div>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        </ui:define>
+                        <ui:define name="sectionh">Nuestros mejores proyectos</ui:define>
+                        </ui:composition>
