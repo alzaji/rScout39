@@ -1,0 +1,63 @@
+<ui:composition template="templates/principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    
+    <ui:define name="title">Únete a nosotros</ui:define> 
+    <ui:define name="iniciarSesion" p:hidden="true"></ui:define>
+    
+    <!--ESTO DE ABAJO NO SE VE AUN (ES EL FORM DE CONTACTO)-->
+    <div class="col-md-4">
+        <!-- Material form contact -->
+        <form>
+            <p class="h4 text-center mb-4">Únete a nosotros</p>
+
+            <!-- Material input text -->
+            <div class="md-form">
+                <i class="fa fa-user prefix teal-text left"></i>
+                <input type="text" id="materialFormContactNameEx" class="form-control">
+                <label for="materialFormContactNameEx">Nombre y apellidos</label>
+            </div>
+
+            <!-- Material input email -->
+            <div class="md-form">
+                <i class="fa fa-envelope prefix teal-text"></i>
+                <input type="email" id="materialFormContactEmailEx" class="form-control">
+                <label for="materialFormContactEmailEx">Correo electrónico</label>
+            </div>
+
+            <!-- Material input text -->
+            <div class="md-form ">
+                <i class="fa fa-phone prefix teal-text left"></i>
+                <input type="text" id="materialFormContactNameEx" class="form-control">
+                <label for="materialFormContactNameEx">Teléfono/Móvil</label>
+            </div>
+
+
+            <!-- Material input subject -->
+            <div class="md-form">
+                <i class="fa fa-birthday-cake prefix teal-text"></i>
+                <input type="number" id="materialFormContactSubjectEx" class="form-control">
+                <label for="materialFormContactSubjectEx">Edad</label>
+            </div>
+
+            <!-- Material textarea message -->
+            <div class="md-form">
+                <i class="fa fa-pencil prefix teal-text"></i>
+                <textarea type="text" id="materialFormContactMessageEx" class="form-control md-textarea" rows="3"></textarea>
+                <label for="materialFormContactMessageEx">Mensaje...</label>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-default" type="submit">Enviar
+                    <i class="fa fa-paper-plane-o ml-2"></i>
+                </button>
+            </div>
+        </form>
+        <!-- Material form contact -->
+
+    </div>
+    
+</ui:composition>
