@@ -26,8 +26,7 @@
                     <div class="row">
 
                         <!-- Grid column -->
-                        <div class="col-lg-5">
-                            <h:form 
+                        <div class="col-lg-5">                             
                             <div id="map-container-#{evento.id.toString()}" class="z-depth-1 mapa" style="height: 300px; width: 300px"></div>
 
                         </div>
@@ -71,7 +70,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body mx-3">
-                                        <form>
+                                        <h:form id="crearEvento">
 
                                             <!-- Material input text -->
                                             <div class="md-form">
@@ -107,7 +106,7 @@
                                             <div class="text-center mt-4">
                                                 <h:commandButton class="btn btn-primary" value="Crear" type="submit"/>
                                             </div>
-                                        </form>
+                                        </h:form>
 
                                     </div>
 
