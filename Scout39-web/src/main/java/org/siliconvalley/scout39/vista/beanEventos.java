@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.siliconvalley.scout39.modelo.*;
@@ -21,7 +21,7 @@ import org.siliconvalley.scout39.modelo.*;
  * @author aruizdlt
  */
 @Named(value = "beanEventos")
-@RequestScoped
+@SessionScoped
 public class beanEventos implements Serializable {
 
     private long idEvento = 1;
@@ -67,27 +67,31 @@ public class beanEventos implements Serializable {
         }
     }
 
-    public void añadirEvento() {
-        FacesContext ctx = FacesContext.getCurrentInstance();
-
+    public String doCrearEvento(String nombre, String descripcion, String fecha, String latitud, String longitud) {
+        Eventos evento = crearEvento(nombre, descripcion, new Date(fecha), new BigDecimal(latitud), new BigDecimal(longitud));
         switch (control.getUsuario().getRoles().getNombrerol()) {
-
             case "ScouterTHA":
-
+                eventosTHA.add(evento);
+                return "tha.xhtml";
             case "ScouterKIM":
-
+                eventosKIM.add(evento);
+                return "kim.xhtml";
             case "ScouterSIRYU":
-
+                eventosSIRYU.add(evento);
+                return "siryu.xhtml";
             case "ScouterALMOGAMA":
-
-        }
+                eventosALMOGAMA.add(evento);
+                return "almogama.xhtml";
+            default:
+                return "index.xhtml";
+        }        
     }
 
     private Eventos crearEvento(String nombre, String descripcion, Date fecha, BigDecimal latitud, BigDecimal longitud) {
-        Eventos evento = new Eventos();       
+        Eventos evento = new Eventos();
         evento.setNombre(nombre);
-        evento.setId(idEvento);       
-        idEvento++;                
+        evento.setId(idEvento);
+        idEvento++;
         evento.setDescripcion(descripcion);
         evento.setFecha(fecha);
         evento.setLatitud(latitud);
