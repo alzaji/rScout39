@@ -1,0 +1,220 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <!-- Main navigation -->
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar ">
+            <div class="container">
+                <a class="navbar-brand" href="index.xhtml">
+                    <strong class="text-color">
+                        <ui:insert name="title">Plantilla Landing</ui:insert>
+                    </strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
+                    <ul class="navbar-nav mr-auto">
+                        <c:choose>
+                            <c:when test="#{empty controlAutorizacion.usuario.roles.nombrerol}">
+                                <li class="nav-item">
+                                    <a class="nav-link text-color" href="#">Inicio</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-color" href="#footer">Contacto</a>
+                                </li>
+                            </c:when>
+                            <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
+                                <li class="nav-item">
+                                    <ui:insert name="link1"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link2"/>
+                                </li>
+
+                            </c:when>
+                            <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">
+                                <li class="nav-item">
+                                    <ui:insert name="link1"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link2"/>
+                                </li>
+                            </c:when>
+                            <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoKIM') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterKIM')}">
+                                <li class="nav-item">
+                                    <ui:insert name="link1"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link2"/>
+                                </li>
+                            </c:when>
+                            <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU')}">
+                                <li class="nav-item">
+                                    <ui:insert name="link1"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link2"/>
+                                </li>
+                            </c:when>
+                            <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoALMOGAMA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterALMOGAMA')}">
+                                <li class="nav-item">
+                                    <ui:insert name="link1"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link2"/>
+                                </li>
+                            </c:when>
+                        </c:choose>
+                    </ul>
+
+                    <c:choose>
+                        <c:when test="#{empty controlAutorizacion.usuario}">
+                            <form class="form-inline">
+                                <div class="md-form mt-0">
+                                    <a class="btn btn-teal btn-rounded btn-login" name="iniciarSesion" data-toggle="modal" data-target="#modalLRForm">
+                                        <i class="fa fa-user left"></i> Iniciar Sesión</a>
+                                </div>
+                            </form>
+                            <form class="form-inline">
+                                <div class="md-form mt-0 ">
+                                    <h:link class="btn btn-teal btn-rounded  btn-join" outcome="unete.xhtml">
+                                        <i class="fa fa-user-plus left"></i>Únete</h:link>
+                                </div>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <h:form id="conSesion">
+                                <h:commandLink class="btn btn-red btn-rounded btn-login" value="Cerrar sesión" action="#{controlAutorizacion.logout()}">
+                                    <i class="fa fa-sign-out ml-1"></i>
+                                </h:commandLink>
+                            </h:form>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar -->            
+    </header>
+    <!-- Main navigation -->
+
+    <!--Modal: LoginForm-->
+    <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Modal cascading tabs-->
+                <div class="modal-c-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs tabs-2 text-center" role="tablist">
+                        <li class="nav-item">
+                            <span class="nav-link active" data-toggle="tab" role="tab">
+                                <i class="fa fa-user mr-1"></i> Iniciar Sesión</span>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panels -->
+                    <div class="tab-content">
+                        <!--Panel 7-->
+                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+
+                            <!--Body-->
+                            <h:form id="login">
+                                <div class="modal-body mb-1">
+                                    <div class="md-form form-sm mb-5">
+                                        <i class="fa fa-user-circle prefix"></i>
+                                        <h:inputText id="modalLRInput10" class="form-control form-control-sm validate" value="#{login.usuario}"/>
+                                        <label data-error="wrong" data-success="right" for="modalLRInput10">Alias o identificación</label>
+                                    </div>
+
+                                    <div class="md-form form-sm mb-4">
+                                        <i class="fa fa-lock prefix"></i>
+                                        <h:inputSecret id="modalLRInput11" class="form-control form-control-sm validate" value="#{login.contrasenia}"/>
+                                        <label data-error="wrong" data-success="right" for="modalLRInput11">Contraseña</label>
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <h:commandLink class="btn btn-info btn-default" value="Iniciar Sesión" action="#{login.autenticar()}">
+                                            <i class="fa fa-sign-in ml-1"></i>
+                                        </h:commandLink>
+                                    </div>
+                                </div>
+                            </h:form>
+                            <!--Footer-->
+                            <div class="modal-footer">
+                                <div class="options text-center text-md-right mt-1">
+
+                                    <p>¿Olvidaste la
+                                        <a class="teal-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
+                                    </p>
+                                </div>
+                                <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                            </div>
+
+                        </div>
+                        <!--/.Panel 7-->
+                    </div>
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: LoginForm-->
+
+    <!--Modal: OlvidastePassword-->
+    <div class="modal fade" id="modalForgotPassForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Modal cascading tabs-->
+                <div class="modal-c-tabs">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs tabs-2 text-center" role="tablist">
+                        <li class="nav-item">
+                            <span class="nav-link active" data-toggle="tab" role="tab">
+                                <i class="fa fa-user mr-1"></i> Restablecer contraseña</span>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panels -->
+                    <div class="tab-content">
+                        <!--Panel 7-->
+                        <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+                            <p class="mr-5 ml-5" align="center">Introduce la dirección de correo electrónico asociada a tu cuenta y te enviaremos un enlace para
+                                restablecer tu contraseña.</p>
+                            <!--Body-->
+                            <div class="modal-body mb-1">
+                                <div class="md-form form-sm mb-5">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input type="text" id="modalPassInput10" class="form-control form-control-sm validate"/>
+                                    <label data-error="wrong" data-success="right" for="modalPassInput10">Correo electrónico</label>
+                                </div>
+
+                                <div class="text-center mt-2">
+                                    <button class="btn btn-default">Enviar
+                                        <i class="fa fa-sign-in ml-1"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/.Panel 7-->
+                    </div>
+
+                </div>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: OlvidastePassword-->
+</ui:composition>
