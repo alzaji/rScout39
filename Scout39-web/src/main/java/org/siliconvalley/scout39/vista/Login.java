@@ -87,34 +87,34 @@ public class Login {
         this.contrasenia = contrasenia;
     }
 
+    public Integer isinList(String alias) {
+        int posicion = -1;
+        boolean esta = false;
+        Iterator<Usuario> it = usuarios.iterator();
+        while (!esta && it.hasNext()) {
+            if (it.next().getAlias().equals(alias)) {
+                esta = true;
+            }
+            posicion++;
+        }
+        if (posicion == usuarios.size() - 1) {
+            posicion = -1;
+        }
+        return posicion;
+    }
+
     public String autenticar() {
         // Implementar este método
         FacesContext ctx = FacesContext.getCurrentInstance();
-        Iterator<Usuario> it = usuarios.iterator();
+        int posicion = isinList(getUsuario());
+        //boolean isPasswdCorrect = false;
 
-        boolean isinList = false;
-        boolean isPasswdCorrect = false;
-        Usuario aux = null;
-
-        while (it.hasNext() && !isinList) {
-
-            aux = it.next();
-
-            if (aux.getAlias().equals(getUsuario())) {
-
-                isinList = true;
-                if (aux.getDigest().equals(getContrasenia())) {
-
-                    isPasswdCorrect = true;
-                }
-            }
-        }
-        if (!isinList) {
+        if (posicion == -1) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios", "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios"));
             return null;
         } else {
-
-            if (!isPasswdCorrect) {
+            Usuario aux = usuarios.get(posicion);
+            if (!aux.getDigest().equals(getContrasenia())) {
                 ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", "Contraseña incorrecta"));
                 return null;
             } else {
@@ -122,7 +122,6 @@ public class Login {
                 return ctrl.home();
             }
         }
-
     }
 
     private Usuario newUsuario(String alias,
