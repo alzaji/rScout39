@@ -40,6 +40,10 @@ body{
 .navbar:not(.top-nav-collapse) {
     background: #00695c  !important; 
 }
+.btn-profileUser{
+  background-color: #00695c   !important;
+  box-shadow: none;
+}
 
 .text-color {
     color: #111 !important;
