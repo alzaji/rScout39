@@ -22,8 +22,7 @@
                         <th>Apellidos</th>
                         <th>Nombre de Usuario</th>
                         <th>Correo electrónico</th>
-                        <th>Rol</th>                        
-                        <th>Editar</th>
+                        <th>Rol</th>                                                
                         <th>Eliminar</th>
                     </tr>
                 </thead>
@@ -34,14 +33,11 @@
                 <tbody>
                     <tr>
                         <th scope="row">#{usuario.id}</th>
-                        <td>#{usuario.nombre}</td>
-                        <td>#{usuario.apellidos}</td>
-                        <td>#{usuario.alias}</td>
-                        <td>#{usuario.email}</td>
-                        <td>#{usuario.roles.nombrerol}</td>                        
-                        <td>
-                            <button type="button" class="btn btn-default btn-rounded btn-sm my-0" data-toggle="modal" data-target="#modalEditUser">Editar</button>
-                        </td>
+                        <td>#{usuario.nombre}<a data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil teal-text ml-2"></i></a></td>
+                        <td>#{usuario.apellidos}<a data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil teal-text ml-2"></i></a></td>
+                        <td>#{usuario.alias}<a data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil teal-text ml-2"></i></a></td>
+                        <td>#{usuario.email} <a data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil teal-text ml-2"></i></a></td>
+                        <td>#{usuario.roles.nombrerol}<a data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil teal-text ml-2"></i></a></td>                                                
                         <td>
                             <button type="button" class="btn btn-danger btn-rounded btn-sm my-0" data-toggle="modal" data-target="#removeModal">Eliminar</button>
                         </td>
@@ -101,47 +97,13 @@
 
                     <!-- Material input name -->
                     <div class="md-form form-sm">
-                        <i class="fa fa-envelope prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm"/>
-                        <label for="materialFormNameModalEx1">Editar nombre</label>
-                    </div>
-
-                    <!-- Material input name -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-envelope prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm"/>
-                        <label for="materialFormNameModalEx1">Editar apellidos</label>
-                    </div>
-                    <!-- Material input name -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-envelope prefix"></i>
-                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm"/>
-                        <label for="materialFormNameModalEx1">Editar correo</label>
-                    </div>
-
-                    <!-- Material input email -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-lock prefix"></i>
-                        <input type="password" id="materialFormEmailModalEx1" class="form-control form-control-sm"/>
-                        <label for="materialFormEmailModalEx1">Your email</label>
-                    </div>
-
-                    <!-- Material input subject -->
-                    <div class="md-form form-sm">
-                        <i class="fa fa-tag prefix"></i>
-                        <input type="text" id="materialFormSubjectModalEx1" class="form-control form-control-sm"/>
-                        <label for="materialFormSubjectModalEx1">Subject</label>
-                    </div>
-
-                    <!-- Material textarea message -->
-                    <div class="md-form form-sm">
                         <i class="fa fa-pencil prefix"></i>
-                        <textarea type="text" id="materialFormMessageModalEx1" class="md-textarea form-control"></textarea>
-                        <label for="materialFormMessageModalEx1">Your message</label>
+                        <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm"/>
+                        <label for="materialFormNameModalEx1">Editar campo</label>
                     </div>
-
+                   
                     <div class="text-center mt-4 mb-2">
-                        <button class="btn btn-default">Send
+                        <button class="btn btn-default">Enviar
                             <i class="fa fa-send ml-2"></i>
                         </button>
                     </div>
