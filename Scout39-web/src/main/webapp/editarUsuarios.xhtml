@@ -9,7 +9,21 @@
     <ui:define name="link2"><h:link class="nav-link text-color" outcome="index.xhtml" value="Roles"/></ui:define>
     <ui:define name="seccionnav">Editar Usuario</ui:define>
     <ui:define name="tablaUsuarios">
-        <center>            
+        <center>
+            <!-- Button trigger modal -->
+                <button type="button" class="btn btn-default mt-4" data-toggle="modal" data-target="#exampleModal">
+                    Crear nuevo usuario
+                </button>
+            
+            <div class="input-group col-md-2 mt-4 mb-4">
+                <select class="custom-select" id="selectFilter">
+                    <option selected="selected">Filtrar...</option>
+                    <option value="masculino">Por grupo</option>                    
+                    <option value="masculino">Por rol</option>                    
+                </select>                
+            </div>
+            
+         
         <div class="col-md-8">
             <!--Table-->
             <table class="table table-striped table-responsive-md btn-table">
@@ -115,7 +129,155 @@
         <!--/Modal: Edit User-->
     </div>
 
-    
+        <!-- Modal CREAR USUARIO-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header default-color">                        
+                        <h4 class="title">
+                        <i class="fa fa-pencil"></i> Crear usuario</h4>
+                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Grid row -->
+                <div class="form-row">
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre"/>
+                            <label for="inputNombre">Nombre</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputPrimerApellido" placeholder="Primer Apellido"/>
+                            <label for="inputPrimerApellido">Primer Apellido</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputSegundoApellido" placeholder="Segundo Apellido"/>
+                            <label for="inputSegundoApellido">Segundo Apellido</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputDNI" placeholder="DNI/NIF"/>
+                            <label for="inputDNI">DNI/NIF</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                    <div class="input-group col-md-4 mt-4 mb-4">
+                        <select class="custom-select" id="selectSexo">
+                            <option selected="selected">Sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Grid row -->
+
+
+
+
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputTelf" placeholder="Teléfono"/>
+                            <label for="inputTelf">Teléfono</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputMovil" placeholder="Móvil"/>
+                            <label for="inputMovil">Móvil</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+
+                <!-- Grid row -->
+                <div class="row">
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección"/>
+                            <label for="inputDireccion">Dirección</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputLocalidad" placeholder="Localidad"/>
+                            <label for="inputLocalidad">Localidad</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputProvincia" placeholder="Provincia"/>
+                            <label for="inputProvincia">Provincia</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-4">
+                        <!-- Material input -->
+                        <div class="md-form form-group">
+                            <input type="text" class="form-control" id="inputCosPostal" placeholder="Código Postal"/>
+                            <label for="inputCodPostal">Código Postal</label>
+                        </div>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row -->
+
+                <div class="row">
+                    <div class="input-group col-md-4 mt-3 mb-4">
+                        <select class="custom-select" id="selectRol">
+                            <option selected="selected">Rol</option>
+                            <option value="scouter">Scouter</option>
+                            <option value="educando">Educando</option>
+                            <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">                        
+                         <button type="submit" class="btn btn-default btn-md">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                
         
     </ui:define>
     
