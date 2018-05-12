@@ -212,6 +212,7 @@
             <!-- Mask & flexbox options-->
         </div>
         <!-- DEFINIR CONTENIDO AQUÍ -->
+        <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
     </c:when>
         <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoKIM') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterKIM')}">
@@ -235,6 +236,7 @@
             <!-- Mask & flexbox options-->
         </div>
         <!-- DEFINIR CONTENIDO AQUÍ -->
+        <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
     </c:when>
         <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU')}">
@@ -258,6 +260,7 @@
             <!-- Mask & flexbox options-->
         </div>
         <!-- DEFINIR CONTENIDO AQUÍ -->
+        <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
     </c:when>
         <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoALMOGAMA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterALMOGAMA')}">
@@ -281,6 +284,7 @@
             <!-- Mask & flexbox options-->
         </div>
         <!-- DEFINIR CONTENIDO AQUÍ -->
+        <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
     </c:when>
 </c:choose>        
