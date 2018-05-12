@@ -3,9 +3,14 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<!-- Pendiente de revision -->
+<div class="navbar scrolling-navbar">
+    <h2 class="navbar-brand text-color">Grupo Scout 39</h2>
+</div>
 <!-- Full Page Intro -->
 <c:choose>
     <c:when test="#{empty controlAutorizacion.usuario}">
+        <ui:insert name="contenidonolog">
         <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
             <!-- Mask & flexbox options-->
             <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
@@ -161,6 +166,7 @@
 
         </section>
         <!--Projects section v.3-->
+        </ui:insert>
     </c:when>
     <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
                 <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
