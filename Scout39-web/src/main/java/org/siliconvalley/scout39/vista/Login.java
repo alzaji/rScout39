@@ -4,6 +4,7 @@
  */
 package org.siliconvalley.scout39.vista;
 
+import java.io.Serializable;
 import org.siliconvalley.scout39.modelo.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +22,7 @@ import javax.inject.Inject;
  */
 @Named(value = "login")
 @RequestScoped
-public class Login {
+public class Login implements Serializable{
 
     private String usuario;
     private String contrasenia;

@@ -53,7 +53,7 @@ public class beanRoles implements Serializable {
         if (login.getRoles().contains(rol)) {
             for (Usuario u : login.getUsuarios()) {
                 if (u.getRoles().equals(rol)) {
-                    u.setRoles(login.getRoles().get(0));
+                    u.setRoles(login.getRoles().get(1));
                 }
             }
         }
