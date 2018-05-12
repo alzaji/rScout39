@@ -189,6 +189,7 @@
             <!-- Mask & flexbox options-->
         </div>
         <ui:insert name="eventos"/>
+        <ui:insert name="perfil" />
         <ui:insert name="tablaUsuarios"/>
     </c:when>
     <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">

@@ -1,0 +1,101 @@
+<ui:composition template="templates/principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="title">Perfil</ui:define>
+    <ui:define name="seccionnav">Perfil Usuario</ui:define>
+    <ui:define name="perfil">
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+        <div class="card border-primary">
+            <div class="card-header primary-color">
+                <h3 class="card-title white-text">User information</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                        <img class="img-circle" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="User Pic"/>
+                    </div>
+                    <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+                        <strong>Usuario</strong>
+                        <br/>
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>Alias:</td>
+                                    <td>#{controlAutorizacion.usuario.alias}</td>
+                                </tr>
+                                <tr>
+                                    <td>Nombre:</td>
+                                    <td>#{controlAutorizacion.usuario.nombre}</td>
+                                </tr>
+                                <tr>
+                                    <td>Apellidos</td>
+                                    <td>#{controlAutorizacion.usuario.apellidos}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>#{controlAutorizacion.usuario.email}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha Alta</td>
+                                    <td>#{controlAutorizacion.usuario.fecha_alta}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <!-- <button class="btn btn-sm btn-primary" type="button"
+                            data-toggle="tooltip"
+                            data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button> -->
+
+                <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" data-original-title="Ver Documentos">Ver documentos
+                </button>
+                <span class="pull-right">
+                    <h:form id="form">
+                        <h:commandButton id="button" class="btn btn-sm btn-primary" value="Insertar Documento" action="#{beanPerfil.insertFile(controlAutorizacion.usuario)}"/>
+                    </h:form>
+<!--                    <button class="btn btn-sm btn-primary" type="button" data-toggle="tooltip" data-original-title="Insertar Docuneto">Insertar Documento
+                    </button>-->
+                </span>
+                <div class="collapse" id="collapseExample">
+                    <div class="mt-3">
+                        <!--Table-->
+                        <table class="table table-bordered table-striped">
+
+                            <!--Table head-->
+                            <thead class=" mdb-color darken-3" >
+                                <tr class="text-white">
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Link</th>
+                                </tr>
+                            </thead>
+                            <!--Table head-->
+                        
+                            <!--Table body-->
+                            
+                            <tbody>
+                                <c:forEach items="#{beanPerfil.getUserFiles(controlAutorizacion.usuario)}" var="a">
+                                    <tr>
+                                        <td>#{a.nombre}</td>
+                                        <td>#{a.tipo}</td>
+                                        <td><span class="pull-right"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Descarga</button></span></td>                                
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                            <!--Table body-->
+                        
+                        </table>
+                        <!--Table-->
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </ui:define>
+</ui:composition>
