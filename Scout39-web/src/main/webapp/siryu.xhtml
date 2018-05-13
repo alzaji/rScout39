@@ -24,13 +24,13 @@
                 </div>
                 <c:forEach items="#{beanEventos.eventosSIRYU}" var="evento">
                     <!-- Grid row -->
-                    <div class="row border-default">
+                    <div class="row border-default ml-5">
 
                         <!-- Grid column -->
 
-                        <div class="col-6 col-sm-4">                            
+                        <div class="col-6 col-sm-4 ">                            
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDwzZZYDEbnUpTTWcgbr3e3aUrXjjySciM&amp;center=#{evento.latitud.toString()},#{evento.longitud.toString()}&amp;zoom=16&amp;maptype=satellite"></iframe>
+                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDwzZZYDEbnUpTTWcgbr3e3aUrXjjySciM&amp;center=#{evento.latitud.toString()},#{evento.longitud.toString()}&amp;zoom=16"></iframe>
                             </div>
                         </div>
                         <!-- Grid column -->
@@ -47,7 +47,10 @@
                                 <!-- Post data -->                           
                                 <p>#{evento.fecha.toLocaleString()}</p>
                                 <!-- Read more button -->
+                                <a class="btn btn-indigo btn-md" data-toggle="collapse" href="#collapseComentarios-#{evento.id.toString()}" aria-expanded="false" aria-controls="collapseComentarios-#{evento.id.toString()}">Comentarios</a>
+
                                 <c:if test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterSIRYU'}">
+
                                     <a class="btn btn-success btn-md" data-toggle="collapse" href="#collapseParticipantes-#{evento.id.toString()}" aria-expanded="false" aria-controls="collapseParticipantes-#{evento.id.toString()}">Participantes</a>
                                     <div class="collapse" id="collapseParticipantes-#{evento.id.toString()}">
                                         <div class="mt-3">
@@ -87,11 +90,68 @@
                             <div class="col-6 col-sm-4">
                                 <div class="text-left">                                    
                                     <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarEvento#{evento.id.toString()}">Modificar</button>
+                                    <button class="btn btn-danger btn-rounded mb-4" data-toggle="modal" data-target="#modalBorrarEvento#{evento.id.toString()}">Borrar</button>
                                 </div>
                             </div>
                         </c:if>
                     </div>
 
+                    <div class="collapse" id="collapseComentarios-#{evento.id.toString()}">
+                        <div class="mt-5 ml-5">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="comments col-md-9" id="comments">
+                                        <h3 class="mb-2 text-center">Comentarios </h3>
+                                        <div class="row pt-2 pb-2 text-center">
+                                            <div class="col-12">
+                                                <a href="" class="btn btn-sm btn-primary">Comenta</a>
+                                            </div>
+                                        </div>
+                                        <!-- comment -->
+                                        <div class="comment mb-2 row">
+                                            <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                                <a href=""><img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="avatar"/></a>
+                                            </div>
+                                            <div class="comment-content col-md-11 col-sm-10">
+                                                <h6 class="small comment-meta"><strong>Coordinador</strong></h6>
+                                                <div class="comment-body">
+                                                    <p>
+                                                        ¡Espero que os guste el evento!
+                                                        <br/>                                                            
+                                                    </p>
+                                                </div>
+                                            </div>                                                                                        
+                                        </div>
+                                        <!-- /comment --> 
+                                        <c:choose>
+                                            <c:when test="#{beanEventos.tamañoListaComentarios(evento) eq 0}">
+                                                <div class="row">
+                                                    <p>No hay más comentarios</p>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach items="#{beanEventos.obtenerComentarios(evento)}" var="comentario">
+                                                    <div class="comment mb-2 row">
+                                                        <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                                            <a href=""><img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="avatar"/></a>
+                                                        </div>
+                                                        <div class="comment-content col-md-11 col-sm-10">
+                                                            <h6 class="small comment-meta"><strong>#{comentario.usuario.alias}</strong></h6>
+                                                            <div class="comment-body">
+                                                                <p> #{comentario.cuerpo}                                                                   
+                                                                    <br/>                                                            
+                                                                </p>
+                                                            </div>
+                                                        </div>                                                                                        
+                                                    </div>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <c:if test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterSIRYU'}">
                         <!-- Grid row -->
@@ -111,6 +171,30 @@
                                     </div>
                                     <div class="modal-footer text-center">
                                         <button type="button" class="btn btn-default btn-success">Listo</button>                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="modalBorrarEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="modalBorrarEventoLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <!--Header-->
+                                    <div class="modal-header danger-color white-text">
+                                        <h4 class="title">
+                                            <i class="fa fa-trash"></i> Borrar Evento</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="text-align: center;">¿Está seguro que desea borrar este evento?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:form>
+                                            <h:commandButton class="btn btn-default" value="Si, estoy seguro" action="#{beanEventos.doBorrarEvento(evento)}"/>
+
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
+                                        </h:form>
                                     </div>
                                 </div>
                             </div>
@@ -190,29 +274,30 @@
                             <div class="md-form">
                                 <i class="fa fa-font prefix grey-text"></i>
                                 <h:inputText class="form-control" id="crearNombre"/>
-                                <h:outputLabel for="formCrearEventoNombre">Nombre Evento</h:outputLabel>
+                                <h:outputLabel>Nombre Evento</h:outputLabel>
                             </div>
 
                             <div class="md-form">
                                 <i class="fa fa-font prefix grey-text"></i>
                                 <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion"/>
-                                <h:outputLabel for="formCrearEventoDescripcion">Descripcion Evento</h:outputLabel>
+                                <h:outputLabel>Descripcion Evento</h:outputLabel>
                             </div>
 
                             <div class="md-form">
-                                <h:inputText id="crearFecha" class="form-control datepicker"/>
+                                <i class="fa fa-calendar prefix grey-text"></i>
+                                <h:inputText id="crearFecha" class="form-control"/>
                                 <label >Seleccionar Fecha</label>
                             </div>
                             <div class="md-form">
                                 <i class="fa fa-compass prefix grey-text"></i>
                                 <h:inputText class="form-control" id="crearLatitud"/>
-                                <h:outputLabel for="formCrearEventoLatitud">Latitud</h:outputLabel>
+                                <h:outputLabel>Latitud</h:outputLabel>
                             </div>
 
                             <div class="md-form">
                                 <i class="fa fa-compass prefix grey-text"></i>
                                 <h:inputText class="form-control" id="crearLongitud"/>
-                                <h:outputLabel for="formCrearEventoLongitud">Longitud</h:outputLabel>
+                                <h:outputLabel>Longitud</h:outputLabel>
                             </div>
 
                             <div class="text-center mt-4">

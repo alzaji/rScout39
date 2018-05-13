@@ -10,9 +10,18 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.ManagedBean;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+import javax.faces.component.html.HtmlSelectManyCheckbox;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -24,16 +33,22 @@ import org.siliconvalley.scout39.modelo.*;
  */
 @Named(value = "beanEventos")
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class beanEventos implements Serializable {
 
     private long idEvento = 1;
 
     private Eventos evento;
+    private Comentarios comentario;
     private List<Eventos> eventosTHA;
     private List<Eventos> eventosSIRYU;
     private List<Eventos> eventosKIM;
     private List<Eventos> eventosALMOGAMA;
+    private Map<Eventos, List<Comentarios>> comentariosTHA;
+    private Map<Eventos, List<Comentarios>> comentariosSIRYU;
+    private Map<Eventos, List<Comentarios>> comentariosKIM;
+    private Map<Eventos, List<Comentarios>> comentariosALMOGAMA;
+
     @Inject
     private ControlAutorizacion control;
 
@@ -42,14 +57,28 @@ public class beanEventos implements Serializable {
         eventosSIRYU = new ArrayList<>();
         eventosKIM = new ArrayList<>();
         eventosALMOGAMA = new ArrayList<>();
-        eventosSIRYU.add(crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosSIRYU.add(crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));       
-        eventosTHA.add(crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosTHA.add(crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosKIM.add(crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosKIM.add(crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosALMOGAMA.add(crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
-        eventosALMOGAMA.add(crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148)));
+        comentariosALMOGAMA = new HashMap<>();
+        comentariosKIM = new HashMap<>();
+        comentariosSIRYU = new HashMap<>();
+        comentariosTHA = new HashMap<>();
+        Eventos e1 = crearEvento("Evento1", "Este es el evento de prueba", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148));
+        Eventos e2 = crearEvento("Evento2", "Este es el evento de prueba2", new Date(), new BigDecimal(36.7147093), new BigDecimal(-4.4757148));
+        eventosSIRYU.add(e1);
+        eventosSIRYU.add(e2);
+        eventosTHA.add(e1);
+        eventosTHA.add(e2);
+        eventosKIM.add(e1);
+        eventosKIM.add(e2);
+        eventosALMOGAMA.add(e1);
+        eventosALMOGAMA.add(e2);
+        comentariosSIRYU.put(e1, new ArrayList<Comentarios>());
+        comentariosSIRYU.put(e2, new ArrayList<Comentarios>());
+        comentariosTHA.put(e1, new ArrayList<Comentarios>());
+        comentariosTHA.put(e2, new ArrayList<Comentarios>());
+        comentariosKIM.put(e1, new ArrayList<Comentarios>());
+        comentariosKIM.put(e2, new ArrayList<Comentarios>());
+        comentariosALMOGAMA.put(e1, new ArrayList<Comentarios>());
+        comentariosALMOGAMA.put(e2, new ArrayList<Comentarios>());
     }
 
     public List<Eventos> misEventos() {
@@ -75,8 +104,74 @@ public class beanEventos implements Serializable {
                 return new ArrayList<Eventos>();
         }
     }
+    public List<Comentarios> obtenerComentarios(Eventos e){
+        switch (control.getUsuario().getRoles().getNombrerol()) {
 
-    public void doCrearEvento() {
+            case "ScouterTHA":
+            case "EducandoTHA":
+                return comentariosTHA.get(evento);
+
+            case "ScouterKIM":
+            case "EducandoKIM":
+                return comentariosKIM.get(evento);
+
+            case "ScouterSIRYU":
+            case "EducandoSIRYU":
+                return comentariosSIRYU.get(evento);
+
+            case "ScouterALMOGAMA":
+            case "EducandoALMOGAMA":
+                return comentariosALMOGAMA.get(evento);
+
+            default:
+                return new ArrayList<Comentarios>();
+        }
+        
+    }
+    public int tamañoListaComentarios(Eventos evento) {
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+
+            case "ScouterTHA":
+            case "EducandoTHA":
+                return comentariosTHA.get(evento).size();
+
+            case "ScouterKIM":
+            case "EducandoKIM":
+                return comentariosKIM.get(evento).size();
+
+            case "ScouterSIRYU":
+            case "EducandoSIRYU":
+                return comentariosSIRYU.get(evento).size();
+
+            case "ScouterALMOGAMA":
+            case "EducandoALMOGAMA":
+                return comentariosALMOGAMA.get(evento).size();
+
+            default:
+                return 0;
+        }
+    }
+
+    public String doBorrarEvento(Eventos e) {
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "ScouterTHA":
+                borrarEvento(eventosTHA, e);
+                return "tha.xhtml?faces-redirect=true";
+            case "ScouterKIM":
+                borrarEvento(eventosKIM, e);
+                return "kim.xhtml?faces-redirect=true";
+            case "ScouterSIRYU":
+                borrarEvento(eventosSIRYU, e);
+                return "siryu.xhtml?faces-redirect=true";
+            case "ScouterALMOGAMA":
+                borrarEvento(eventosALMOGAMA, e);
+                return "almogama.xhtml?faces-redirect=true";
+            default:
+                return "index.xhtml";
+        }
+    }
+
+    public String doCrearEvento() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String nombre = request.getParameter("formCrearEvento:crearNombre");
         String descripcion = request.getParameter("formCrearEvento:crearDescripcion");
@@ -87,18 +182,22 @@ public class beanEventos implements Serializable {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
                 eventosTHA.add(evento);
-                break;
+                //clearComponent();
+                return "tha.xhtml?faces-redirect=true";
             case "ScouterKIM":
                 eventosKIM.add(evento);
-                break;
+                // clearComponent();
+                return "kim.xhtml?faces-redirect=true";
             case "ScouterSIRYU":
                 eventosSIRYU.add(evento);
-                break;
+                //    clearComponent();
+                return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
                 eventosALMOGAMA.add(evento);
-                break;
+                // clearComponent();
+                return "almogama.xhtml?faces-redirect=true";
             default:
-                break;
+                return "index.xhtml?faces-redirect=true";
         }
     }
 
@@ -113,18 +212,18 @@ public class beanEventos implements Serializable {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
                 modificarEvento(eventosTHA, evento);
-                return "tha.xhtml";
+                return "tha.xhtml?faces-redirect=true";
             case "ScouterKIM":
                 modificarEvento(eventosKIM, evento);
-                return "kim.xhtml";
+                return "kim.xhtml?faces-redirect=true";
             case "ScouterSIRYU":
                 modificarEvento(eventosSIRYU, evento);
-                return "siryu.xhtml";
+                return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
                 modificarEvento(eventosALMOGAMA, evento);
-                return "almogama.xhtml";
+                return "almogama.xhtml?faces-redirect=true";
             default:
-                return "index.xhtml";
+                return "index.xhtml?faces-redirect=true";
         }
     }
 
@@ -150,12 +249,51 @@ public class beanEventos implements Serializable {
         evento.setLongitud(longitud);
         return evento;
     }
-    
-    private void modificarEvento(List<Eventos> eventos, Eventos e){
+
+    private void modificarEvento(List<Eventos> eventos, Eventos e) {
         int posicion = eventos.indexOf(e);
         eventos.toArray()[posicion] = e;
     }
-         
+
+    private void borrarEvento(List<Eventos> eventos, Eventos e) {
+        eventos.remove(e);
+    }
+
+//    public static void clearComponent() {
+//        UIViewRoot root = FacesContext.getCurrentInstance().getViewRoot();
+//
+//        // for JSF 2 getFacetsAndChildren instead of only JSF 1 getChildren
+//        Iterator<UIComponent> children = root.getFacetsAndChildren();
+//        clearAllComponentInChilds(children);
+//    }
+//
+//    private static void clearAllComponentInChilds(Iterator<UIComponent> childrenIt) {
+//
+//        while (childrenIt.hasNext()) {
+//            UIComponent component = childrenIt.next();
+//            //log.debug("handling component " + component.getId() );
+//            if (component instanceof HtmlInputText) {
+//                HtmlInputText com = (HtmlInputText) component;
+//                com.resetValue();
+//            }
+//            if (component instanceof HtmlSelectOneMenu) {
+//                HtmlSelectOneMenu com = (HtmlSelectOneMenu) component;
+//                com.resetValue();
+//            }
+//            if (component instanceof HtmlSelectBooleanCheckbox) {
+//                HtmlSelectBooleanCheckbox com = (HtmlSelectBooleanCheckbox) component;
+//                com.resetValue();
+//            }
+//            if (component instanceof HtmlSelectManyCheckbox) {
+//                HtmlSelectManyCheckbox com = (HtmlSelectManyCheckbox) component;
+//                com.resetValue();
+//            }
+//
+//            clearAllComponentInChilds(component.getFacetsAndChildren());
+//
+//        }
+//
+//    }
     public Eventos getEvento() {
         return evento;
     }
