@@ -36,7 +36,7 @@
                         <!-- Grid column -->
 
                         <!-- Grid column -->
-                        <div class="col-6 col-sm-4 text-center">
+                        <div class="col-6 col-sm-4 text-center">                            
                             <div class="container">
                                 <!-- Category -->
                                 <a href="#!" class="green-text"><h6 class="font-weight-bold mb-3"><i class="fa fa-calendar pr-2"></i>Evento</h6></a>
@@ -81,9 +81,29 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </div>
-                                </c:if>                        
+
+                                </c:if>
                             </div>
+                            #{ControlAsistencia.añadeEventoEnED(evento)}
+
+                            <c:if test="#{controlAutorizacion.usuario.roles.nombrerol == 'EducandoSIRYU'}">
+                                <c:choose> 
+                                    <c:when test="#{ControlAsistencia.comprobarAsistencia(evento) eq false}">
+                                        <h:form>
+                                            <h:commandLink class="btn btn-success btn-md"  value ="Asistir" action="#{ControlAsistencia.asistirEvento(evento)}"></h:commandLink>
+                                        </h:form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h:form>
+                                            <h:commandLink class="btn btn-danger btn-md"  value ="Dejar de Asistir" action="#{ControlAsistencia.noAsistir(evento)}"></h:commandLink>
+                                        </h:form>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
+
+
                         </div>
                         <!-- Grid column -->
                         <c:if test="#{controlAutorizacion.usuario.roles.nombrerol == 'ScouterSIRYU'}">
