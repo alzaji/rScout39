@@ -8,6 +8,7 @@ package org.siliconvalley.scout39.vista;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -39,7 +40,6 @@ public class ControlUsuario implements Serializable {
     private Roles roles;
 
     public ControlUsuario() {
-        login = new Login();
     }
 
     public List<Usuario> getUsuarios() {
@@ -86,7 +86,9 @@ public class ControlUsuario implements Serializable {
         this.email = email;
     }
 
-    public String removeUsuario() {
+    public String removeUsuario(Usuario u) {
+
+        login.getUsuarios().remove(u);
 
         return "editarUsuario.xhtml";
     }
@@ -99,10 +101,9 @@ public class ControlUsuario implements Serializable {
         String correo = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarEmail");
         Usuario user = newUsuario(u.getId(), alia, u.getDigest(),
                 nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-        
-        login = new Login();
-        int pos = login.getUsuarios().indexOf(u);        
-        login.getUsuarios().toArray()[pos] = user;      
+
+        int pos = login.getUsuarios().indexOf(u);
+        login.getUsuarios().toArray()[pos] = user;
 
         return "editarUsuarios.xhtml?faces-redirect=true";
 
@@ -145,7 +146,9 @@ public class ControlUsuario implements Serializable {
             String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
 
         String apellidos = primerApellido + " " + segundoApellido;
-        login.getUsuarios().add(crearUsuario(nombre, apellidos, email, movil, direccion, localidad, provincia, codPostal, rol));
+        Usuario u = crearUsuario(nombre, apellidos, email, movil, direccion, localidad, provincia, codPostal, rol);
+        login.getUsuarios().add(u);
+        System.out.println("Nombre: " + login.getUsuarios().get(login.getUsuarios().indexOf(u)).getNombre() + " Size: " + login.getUsuarios().size());
 
         return "editarUsuarios.xhtml?faces-redirect=true";
     }
@@ -153,6 +156,8 @@ public class ControlUsuario implements Serializable {
     public Usuario crearUsuario(String nombre, String apellidos, String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
 
         Usuario user = new Usuario();
+        Random rnd = new Random();
+        user.setId(rnd.nextLong() % 100);
         user.setNombre(nombre);
         user.setApellidos(apellidos);
         user.setEmail(email);

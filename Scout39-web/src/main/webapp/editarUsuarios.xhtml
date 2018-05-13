@@ -26,8 +26,8 @@
             </div>
 
 
-            <h:dataTable value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
-                  <h:column>
+            <h:dataTable id="table" value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
+                <h:column>
                     <!-- column header -->
                     <f:facet name="header">Código</f:facet>
                     <!-- row record -->
@@ -67,92 +67,90 @@
                     <!-- column header -->
                     <f:facet name="header">Modificar</f:facet>
                     <!-- row record -->
-                     <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarUsuario#{u.id.toString()}">Modificar</button>
-                     <div class="modal fade" id="modalModificarUsuario#{u.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">Modificar Usuario</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">x</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body mx-3">
-                                        <h:form id="formModificarUsuario#{u.id.toString()}">
-                                            <!-- Material input text -->
-                                            <div class="md-form">                                                
-                                                <h:inputText class="form-control" id="modificarNombre" value="#{u.nombre}"/>
-                                                <h:outputLabel>Nombre Usuario</h:outputLabel>
-                                            </div>
+                    <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarUsuario#{u.id.toString()}">Modificar</button>
+                    <div class="modal fade" id="modalModificarUsuario#{u.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <h4 class="modal-title w-100 font-weight-bold">Modificar Usuario</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">x</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-3">
+                                    <h:form id="formModificarUsuario#{u.id.toString()}">
+                                        <!-- Material input text -->
+                                        <div class="md-form">                                                
+                                            <h:inputText class="form-control" id="modificarNombre" value="#{u.nombre}"/>
+                                            <h:outputLabel>Nombre Usuario</h:outputLabel>
+                                        </div>
 
-                                            <div class="md-form">
-                                                <h:inputText class="form-control" id="modificarApellidos" value="#{u.apellidos}"/>
-                                                <h:outputLabel>Apellidos Usuario</h:outputLabel>
-                                            </div>
+                                        <div class="md-form">
+                                            <h:inputText class="form-control" id="modificarApellidos" value="#{u.apellidos}"/>
+                                            <h:outputLabel>Apellidos Usuario</h:outputLabel>
+                                        </div>
 
-                                            <div class="md-form">
-                                                <h:inputText class="form-control" id="modificarAlias" value="#{u.alias}"/>
-                                                <h:outputLabel>Alias Usuario</h:outputLabel>
-                                            </div>
+                                        <div class="md-form">
+                                            <h:inputText class="form-control" id="modificarAlias" value="#{u.alias}"/>
+                                            <h:outputLabel>Alias Usuario</h:outputLabel>
+                                        </div>
 
-                                            <div class="md-form">
-                                                <h:inputText class="form-control" id="modificarEmail" value="#{u.email}"/>
-                                                <h:outputLabel>Email Usuario</h:outputLabel>
-                                            </div>
+                                        <div class="md-form">
+                                            <h:inputText class="form-control" id="modificarEmail" value="#{u.email}"/>
+                                            <h:outputLabel>Email Usuario</h:outputLabel>
+                                        </div>
 
-                                            <div class="md-form">
-                                                <select class="custom-select" id="modificarRol">
-                                                    <option selected="selected">Rol</option>
-                                                    <option value="scouter">Scouter</option>
-                                                    <option value="educando">Educando</option>
-                                                    <option value="admin">Administrador</option>
-                                                </select>
-                                            </div>
-                                            <div class="text-center mt-4">
-                                                <h:commandButton class="btn btn-orange" value="Modificar" action="#{controlUsuario.doModificarUsuario(u)}"/>
-                                            </div>
-                                        </h:form>
-                                    </div>
+                                        <div class="md-form">
+                                            <select class="custom-select" id="modificarRol">
+                                                <option selected="selected">Rol</option>
+                                                <option value="scouter">Scouter</option>
+                                                <option value="educando">Educando</option>
+                                                <option value="admin">Administrador</option>
+                                            </select>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <h:commandButton class="btn btn-orange" value="Modificar" action="#{controlUsuario.doModificarUsuario(u)}"/>
+                                        </div>
+                                    </h:form>
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </h:column>
                 <h:column>
                     <!-- column header -->
                     <f:facet name="header">Borrar</f:facet>
                     <!-- row record -->
-                    <button class="btn btn-danger btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#removeModal">Eliminar</button>
-                    
-                </h:column>
-                
-                
+                    <button class="btn btn-danger btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#removeModal#{u.id.toString()}">Eliminar</button>
 
+                </h:column>
+
+                <!-- Modal REMOVE USER-->
+                <div class="modal fade" id="removeModal#{u.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <!--Header-->
+                            <div class="modal-header danger-color white-text">
+                                <h4 class="title">
+                                    <i class="fa fa-trash"></i> Eliminar usuario</h4>
+                                <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p style="text-align: center;">¿Está seguro que desea eliminar este usuario?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-sm my-0" data-dismiss="modal" onclick="#{controlUsuario.removeUsuario(u)}">Si, estoy seguro</button>
+
+                                <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </h:dataTable>            
         </center>
 
-        <!-- Modal REMOVE USER-->
-        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <!--Header-->
-                    <div class="modal-header danger-color white-text">
-                        <h4 class="title">
-                            <i class="fa fa-trash"></i> Eliminar usuario</h4>
-                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p style="text-align: center;">¿Está seguro que desea eliminar este usuario?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="#{controlUsuario.removeUsuario()}">Si, estoy seguro</button>
-
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" >Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Modal CREAR USUARIO-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -163,7 +161,6 @@
                             <h4 class="title">
                                 <i class="fa fa-pencil"></i> Crear usuario</h4>
                             <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                                <f:ajax render="tabla"/>
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
@@ -288,9 +285,9 @@
                                 <div class="input-group col-md-4 mt-3 mb-4">
                                     <select class="custom-select" binding="#{rol}">
                                         <option selected="selected">Rol</option>
-                                        <option value="scouter">Scouter</option>
-                                        <option value="educando">Educando</option>
-                                        <option value="admin">Administrador</option>
+                                        <option value="Scouter">Scouter</option>
+                                        <option value="Educando">Educando</option>
+                                        <option value="Coordinador">Coordinador</option>
                                     </select>
                                 </div>
                             </div>
@@ -299,7 +296,8 @@
                         <div class="modal-footer justify-content-center">                        
                             <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario(nombre.value,primerApellido.value, 
                                                                                                segundoApellido.value, dni.value, sexo.value, email.value, movil.value,
-                                                                                               direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit"/>
+                                                                                               direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit">
+                            </h:commandButton>
                         </div>
 
 

@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * @author alzaji
  */
 @Named(value = "login")
-@RequestScoped
+@SessionScoped
 public class Login implements Serializable{
 
     private String usuario;
