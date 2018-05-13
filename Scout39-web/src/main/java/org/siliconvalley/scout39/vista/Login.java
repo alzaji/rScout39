@@ -38,26 +38,26 @@ public class Login implements Serializable{
      */
     public Login() {
         usuarios = new ArrayList<Usuario>();
-        usuarios.add(newUsuario(Long.parseLong("0"),"Coord1", "1234", "Coordinador1", ".", "coordinador@scout39.org", new Date(), newRol("Coordinador")));
-        usuarios.add(newUsuario(Long.parseLong("1"),"ScouterTHA", "1234", "Scouter", "THA", "scoutertha@scout39.org", new Date(), newRol("ScouterTHA")));
-        usuarios.add(newUsuario(Long.parseLong("2"),"ScouterKIM", "1234", "Scouter", "KIM", "scouterkim@scout39.org", new Date(), newRol("ScouterKIM")));
-        usuarios.add(newUsuario(Long.parseLong("3"),"ScouterSIRYU", "1234", "Scouter", "SIRYU", "scoutersiryu@scout39.org", new Date(), newRol("ScouterSIRYU")));
-        usuarios.add(newUsuario(Long.parseLong("4"),"ScouterALMOGAMA", "1234", "Scouter", "ALMOGAMA", "scouteralmogama@scout39.org", new Date(), newRol("ScouterALMOGAMA")));
-        usuarios.add(newUsuario(Long.parseLong("11"),"EducandoTHA", "1234", "Educando", "THA", "educandotha@scout39.org", new Date(), newRol("EducandoTHA")));
-        usuarios.add(newUsuario(Long.parseLong("12"),"EducandoKIM", "1234", "Educando", "KIM", "educandokim@scout39.org", new Date(), newRol("EducandoKIM")));
-        usuarios.add(newUsuario(Long.parseLong("13"),"EducandoSIRYU", "1234", "Educando", "SIRYU", "educandosiryu@scout39.org", new Date(), newRol("EducandoSIRYU")));
-        usuarios.add(newUsuario(Long.parseLong("14"),"EducandoALMOGAMA", "1234", "Educando", "ALMOGAMA", "educandoalmogama@scout39.org", new Date(), newRol("EducandoALMOGAMA")));
+        usuarios.add(newUsuario(Long.parseLong("0"),"Coord1", "1234", "Coordinador1", ".", "coordinador@scout39.org", new Date(), newRol(Long.parseLong("0") ,"Coordinador")));
+        usuarios.add(newUsuario(Long.parseLong("1"),"ScouterTHA", "1234", "Scouter", "THA", "scoutertha@scout39.org", new Date(), newRol(Long.parseLong("1") ,"ScouterTHA")));
+        usuarios.add(newUsuario(Long.parseLong("2"),"ScouterKIM", "1234", "Scouter", "KIM", "scouterkim@scout39.org", new Date(), newRol(Long.parseLong("2") ,"ScouterKIM")));
+        usuarios.add(newUsuario(Long.parseLong("3"),"ScouterSIRYU", "1234", "Scouter", "SIRYU", "scoutersiryu@scout39.org", new Date(), newRol(Long.parseLong("3") ,"ScouterSIRYU")));
+        usuarios.add(newUsuario(Long.parseLong("4"),"ScouterALMOGAMA", "1234", "Scouter", "ALMOGAMA", "scouteralmogama@scout39.org", new Date(), newRol(Long.parseLong("4") ,"ScouterALMOGAMA")));
+        usuarios.add(newUsuario(Long.parseLong("11"),"EducandoTHA", "1234", "Educando", "THA", "educandotha@scout39.org", new Date(), newRol(Long.parseLong("5") ,"EducandoTHA")));
+        usuarios.add(newUsuario(Long.parseLong("12"),"EducandoKIM", "1234", "Educando", "KIM", "educandokim@scout39.org", new Date(), newRol(Long.parseLong("6") ,"EducandoKIM")));
+        usuarios.add(newUsuario(Long.parseLong("13"),"EducandoSIRYU", "1234", "Educando", "SIRYU", "educandosiryu@scout39.org", new Date(), newRol(Long.parseLong("7") ,"EducandoSIRYU")));
+        usuarios.add(newUsuario(Long.parseLong("14"),"EducandoALMOGAMA", "1234", "Educando", "ALMOGAMA", "educandoalmogama@scout39.org", new Date(), newRol(Long.parseLong("8") ,"EducandoALMOGAMA")));
 
         roles = new ArrayList<Roles>();
-        roles.add(newRol("Coordinador"));
-        roles.add(newRol("ScouterTHA"));
-        roles.add(newRol("ScouterKIM"));
-        roles.add(newRol("ScouterSIRYU"));
-        roles.add(newRol("ScouterALMOGAMA"));
-        roles.add(newRol("EducandoKIM"));
-        roles.add(newRol("EducandoSIRYU"));
-        roles.add(newRol("EducandoTHA"));
-        roles.add(newRol("EducandoTHA"));
+        roles.add(newRol(Long.parseLong("0") ,"Coordinador"));
+        roles.add(newRol(Long.parseLong("1"), "ScouterTHA"));
+        roles.add(newRol(Long.parseLong("2"), "ScouterKIM"));
+        roles.add(newRol(Long.parseLong("3"),"ScouterSIRYU"));
+        roles.add(newRol(Long.parseLong("4"),"ScouterALMOGAMA"));
+        roles.add(newRol(Long.parseLong("5"),"EducandoKIM"));
+        roles.add(newRol(Long.parseLong("6"),"EducandoSIRYU"));
+        roles.add(newRol(Long.parseLong("7"),"EducandoTHA"));
+        roles.add(newRol(Long.parseLong("8"),"EducandoALMOGAMA"));
 
     }
 
@@ -150,11 +150,12 @@ public class Login implements Serializable{
         return usuario;
     }
 
-    private Roles newRol(String nombrerol) {
+    private Roles newRol(long id,String nombrerol) {
 
         Roles rol = new Roles();
 
         rol.setNombrerol(nombrerol);
+        rol.setIdrol(id);
 
         return rol;
     }
