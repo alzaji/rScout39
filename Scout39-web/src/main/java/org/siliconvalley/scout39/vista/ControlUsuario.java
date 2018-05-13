@@ -133,4 +133,29 @@ public class ControlUsuario implements Serializable{
         return "editarUsuarios.xhtml";
 
     }
+    
+    public String doCrearUsuario(String nombre, String primerApellido, String segundoApellido, String dni, String sexo,
+            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol){
+        
+        String apellidos = primerApellido + " " + segundoApellido;
+        
+        Usuario user = crearUsuario(nombre, apellidos, dni, sexo, email, movil, direccion, localidad, provincia, codPostal, rol);
+        login.getUsuarios().add(user);                        
+    
+        return "editarUsuarios.xhtml";
+    }
+    
+    public Usuario crearUsuario(String nombre, String apellidos, String dni, String sexo,
+            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol){
+    
+        Usuario user = new Usuario();
+        user.setNombre(nombre);
+        user.setApellidos(apellidos); 
+        user.setEmail(email);
+        
+        
+        return user;
+        
+    }
+    
 }

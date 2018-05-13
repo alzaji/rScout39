@@ -139,6 +139,7 @@
 
         <!-- Modal CREAR USUARIO-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <h:form id="crearUsuario">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header default-color">                        
@@ -151,13 +152,13 @@
                     <div class="modal-body">
                         <!-- Grid row -->
                 <div class="form-row">
-
-                    <!-- Grid column -->
+                    
+                        <!-- Grid column -->
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre"/>
-                            <label for="inputNombre">Nombre</label>
+                            <h:inputText class="form-control" binding="#{nombre}"/>
+                            <h:outputLabel for="inputNombre">Nombre</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -166,8 +167,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputPrimerApellido" placeholder="Primer Apellido"/>
-                            <label for="inputPrimerApellido">Primer Apellido</label>
+                            <h:inputText class="form-control" binding="#{primerApellido}"/>
+                            <h:outputLabel for="inputPrimerApellido">Primer Apellido</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -176,8 +177,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputSegundoApellido" placeholder="Segundo Apellido"/>
-                            <label for="inputSegundoApellido">Segundo Apellido</label>
+                            <h:inputText class="form-control" binding="#{segundoApellido}"/>
+                            <h:outputLabel for="inputSegundoApellido">Segundo Apellido</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -186,13 +187,13 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputDNI" placeholder="DNI/NIF"/>
-                            <label for="inputDNI">DNI/NIF</label>
+                            <h:inputText  class="form-control" binding="#{dni}" />
+                            <h:outputLabel for="inputDNI">DNI/NIF</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
                     <div class="input-group col-md-4 mt-4 mb-4">
-                        <select class="custom-select" id="selectSexo">
+                        <select class="custom-select" binding="#{sexo}">
                             <option selected="selected">Sexo</option>
                             <option value="masculino">Masculino</option>
                             <option value="femenino">Femenino</option>
@@ -209,8 +210,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputTelf" placeholder="Teléfono"/>
-                            <label for="inputTelf">Teléfono</label>
+                            <h:inputText class="form-control" binding="#{email}" />
+                            <h:outputLabel for="inputTelf">Email</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -219,8 +220,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputMovil" placeholder="Móvil"/>
-                            <label for="inputMovil">Móvil</label>
+                            <h:inputText  class="form-control" binding="#{movil}" />
+                            <h:outputLabel for="inputMovil">Móvil</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -232,8 +233,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputDireccion" placeholder="Dirección"/>
-                            <label for="inputDireccion">Dirección</label>
+                            <h:inputText class="form-control" binding="#{direccion}"/>
+                            <h:outputLabel for="inputDireccion">Dirección</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -241,8 +242,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputLocalidad" placeholder="Localidad"/>
-                            <label for="inputLocalidad">Localidad</label>
+                            <h:inputText class="form-control" binding="#{localidad}"/>
+                            <h:outputLabel for="inputLocalidad">Localidad</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -250,8 +251,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputProvincia" placeholder="Provincia"/>
-                            <label for="inputProvincia">Provincia</label>
+                            <h:inputText class="form-control" binding="#{provincia}"/>
+                            <h:outputLabel for="inputProvincia">Provincia</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -260,8 +261,8 @@
                     <div class="col-md-4">
                         <!-- Material input -->
                         <div class="md-form form-group">
-                            <input type="text" class="form-control" id="inputCosPostal" placeholder="Código Postal"/>
-                            <label for="inputCodPostal">Código Postal</label>
+                            <h:inputText class="form-control" binding="#{codPostal}"/>
+                            <h:outputLabel for="inputCodPostal">Código Postal</h:outputLabel>
                         </div>
                     </div>
                     <!-- Grid column -->
@@ -270,7 +271,7 @@
 
                 <div class="row">
                     <div class="input-group col-md-4 mt-3 mb-4">
-                        <select class="custom-select" id="selectRol">
+                        <select class="custom-select" binding="#{rol}">
                             <option selected="selected">Rol</option>
                             <option value="scouter">Scouter</option>
                             <option value="educando">Educando</option>
@@ -279,11 +280,17 @@
                     </div>
                 </div>
                     </div>
+                    
                     <div class="modal-footer justify-content-center">                        
-                         <button type="submit" class="btn btn-default btn-md">Guardar</button>
+                         <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario(nombre.value,primerApellido.value, 
+                                                                                            segundoApellido.value, dni.value, sexo.value, email.value, movil.value,
+                                                                                            direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit"/>
                     </div>
+                    
+                                      
                 </div>
             </div>
+                </h:form>  
         </div>
 
     </ui:define>
