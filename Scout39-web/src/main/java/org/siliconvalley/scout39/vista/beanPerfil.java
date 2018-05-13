@@ -27,9 +27,14 @@ public class beanPerfil {
     private Map<Usuario,List<Archivo>> archivos;
     @Inject
     private ControlAutorizacion ctrl;
+    private Login login;
     
     public beanPerfil() {
+        login = new Login();
         archivos = new HashMap<>();
+        for(Usuario u: login.getUsuarios()){
+            archivos.put(u, new ArrayList<Archivo>());
+        }
     }
     public boolean insertFile(Usuario u){
         boolean ret = false;
