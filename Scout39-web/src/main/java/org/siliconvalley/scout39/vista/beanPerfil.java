@@ -47,7 +47,7 @@ public class beanPerfil {
             listas03.add(d);
             archivos.put(u, listas03);
         }
-        getPromesaUsuario();
+     //   getPromesaUsuario();
     }
     public boolean insertFile(Usuario u){
         boolean ret = false;
