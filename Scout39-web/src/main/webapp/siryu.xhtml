@@ -124,7 +124,7 @@
                                         <h3 class="mb-2 text-center">Comentarios </h3>
                                         <div class="row pt-2 pb-2 text-center">
                                             <div class="col-12">
-                                                <a href="" class="btn btn-sm btn-primary">Comenta</a>
+                                                <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalComentariosEvento#{evento.id.toString()}">Comenta</a>                                                
                                             </div>
                                         </div>
                                         <!-- comment -->
@@ -150,7 +150,7 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <c:forEach items="#{beanEventos.obtenerComentarios(evento)}" var="comentario">
+                                                <c:forEach items="#{beanEventos.doObtenerComentarios(evento)}" var="comentario">
                                                     <div class="comment mb-2 row">
                                                         <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
                                                             <a href=""><img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" alt="avatar"/></a>
@@ -270,6 +270,33 @@
                             </div>
                         </div>
                     </c:if>
+                    <div class="modal fade" id="modalComentariosEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="modalComentariosEvento#{evento.id.toString()}Label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!--Header-->
+                                <div class="modal-header btn-indigo white-text">
+                                    <h4 class="title">
+                                        <i class="fa fa-comments"></i> Nuevo Comentario</h4>
+                                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">x</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body mx-3">
+                                    <h:form id="formComentarioEvento#{evento.id.toString()}">
+                                        <!-- Material input text -->                                            
+                                        <div class="md-form">
+                                            <i class="fa fa-font prefix grey-text"></i>
+                                            <h:inputTextarea cols="20" rows="5" class="form-control" id="textoComentario"/>
+                                            <h:outputLabel>Comentario</h:outputLabel>
+                                        </div>                                            
+                                        <div class="text-center mt-4">
+                                            <h:commandButton class="btn btn-indigo" value="Enviar" action="#{beanEventos.doNuevoComentario(evento)}"/>
+                                        </div>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <hr class="my-5"/>
 
                 </c:forEach>

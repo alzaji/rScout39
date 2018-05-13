@@ -12,10 +12,10 @@
 
         <center> 
             <!-- Button trigger modal -->
-                <button type="button" class="btn btn-default mt-4" data-toggle="modal" data-target="#exampleModal">
-                    Crear nuevo usuario
-                </button>
-            
+            <button type="button" class="btn btn-default mt-4" data-toggle="modal" data-target="#exampleModal">
+                Crear nuevo usuario
+            </button>
+
             <div class="input-group col-md-2 mt-4 mb-4">
                 <select class="custom-select" id="selectFilter">
                     <option selected="selected">Filtrar...</option>
@@ -35,36 +35,86 @@
                             <th>Apellidos</th>
                             <th>Nombre de Usuario</th>
                             <th>Correo electrónico</th>
-                            <th>Rol</th>                                                
+                            <th>Rol</th>    
+                            <th>Modificar</th>
                             <th>Eliminar</th>
                         </tr>
                     </thead>
                     <!--Table head-->
 
                     <!--FILAS DE LA TABLA, EL CUERPO-->
-                    <c:set var="contador" value="${0}"/>
-                    <c:forEach  items="#{login.usuarios}" var="usuario">                        
+
+                    <c:forEach  items="#{login.usuarios}" var="u">                        
                         <tbody>
                             <tr>
-                                <th scope="row" >#{usuario.id}</th>
-                                <td>#{usuario.nombre} <a id="${contador}" data-toggle="modal" data-target="#modalEditUser"  onclick="#{controlUsuario.setContador(this.id)}"><i  class="fa fa-pencil teal-text ml-2"  ></i></a></td>
-                                <c:set var="contador" value="${contador+1}"/>
-                                <td>#{usuario.apellidos}<a id="${contador}" data-toggle="modal" data-target="#modalEditUser" onclick="#{controlUsuario.setContador(this.id)}"><i class="fa fa-pencil teal-text ml-2" ></i></a></td>
-                                <c:set var="contador" value="${contador+1}"/>
-                                <td>#{usuario.alias}<a id="${contador}" data-toggle="modal" data-target="#modalEditUser" onclick="#{controlUsuario.setContador(this.id)}"><i class="fa fa-pencil teal-text ml-2" ></i></a></td>
-                                <c:set var="contador" value="${contador+1}"/>
-                                <td>#{usuario.email} <a id="${contador}" data-toggle="modal" data-target="#modalEditUser" onclick="#{controlUsuario.setContador(this.id)}"><i class="fa fa-pencil teal-text ml-2" ></i></a></td>
-                                <c:set var="contador" value="${contador+1}"/>
-                                <td>#{usuario.roles.nombrerol}<a id="${contador}" data-toggle="modal" data-target="#modalEditUser" onclick="#{controlUsuario.setContador(this.id)}"><i class="fa fa-pencil teal-text ml-2" ></i></a></td>
-                                <c:set var="contador" value="${contador+1}"/>
+                                <th scope="row" >#{u.id}</th>
+                                <td>#{u.nombre} </td>                               
+                                <td>#{u.apellidos}</td>
+                                <td>#{u.alias}</td>
+                                <td>#{u.email}</td>
+                                <td>#{u.roles.nombrerol}</td>
 
+                                <td>                                    
+                                    <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarUsuario#{u.id.toString()}">Modificar</button>
+                                </td>      
                                 <td>
-                                    <button id="${contador}" type="button" class="btn btn-danger btn-rounded btn-sm my-0" data-toggle="modal" data-target="#removeModal">Eliminar</button>
-                                    <c:set var="contador" value="${contador+1}"/>
+                                    <button class="btn btn-danger btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#removeModal">Eliminar</button>
                                 </td>
                             </tr>
-
                         </tbody>
+
+                        <div class="modal fade" id="modalModificarUsuario#{u.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Modificar Usuario</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <h:form id="formModificarUsuario#{u.id.toString()}">
+                                            <!-- Material input text -->
+                                            <div class="md-form">                                                
+                                                <h:inputText class="form-control" id="modificarNombre" value="#{u.nombre}"/>
+                                                <h:outputLabel>Nombre Usuario</h:outputLabel>
+                                            </div>
+
+                                            <div class="md-form">
+
+                                                <h:inputText class="form-control" id="modificarApellidos" value="#{u.apellidos}"/>
+                                                <h:outputLabel>Apellidos Usuario</h:outputLabel>
+                                            </div>
+
+                                            <div class="md-form">
+
+                                                <h:inputText class="form-control" id="modificarAlias" value="#{u.alias}"/>
+                                                <h:outputLabel>Alias Usuario</h:outputLabel>
+                                            </div>
+
+                                            <div class="md-form">
+
+                                                <h:inputText class="form-control" id="modificarEmail" value="#{u.email}"/>
+                                                <h:outputLabel>Email Usuario</h:outputLabel>
+                                            </div>
+
+                                            <div class="md-form">
+                                                <select class="custom-select" id="modificarRol">
+                                                    <option selected="selected">Rol</option>
+                                                    <option value="scouter">Scouter</option>
+                                                    <option value="educando">Educando</option>
+                                                    <option value="admin">Administrador</option>
+                                                </select>
+                                            </div>
+                                            <div class="text-center mt-4">
+                                                <h:commandButton class="btn btn-orange" value="Modificar" action="#{controlUsuario.doModificarUsuario(u)}"/>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </c:forEach> 
                     <!--Table body-->
 
@@ -98,199 +148,160 @@
             </div>
         </div>
 
-        <!--Modal: Edit USER-->
-        <div class="modal fade" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog cascading-modal" role="document">
-
-                <!--Content-->
-                <div class="modal-content">
-
-                    <!--Header-->
-                    <div class="modal-header default-color white-text">
-                        <h4 class="title">
-                            <i class="fa fa-pencil"></i> Editar usuario</h4>
-                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <!--Body-->
-                    <div class="modal-body">
-
-                        <!-- Material input name -->
-                        <div class="md-form form-sm">
-                            <i class="fa fa-pencil prefix"></i>
-                            <input type="text" id="materialFormNameModalEx1" class="form-control form-control-sm" oninput="#{controlUsuario.texto}"/>
-                            <label for="materialFormNameModalEx1">Editar campo</label>
-                        </div>
-
-                        <div class="text-center mt-4 mb-2">
-                            <button class="btn btn-default" data-dismiss="modal" onclick="#{controlUsuario.modificarUsuario()}" >Enviar
-                                <i class="fa fa-send ml-2" ></i>
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
-                <!--/.Content-->
-            </div>
-            <!--/Modal: Edit User-->
-        </div>
-
         <!-- Modal CREAR USUARIO-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <h:form id="crearUsuario">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header default-color">                        
-                        <h4 class="title">
-                        <i class="fa fa-pencil"></i> Crear usuario</h4>
-                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Grid row -->
-                <div class="form-row">
-                    
-                        <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{nombre}"/>
-                            <h:outputLabel for="inputNombre">Nombre</h:outputLabel>
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header default-color">                        
+                            <h4 class="title">
+                                <i class="fa fa-pencil"></i> Crear usuario</h4>
+                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
                         </div>
-                    </div>
-                    <!-- Grid column -->
+                        <div class="modal-body">
+                            <!-- Grid row -->
+                            <div class="form-row">
 
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{primerApellido}"/>
-                            <h:outputLabel for="inputPrimerApellido">Primer Apellido</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{nombre}"/>
+                                        <h:outputLabel for="inputNombre">Nombre</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
 
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{segundoApellido}"/>
-                            <h:outputLabel for="inputSegundoApellido">Segundo Apellido</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{primerApellido}"/>
+                                        <h:outputLabel for="inputPrimerApellido">Primer Apellido</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
 
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText  class="form-control" binding="#{dni}" />
-                            <h:outputLabel for="inputDNI">DNI/NIF</h:outputLabel>
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{segundoApellido}"/>
+                                        <h:outputLabel for="inputSegundoApellido">Segundo Apellido</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText  class="form-control" binding="#{dni}" />
+                                        <h:outputLabel for="inputDNI">DNI/NIF</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                                <div class="input-group col-md-4 mt-4 mb-4">
+                                    <select class="custom-select" binding="#{sexo}">
+                                        <option selected="selected">Sexo</option>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Grid row -->
+
+
+
+
+                            <div class="row">
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{email}" />
+                                        <h:outputLabel for="inputTelf">Email</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText  class="form-control" binding="#{movil}" />
+                                        <h:outputLabel for="inputMovil">Móvil</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                            </div>
+
+                            <!-- Grid row -->
+                            <div class="row">
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{direccion}"/>
+                                        <h:outputLabel for="inputDireccion">Dirección</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{localidad}"/>
+                                        <h:outputLabel for="inputLocalidad">Localidad</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{provincia}"/>
+                                        <h:outputLabel for="inputProvincia">Provincia</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+
+                                <!-- Grid column -->
+                                <div class="col-md-4">
+                                    <!-- Material input -->
+                                    <div class="md-form form-group">
+                                        <h:inputText class="form-control" binding="#{codPostal}"/>
+                                        <h:outputLabel for="inputCodPostal">Código Postal</h:outputLabel>
+                                    </div>
+                                </div>
+                                <!-- Grid column -->
+                            </div>
+                            <!-- Grid row -->
+
+                            <div class="row">
+                                <div class="input-group col-md-4 mt-3 mb-4">
+                                    <select class="custom-select" binding="#{rol}">
+                                        <option selected="selected">Rol</option>
+                                        <option value="scouter">Scouter</option>
+                                        <option value="educando">Educando</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Grid column -->
-                    <div class="input-group col-md-4 mt-4 mb-4">
-                        <select class="custom-select" binding="#{sexo}">
-                            <option selected="selected">Sexo</option>
-                            <option value="masculino">Masculino</option>
-                            <option value="femenino">Femenino</option>
-                        </select>
+
+                        <div class="modal-footer justify-content-center">                        
+                            <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario(nombre.value,primerApellido.value, 
+                                                                                               segundoApellido.value, dni.value, sexo.value, email.value, movil.value,
+                                                                                               direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit"/>
+                        </div>
+
+
                     </div>
                 </div>
-                <!-- Grid row -->
-
-
-
-
-                <div class="row">
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{email}" />
-                            <h:outputLabel for="inputTelf">Email</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText  class="form-control" binding="#{movil}" />
-                            <h:outputLabel for="inputMovil">Móvil</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-
-                <!-- Grid row -->
-                <div class="row">
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{direccion}"/>
-                            <h:outputLabel for="inputDireccion">Dirección</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{localidad}"/>
-                            <h:outputLabel for="inputLocalidad">Localidad</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{provincia}"/>
-                            <h:outputLabel for="inputProvincia">Provincia</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-
-                    <!-- Grid column -->
-                    <div class="col-md-4">
-                        <!-- Material input -->
-                        <div class="md-form form-group">
-                            <h:inputText class="form-control" binding="#{codPostal}"/>
-                            <h:outputLabel for="inputCodPostal">Código Postal</h:outputLabel>
-                        </div>
-                    </div>
-                    <!-- Grid column -->
-                </div>
-                <!-- Grid row -->
-
-                <div class="row">
-                    <div class="input-group col-md-4 mt-3 mb-4">
-                        <select class="custom-select" binding="#{rol}">
-                            <option selected="selected">Rol</option>
-                            <option value="scouter">Scouter</option>
-                            <option value="educando">Educando</option>
-                            <option value="admin">Administrador</option>
-                        </select>
-                    </div>
-                </div>
-                    </div>
-                    
-                    <div class="modal-footer justify-content-center">                        
-                         <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario(nombre.value,primerApellido.value, 
-                                                                                            segundoApellido.value, dni.value, sexo.value, email.value, movil.value,
-                                                                                            direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit"/>
-                    </div>
-                    
-                                      
-                </div>
-            </div>
-                </h:form>  
+            </h:form>  
         </div>
 
     </ui:define>

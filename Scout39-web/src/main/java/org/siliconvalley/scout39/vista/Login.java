@@ -28,7 +28,7 @@ public class Login implements Serializable{
     private String contrasenia;
     private List<Usuario> usuarios;
     private List<Roles> roles;
-
+    private Usuario u;
     @Inject
     private ControlAutorizacion ctrl;
 

@@ -6,13 +6,16 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
 
@@ -21,40 +24,24 @@ import org.siliconvalley.scout39.modelo.Usuario;
  * @author Dani
  */
 @Named(value = "controlUsuario")
+@ManagedBean
 @SessionScoped
-public class ControlUsuario implements Serializable{
+public class ControlUsuario implements Serializable {
 
-    public ControlUsuario() {
-
-    }
     @Inject
     private Login login;
-    private Usuario u;
-    private int contador;
+
+    private Usuario usuario;
     private String nombre;
     private String Apellidos;
     private String alias;
     private String email;
     private Roles roles;
-    private String texto;
-
-    public int getContador() {
-        return contador;
-    }
-
-    public void setContador(int contador) {
-        this.contador = contador;
-    }
-
-    public String getTexto() {
-        return texto;
-    }
-
-    public void setTexto(String texto) {
-        this.texto = texto;
+    
+    public ControlUsuario() {
+        login = new Login();
     }
         
-    
     public Roles getRoles() {
         return roles;
     }
@@ -95,67 +82,78 @@ public class ControlUsuario implements Serializable{
         this.email = email;
     }
 
-    public void addUsuario() {
-        if (!login.getUsuarios().add(u)) {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + u.getAlias() + " no se encuentra en la lista de usuarios", "El usuario " + u.getAlias() + " no se encuentra en la lista de usuarios"));
-        }
-    }
-
     public String removeUsuario() {
-        int cont=contador/6;
-        login.getUsuarios().remove(cont);            
+
         return "editarUsuario.xhtml";
     }
 
-    public String modificarUsuario() {
-        int cont=contador/6;
-        int au=contador%6;
-        switch (au) {
-            case 0:
-                login.getUsuarios().get(cont).setNombre(texto);
-                break;
-            case 1:
-                login.getUsuarios().get(cont).setApellidos(texto);
-                break;
-            case 2:
-                login.getUsuarios().get(cont).setAlias(texto);
-                break;
-            case 3:
-                login.getUsuarios().get(cont).setEmail(texto);
-                break;
-            case 4:
-                login.getUsuarios().get(cont).setRoles(roles);
-                break;
-            default:
-                break;
-        }
-        return "editarUsuarios.xhtml";
+    public String doModificarUsuario(Usuario u) {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String alia = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarAlias");
+        String nombr = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarNombre");
+        String apellidos = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarApellidos");
+        String correo = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarEmail");
+        Usuario user = newUsuario(u.getId(), alia, u.getDigest(),
+                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
+
+        int pos = login.getUsuarios().indexOf(u);
+        login.getUsuarios().toArray()[pos] = user;
+
+        return "editarUsuarios.xhtml?faces-redirect=true";
 
     }
-    
-    public String doCrearUsuario(String nombre, String primerApellido, String segundoApellido, String dni, String sexo,
-            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol){
-        
-        String apellidos = primerApellido + " " + segundoApellido;
-        
-        Usuario user = crearUsuario(nombre, apellidos, dni, sexo, email, movil, direccion, localidad, provincia, codPostal, rol);
-        login.getUsuarios().add(user);                        
-    
-        return "editarUsuarios.xhtml";
+
+    private Roles newRol(String nombrerol) {
+
+        Roles rol = new Roles();
+
+        rol.setNombrerol(nombrerol);
+
+        return rol;
     }
-    
-    public Usuario crearUsuario(String nombre, String apellidos, String dni, String sexo,
-            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol){
-    
+
+    private Usuario newUsuario(
+            Long id,
+            String alias,
+            String digest,
+            String nombre,
+            String apellidos,
+            String email,
+            Date fecha_alta,
+            Roles rol
+    ) {
+
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setAlias(alias);
+        usuario.setDigest(digest);
+        usuario.setNombre(nombre);
+        usuario.setApellidos(apellidos);
+        usuario.setEmail(email);
+        usuario.setFecha_alta(fecha_alta);
+        usuario.setRoles(rol);
+
+        return usuario;
+    }
+
+    public String doCrearUsuario(String nombre, String primerApellido, String segundoApellido, String dni, String sexo,
+            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
+
+        String apellidos = primerApellido + " " + segundoApellido;
+        login.getUsuarios().add(crearUsuario(nombre, apellidos, email, movil, direccion, localidad, provincia, codPostal, rol));
+
+        return "editarUsuarios.xhtml?faces-redirect=true";
+    }
+
+    public Usuario crearUsuario(String nombre, String apellidos, String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
+
         Usuario user = new Usuario();
         user.setNombre(nombre);
-        user.setApellidos(apellidos); 
+        user.setApellidos(apellidos);
         user.setEmail(email);
-        
-        
+
         return user;
-        
+
     }
-    
+
 }
