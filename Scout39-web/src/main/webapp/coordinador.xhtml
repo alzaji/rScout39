@@ -1,9 +1,10 @@
-<ui:composition template="templates/principal.xhtml"
+<ui:composition template="templates/eventos.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">Coordinador</ui:define>    
     <ui:define name="link1"><h:link class="nav-link text-color" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
     <ui:define name="link2"><h:link class="nav-link text-color" outcome="index.xhtml" value="Roles"/></ui:define>
@@ -11,15 +12,6 @@
     <ui:define name="link4"><h:link class="nav-link text-color" outcome="tha.xhtml" value="THA"/></ui:define>
     <ui:define name="link5"><h:link class="nav-link text-color" outcome="kim.xhtml" value="KIM"/></ui:define>
     <ui:define name="link6"><h:link class="nav-link text-color" outcome="almogama.xhtml" value="ALMOGAMA"/></ui:define>                               
-    <ui:define name="seccionnav">Coordinador</ui:define>
-  
-                                  
-    <!--ESTO DE ABAJO NO SE VE AUN (ES EL FORM DE AÑADIR USUARIO)-->
-    <center>
-    </center>
-
-
-    
-    
+    <ui:define name="seccionnav">Coordinador</ui:define>  
     <ui:define name="sectionh">Novedades</ui:define>
-   </ui:composition>
+</ui:composition>

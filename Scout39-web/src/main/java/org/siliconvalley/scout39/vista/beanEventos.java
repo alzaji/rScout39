@@ -11,18 +11,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.component.html.HtmlSelectManyCheckbox;
-import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -187,16 +180,16 @@ public class beanEventos implements Serializable {
     public String doBorrarEvento(Eventos e) {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
-                borrarEvento(eventosTHA, e);
+                borrarEvento(eventosTHA, comentariosTHA, e);
                 return "tha.xhtml?faces-redirect=true";
             case "ScouterKIM":
-                borrarEvento(eventosKIM, e);
+                borrarEvento(eventosKIM, comentariosKIM, e);
                 return "kim.xhtml?faces-redirect=true";
             case "ScouterSIRYU":
-                borrarEvento(eventosSIRYU, e);
+                borrarEvento(eventosSIRYU, comentariosSIRYU, e);
                 return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
-                borrarEvento(eventosALMOGAMA, e);
+                borrarEvento(eventosALMOGAMA, comentariosALMOGAMA, e);
                 return "almogama.xhtml?faces-redirect=true";
             default:
                 return "index.xhtml";
@@ -214,19 +207,19 @@ public class beanEventos implements Serializable {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
                 eventosTHA.add(evento);
-                //clearComponent();
+                comentariosTHA.put(evento, new ArrayList<Comentarios>());
                 return "tha.xhtml?faces-redirect=true";
             case "ScouterKIM":
                 eventosKIM.add(evento);
-                // clearComponent();
+                comentariosKIM.put(evento, new ArrayList<Comentarios>());
                 return "kim.xhtml?faces-redirect=true";
             case "ScouterSIRYU":
                 eventosSIRYU.add(evento);
-                //    clearComponent();
+                comentariosSIRYU.put(evento, new ArrayList<Comentarios>());
                 return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
                 eventosALMOGAMA.add(evento);
-                // clearComponent();
+                comentariosALMOGAMA.put(evento, new ArrayList<Comentarios>());
                 return "almogama.xhtml?faces-redirect=true";
             default:
                 return "index.xhtml?faces-redirect=true";
@@ -287,8 +280,9 @@ public class beanEventos implements Serializable {
         eventos.toArray()[posicion] = e;
     }
 
-    private void borrarEvento(List<Eventos> eventos, Eventos e) {
+    private void borrarEvento(List<Eventos> eventos, Map<Eventos, List<Comentarios>> comentarios, Eventos e) {
         eventos.remove(e);
+        comentarios.remove(e);
     }
 
     private Comentarios crearComentario(ComentariosUsuarioEventosDebil idComentario, String cuerpo) {

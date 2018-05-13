@@ -25,7 +25,7 @@ import org.siliconvalley.scout39.modelo.Usuario;
  */
 @Named(value = "controlUsuario")
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class ControlUsuario implements Serializable {
 
     @Inject
@@ -37,11 +37,15 @@ public class ControlUsuario implements Serializable {
     private String alias;
     private String email;
     private Roles roles;
-    
+
     public ControlUsuario() {
         login = new Login();
     }
-        
+
+    public List<Usuario> getUsuarios() {
+        return login.getUsuarios();
+    }
+
     public Roles getRoles() {
         return roles;
     }
@@ -95,9 +99,10 @@ public class ControlUsuario implements Serializable {
         String correo = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarEmail");
         Usuario user = newUsuario(u.getId(), alia, u.getDigest(),
                 nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-
-        int pos = login.getUsuarios().indexOf(u);
-        login.getUsuarios().toArray()[pos] = user;
+        
+        login = new Login();
+        int pos = login.getUsuarios().indexOf(u);        
+        login.getUsuarios().toArray()[pos] = user;      
 
         return "editarUsuarios.xhtml?faces-redirect=true";
 
