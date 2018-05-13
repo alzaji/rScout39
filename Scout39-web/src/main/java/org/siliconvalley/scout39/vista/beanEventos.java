@@ -306,6 +306,46 @@ public class beanEventos implements Serializable {
         return cId;
     }
 
+    public Comentarios getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Comentarios comentario) {
+        this.comentario = comentario;
+    }
+
+    public Map<Eventos, List<Comentarios>> getComentariosTHA() {
+        return comentariosTHA;
+    }
+
+    public void setComentariosTHA(Map<Eventos, List<Comentarios>> comentariosTHA) {
+        this.comentariosTHA = comentariosTHA;
+    }
+
+    public Map<Eventos, List<Comentarios>> getComentariosSIRYU() {
+        return comentariosSIRYU;
+    }
+
+    public void setComentariosSIRYU(Map<Eventos, List<Comentarios>> comentariosSIRYU) {
+        this.comentariosSIRYU = comentariosSIRYU;
+    }
+
+    public Map<Eventos, List<Comentarios>> getComentariosKIM() {
+        return comentariosKIM;
+    }
+
+    public void setComentariosKIM(Map<Eventos, List<Comentarios>> comentariosKIM) {
+        this.comentariosKIM = comentariosKIM;
+    }
+
+    public Map<Eventos, List<Comentarios>> getComentariosALMOGAMA() {
+        return comentariosALMOGAMA;
+    }
+
+    public void setComentariosALMOGAMA(Map<Eventos, List<Comentarios>> comentariosALMOGAMA) {
+        this.comentariosALMOGAMA = comentariosALMOGAMA;
+    }
+    
     public Eventos getEvento() {
         return evento;
     }
