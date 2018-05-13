@@ -25,13 +25,17 @@ public class beanPerfil {
     
     private Usuario usuario;
     private Map<Usuario,List<Archivo>> archivos;
+    private Map<String,String> promesas;
     @Inject
     private ControlAutorizacion ctrl;
+    private ControlAsistencia controlAsis;
     private Login login;
+    
     
     public beanPerfil() {
         login = new Login();
         archivos = new HashMap<>();
+        promesas = new HashMap<>();
         List<Archivo> listas03;
                 
         for(Usuario u: login.getUsuarios()){
@@ -43,6 +47,7 @@ public class beanPerfil {
             listas03.add(d);
             archivos.put(u, listas03);
         }
+        getPromesaUsuario();
     }
     public boolean insertFile(Usuario u){
         boolean ret = false;
@@ -67,6 +72,32 @@ public class beanPerfil {
             }
         }
         return null;
+    }
+    private void getPromesaUsuario(){
+        Map<Eventos, List<Progresion>> aux = new HashMap<>();
+        switch (ctrl.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoKIM":
+                aux = controlAsis.getEventosKIM();
+            case "EducandoSIRYU":
+                aux = controlAsis.getEventosSIRYU();
+            case "EducandoTHA":
+                aux = controlAsis.getEventosTHA();
+            case "EducandoALMOGAMA":
+                aux = controlAsis.getEventosALMOGAMA();
+            default:
+                aux = null;
+        for(Eventos e: aux.keySet()){
+            if(aux.get(e).contains((ctrl.getUsuario().getProgresion()))){
+                for(Progresion p: aux.get(e)){
+                    if(p.getUsuarioP().equals(ctrl.getUsuario())) promesas.put(e.getNombre(),p.getPromesa());
+                }
+            }
+        }
+        }
+    }
+
+    public Map<String, String> getPromesas() {
+        return promesas;
     }
     
     

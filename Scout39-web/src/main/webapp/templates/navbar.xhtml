@@ -26,7 +26,7 @@
                                         <a class="nav-link text-color" href="index.xhtml">Inicio</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" href="#sectionAboutUs">Quiénes somos</a>
+                                        <a class="nav-link text-color" href="#sectionAboutUs">Valores</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link text-color" href="#footer">Contacto</a>
@@ -110,16 +110,11 @@
                             <!-- Boton perfil de Usuario -->
                             <h:form id="conSesion">
                                 <div class="btn-group">
-                                    <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola pepito</button>
+                                    <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola #{controlAutorizacion.usuario.alias}</button>
 
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="viewProfile.xhtml">
-                                            <i class="fa fa-user left"></i> Mi perfil</a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fa fa-calendar left"></i> Mis eventos</a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fa fa-cog left"></i> Configuración</a>
-                                        <div class="dropdown-divider"></div>
+                                            <i class="fa fa-user left"></i> Mi perfil</a>                                       
                                         <h:commandLink class="dropdown-item" action="#{controlAutorizacion.logout()}" value="Cerrar sesión"/>
                                     </div>
                                 </div>
