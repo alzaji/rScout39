@@ -27,7 +27,7 @@
 
 
             <h:dataTable value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
-                <h:column>
+                  <h:column>
                     <!-- column header -->
                     <f:facet name="header">Código</f:facet>
                     <!-- row record -->
@@ -163,6 +163,7 @@
                             <h4 class="title">
                                 <i class="fa fa-pencil"></i> Crear usuario</h4>
                             <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                <f:ajax render="tabla"/>
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
