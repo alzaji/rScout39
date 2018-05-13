@@ -32,8 +32,16 @@ public class beanPerfil {
     public beanPerfil() {
         login = new Login();
         archivos = new HashMap<>();
+        List<Archivo> listas03;
+                
         for(Usuario u: login.getUsuarios()){
-            archivos.put(u, new ArrayList<Archivo>());
+            listas03 = new ArrayList<Archivo>();
+            Archivo d = new Archivo();
+            d.setNombre("S03" + u.getAlias() + ".pdf");
+            d.setRuta("../Archivos/S03" + u.getAlias() +".pdf");
+            d.setTipo("pdf");
+            listas03.add(d);
+            archivos.put(u, listas03);
         }
     }
     public boolean insertFile(Usuario u){
@@ -55,10 +63,8 @@ public class beanPerfil {
     public List<Archivo> getUserFiles(Usuario u){
         if(archivos.containsKey(u)){
             for(Usuario a: archivos.keySet()){
-            if(a.equals(u)){
-                return archivos.get(a);
+                if(u.equals(a)) return archivos.get(a);
             }
-        }
         }
         return null;
     }
