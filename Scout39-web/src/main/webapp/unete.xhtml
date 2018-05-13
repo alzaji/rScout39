@@ -4,78 +4,86 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-    
-    <ui:define name="title">Únete a nosotros</ui:define> 
-    <ui:define name="iniciarSesion" p:hidden="true"></ui:define>
-    <ui:define name="contenidonolog">
-    
-    <!--Carousel Wrapper-->
-    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-        <!--Slides-->
-        <div class="carousel-inner" role="listbox">
-            <!--First slide-->
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="./resources/img/coord.jpg" alt="First slide"/>
+
+    <ui:define name="title">Únete a nosotros</ui:define>
+    <ui:define name="navSinSesion" />
+    <ui:define name="btnSinSesion">
+        <form class="form-inline">
+            <div class="md-form mt-0 ">
+                <h:link class="btn btn-teal btn-rounded  btn-join" outcome="index.xhtml">
+                    <i class="fa fa-arrow-circle-left left"></i>Regresar</h:link>
             </div>
-            <!--/First slide-->
-        </div>
-        <!--/.Slides-->
+        </form>
+    </ui:define>
+    <ui:define name="contenidonolog">
 
-    </div>
-    <!--/.Carousel Wrapper-->
-    <center>
-        <div class="col-md-3 mt-5 mb-5">
-            <!-- Material form contact -->
-            <form>
-                <p class="h4 text-center mb-4">Únete a nosotros</p>
-
-                <!-- Material input text -->
-                <div class="md-form">
-
-                    <input type="text" id="materialFormContactNameEx" class="form-control"/>
-                    <label for="materialFormContactNameEx">Nombre y apellidos</label>
+        <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/coord.jpg" alt="First slide"/>
                 </div>
-
-                <!-- Material input email -->
-                <div class="md-form">
-
-                    <input type="email" id="materialFormContactEmailEx" class="form-control"/>
-                    <label for="materialFormContactEmailEx">Correo electrónico</label>
-                </div>
-
-                <!-- Material input text -->
-                <div class="md-form ">
-
-                    <input type="text" id="materialFormContactNameEx" class="form-control"/>
-                    <label for="materialFormContactNameEx">Teléfono/Móvil</label>
-                </div>
-
-
-                <!-- Material input subject -->
-                <div class="md-form">
-
-                    <input type="number" id="materialFormContactSubjectEx" class="form-control"/>
-                    <label for="materialFormContactSubjectEx">Edad</label>
-                </div>
-
-                <!-- Material textarea message -->
-                <div class="md-form">
-
-                    <textarea type="text" id="materialFormContactMessageEx" class="form-control md-textarea" rows="3"></textarea>
-                    <label for="materialFormContactMessageEx">Mensaje...</label>
-                </div>
-
-                <div class="text-center mt-4">
-                    <button class="btn btn-outline-default" type="submit">Enviar
-                        <i class="fa fa-paper-plane-o ml-2"></i>
-                    </button>
-                </div>
-            </form>
-            <!-- Material form contact -->
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
 
         </div>
+        <!--/.Carousel Wrapper-->
+        <center>
+            <div class="col-md-3 mt-5 mb-5">
+                <!-- Material form contact -->
+                <form>
+                    <p class="h4 text-center mb-4">Únete a nosotros</p>
 
-    </center>
+                    <!-- Material input text -->
+                    <div class="md-form">
+
+                        <input type="text" id="materialFormContactNameEx" class="form-control"/>
+                        <label for="materialFormContactNameEx">Nombre y apellidos</label>
+                    </div>
+
+                    <!-- Material input email -->
+                    <div class="md-form">
+
+                        <input type="email" id="materialFormContactEmailEx" class="form-control"/>
+                        <label for="materialFormContactEmailEx">Correo electrónico</label>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form ">
+
+                        <input type="text" id="materialFormContactNameEx" class="form-control"/>
+                        <label for="materialFormContactNameEx">Teléfono/Móvil</label>
+                    </div>
+
+
+                    <!-- Material input subject -->
+                    <div class="md-form">
+
+                        <input type="number" id="materialFormContactSubjectEx" class="form-control"/>
+                        <label for="materialFormContactSubjectEx">Edad</label>
+                    </div>
+
+                    <!-- Material textarea message -->
+                    <div class="md-form">
+
+                        <textarea type="text" id="materialFormContactMessageEx" class="form-control md-textarea" rows="3"></textarea>
+                        <label for="materialFormContactMessageEx">Mensaje...</label>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline-default" type="submit">Enviar
+                            <i class="fa fa-paper-plane-o ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+                <!-- Material form contact -->
+
+            </div>
+
+        </center>
 
     </ui:define>
 </ui:composition>
