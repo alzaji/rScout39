@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.annotation.ManagedBean;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -104,30 +105,61 @@ public class beanEventos implements Serializable {
                 return new ArrayList<Eventos>();
         }
     }
-    public List<Comentarios> obtenerComentarios(Eventos e){
+
+    public List<Comentarios> doObtenerComentarios(Eventos e) {
         switch (control.getUsuario().getRoles().getNombrerol()) {
 
             case "ScouterTHA":
             case "EducandoTHA":
-                return comentariosTHA.get(evento);
+                return comentariosTHA.get(e);
 
             case "ScouterKIM":
             case "EducandoKIM":
-                return comentariosKIM.get(evento);
+                return comentariosKIM.get(e);
 
             case "ScouterSIRYU":
             case "EducandoSIRYU":
-                return comentariosSIRYU.get(evento);
+                return comentariosSIRYU.get(e);
 
             case "ScouterALMOGAMA":
             case "EducandoALMOGAMA":
-                return comentariosALMOGAMA.get(evento);
+                return comentariosALMOGAMA.get(e);
 
             default:
                 return new ArrayList<Comentarios>();
         }
-        
+
     }
+
+    public String doNuevoComentario(Eventos e) {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String cuerpo = request.getParameter("formComentarioEvento" + e.getId().toString() + ":textoComentario");
+        ComentariosUsuarioEventosDebil idComentario = crearIdComentario(e.getId(), control.getUsuario().getId());
+        Comentarios c = crearComentario(idComentario, cuerpo);
+        c.setUsuario(control.getUsuario());
+
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoTHA":
+            case "ScouterTHA":
+                comentariosTHA.get(e).add(c);
+                return "tha.xhtml?faces-redirect=true";
+            case "EducandoKIM":
+            case "ScouterKIM":
+                comentariosKIM.get(e).add(c);
+                return "kim.xhtml?faces-redirect=true";
+            case "EducandoSIRYU":
+            case "ScouterSIRYU":
+                comentariosSIRYU.get(e).add(c);
+                return "siryu.xhtml?faces-redirect=true";
+            case "EducandoALMOGAMA":
+            case "ScouterALMOGAMA":
+                comentariosALMOGAMA.get(e).add(c);
+                return "almogama.xhtml?faces-redirect=true";
+            default:
+                return "index.xhtml";
+        }
+    }
+
     public int tamañoListaComentarios(Eventos evento) {
         switch (control.getUsuario().getRoles().getNombrerol()) {
 
@@ -259,41 +291,21 @@ public class beanEventos implements Serializable {
         eventos.remove(e);
     }
 
-//    public static void clearComponent() {
-//        UIViewRoot root = FacesContext.getCurrentInstance().getViewRoot();
-//
-//        // for JSF 2 getFacetsAndChildren instead of only JSF 1 getChildren
-//        Iterator<UIComponent> children = root.getFacetsAndChildren();
-//        clearAllComponentInChilds(children);
-//    }
-//
-//    private static void clearAllComponentInChilds(Iterator<UIComponent> childrenIt) {
-//
-//        while (childrenIt.hasNext()) {
-//            UIComponent component = childrenIt.next();
-//            //log.debug("handling component " + component.getId() );
-//            if (component instanceof HtmlInputText) {
-//                HtmlInputText com = (HtmlInputText) component;
-//                com.resetValue();
-//            }
-//            if (component instanceof HtmlSelectOneMenu) {
-//                HtmlSelectOneMenu com = (HtmlSelectOneMenu) component;
-//                com.resetValue();
-//            }
-//            if (component instanceof HtmlSelectBooleanCheckbox) {
-//                HtmlSelectBooleanCheckbox com = (HtmlSelectBooleanCheckbox) component;
-//                com.resetValue();
-//            }
-//            if (component instanceof HtmlSelectManyCheckbox) {
-//                HtmlSelectManyCheckbox com = (HtmlSelectManyCheckbox) component;
-//                com.resetValue();
-//            }
-//
-//            clearAllComponentInChilds(component.getFacetsAndChildren());
-//
-//        }
-//
-//    }
+    private Comentarios crearComentario(ComentariosUsuarioEventosDebil idComentario, String cuerpo) {
+        Comentarios c = new Comentarios();
+        c.setIdComentarios(idComentario);
+        c.setCuerpo(cuerpo);
+        return c;
+    }
+
+    private ComentariosUsuarioEventosDebil crearIdComentario(Long idEvento, Long idUsuario) {
+        ComentariosUsuarioEventosDebil cId = new ComentariosUsuarioEventosDebil();
+        cId.setIdEvento(idEvento);
+        cId.setIdUsuario(idUsuario);
+        cId.setIdComentarios(new Random().nextLong());
+        return cId;
+    }
+
     public Eventos getEvento() {
         return evento;
     }
