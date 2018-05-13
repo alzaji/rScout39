@@ -9,6 +9,7 @@ import org.siliconvalley.scout39.modelo.*;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,28 +21,28 @@ import javax.inject.Inject;
  */
 @Named(value = "ControlAsistencia")
 @SessionScoped
-public class ControlAsistencia implements Serializable{
-    
-    private Map<Eventos,List<Progresion>> eventosKIM;
-    private Map<Eventos,List<Progresion>> eventosSIRYU;
-    private Map<Eventos,List<Progresion>> eventosTHA;
-    private Map<Eventos,List<Progresion>> eventosALMOGAMA;
-    
+public class ControlAsistencia implements Serializable {
+
+    private Map<Eventos, List<Progresion>> eventosKIM;
+    private Map<Eventos, List<Progresion>> eventosSIRYU;
+    private Map<Eventos, List<Progresion>> eventosTHA;
+    private Map<Eventos, List<Progresion>> eventosALMOGAMA;
+
     @Inject
     private ControlAutorizacion control;
-    
+
     @Inject
     private beanEventos evento;
-    
-    public ControlAsistencia(){
-      eventosKIM = new HashMap<>();
-      eventosSIRYU = new HashMap<>();
-      eventosTHA = new HashMap<>();
-      eventosALMOGAMA = new HashMap<>();
-              
+
+    public ControlAsistencia() {
+        eventosKIM = new HashMap<>();
+        eventosSIRYU = new HashMap<>();
+        eventosTHA = new HashMap<>();
+        eventosALMOGAMA = new HashMap<>();
+
     }
-    
-    private Progresion crearProgresion(Long idEvento,Long idUsuario){
+
+    private Progresion crearProgresion(Long idEvento, Long idUsuario) {
         Progresion p = new Progresion();
         p.setIdProgresion(crearIdProgresion(idEvento, idUsuario));
         p.setAnimacion(0);
@@ -50,73 +51,125 @@ public class ControlAsistencia implements Serializable{
         p.setPromesa("");
         return p;
     }
-    
-    private ProgresionUsuarioEventosDebil crearIdProgresion(Long idEvento, Long idUsuario){
+
+    private ProgresionUsuarioEventosDebil crearIdProgresion(Long idEvento, Long idUsuario) {
         ProgresionUsuarioEventosDebil p = new ProgresionUsuarioEventosDebil();
         p.setIdEventos(idEvento);
         p.setIdUsuario(idUsuario);
         return p;
     }
-    
-    public String asistirEvento(Eventos i){
-        
-       Progresion p = crearProgresion(i.getId(),control.getUsuario().getId());
-        
-        switch(control.getUsuario().getRoles().getNombrerol()){
-            case "EducandoKIM" : eventosKIM.get(i).add(p);
-            return "kim.xhtml";
-            case "EducandoSIRYU" : eventosSIRYU.get(i).add(p);
-            return "siryu.xhtml";
-            case "EducandoTHA" : eventosTHA.get(i).add(p);
-            return "tha.xhtml";
-            case "EducandoALMOGAMA" : eventosALMOGAMA.get(i).add(p);
-            return "almogama.xhtml";
-            default : return "index.xhtml";
-        }      
-    }
-    
-    public String noAsistir(Eventos i){
-        
-        Progresion p = crearProgresion(i.getId(),control.getUsuario().getId());
-        
-        switch(control.getUsuario().getRoles().getNombrerol()){
-            case "EducandoKIM" : eventosKIM.get(i).remove(p);
-            return "kim.xhtml";
-            case "EducandoSIRYU" : eventosSIRYU.get(i).remove(p);
-            return "siryu.xhtml";
-            case "EducandoTHA" : eventosTHA.get(i).remove(p);
-            return "tha.xhtml";
-            case "EducandoALMOGAMA" : eventosALMOGAMA.get(i).remove(p);
-            return "almogama.xhtml";
-            default : return "index.xhtml";
+
+    public String asistirEvento(Eventos i) {
+
+        Progresion p = crearProgresion(i.getId(), control.getUsuario().getId());
+
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoKIM":
+                eventosKIM.get(i).add(p);
+                return "kim.xhtml";
+            case "EducandoSIRYU":
+                eventosSIRYU.get(i).add(p);
+                return "siryu.xhtml";
+            case "EducandoTHA":
+                eventosTHA.get(i).add(p);
+                return "tha.xhtml";
+            case "EducandoALMOGAMA":
+                eventosALMOGAMA.get(i).add(p);
+                return "almogama.xhtml";
+            default:
+                return "index.xhtml";
         }
     }
-    
-    
-    
-    
-    public boolean comprobarAsistencia(Eventos i){
-        
-        Progresion p = crearProgresion(i.getId(),control.getUsuario().getId());
-        
-        switch(control.getUsuario().getRoles().getNombrerol()){
-            case "EducandoKIM" : 
-                return eventosKIM.get(i).contains(p);
- 
-            case "EducandoSIRYU" : 
-                return eventosSIRYU.get(i).contains(p);
-                  
-            case "EducandoTHA" :
-                return eventosTHA.get(i).contains(p);
-             
-            case "EducandoALMOGAMA" : 
-                return eventosALMOGAMA.get(i).contains(p);
-                
-            default : return false;  
-        }   
+
+    public String noAsistir(Eventos i) {
+
+        Progresion p = crearProgresion(i.getId(), control.getUsuario().getId());
+
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoKIM":
+                eventosKIM.get(i).remove(p);
+                return "kim.xhtml";
+            case "EducandoSIRYU":
+                eventosSIRYU.get(i).remove(p);
+                return "siryu.xhtml";
+            case "EducandoTHA":
+                eventosTHA.get(i).remove(p);
+                return "tha.xhtml";
+            case "EducandoALMOGAMA":
+                eventosALMOGAMA.get(i).remove(p);
+                return "almogama.xhtml";
+            default:
+                return "index.xhtml";
+        }
     }
-    
-    
+
+    public boolean comprobarAsistencia(Eventos i) {
+
+        Progresion p = crearProgresion(i.getId(), control.getUsuario().getId());
+
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoKIM":
+                if (eventosKIM.isEmpty()) {
+                    return false;
+                }
+                return eventosKIM.get(i).contains(p);
+
+            case "EducandoSIRYU":
+                if (eventosSIRYU.isEmpty()) {
+                    return false;
+                }
+                return eventosSIRYU.get(i).contains(p);
+
+            case "EducandoTHA":
+
+                if (eventosTHA.isEmpty()) {
+                    return false;
+                }
+                return eventosTHA.get(i).contains(p);
+
+            case "EducandoALMOGAMA":
+                if (eventosALMOGAMA.isEmpty()) {
+                    return false;
+                }
+                return eventosALMOGAMA.get(i).contains(p);
+
+            default:
+                return false;
+        }
+    }
+
+    public void añadeEventoEnED(Eventos i) {
+
+        switch (control.getUsuario().getRoles().getNombrerol()) {
+            case "EducandoKIM":
+                if (!eventosKIM.containsKey(i)) {
+                    eventosKIM.put(i, new ArrayList<Progresion>());
+                }
+                break;
+
+            case "EducandoSIRYU":
+                if (!eventosSIRYU.containsKey(i)) {
+                    eventosSIRYU.put(i, new ArrayList<Progresion>());
+                }
+                break;
+
+            case "EducandoTHA":
+                if (!eventosTHA.containsKey(i)) {
+                    eventosTHA.put(i, new ArrayList<Progresion>());
+                }
+                break;
+
+            case "EducandoALMOGAMA":
+                if (!eventosALMOGAMA.containsKey(i)) {
+                    eventosALMOGAMA.put(i, new ArrayList<Progresion>());
+                }
+                break;
+
+            default:
+                break;
+        }
+
+    }
 
     public beanEventos getEvento() {
         return evento;
@@ -125,8 +178,6 @@ public class ControlAsistencia implements Serializable{
     public void setEvento(beanEventos evento) {
         this.evento = evento;
     }
-    
-    
 
     public ControlAutorizacion getControl() {
         return control;
@@ -135,7 +186,6 @@ public class ControlAsistencia implements Serializable{
     public void setControl(ControlAutorizacion control) {
         this.control = control;
     }
-    
 
     public Map<Eventos, List<Progresion>> getEventosKIM() {
         return eventosKIM;
@@ -168,5 +218,5 @@ public class ControlAsistencia implements Serializable{
     public void setEventosALMOGAMA(Map<Eventos, List<Progresion>> eventosALMOGAMA) {
         this.eventosALMOGAMA = eventosALMOGAMA;
     }
-    
+
 }
