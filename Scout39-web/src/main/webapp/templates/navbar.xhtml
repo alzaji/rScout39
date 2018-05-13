@@ -40,6 +40,18 @@
                                 <li class="nav-item">
                                     <ui:insert name="link2"/>
                                 </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link3"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link4"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link5"/>
+                                </li>
+                                <li class="nav-item">
+                                    <ui:insert name="link6"/>
+                                </li>
 
                             </c:when>
                             <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">
@@ -114,7 +126,7 @@
                             </h:form>
                         </c:otherwise>
                     </c:choose>
-                </div>
+                </div>               
             </div>
         </nav>
         <!-- Navbar -->            
