@@ -11,14 +11,14 @@
                 <c:choose>
                     <c:when test="#{empty controlAutorizacion.usuario.roles.nombrerol}">
                         <h:link class="navbar-brand" outcome="index.xhtml">
-                            <strong class="text-color">
+                            <strong class="text-white">
                                 <ui:insert name="title">Plantilla Landing</ui:insert>
                             </strong>
                         </h:link>
                     </c:when>
                     <c:otherwise>
                         <h:link class="navbar-brand" outcome="#{controlAutorizacion.home()}">
-                            <strong class="text-color">
+                            <strong class="text-white">
                                 <ui:insert name="title">Plantilla Landing</ui:insert>
                             </strong>
                         </h:link>
@@ -34,13 +34,13 @@
                             <c:when test="#{empty controlAutorizacion.usuario.roles.nombrerol}">
                                 <ui:insert name="navSinSesion">
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" href="index.xhtml">Inicio</a>
+                                        <a class="nav-link text-white" href="index.xhtml">Inicio</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" href="#sectionAboutUs">Valores</a>
+                                        <a class="nav-link text-white" href="#sectionAboutUs">Valores</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-color" href="#footer">Contacto</a>
+                                        <a class="nav-link text-white" href="#footer">Contacto</a>
                                     </li>
                                 </ui:insert>
                             </c:when>
@@ -105,13 +105,13 @@
                             <ui:insert name="btnSinSesion">
                                 <form class="form-inline">
                                     <div class="md-form mt-0">
-                                        <a class="btn btn-teal btn-rounded btn-login" name="iniciarSesion" data-toggle="modal" data-target="#modalLRForm">
+                                        <a class="btn btn-rounded btn-login text-white" name="iniciarSesion" data-toggle="modal" data-target="#modalLRForm">
                                             <i class="fa fa-user left"></i> Iniciar Sesión</a>
                                     </div>
                                 </form>
                                 <form class="form-inline">
                                     <div class="md-form mt-0 ">
-                                        <h:link class="btn btn-teal btn-rounded  btn-join" outcome="unete.xhtml">
+                                        <h:link class="btn btn-rounded btn-join text-white" outcome="unete.xhtml">
                                             <i class="fa fa-user-plus left"></i>Únete</h:link>
                                     </div>
                                 </form>
@@ -175,7 +175,7 @@
                                         <label data-error="No coincide" data-success="Correcto" for="modalLRInput11">Contraseña</label>
                                     </div>
                                     <div class="text-center mt-2">
-                                        <h:commandLink class="btn btn-info btn-default" value="Iniciar Sesión" action="#{login.autenticar()}">
+                                        <h:commandLink class="btn btn-info btn-purple" value="Iniciar Sesión" action="#{login.autenticar()}">
                                             <i class="fa fa-sign-in ml-1"></i>
                                         </h:commandLink>
                                     </div>
@@ -186,10 +186,10 @@
                                 <div class="options text-center text-md-right mt-1">
 
                                     <p>¿Olvidaste la
-                                        <a class="teal-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
+                                        <a class="secondary-text" data-toggle="modal" data-target="#modalForgotPassForm" data-dismiss="modal">contraseña?</a>
                                     </p>
                                 </div>
-                                <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-danger waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                             </div>
 
                         </div>
@@ -234,10 +234,10 @@
                                 </div>
 
                                 <div class="text-center mt-2">
-                                    <button class="btn btn-default">Enviar
+                                    <button class="btn btn-purple">Enviar
                                         <i class="fa fa-sign-in ml-1"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline-default waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger waves-effect ml-auto" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
 
