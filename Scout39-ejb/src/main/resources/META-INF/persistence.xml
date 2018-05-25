@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-  <persistence-unit name="Scout39MPU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>org.siliconvalley.scout39.modelo.AccesoGrupo</class>
-    <class>org.siliconvalley.scout39.modelo.Archivo</class>
-    <class>org.siliconvalley.scout39.modelo.Comentarios</class>
-    <class>org.siliconvalley.scout39.modelo.Cuotas</class>
-    <class>org.siliconvalley.scout39.modelo.Eventos</class>
-    <class>org.siliconvalley.scout39.modelo.Grupo</class>
-    <class>org.siliconvalley.scout39.modelo.Objeto</class>
-    <class>org.siliconvalley.scout39.modelo.Privilegios</class>
-    <class>org.siliconvalley.scout39.modelo.Progresion</class>
-    <class>org.siliconvalley.scout39.modelo.Roles</class>
-    <class>org.siliconvalley.scout39.modelo.S03</class>
-    <class>org.siliconvalley.scout39.modelo.Usuario</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+  <persistence-unit name="Scout39MPU" transaction-type="JTA">
+    <jta-data-source>jdbc/Scout39</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/Scout39"/>
-      <property name="javax.persistence.jdbc.user" value="Scout39"/>
-      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
-      <property name="javax.persistence.jdbc.password" value="scoutpasswd"/>
       <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.sql-load-script-source" value="datos.sql"/>
+      <property name="eclipselink.logging.level" value="FINEST"/>
     </properties>
   </persistence-unit>
 </persistence>
