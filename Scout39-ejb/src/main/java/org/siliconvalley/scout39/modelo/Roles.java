@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -29,7 +30,7 @@ public class Roles implements Serializable {
     private String nombrerol;
     @OneToMany
     private List<Usuario> usuarios;
-    @OneToMany
+    @ManyToMany
     private List<Privilegios> privilegios;
 
     public List<Usuario> getUsuarios() {
