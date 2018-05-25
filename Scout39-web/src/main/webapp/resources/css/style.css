@@ -25,23 +25,25 @@ body{
 }
 
 .top-nav-collapse {
-    background-color: #00695c   !important;
+    background-color: #622599   !important;
     color: white;
 }
 
 .btn-login{
+    background-color: #622599;    
     border-radius: 40px;
 }
 
 .btn-join{
+    background-color: #622599;
     border-radius: 40px;
 }
 
 .navbar:not(.top-nav-collapse) {
-    background: #00695c  !important; 
+    background: #622599  !important; 
 }
 .btn-profileUser{
-  background-color: #00695c   !important;
+  background-color: #622599   !important;
   box-shadow: none;
 }
 
@@ -51,7 +53,7 @@ body{
 
 @media (max-width: 768px) {
     .navbar:not(.top-nav-collapse) {
-        background: #00695c   !important;
+        background: #622599   !important;
     }
 }
 
@@ -78,3 +80,14 @@ h5 {
     width: 80px;
 }
 
+footer{
+    background-color: #622599 !important;
+}
+
+a:hover.nav-link{
+   font-weight: bold;
+}
+
+.card-header{
+    background-color: #622599 !important;
+}
