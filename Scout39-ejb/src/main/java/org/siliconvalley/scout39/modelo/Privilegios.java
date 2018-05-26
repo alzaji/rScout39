@@ -33,6 +33,8 @@ public class Privilegios implements Serializable {
     private Character borrado;
     @ManyToMany(mappedBy = "listaPrivilegios")
     private List<Objeto> listaObjetos;
+    @ManyToMany (mappedBy = "privilegios")
+    private List<Roles> listaRoles;
 
     public Long getId() {
         return id;
@@ -74,6 +76,14 @@ public class Privilegios implements Serializable {
         this.listaObjetos = listaObjetos;
     }
 
+    public List<Roles> getListaRoles() {
+        return listaRoles;
+    }
+
+    public void setListaRoles(List<Roles> listaRoles) {
+        this.listaRoles = listaRoles;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
