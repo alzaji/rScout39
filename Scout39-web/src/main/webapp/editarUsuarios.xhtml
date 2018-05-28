@@ -26,8 +26,8 @@
                 </select>                
             </div>
 
-
-            <h:dataTable id="table" value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
+            <div class="container col-8">
+                <h:dataTable id="table" value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
                 <h:column>
                     <!-- column header -->
                     <f:facet name="header">Código</f:facet>
@@ -123,10 +123,7 @@
                     <f:facet name="header">Borrar</f:facet>
                     <!-- row record -->
                     <button class="btn btn-danger btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#removeModal#{u.id.toString()}">Eliminar</button>
-
-                </h:column>
-
-                <!-- Modal REMOVE USER-->
+                     <!-- Modal REMOVE USER-->
                 <div class="modal fade" id="removeModal#{u.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -149,7 +146,14 @@
                         </div>
                     </div>
                 </div>
-            </h:dataTable>            
+                </h:column>
+                   
+            </h:dataTable>   
+            </div>
+            
+                    
+
+                         
         </center>
 
 
