@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,10 +42,10 @@ public class Eventos implements Serializable {
     @Column(nullable = false, precision = 11, scale = 8)
     private BigDecimal longitud;
 
-    @OneToMany(mappedBy = "eventoC")
+    @OneToMany(mappedBy = "eventoC", cascade = CascadeType.ALL)
     private List<Comentarios> comentariosE;
 
-    @OneToMany(mappedBy = "eventoP")
+    @OneToMany(mappedBy = "eventoP", cascade = CascadeType.ALL)
     private List<Progresion> progresionesE;
 
     public Date getFecha() {

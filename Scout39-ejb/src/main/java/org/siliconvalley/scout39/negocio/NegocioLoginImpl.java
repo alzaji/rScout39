@@ -5,11 +5,12 @@
  */
 package org.siliconvalley.scout39.negocio;
 
-import java.util.Date;
-import javax.annotation.PostConstruct;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.Usuario;
 
 /**
@@ -18,30 +19,32 @@ import org.siliconvalley.scout39.modelo.Usuario;
  */
 @Stateless
 public class NegocioLoginImpl implements NegocioLogin {
-    
+
     @PersistenceContext(unitName = "Scout39MPU")
     private EntityManager em;
 
-    
     @Override
-    public void registrarUsuario(Usuario u) throws ScoutException{
-        
-        comprobarUsuario(u);
-        
-        em.persist(u);
-               
+    public void registrarUsuario(Usuario u) throws ScoutException {
+
+        em.merge(u);
+
     }
 
     @Override
-    public void comprobarUsuario(Usuario u) throws ScoutException {
+    public Usuario comprobarUsuario(String alias) throws ScoutException {
+
+        Query q = em.createQuery("Select u from Usuario u where alias = :alias");
+        q.setParameter("alias", alias);
         
-         Usuario us = em.find(Usuario.class, u.getAlias());
-        
-        if (us != null){
+        try {
+            Usuario u = (Usuario) q.getSingleResult();
+            return u;
             
-            throw new ScoutException("Ya existe el usuario: " + u.getAlias());
+        }catch (RuntimeException e) {
+            
+            throw new ScoutException("No se encontro el usuario con alias " + alias);
         }
-        
+
     }
 
 }

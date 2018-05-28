@@ -7,6 +7,7 @@ package org.siliconvalley.scout39.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +32,9 @@ public class Privilegios implements Serializable {
     private Character escritura;
     @Column(nullable = false)
     private Character borrado;
-    @ManyToMany(mappedBy = "listaPrivilegios")
+    @ManyToMany(mappedBy = "listaPrivilegios", cascade = CascadeType.ALL)
     private List<Objeto> listaObjetos;
-    @ManyToMany (mappedBy = "privilegios")
+    @ManyToMany (mappedBy = "privilegios", cascade = CascadeType.ALL)
     private List<Roles> listaRoles;
 
     public Long getId() {

@@ -10,12 +10,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import org.siliconvalley.scout39.negocio.NegocioLogin;
+import org.siliconvalley.scout39.negocio.ScoutException;
+
 
 /**
  *
@@ -32,6 +37,8 @@ public class Login implements Serializable{
     private Usuario u;
     @Inject
     private ControlAutorizacion ctrl;
+    @EJB
+    private NegocioLogin negociologin;
 
     /**
      * Creates a new instance of Login
@@ -109,7 +116,19 @@ public class Login implements Serializable{
         // Implementar este método
         FacesContext ctx = FacesContext.getCurrentInstance();
         int posicion = isinList(getUsuario());
-        //boolean isPasswdCorrect = false;
+//        try {
+//            negociologin.comprobarUsuario(getUsuario());
+//            //boolean isPasswdCorrect = false;
+//        } catch (ScoutException ex) {
+//            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios", "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios"));
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+//        }
+//        
+//        try {
+//            negociologin.registrarUsuario(newUsuario(null, "HAZJ", "1234", "Alberto", "Zamora Jiménez", "alzaji@gmail.com", new Date(), null));
+//        } catch (ScoutException ex) {
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+//        }
 
         if (posicion == -1) {
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios", "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios"));
@@ -155,7 +174,7 @@ public class Login implements Serializable{
         Roles rol = new Roles();
 
         rol.setNombrerol(nombrerol);
-        rol.setIdrol(id);
+        rol.setId(id);
 
         return rol;
     }

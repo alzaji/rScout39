@@ -3,6 +3,7 @@ package org.siliconvalley.scout39.modelo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,15 +41,15 @@ public class Usuario implements Serializable {
     private Date fecha_baja;
     @ManyToOne
     private Roles roles;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Comentarios> comentarios;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cuotas> cuota;
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Archivo> archivo;
-    @OneToMany(mappedBy = "usuarioP")
+    @OneToMany(mappedBy = "usuarioP", cascade = CascadeType.ALL)
     private List<Progresion> progresion;
-    @OneToMany(mappedBy = "Usuario_Grupo")
+    @OneToMany(mappedBy = "Usuario_Grupo", cascade = CascadeType.ALL)
     private List<AccesoGrupo> Acceso_Grupo;
 
     public String getAlias() {

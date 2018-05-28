@@ -8,6 +8,8 @@ package org.siliconvalley.scout39.modelo;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 /**
  *
@@ -15,7 +17,7 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class ComentariosUsuarioEventosDebil implements Serializable {
-
+    
     private Long idComentarios;
     private Long idUsuario;
     private Long idEvento;

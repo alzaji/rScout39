@@ -14,11 +14,10 @@ import javax.faces.context.FacesContext;
  * @author alzaji
  */
 @ApplicationException (rollback = true)
-class ScoutException extends Exception {
+public class ScoutException extends Exception {
 
     public ScoutException(String msg) {
-            FacesMessage fm = new FacesMessage(msg);
-            FacesContext.getCurrentInstance().addMessage(msg, fm);
+           super(msg);
     }
     
 }

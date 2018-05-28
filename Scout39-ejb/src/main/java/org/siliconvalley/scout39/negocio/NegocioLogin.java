@@ -16,6 +16,6 @@ import org.siliconvalley.scout39.modelo.Usuario;
 public interface NegocioLogin {
     
     public void registrarUsuario(Usuario u) throws ScoutException;
-    public void comprobarUsuario(Usuario u) throws ScoutException;
+    public Usuario comprobarUsuario(String alias) throws ScoutException;
     
 }

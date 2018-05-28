@@ -10,6 +10,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -23,7 +25,7 @@ public class Comentarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
-    private ComentariosUsuarioEventosDebil idComentarios;
+    private ComentariosUsuarioEventosDebil idComentarios = new ComentariosUsuarioEventosDebil();
     @Column(nullable = false, length = 500)
     private String cuerpo;
 
