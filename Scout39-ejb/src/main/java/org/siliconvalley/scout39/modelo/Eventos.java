@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,7 +48,7 @@ public class Eventos implements Serializable {
 
     @OneToMany(mappedBy = "eventoP", cascade = CascadeType.ALL)
     private List<Progresion> progresionesE;
-
+     
     public Date getFecha() {
         return fecha;
     }

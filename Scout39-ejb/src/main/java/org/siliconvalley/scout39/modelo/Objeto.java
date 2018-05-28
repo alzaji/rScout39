@@ -7,8 +7,10 @@ package org.siliconvalley.scout39.modelo;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ public class Objeto implements Serializable {
     private List<Privilegios> listaPrivilegios;
     @OneToMany
     private List<Grupo> listaGrupos;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Eventos> listaEventos;
     @OneToMany
     private List<Progresion> listaProgresion;
