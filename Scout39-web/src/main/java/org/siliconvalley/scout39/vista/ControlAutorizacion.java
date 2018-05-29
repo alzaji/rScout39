@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 public class ControlAutorizacion implements Serializable {
 
     private Usuario usuario;
+    private Grupo grupo;
     public final static String COORDINADOR = "Coordinador";
     public final static String SCTHA = "ScouterTHA";
     public final static String SCKIM = "ScouterKIM";
@@ -28,13 +29,21 @@ public class ControlAutorizacion implements Serializable {
     public final static String EDKIM = "EducandoKIM";
     public final static String EDSIRYU = "EducandoSIRYU";
     public final static String EDALMOGAMA = "EducandoALMOGAMA";
-    
+
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
     public String home() {
@@ -44,21 +53,17 @@ public class ControlAutorizacion implements Serializable {
             case "Coordinador":
                 return "coordinador.xhtml";
 
-            case "ScouterTHA":
-            case "EducandoTHA":
-                return "tha.xhtml";
-
-            case "ScouterKIM":
-            case "EducandoKIM":
-                return "kim.xhtml";
-
-            case "ScouterSIRYU":
-            case "EducandoSIRYU":
-                return "siryu.xhtml";
-
-            case "ScouterALMOGAMA":
-            case "EducandoALMOGAMA":
-                return "almogama.xhtml";
+            case "Scouter":
+            case "Educando":
+                if (getGrupo().getNombre().equals("Manada de Tha")) {
+                    return "tha.xhtml";
+                } else if (getGrupo().getNombre().equals("Tropa de Kim")) {
+                    return "kim.xhtml";
+                } else if (getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
+                    return "siryu.xhtml";
+                } else if (getGrupo().getNombre().equals("Clan Rover Almogama")) {
+                    return "almogama.xhtml";
+                }
 
             default:
                 return "index.xthml";

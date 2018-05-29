@@ -21,14 +21,13 @@ import javax.inject.Inject;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.ScoutException;
 
-
 /**
  *
  * @author alzaji
  */
 @Named(value = "login")
 @SessionScoped
-public class Login implements Serializable{
+public class Login implements Serializable {
 
     private String usuario;
     private String contrasenia;
@@ -44,27 +43,6 @@ public class Login implements Serializable{
      * Creates a new instance of Login
      */
     public Login() {
-        usuarios = new ArrayList<Usuario>();
-        usuarios.add(newUsuario(Long.parseLong("0"),"Coord1", "1234", "Coordinador1", ".", "coordinador@scout39.org", new Date(), newRol(Long.parseLong("0") ,"Coordinador")));
-        usuarios.add(newUsuario(Long.parseLong("1"),"ScouterTHA", "1234", "Scouter", "THA", "scoutertha@scout39.org", new Date(), newRol(Long.parseLong("1") ,"ScouterTHA")));
-        usuarios.add(newUsuario(Long.parseLong("2"),"ScouterKIM", "1234", "Scouter", "KIM", "scouterkim@scout39.org", new Date(), newRol(Long.parseLong("2") ,"ScouterKIM")));
-        usuarios.add(newUsuario(Long.parseLong("3"),"ScouterSIRYU", "1234", "Scouter", "SIRYU", "scoutersiryu@scout39.org", new Date(), newRol(Long.parseLong("3") ,"ScouterSIRYU")));
-        usuarios.add(newUsuario(Long.parseLong("4"),"ScouterALMOGAMA", "1234", "Scouter", "ALMOGAMA", "scouteralmogama@scout39.org", new Date(), newRol(Long.parseLong("4") ,"ScouterALMOGAMA")));
-        usuarios.add(newUsuario(Long.parseLong("11"),"EducandoTHA", "1234", "Educando", "THA", "educandotha@scout39.org", new Date(), newRol(Long.parseLong("5") ,"EducandoTHA")));
-        usuarios.add(newUsuario(Long.parseLong("12"),"EducandoKIM", "1234", "Educando", "KIM", "educandokim@scout39.org", new Date(), newRol(Long.parseLong("6") ,"EducandoKIM")));
-        usuarios.add(newUsuario(Long.parseLong("13"),"EducandoSIRYU", "1234", "Educando", "SIRYU", "educandosiryu@scout39.org", new Date(), newRol(Long.parseLong("7") ,"EducandoSIRYU")));
-        usuarios.add(newUsuario(Long.parseLong("14"),"EducandoALMOGAMA", "1234", "Educando", "ALMOGAMA", "educandoalmogama@scout39.org", new Date(), newRol(Long.parseLong("8") ,"EducandoALMOGAMA")));
-
-        roles = new ArrayList<Roles>();
-        roles.add(newRol(Long.parseLong("0") ,"Coordinador"));
-        roles.add(newRol(Long.parseLong("1"), "ScouterTHA"));
-        roles.add(newRol(Long.parseLong("2"), "ScouterKIM"));
-        roles.add(newRol(Long.parseLong("3"),"ScouterSIRYU"));
-        roles.add(newRol(Long.parseLong("4"),"ScouterALMOGAMA"));
-        roles.add(newRol(Long.parseLong("5"),"EducandoKIM"));
-        roles.add(newRol(Long.parseLong("6"),"EducandoSIRYU"));
-        roles.add(newRol(Long.parseLong("7"),"EducandoTHA"));
-        roles.add(newRol(Long.parseLong("8"),"EducandoALMOGAMA"));
 
     }
 
@@ -96,53 +74,47 @@ public class Login implements Serializable{
         this.contrasenia = contrasenia;
     }
 
-    public Integer isinList(String alias) {
-        int posicion = -1;
-        boolean esta = false;
-        Iterator<Usuario> it = usuarios.iterator();
-        while (!esta && it.hasNext()) {
-            if (it.next().getAlias().equals(alias)) {
-                esta = true;
-            }
-            posicion++;
-        }
-        if (posicion == usuarios.size() - 1) {
-            posicion = -1;
-        }
-        return posicion;
-    }
-
+//    public Integer isinList(String alias) {
+//        int posicion = -1;
+//        boolean esta = false;
+//        Iterator<Usuario> it = usuarios.iterator();
+//        while (!esta && it.hasNext()) {
+//            if (it.next().getAlias().equals(alias)) {
+//                esta = true;
+//            }
+//            posicion++;
+//        }
+//        if (posicion == usuarios.size() - 1) {
+//            posicion = -1;
+//        }
+//        return posicion;
+//    }
     public String autenticar() {
-        // Implementar este método
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        int posicion = isinList(getUsuario());
-//        try {
-//            negociologin.comprobarUsuario(getUsuario());
-//            //boolean isPasswdCorrect = false;
-//        } catch (ScoutException ex) {
-//            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios", "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios"));
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
-//        }
-//        
-//        try {
-//            negociologin.registrarUsuario(newUsuario(null, "HAZJ", "1234", "Alberto", "Zamora Jiménez", "alzaji@gmail.com", new Date(), null));
-//        } catch (ScoutException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
-//        }
 
-        if (posicion == -1) {
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios", "El usuario " + getUsuario() + " no se encuentra en la lista de usuarios"));
-            return null;
-        } else {
-            Usuario aux = usuarios.get(posicion);
-            if (!aux.getDigest().equals(getContrasenia())) {
-                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", "Contraseña incorrecta"));
-                return null;
+        FacesContext ctx = FacesContext.getCurrentInstance();
+
+        try {
+            Usuario aux = negociologin.comprobarUsuario(getUsuario());
+
+            if (!aux.getDigest().equals(negociologin.sha256(getContrasenia()))) {
+
+                throw new ScoutException("La contraseña proporcionada no coincide con la BD");
             } else {
+
+                if (!aux.getRoles().getNombrerol().equals("Coordinador")) {
+                    Grupo g = negociologin.grupoActualUsuario(aux);
+                    ctrl.setGrupo(g);
+                }
                 ctrl.setUsuario(aux);
                 return ctrl.home();
             }
+
+        } catch (ScoutException ex) {
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
+
     }
 
     private Usuario newUsuario(
@@ -159,7 +131,7 @@ public class Login implements Serializable{
         Usuario usuario = new Usuario();
         usuario.setId(id);
         usuario.setAlias(alias);
-        usuario.setDigest(digest);
+        usuario.setDigest(negociologin.sha256(digest));
         usuario.setNombre(nombre);
         usuario.setApellidos(apellidos);
         usuario.setEmail(email);
@@ -169,7 +141,7 @@ public class Login implements Serializable{
         return usuario;
     }
 
-    private Roles newRol(long id,String nombrerol) {
+    private Roles newRol(long id, String nombrerol) {
 
         Roles rol = new Roles();
 

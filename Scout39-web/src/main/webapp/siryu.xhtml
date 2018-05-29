@@ -5,9 +5,9 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="title">Siryu</ui:define>
+    <ui:define name="title">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="link1"><h:link class="nav-link text-white" p:href="#eventos" value="Eventos"/></ui:define>
-    <ui:define name="seccionnav">GRUPO SIRYU</ui:define>
+    <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
 
         <!-- Section: Blog v.1 -->
@@ -17,7 +17,7 @@
                     <div class="col-6 col-sm-4"></div>
                     <!-- Section heading -->
                     <h2 class="h1-responsive font-weight-bold text-center col-6 col-sm-4">Eventos</h2>
-                    <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                    <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
                         <div class="text-left col-6 col-sm-4">
                             <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
                         </div>
@@ -50,7 +50,7 @@
                                 <!-- Read more button -->
                                 <a class="btn btn-indigo btn-md" data-toggle="collapse" href="#collapseComentarios-#{evento.id.toString()}" aria-expanded="false" aria-controls="collapseComentarios-#{evento.id.toString()}">Comentarios</a>
 
-                                <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                                <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
 
                                     <a class="btn btn-success btn-md" data-toggle="collapse" href="#collapseParticipantes-#{evento.id.toString()}" aria-expanded="false" aria-controls="collapseParticipantes-#{evento.id.toString()}">Participantes</a>
                                     <div class="collapse" id="collapseParticipantes-#{evento.id.toString()}">
@@ -89,7 +89,7 @@
                             </div>
                             #{ControlAsistencia.añadeEventoEnED(evento)}
 
-                            <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'EducandoSIRYU'}">
+                            <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
                                 <c:choose> 
                                     <c:when test="#{ControlAsistencia.comprobarAsistencia(evento) eq false}">
                                         <h:form>
@@ -107,7 +107,7 @@
 
                         </div>
                         <!-- Grid column -->
-                        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
                             <div class="col-6 col-sm-4">
                                 <div class="text-left">                                    
                                     <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarEvento#{evento.id.toString()}">Modificar</button>
@@ -174,7 +174,7 @@
                         </div>
                     </div>
 
-                    <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                    <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
                         <!-- Grid row -->
                         <div class="modal fade" id="rellenarProgresion" tabindex="-1" role="dialog" aria-labelledby="rellenarProgresionLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">

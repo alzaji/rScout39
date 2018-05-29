@@ -175,7 +175,7 @@
         <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
     </c:when>
-        <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU')}">
+    <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
                 <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
             <!-- Mask & flexbox options-->
             <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">

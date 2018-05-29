@@ -81,7 +81,7 @@
                                     <ui:insert name="link2"/>
                                 </li>
                             </c:when>
-                            <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoSIRYU') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterSIRYU')}">
+                            <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
                                 <li class="nav-item">
                                     <ui:insert name="link1"/>
                                 </li>

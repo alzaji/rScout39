@@ -6,7 +6,7 @@
 package org.siliconvalley.scout39.negocio;
 
 import javax.ejb.Local;
-import org.siliconvalley.scout39.modelo.Usuario;
+import org.siliconvalley.scout39.modelo.*;
 
 /**
  *
@@ -17,5 +17,6 @@ public interface NegocioLogin {
     
     public void registrarUsuario(Usuario u) throws ScoutException;
     public Usuario comprobarUsuario(String alias) throws ScoutException;
-    
+    public Grupo grupoActualUsuario(Usuario u) throws ScoutException;
+    public String sha256(String rawString);
 }

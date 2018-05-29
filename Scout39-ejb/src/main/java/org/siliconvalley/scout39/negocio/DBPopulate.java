@@ -5,11 +5,16 @@
  */
 package org.siliconvalley.scout39.negocio;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -117,7 +122,7 @@ public class DBPopulate {
         Usuario ueduckim = newUsuario("EducandoKIM", "1234", "Educando", "KIM", "educandokim@scout39.org", new Date(), educando);
         Usuario ueducsiryu = newUsuario("EducandoSIRYU", "1234", "Educando", "SIRYU", "educandosiryu@scout39.org", new Date(), educando);
         Usuario ueducalmogama = newUsuario("EducandoALMOGAMA", "1234", "Educando", "ALMOGAMA", "educandoalmogama@scout39.org", new Date(), educando);
-        
+
         em.persist(ucoord);
         em.persist(uscouttha);
         em.persist(uscoutkim);
@@ -127,31 +132,30 @@ public class DBPopulate {
         em.persist(ueduckim);
         em.persist(ueducsiryu);
         em.persist(ueducalmogama);
-        
+
         // Roles y Usuarios
-        
         List<Usuario> lru = new ArrayList<>();
         lru.add(ucoord);
         coordinador.setUsuarios(lru);
-        
+
         em.merge(coordinador);
-        
+
         lru = new ArrayList<>();
         lru.add(uscouttha);
         lru.add(uscoutkim);
         lru.add(uscoutsiryu);
         lru.add(uscoutalmogama);
         scouter.setUsuarios(lru);
-        
+
         em.merge(scouter);
-        
+
         lru = new ArrayList<>();
         lru.add(ueductha);
         lru.add(ueduckim);
         lru.add(ueducsiryu);
         lru.add(ueducalmogama);
         educando.setUsuarios(lru);
-        
+
         em.merge(educando);
 
         //Acceso a Grupo
@@ -163,7 +167,7 @@ public class DBPopulate {
         AccesoGrupo aceduckim = newAcceso(new Date(), null, ueduckim, kim);
         AccesoGrupo aceducsiryu = newAcceso(new Date(), null, ueducsiryu, siryu);
         AccesoGrupo aceducalmogama = newAcceso(new Date(), null, ueducalmogama, almogama);
-        
+
         em.persist(acscouttha);
         em.persist(acscoutkim);
         em.persist(acscoutsiryu);
@@ -172,7 +176,6 @@ public class DBPopulate {
         em.persist(aceduckim);
         em.persist(aceducsiryu);
         em.persist(aceducalmogama);
-
 
         List<AccesoGrupo> lac = new ArrayList<>();
         lac.add(acscouttha);
@@ -205,7 +208,7 @@ public class DBPopulate {
         lac = new ArrayList<>();
         lac.add(aceducalmogama);
         ueducalmogama.setAcceso_Grupo(lac);
-        
+
         em.merge(ucoord);
         em.merge(uscouttha);
         em.merge(uscoutkim);
@@ -216,43 +219,45 @@ public class DBPopulate {
         em.merge(ueducsiryu);
         em.merge(ueducalmogama);
 
-        
         // Eventos
-        
+        String fevento1 = "03-6-2018 23:55:00";
+        String fevento2 = "06-6-2018 10:45:00";
+        String fevento3 = "01-7-2018 00:00:00";
+        String fevento4 = "03-9-2018 00:00:00";
+
         Eventos evento1 = newEvento(
-                "Deadline", 
-                "Día en el que se entrega esta aplicacion.", 
-                new Date(2018, 6, 3, 23, 55, 0), 
-                BigDecimal.valueOf(36.71470930), 
+                "Deadline",
+                "Día en el que se entrega esta aplicacion.",
+                fevento1,
+                BigDecimal.valueOf(36.71470930),
                 BigDecimal.valueOf(-4.4751480));
         Eventos evento2 = newEvento(
-                "Presentación", 
-                "Se realiza la presentacion en este día.", 
-                new Date(2018, 6, 6, 10, 45, 0), 
-                BigDecimal.valueOf(36.71470930), 
-                BigDecimal.valueOf(-4.4751480));        
-        
+                "Presentación",
+                "Se realiza la presentacion en este día.",
+                fevento2,
+                BigDecimal.valueOf(36.71470930),
+                BigDecimal.valueOf(-4.4751480));
+
         Eventos evento3 = newEvento(
-                "Vacaciones", 
-                "¡Nos vamos de vacaciones!", 
-                new Date(2018, 7, 1, 0, 0, 0), 
-                BigDecimal.valueOf(36.71470930), 
+                "Vacaciones",
+                "¡Nos vamos de vacaciones!",
+                fevento3,
+                BigDecimal.valueOf(36.71470930),
                 BigDecimal.valueOf(-4.4751480));
-        
+
         Eventos evento4 = newEvento(
-                "Vuelta a la rutina", 
-                "Comienzan los exámenes de septiembre", 
-                new Date(2018, 9, 3, 0, 0, 0), 
-                BigDecimal.valueOf(36.71470930), 
+                "Vuelta a la rutina",
+                "Comienzan los exámenes de septiembre",
+                fevento4,
+                BigDecimal.valueOf(36.71470930),
                 BigDecimal.valueOf(-4.4751480));
-        
+
         em.persist(evento1);
         em.persist(evento2);
         em.persist(evento3);
         em.persist(evento4);
-        
+
         // Comentarios -> posible cambio del ER
-        
 //        Comentarios c1 = newComentario("Ya hemos terminado y podemos descansar", ucoord, evento1);
 //        Comentarios c2 = newComentario("Este es un ejemplo de comentario dentro de un evento", ucoord, evento2);
 //        Comentarios c3 = newComentario("Acabamos por este curso, nos vemos en septiembre", ucoord, evento3);
@@ -271,9 +276,7 @@ public class DBPopulate {
 //        ucoord.setComentarios(luc);
 //        
 //        em.merge(ucoord);
-        
         // Objetos
-        
         Objeto e1 = new Objeto();
         Objeto e2 = new Objeto();
         Objeto e3 = new Objeto();
@@ -282,78 +285,75 @@ public class DBPopulate {
         Objeto g2 = new Objeto();
         Objeto g3 = new Objeto();
         Objeto g4 = new Objeto();
-        
+
         e1.setNombre("eventosTHA");
         e2.setNombre("eventosKIM");
         e3.setNombre("eventosSIRYU");
         e4.setNombre("eventosALMOGAMA");
-        
+
         em.persist(e1);
         em.persist(e2);
         em.persist(e3);
         em.persist(e4);
-        
+
         // Objetos y Eventos
-        
         List<Eventos> le = new ArrayList<>();
         le.add(evento1);
         le.add(evento2);
         le.add(evento3);
         le.add(evento4);
         e3.setListaEventos(le);
-        
+
         // Objetos y Privilegios
-        
         priv = new ArrayList<>();
         priv.add(sss);
         priv.add(nss);
         e3.setListaPrivilegios(priv);
-        
+
         List<Objeto> lo = new ArrayList<>();
         lo.add(e3);
         sss.setListaObjetos(lo);
         nss.setListaObjetos(lo);
-                
+
         em.merge(e3);
         em.merge(sss);
         em.merge(nss);
-        
+
         // Objetos y Grupos
-        
         g1.setNombre("grupoTHA");
         g2.setNombre("grupoKIM");
         g3.setNombre("grupoSIRYU");
         g4.setNombre("grupoALMOGAMA");
-        
+
         em.persist(g1);
         em.persist(g2);
         em.persist(g3);
         em.persist(g4);
-        
+
         List<Grupo> lg = new ArrayList<>();
         lg.add(tha);
         g1.setListaGrupos(lg);
-        
+
         em.merge(g1);
-        
+
         lg = new ArrayList<>();
         lg.add(kim);
         g2.setListaGrupos(lg);
-        
+
         em.merge(g2);
-        
+
         lg = new ArrayList<>();
         lg.add(siryu);
         g3.setListaGrupos(lg);
-        
+
         em.merge(g3);
-        
+
         lg = new ArrayList<>();
         lg.add(almogama);
         g4.setListaGrupos(lg);
-        
+
         em.merge(g4);
-                
+
     }
 
     private Usuario newUsuario(
@@ -368,7 +368,7 @@ public class DBPopulate {
 
         Usuario usuario = new Usuario();
         usuario.setAlias(alias);
-        usuario.setDigest(digest);
+        usuario.setDigest(sha256(digest));
         usuario.setNombre(nombre);
         usuario.setApellidos(apellidos);
         usuario.setEmail(email);
@@ -398,31 +398,58 @@ public class DBPopulate {
     private Eventos newEvento(
             String nombre,
             String descripcion,
-            Date fecha,
+            String fecha,
             BigDecimal latitud,
             BigDecimal longitud
     ) {
-        
-        Eventos evento = new Eventos();
-        evento.setNombre(nombre);
-        evento.setDescripcion(descripcion);
-        evento.setFecha(fecha);
-        evento.setLatitud(latitud);
-        evento.setLongitud(longitud);
-        
-        return evento;
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            Date date = sdf.parse(fecha);
+            Eventos evento = new Eventos();
+            evento.setNombre(nombre);
+            evento.setDescripcion(descripcion);
+            evento.setFecha(date);
+            evento.setLatitud(latitud);
+            evento.setLongitud(longitud);
+
+            return evento;
+        } catch (ParseException ex) {
+            Logger.getLogger(DBPopulate.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getLocalizedMessage());
+            return null;
+        }
     }
-    
+
     private Comentarios newComentario(
             String cuerpo,
             Usuario u,
             Eventos e
-    ){
+    ) {
         Comentarios c = new Comentarios();
         c.setCuerpo(cuerpo);
         c.setUsuario(u);
         c.setEventoC(e);
-        
+
         return c;
+    }
+
+    private String sha256(String rawString) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(rawString.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte hashByte : hash) {
+                String hex = Integer.toHexString(0xff & hashByte);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
