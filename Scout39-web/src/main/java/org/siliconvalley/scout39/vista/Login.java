@@ -6,9 +6,7 @@ package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
 import org.siliconvalley.scout39.modelo.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,21 +72,6 @@ public class Login implements Serializable {
         this.contrasenia = contrasenia;
     }
 
-//    public Integer isinList(String alias) {
-//        int posicion = -1;
-//        boolean esta = false;
-//        Iterator<Usuario> it = usuarios.iterator();
-//        while (!esta && it.hasNext()) {
-//            if (it.next().getAlias().equals(alias)) {
-//                esta = true;
-//            }
-//            posicion++;
-//        }
-//        if (posicion == usuarios.size() - 1) {
-//            posicion = -1;
-//        }
-//        return posicion;
-//    }
     public String autenticar() {
 
         FacesContext ctx = FacesContext.getCurrentInstance();

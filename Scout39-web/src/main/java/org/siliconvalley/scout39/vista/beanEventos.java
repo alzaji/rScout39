@@ -12,14 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.ManagedBean;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -92,32 +89,33 @@ public class beanEventos implements Serializable {
     }
 
     public String doNuevoComentario(Eventos e) {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cuerpo = request.getParameter("formComentarioEvento" + e.getId().toString() + ":textoComentario");
-        ComentariosUsuarioEventosDebil idComentario = crearIdComentario(e.getId(), control.getUsuario().getId());
-        Comentarios c = crearComentario(idComentario, cuerpo);
-        c.setUsuario(control.getUsuario());
-
-        switch (control.getUsuario().getRoles().getNombrerol()) {
-            case "EducandoTHA":
-            case "ScouterTHA":
-                comentariosTHA.get(e).add(c);
-                return "tha.xhtml?faces-redirect=true";
-            case "EducandoKIM":
-            case "ScouterKIM":
-                comentariosKIM.get(e).add(c);
-                return "kim.xhtml?faces-redirect=true";
-            case "EducandoSIRYU":
-            case "ScouterSIRYU":
-                comentariosSIRYU.get(e).add(c);
-                return "siryu.xhtml?faces-redirect=true";
-            case "EducandoALMOGAMA":
-            case "ScouterALMOGAMA":
-                comentariosALMOGAMA.get(e).add(c);
-                return "almogama.xhtml?faces-redirect=true";
-            default:
-                return "index.xhtml";
-        }
+//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+//        String cuerpo = request.getParameter("formComentarioEvento" + e.getId().toString() + ":textoComentario");
+//        ComentariosUsuarioEventosDebil idComentario = crearIdComentario(e.getId(), control.getUsuario().getId());
+//        Comentarios c = crearComentario(idComentario, cuerpo);
+//        c.setUsuario(control.getUsuario());
+//
+//        switch (control.getUsuario().getRoles().getNombrerol()) {
+//            case "EducandoTHA":
+//            case "ScouterTHA":
+//                comentariosTHA.get(e).add(c);
+//                return "tha.xhtml?faces-redirect=true";
+//            case "EducandoKIM":
+//            case "ScouterKIM":
+//                comentariosKIM.get(e).add(c);
+//                return "kim.xhtml?faces-redirect=true";
+//            case "EducandoSIRYU":
+//            case "ScouterSIRYU":
+//                comentariosSIRYU.get(e).add(c);
+//                return "siryu.xhtml?faces-redirect=true";
+//            case "EducandoALMOGAMA":
+//            case "ScouterALMOGAMA":
+//                comentariosALMOGAMA.get(e).add(c);
+//                return "almogama.xhtml?faces-redirect=true";
+//            default:
+//                return "index.xhtml";
+//        }
+        return null;
     }
 
     public int tamañoListaComentarios(Eventos evento) {
@@ -258,20 +256,20 @@ public class beanEventos implements Serializable {
         comentarios.remove(e);
     }
 
-    private Comentarios crearComentario(ComentariosUsuarioEventosDebil idComentario, String cuerpo) {
-        Comentarios c = new Comentarios();
-        c.setIdComentarios(idComentario);
-        c.setCuerpo(cuerpo);
-        return c;
-    }
+//    private Comentarios crearComentario(ComentariosUsuarioEventosDebil idComentario, String cuerpo) {
+//        Comentarios c = new Comentarios();
+//        c.setIdComentarios(idComentario);
+//        c.setCuerpo(cuerpo);
+//        return c;
+//    }
 
-    private ComentariosUsuarioEventosDebil crearIdComentario(Long idEvento, Long idUsuario) {
-        ComentariosUsuarioEventosDebil cId = new ComentariosUsuarioEventosDebil();
-        cId.setIdEvento(idEvento);
-        cId.setIdUsuario(idUsuario);
-        cId.setIdComentarios(new Random().nextLong());
-        return cId;
-    }
+//    private ComentariosUsuarioEventosDebil crearIdComentario(Long idEvento, Long idUsuario) {
+//        ComentariosUsuarioEventosDebil cId = new ComentariosUsuarioEventosDebil();
+//        cId.setIdEvento(idEvento);
+//        cId.setIdUsuario(idUsuario);
+//        cId.setIdComentarios(new Random().nextLong());
+//        return cId;
+//    }
 
     public Comentarios getComentario() {
         return comentario;

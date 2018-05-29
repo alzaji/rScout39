@@ -257,25 +257,30 @@ public class DBPopulate {
         em.persist(evento3);
         em.persist(evento4);
 
-        // Comentarios -> posible cambio del ER
-//        Comentarios c1 = newComentario("Ya hemos terminado y podemos descansar", ucoord, evento1);
-//        Comentarios c2 = newComentario("Este es un ejemplo de comentario dentro de un evento", ucoord, evento2);
-//        Comentarios c3 = newComentario("Acabamos por este curso, nos vemos en septiembre", ucoord, evento3);
-//        Comentarios c4 = newComentario("Nooooo", ucoord, evento4);
-//        
-//        em.persist(c1);
-//        em.persist(c2);
-//        em.persist(c3);
-//        em.persist(c4);
-//        
-//        List<Comentarios> luc = new ArrayList<>();
-//        luc.add(c1);
-//        luc.add(c2);
-//        luc.add(c3);
-//        luc.add(c4);
-//        ucoord.setComentarios(luc);
-//        
-//        em.merge(ucoord);
+        // Comentarios
+        Comentarios c1 = newComentario("Ya hemos terminado y podemos descansar", ucoord, evento1);
+        Comentarios c2 = newComentario("Este es un ejemplo de comentario dentro de un evento", ucoord, evento2);
+        Comentarios c3 = newComentario("Acabamos por este curso, nos vemos en septiembre", ucoord, evento3);
+        Comentarios c4 = newComentario("Nooooo", ucoord, evento4);
+        Comentarios c5 = newComentario("Ojalá", ucoord, evento1);
+        c5.setRespuesta(c1);
+        
+        em.persist(c1);
+        em.persist(c2);
+        em.persist(c3);
+        em.persist(c4);
+        em.persist(c5);
+        
+        List<Comentarios> luc = new ArrayList<>();
+        luc.add(c1);
+        luc.add(c2);
+        luc.add(c3);
+        luc.add(c4);
+        luc.add(c5);
+        ucoord.setComentarios(luc);
+        
+        em.merge(ucoord);
+        
         // Objetos
         Objeto e1 = new Objeto();
         Objeto e2 = new Objeto();

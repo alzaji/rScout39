@@ -6,15 +6,17 @@
 package org.siliconvalley.scout39.modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.JoinColumn;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,20 +26,31 @@ import javax.persistence.MapsId;
 public class Comentarios implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    private ComentariosUsuarioEventosDebil idComentarios = new ComentariosUsuarioEventosDebil();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @Column(nullable = false, length = 500)
     private String cuerpo;
 
-    @MapsId("idUsuario")
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     private Usuario usuario;
 
-    @MapsId("idEvento")
-    @JoinColumn(name = "idEvento", referencedColumnName = "id")
     @ManyToOne
     private Eventos eventoC;
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "respuesta")
+    private List<Comentarios> respuestas;
+    
+    @ManyToOne
+    private Comentarios respuesta;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCuerpo() {
         return cuerpo;
@@ -45,14 +58,6 @@ public class Comentarios implements Serializable {
 
     public void setCuerpo(String cuerpo) {
         this.cuerpo = cuerpo;
-    }
-
-    public ComentariosUsuarioEventosDebil getIdComentarios() {
-        return idComentarios;
-    }
-
-    public void setIdComentarios(ComentariosUsuarioEventosDebil idComentarios) {
-        this.idComentarios = idComentarios;
     }
 
     public Usuario getUsuario() {
@@ -71,10 +76,28 @@ public class Comentarios implements Serializable {
         this.eventoC = eventoC;
     }
 
+    public List<Comentarios> getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(List<Comentarios> respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public Comentarios getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(Comentarios respuesta) {
+        this.respuesta = respuesta;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.idComentarios);
+        hash = 67 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -90,7 +113,7 @@ public class Comentarios implements Serializable {
             return false;
         }
         final Comentarios other = (Comentarios) obj;
-        if (!Objects.equals(this.idComentarios, other.idComentarios)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -98,7 +121,7 @@ public class Comentarios implements Serializable {
 
     @Override
     public String toString() {
-        return "Comentarios{" + "idComentarios=" + idComentarios + '}';
+        return "Comentarios{" + "id=" + id + ", cuerpo=" + cuerpo + ", usuario=" + usuario + ", eventoC=" + eventoC + '}';
     }
 
 }
