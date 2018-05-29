@@ -23,7 +23,7 @@
                         </div>
                     </c:if>
                 </div>
-                <c:forEach items="#{beanEventos.eventosSIRYU}" var="evento">
+                <c:forEach items="#{beanEventos.misEventos(9)}" var="evento">
                     <!-- Grid row -->
                     <div class="row border-default ml-5">
 
@@ -144,7 +144,7 @@
                                             </div>                                                                                        
                                         </div>
                                         <!-- /comment --> 
-                                        <c:choose>
+<!--                                        <c:choose>
                                             <c:when test="#{(beanEventos.tamañoListaComentarios(evento) eq 0) or (beanEventos.tamañoListaComentarios(evento) eq null) }">
                                                 <div class="row">
                                                     <p>No hay más comentarios</p>
@@ -167,7 +167,7 @@
                                                     </div>
                                                 </c:forEach>
                                             </c:otherwise>
-                                        </c:choose>
+                                        </c:choose>-->
                                     </div>
                                 </div>
                             </div>
