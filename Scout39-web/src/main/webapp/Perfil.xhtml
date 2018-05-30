@@ -79,9 +79,11 @@
                                 <tbody>
                                     <c:forEach items="#{beanPerfil.getUserFiles(controlAutorizacion.usuario)}" var="a">
                                         <tr>
+                                            <h:form>
                                             <td>#{a.nombre}</td>
                                             <td>#{a.tipo}</td>
-                                            <td><span class="pull-right"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Descarga</button></span></td>
+                                            <td> <h:commandButton class ="btn btn-sm btn-purple col" value="Descargar" action="#{fileUploadMBean.downloadFile(a.nombre)}"/></td>
+                                            </h:form>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

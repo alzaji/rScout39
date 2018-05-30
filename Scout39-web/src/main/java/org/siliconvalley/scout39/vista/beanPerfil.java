@@ -28,10 +28,9 @@ public class beanPerfil {
     private Usuario usuario;
     private Map<Usuario,List<Archivo>> archivos;
     private Map<String,String> promesas;
+    
     @Inject
     private ControlAutorizacion ctrl;
-    private ControlAsistencia controlAsis;
-    private Login login;
     
     @EJB
     private NegocioGestorDocumentalLocal gestorArchivos;
@@ -52,30 +51,30 @@ public class beanPerfil {
 //            listas03.add(d);
 //            archivos.put(u, listas03);
 //        }
-     //   getPromesaUsuario();
+//   getPromesaUsuario();
     }
-    public boolean insertFile(Usuario u){
-//        boolean ret = false;
-//        if(ret = archivos.containsKey(u)){
-//            for(Usuario a: archivos.keySet()){
-//            if(a.equals(u)){
-//                Archivo d = new Archivo();
-//                d.setNombre("archivoPrueba.pdf");
-//                d.setRuta("../Archivos/archivoPrueba.pdf");
-//                d.setTipo("pdf");
-//                archivos.get(a).add(d);
-//                break;
-//            }
-//        }
-//        }
-//        return ret;
-    return false;
-    }
+//    public boolean insertFile(Usuario u){
+////        boolean ret = false;
+////        if(ret = archivos.containsKey(u)){
+////            for(Usuario a: archivos.keySet()){
+////            if(a.equals(u)){
+////                Archivo d = new Archivo();
+////                d.setNombre("archivoPrueba.pdf");
+////                d.setRuta("../Archivos/archivoPrueba.pdf");
+////                d.setTipo("pdf");
+////                archivos.get(a).add(d);
+////                break;
+////            }
+////        }
+////        }
+////        return ret;
+//    return false;
+//    }
+    
     public List<Archivo> getUserFiles(Usuario u){
-//      
-       // return gestorArchivos.buscarArchivos(u);
-       return null;
+        return gestorArchivos.buscarArchivos(u);
     }
+    
     private void getPromesaUsuario(){
 //        Map<Eventos, List<Progresion>> aux = new HashMap<>();
 //        switch (ctrl.getUsuario().getRoles().getNombrerol()) {
