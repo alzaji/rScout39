@@ -26,35 +26,13 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
 
     @Override
     public void subirArchivo(String ruta, String nombre, String tipo, Usuario u) {
-       try{
-           Archivo ar = new Archivo();
-       
+       Archivo ar = new Archivo();
        Usuario aux = em.find(Usuario.class, u.getId());
         ar.setNombre(nombre);
         ar.setTipo(tipo);
         ar.setRuta(ruta);
         ar.setIdUsuario(aux);
         em.merge(ar);
-       } catch(Exception re){
-           Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING,re.getMessage(),re.getCause());
-       }
-//        if (aux.getArchivo().size()== 0) {
-//            List<Archivo> arc = new ArrayList<>();
-//            arc.add(ar);
-//            u.setArchivo(arc);
-//            em.merge(arc);
-//            em.merge(ar);
-//        } else {
-//            List<Archivo> archi = aux.getArchivo();
-//            archi.add(ar);
-//            aux.setArchivo(archi);
-//            em.merge(aux);
-//            em.merge(ar);
-//        }
-//
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     }
     
     @Override

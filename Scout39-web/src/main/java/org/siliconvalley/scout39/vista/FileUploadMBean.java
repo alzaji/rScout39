@@ -6,6 +6,7 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,10 +14,13 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
 
@@ -24,7 +28,7 @@ import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
  *
  * @author hidden-process
  */
-@Named (value = "fileUploadMBean")
+@Named(value = "fileUploadMBean")
 @RequestScoped
 public class FileUploadMBean implements Serializable {
 
@@ -58,8 +62,7 @@ public class FileUploadMBean implements Serializable {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         FacesContext context = FacesContext.getCurrentInstance();
-        ServletContext servletContext = (ServletContext) context
-                .getExternalContext().getContext();
+        ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
         String path = servletContext.getRealPath("");
         boolean file1Success = false;
 
@@ -99,7 +102,7 @@ public class FileUploadMBean implements Serializable {
              */
             setMessage("File successfully uploaded to " + path);
 
-            gestor.subirArchivo(ruta, fileName, extension,control.getUsuario());
+            gestor.subirArchivo(ruta, fileName, extension, control.getUsuario());
         } else {
             /**
              * set the error message when error occurs during the file upload
@@ -110,5 +113,43 @@ public class FileUploadMBean implements Serializable {
          * return to the same view
          */
         return null;
+    }
+
+    public void downloadFile() throws IOException {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+        String path = servletContext.getRealPath("");
+
+        String fileName = control.getUsuario().getAlias() + "_" + Utils.getFileNameFromPart(file);
+        String ruta = path + File.separator + "resources" + File.separator + "archivos" + File.separator + fileName;
+
+        File file = new File(ruta);
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+
+        response.setHeader("Content-Disposition", "attachment;filename=file.txt");
+        response.setContentLength((int) file.length());
+        ServletOutputStream out = null;
+        try {
+            FileInputStream input = new FileInputStream(file);
+            byte[] buffer = new byte[1024];
+            out = response.getOutputStream();
+            int i = 0;
+            while ((i = input.read(buffer)) != -1) {
+                out.write(buffer);
+                out.flush();
+            }
+            FacesContext.getCurrentInstance().getResponseComplete();
+        } catch (IOException err) {
+            err.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException err) {
+                err.printStackTrace();
+            }
+        }
     }
 }
