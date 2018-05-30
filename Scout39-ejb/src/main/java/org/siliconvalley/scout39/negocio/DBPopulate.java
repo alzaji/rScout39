@@ -288,10 +288,10 @@ public class DBPopulate {
         Objeto g3 = new Objeto();
         Objeto g4 = new Objeto();
 
-        e1.setNombre("eventosTHA");
-        e2.setNombre("eventosKIM");
-        e3.setNombre("eventosSIRYU");
-        e4.setNombre("eventosALMOGAMA");
+        e1.setNombre("eventos" + tha.getId());
+        e2.setNombre("eventos" + kim.getId());
+        e3.setNombre("eventos" + siryu.getId());
+        e4.setNombre("eventos" + almogama.getId());
 
         em.persist(e1);
         em.persist(e2);
@@ -329,10 +329,10 @@ public class DBPopulate {
         em.merge(a3);
 
         // Objetos y Grupos
-        g1.setNombre("grupoTHA");
-        g2.setNombre("grupoKIM");
-        g3.setNombre("grupoSIRYU");
-        g4.setNombre("grupoALMOGAMA");
+        g1.setNombre("grupo" + tha.getId());
+        g2.setNombre("grupo" + kim.getId());
+        g3.setNombre("grupo" + siryu.getId());
+        g4.setNombre("grupo" + almogama.getId());
 
         em.persist(g1);
         em.persist(g2);
@@ -362,6 +362,29 @@ public class DBPopulate {
         g4.setListaGrupos(lg);
 
         em.merge(g4);
+        
+        for(Usuario u : lru){
+            
+            Objeto archivo = new Objeto();
+            archivo.setNombre("archivo"+u.getId());
+            em.persist(archivo);
+            
+            AccesoRecurso propio = new AccesoRecurso();
+            propio.setIdRol(coordinador);
+            propio.setIdPrivilegio(crud);
+            propio.setIdObjeto(archivo);
+            
+            em.merge(propio);
+            
+            AccesoRecurso arscouter = new AccesoRecurso();
+            arscouter.setIdRol(scouter);
+            arscouter.setIdPrivilegio(read);
+            arscouter.setIdObjeto(archivo);
+            
+            em.merge(arscouter);
+            
+        }
+        
 
     }
 

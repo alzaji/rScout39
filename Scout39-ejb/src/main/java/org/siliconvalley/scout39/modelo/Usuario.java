@@ -45,7 +45,7 @@ public class Usuario implements Serializable {
     private List<Comentarios> comentarios;
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Cuotas> cuota;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idUsuario", cascade = CascadeType.ALL)
     private List<Archivo> archivo;
     @OneToMany(mappedBy = "usuarioP", cascade = CascadeType.ALL)
     private List<Progresion> progresion;
