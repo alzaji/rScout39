@@ -7,15 +7,15 @@ package org.siliconvalley.scout39.negocio;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.AccesoGrupo;
 import org.siliconvalley.scout39.modelo.Grupo;
+import org.siliconvalley.scout39.modelo.Objeto;
+import org.siliconvalley.scout39.modelo.Privilegios;
+import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
 
 /**
@@ -54,22 +54,46 @@ public class NegocioLoginImpl implements NegocioLogin {
 
     @Override
     public Grupo grupoActualUsuario(Usuario u) throws ScoutException {
-        
+
         try {
             Query q = em.createQuery("SELECT ac from AccesoGrupo ac where :u = ac.Usuario_Grupo and ac.Fecha_Baja_Grupo IS NULL");
             q.setParameter("u", u);
             AccesoGrupo ac = (AccesoGrupo) q.getSingleResult();
-            
+
             return ac.getGrupo();
-            
-            
+
         } catch (RuntimeException e) {
-            
+
             throw new ScoutException("No hay resultados para ese usuario");
         }
     }
 
-    
+    @Override
+    public Privilegios checkPrivilegios(Objeto o, Usuario u) throws ScoutException {
+
+        try {
+            Usuario uaux = em.find(Usuario.class, u.getId());
+            Roles r = uaux.getRoles();
+
+            Query q = em.createQuery("Select p "
+                    + "from Objeto o, Privilegios p, Roles ra "
+                    + "where :a = o.nombre "
+                    + "AND :rp = ra.nombrerol "
+                    + "AND p MEMBER of o.listaPrivilegios "
+                    + "AND p MEMBER of ra.privilegios");
+            q.setParameter("a", o.getNombre());
+            q.setParameter("rp", r.getNombrerol());
+
+            Privilegios paux = (Privilegios) q.getSingleResult();
+            return paux;
+
+        } catch (RuntimeException e) {
+
+            throw new ScoutException(e.getMessage());
+        }
+
+    }
+
     @Override
     public String sha256(String rawString) {
         try {

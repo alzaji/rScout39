@@ -309,16 +309,16 @@ public class DBPopulate {
         le.add(evento4);
         e3.setListaEventos(le);
 
-        // Objetos y Privilegios
-        priv = new ArrayList<>();
-        priv.add(sss);
-        priv.add(nss);
-        e3.setListaPrivilegios(priv);
-
-        List<Objeto> lo = new ArrayList<>();
-        lo.add(e3);
-        sss.setListaObjetos(lo);
-        nss.setListaObjetos(lo);
+//        // Objetos y Privilegios
+//        priv = new ArrayList<>();
+//        priv.add(sss);
+//        priv.add(nss);
+//        e3.setListaPrivilegios(priv);
+//
+//        List<Objeto> lo = new ArrayList<>();
+//        lo.add(e3);
+//        sss.setListaObjetos(lo);
+//        nss.setListaObjetos(lo);
 
         em.merge(e3);
         em.merge(sss);

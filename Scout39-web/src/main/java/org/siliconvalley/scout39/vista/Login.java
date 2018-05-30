@@ -89,6 +89,9 @@ public class Login implements Serializable {
                     ctrl.setGrupo(g);
                 }
                 ctrl.setUsuario(aux);
+                Objeto o = new Objeto();
+                o.setNombre("eventosSIRYU");
+                Privilegios p = negociologin.checkPrivilegios(o, aux);
                 return ctrl.home();
             }
 

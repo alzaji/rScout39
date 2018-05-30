@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -32,9 +33,9 @@ public class Privilegios implements Serializable {
     private Character escritura;
     @Column(nullable = false)
     private Character borrado;
-    @ManyToMany(mappedBy = "listaPrivilegios", cascade = CascadeType.ALL)
-    private List<Objeto> listaObjetos;
-    @ManyToMany (mappedBy = "privilegios", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "priv", cascade = CascadeType.ALL)
+    private List<AccesoRecurso> accesorec;
+    @ManyToMany(mappedBy = "privilegios", cascade = CascadeType.ALL)
     private List<Roles> listaRoles;
 
     public Long getId() {
@@ -69,12 +70,12 @@ public class Privilegios implements Serializable {
         this.borrado = borrado;
     }
 
-    public List<Objeto> getListaObjetos() {
-        return listaObjetos;
+    public List<AccesoRecurso> getAccesorec() {
+        return accesorec;
     }
 
-    public void setListaObjetos(List<Objeto> listaObjetos) {
-        this.listaObjetos = listaObjetos;
+    public void setAccesorec(List<AccesoRecurso> accesorec) {
+        this.accesorec = accesorec;
     }
 
     public List<Roles> getListaRoles() {
@@ -84,7 +85,7 @@ public class Privilegios implements Serializable {
     public void setListaRoles(List<Roles> listaRoles) {
         this.listaRoles = listaRoles;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

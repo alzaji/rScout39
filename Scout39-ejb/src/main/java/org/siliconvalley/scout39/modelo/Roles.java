@@ -33,6 +33,24 @@ public class Roles implements Serializable {
     private List<Usuario> usuarios;
     @ManyToMany 
     private List<Privilegios> privilegios;
+    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    private List<AccesoRecurso> recursos;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNombrerol() {
+        return nombrerol;
+    }
+
+    public void setNombrerol(String nombrerol) {
+        this.nombrerol = nombrerol;
+    }
 
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -50,29 +68,15 @@ public class Roles implements Serializable {
         this.privilegios = privilegios;
     }
 
-    public Long getIdrol() {
-        return id;
+    public List<AccesoRecurso> getRecursos() {
+        return recursos;
     }
 
-    public void setIdrol(Long idrol) {
-        this.id = idrol;
+    public void setRecursos(List<AccesoRecurso> recursos) {
+        this.recursos = recursos;
     }
 
-    public String getNombrerol() {
-        return nombrerol;
-    }
 
-    public void setNombrerol(String nombrerol) {
-        this.nombrerol = nombrerol;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public int hashCode() {

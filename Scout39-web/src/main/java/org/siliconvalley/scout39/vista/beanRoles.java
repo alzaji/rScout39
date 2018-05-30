@@ -33,7 +33,7 @@ public class beanRoles implements Serializable {
 
     private Roles crearRol(Long idRol, String nombreRol) {
         Roles r = new Roles();
-        r.setIdrol(idRol);
+        r.setId(idRol);
         r.setNombrerol(nombreRol);
         return r;
     }
