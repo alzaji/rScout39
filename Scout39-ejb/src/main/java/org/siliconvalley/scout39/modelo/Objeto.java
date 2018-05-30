@@ -30,7 +30,7 @@ public class Objeto implements Serializable {
     private Long id;
     @Column(nullable = false, length = 100, unique = true)
     private String nombre;
-    @OneToMany(mappedBy = "o", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idObjeto", cascade = CascadeType.ALL)
     private List<AccesoRecurso> listaAcceso;
     @OneToMany
     private List<Grupo> listaGrupos;

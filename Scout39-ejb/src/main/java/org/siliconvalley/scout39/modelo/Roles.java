@@ -33,7 +33,7 @@ public class Roles implements Serializable {
     private List<Usuario> usuarios;
     @ManyToMany 
     private List<Privilegios> privilegios;
-    @OneToMany(mappedBy = "rol", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idRol", cascade = CascadeType.ALL)
     private List<AccesoRecurso> recursos;
 
     public Long getId() {

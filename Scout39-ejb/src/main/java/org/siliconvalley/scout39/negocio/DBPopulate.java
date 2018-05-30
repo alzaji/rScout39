@@ -43,47 +43,44 @@ public class DBPopulate {
 
         coordinador.setNombrerol("Coordinador");
         scouter.setNombrerol("Scouter");
-        educando.setNombrerol("nombrerol");
+        educando.setNombrerol("Educando");
 
         // Privilegios
-        Privilegios sss = new Privilegios();
-        Privilegios nss = new Privilegios();
-        Privilegios nns = new Privilegios();
+        Privilegios crud = new Privilegios();
+        Privilegios read = new Privilegios();
 
-        sss.setBorrado('S');
-        sss.setEscritura('S');
-        sss.setLectura('S');
+        crud.setCrear('S');
+        crud.setLeer('S');
+        crud.setModificar('S');
+        crud.setBorrar('S');
 
-        nss.setBorrado('N');
-        nss.setEscritura('S');
-        nss.setLectura('S');
+        read.setCrear('N');
+        read.setLeer('S');
+        read.setModificar('N');
+        read.setBorrar('N');
 
-        nns.setBorrado('N');
-        nns.setEscritura('N');
-        nns.setLectura('S');
-
-        em.persist(sss);
-        em.persist(nss);
-        em.persist(nns);
+        em.persist(crud);
+        em.persist(read);
 
         // Roles y privilegios
         List<Privilegios> priv = new ArrayList<>();
-        priv.add(sss);
+        priv.add(crud);
 
         coordinador.setPrivilegios(priv);
 
         em.persist(coordinador);
 
         priv = new ArrayList<>();
-        priv.add(sss);
-        priv.add(nss);
+        priv.add(crud);
+        priv.add(read);
 
         scouter.setPrivilegios(priv);
 
         em.persist(scouter);
 
         priv = new ArrayList<>();
-        priv.add(nss);
+        priv.add(crud);
+        priv.add(read);
 
         educando.setPrivilegios(priv);
 
@@ -309,20 +306,27 @@ public class DBPopulate {
         le.add(evento4);
         e3.setListaEventos(le);
 
-//        // Objetos y Privilegios
-//        priv = new ArrayList<>();
-//        priv.add(sss);
-//        priv.add(nss);
-//        e3.setListaPrivilegios(priv);
-//
-//        List<Objeto> lo = new ArrayList<>();
-//        lo.add(e3);
-//        sss.setListaObjetos(lo);
-//        nss.setListaObjetos(lo);
+        //Acceso a recursos
+        
+        AccesoRecurso a1 = new AccesoRecurso();
+        AccesoRecurso a2 = new AccesoRecurso();
+        AccesoRecurso a3 = new AccesoRecurso();
 
-        em.merge(e3);
-        em.merge(sss);
-        em.merge(nss);
+        a1.setIdObjeto(e3);
+        a1.setIdPrivilegio(crud);
+        a1.setIdRol(coordinador);
+        
+        a2.setIdObjeto(e3);
+        a2.setIdPrivilegio(crud);
+        a2.setIdRol(scouter);
+        
+        a3.setIdObjeto(e3);
+        a3.setIdPrivilegio(read);
+        a3.setIdRol(educando);
+        
+        em.merge(a1);
+        em.merge(a2);
+        em.merge(a3);
 
         // Objetos y Grupos
         g1.setNombre("grupoTHA");

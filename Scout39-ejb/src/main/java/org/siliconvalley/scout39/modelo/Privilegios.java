@@ -28,12 +28,14 @@ public class Privilegios implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(nullable = false)
-    private Character lectura;
+    private Character crear;
     @Column(nullable = false)
-    private Character escritura;
+    private Character leer;
     @Column(nullable = false)
-    private Character borrado;
-    @OneToMany(mappedBy = "priv", cascade = CascadeType.ALL)
+    private Character modificar;
+    @Column(nullable = false)
+    private Character borrar;
+    @OneToMany(mappedBy = "idPrivilegio", cascade = CascadeType.ALL)
     private List<AccesoRecurso> accesorec;
     @ManyToMany(mappedBy = "privilegios", cascade = CascadeType.ALL)
     private List<Roles> listaRoles;
@@ -46,28 +48,36 @@ public class Privilegios implements Serializable {
         this.id = id;
     }
 
-    public Character getLectura() {
-        return lectura;
+    public Character getCrear() {
+        return crear;
     }
 
-    public void setLectura(Character lectura) {
-        this.lectura = lectura;
+    public void setCrear(Character crear) {
+        this.crear = crear;
     }
 
-    public Character getEscritura() {
-        return escritura;
+    public Character getLeer() {
+        return leer;
     }
 
-    public void setEscritura(Character escritura) {
-        this.escritura = escritura;
+    public void setLeer(Character leer) {
+        this.leer = leer;
     }
 
-    public Character getBorrado() {
-        return borrado;
+    public Character getModificar() {
+        return modificar;
     }
 
-    public void setBorrado(Character borrado) {
-        this.borrado = borrado;
+    public void setModificar(Character modificar) {
+        this.modificar = modificar;
+    }
+
+    public Character getBorrar() {
+        return borrar;
+    }
+
+    public void setBorrar(Character borrar) {
+        this.borrar = borrar;
     }
 
     public List<AccesoRecurso> getAccesorec() {

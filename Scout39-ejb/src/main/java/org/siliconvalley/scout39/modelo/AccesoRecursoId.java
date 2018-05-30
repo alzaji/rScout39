@@ -20,30 +20,6 @@ public class AccesoRecursoId implements Serializable {
     Long idPrivilegio;
     Long idObjeto;
 
-    public Long getIdRol() {
-        return idRol;
-    }
-
-    public void setIdRol(Long idRol) {
-        this.idRol = idRol;
-    }
-
-    public Long getIdPrivilegio() {
-        return idPrivilegio;
-    }
-
-    public void setIdPrivilegio(Long idPrivilegio) {
-        this.idPrivilegio = idPrivilegio;
-    }
-
-    public Long getIdObjeto() {
-        return idObjeto;
-    }
-
-    public void setIdObjeto(Long idObjeto) {
-        this.idObjeto = idObjeto;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;

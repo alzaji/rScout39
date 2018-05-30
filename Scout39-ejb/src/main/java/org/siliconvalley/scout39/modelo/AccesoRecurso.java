@@ -28,17 +28,21 @@ public class AccesoRecurso implements Serializable {
     @MapsId("idRol")
     @JoinColumn (name = "idRol", referencedColumnName = "id")
     @ManyToOne
-    private Roles rol;
+    private Roles idRol;
     
     @MapsId("idPrivilegio")
-    @JoinColumn (name = "idPrivilegios", referencedColumnName = "id")
+    @JoinColumn (name = "idPrivilegio", referencedColumnName = "id")
     @ManyToOne
-    private Privilegios priv;
+    private Privilegios idPrivilegio;
     
     @MapsId("idObjeto")
-    @JoinColumn (name = "idObjeto")
+    @JoinColumn (name = "idObjeto", referencedColumnName = "id")
     @ManyToOne
-    private Objeto o;
+    private Objeto idObjeto;
+    
+    public AccesoRecurso(){
+        this.idAccRec = new AccesoRecursoId(); // Único workaround valido para la solucion a setter/getter de ids
+    }
 
     public AccesoRecursoId getIdAccRec() {
         return idAccRec;
@@ -48,37 +52,37 @@ public class AccesoRecurso implements Serializable {
         this.idAccRec = idAccRec;
     }
 
-    public Roles getRol() {
-        return rol;
+    public Roles getIdRol() {
+        return idRol;
     }
 
-    public void setRol(Roles rol) {
-        this.rol = rol;
+    public void setIdRol(Roles idRol) {
+        this.idRol = idRol;
     }
 
-    public Privilegios getPriv() {
-        return priv;
+    public Privilegios getIdPrivilegio() {
+        return idPrivilegio;
     }
 
-    public void setPriv(Privilegios priv) {
-        this.priv = priv;
+    public void setIdPrivilegio(Privilegios idPrivilegio) {
+        this.idPrivilegio = idPrivilegio;
     }
 
-    public Objeto getO() {
-        return o;
+    public Objeto getIdObjeto() {
+        return idObjeto;
     }
 
-    public void setO(Objeto o) {
-        this.o = o;
+    public void setIdObjeto(Objeto idObjeto) {
+        this.idObjeto = idObjeto;
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.idAccRec);
-        hash = 89 * hash + Objects.hashCode(this.rol);
-        hash = 89 * hash + Objects.hashCode(this.priv);
-        hash = 89 * hash + Objects.hashCode(this.o);
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.idAccRec);
+        hash = 47 * hash + Objects.hashCode(this.idRol);
+        hash = 47 * hash + Objects.hashCode(this.idPrivilegio);
+        hash = 47 * hash + Objects.hashCode(this.idObjeto);
         return hash;
     }
 
@@ -97,16 +101,17 @@ public class AccesoRecurso implements Serializable {
         if (!Objects.equals(this.idAccRec, other.idAccRec)) {
             return false;
         }
-        if (!Objects.equals(this.rol, other.rol)) {
+        if (!Objects.equals(this.idRol, other.idRol)) {
             return false;
         }
-        if (!Objects.equals(this.priv, other.priv)) {
+        if (!Objects.equals(this.idPrivilegio, other.idPrivilegio)) {
             return false;
         }
-        if (!Objects.equals(this.o, other.o)) {
+        if (!Objects.equals(this.idObjeto, other.idObjeto)) {
             return false;
         }
         return true;
     }
-    
+
+   
 }
