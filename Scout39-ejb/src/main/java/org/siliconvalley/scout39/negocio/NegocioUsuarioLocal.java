@@ -5,6 +5,7 @@
  */
 package org.siliconvalley.scout39.negocio;
 
+import java.util.List;
 import javax.ejb.Local;
 import org.siliconvalley.scout39.modelo.Usuario;
 
@@ -13,14 +14,8 @@ import org.siliconvalley.scout39.modelo.Usuario;
  * @author fernandez
  */
 @Local
-public interface NegocioGestionUsuarios {
+public interface NegocioUsuarioLocal {
     
-    
-    public void crearUsuario(Usuario u) throws ScoutException;
-    
-    public void borrarUsuario(int idUsuario) throws ScoutException;
-    
-    public void editarUsuario(int idUsuario) throws ScoutException;
-    
-    
+    public List<Usuario> listaUsuarios();
+    public List<Usuario> listaUsuariosAJAX(String pal);
 }

@@ -10,15 +10,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.ManagedBean;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
+import org.siliconvalley.scout39.negocio.NegocioUsuarioLocal;
+
+
 
 /**
  *
@@ -31,19 +34,39 @@ public class ControlUsuario implements Serializable {
 
     @Inject
     private Login login;
+    @EJB
+    private NegocioUsuarioLocal users;
 
-    private Usuario usuario;
-    private String nombre;
-    private String Apellidos;
-    private String alias;
-    private String email;
+    private Usuario usuario;    
     private Roles roles;
-
+    protected String pal;
+    protected boolean update = false;
+    
     public ControlUsuario() {
     }
 
-    public List<Usuario> getUsuarios() {
-        return login.getUsuarios();
+    public String getPal() {
+        return pal;
+    }
+
+    public void setPal(String pal) {
+        this.pal = pal;
+    }
+    
+    public List<Usuario> listarUsuarios() {
+        if (update) {
+            return listarUsuariosAJAX();
+        }
+        return users.listaUsuarios();
+    } 
+    
+    public void searchListUser(){
+        update = true;
+        listarUsuarios();
+    }
+    
+    public List<Usuario> listarUsuariosAJAX() {
+        return users.listaUsuariosAJAX(pal);
     }
 
     public Roles getRoles() {
@@ -54,38 +77,15 @@ public class ControlUsuario implements Serializable {
         this.roles = roles;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
-    public String getApellidos() {
-        return Apellidos;
-    }
-
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    
     public String removeUsuario(Usuario u) {
 
         login.getUsuarios().remove(u);
@@ -165,5 +165,6 @@ public class ControlUsuario implements Serializable {
         return user;
 
     }
+    
 
 }
