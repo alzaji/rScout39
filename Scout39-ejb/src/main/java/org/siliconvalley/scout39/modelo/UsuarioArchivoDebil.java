@@ -18,7 +18,7 @@ public class UsuarioArchivoDebil implements Serializable {
 
     private Long idUsuario;
     private Long idArchivo;
-
+    
     public Long getIdUsuario() {
         return idUsuario;
     }

@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
 
 /**
  *
@@ -31,69 +33,70 @@ public class beanPerfil {
     private ControlAsistencia controlAsis;
     private Login login;
     
+    @EJB
+    private NegocioGestorDocumentalLocal gestorArchivos;
+    
     
     public beanPerfil() {
-        login = new Login();
-        archivos = new HashMap<>();
-        promesas = new HashMap<>();
-        List<Archivo> listas03;
-                
-        for(Usuario u: login.getUsuarios()){
-            listas03 = new ArrayList<Archivo>();
-            Archivo d = new Archivo();
-            d.setNombre("S03" + u.getAlias() + ".pdf");
-            d.setRuta("../Archivos/S03" + u.getAlias() +".pdf");
-            d.setTipo("pdf");
-            listas03.add(d);
-            archivos.put(u, listas03);
-        }
+//        login = new Login();
+//        archivos = new HashMap<>();
+//        promesas = new HashMap<>();
+//        List<Archivo> listas03;
+//                
+//        for(Usuario u: login.getUsuarios()){
+//            listas03 = new ArrayList<Archivo>();
+//            Archivo d = new Archivo();
+//            d.setNombre("S03" + u.getAlias() + ".pdf");
+//            d.setRuta("../Archivos/S03" + u.getAlias() +".pdf");
+//            d.setTipo("pdf");
+//            listas03.add(d);
+//            archivos.put(u, listas03);
+//        }
      //   getPromesaUsuario();
     }
     public boolean insertFile(Usuario u){
-        boolean ret = false;
-        if(ret = archivos.containsKey(u)){
-            for(Usuario a: archivos.keySet()){
-            if(a.equals(u)){
-                Archivo d = new Archivo();
-                d.setNombre("archivoPrueba.pdf");
-                d.setRuta("../Archivos/archivoPrueba.pdf");
-                d.setTipo("pdf");
-                archivos.get(a).add(d);
-                break;
-            }
-        }
-        }
-        return ret;
+//        boolean ret = false;
+//        if(ret = archivos.containsKey(u)){
+//            for(Usuario a: archivos.keySet()){
+//            if(a.equals(u)){
+//                Archivo d = new Archivo();
+//                d.setNombre("archivoPrueba.pdf");
+//                d.setRuta("../Archivos/archivoPrueba.pdf");
+//                d.setTipo("pdf");
+//                archivos.get(a).add(d);
+//                break;
+//            }
+//        }
+//        }
+//        return ret;
+    return false;
     }
     public List<Archivo> getUserFiles(Usuario u){
-        if(archivos.containsKey(u)){
-            for(Usuario a: archivos.keySet()){
-                if(u.equals(a)) return archivos.get(a);
-            }
-        }
-        return null;
+//      
+       // return gestorArchivos.buscarArchivos(u);
+       return null;
     }
     private void getPromesaUsuario(){
-        Map<Eventos, List<Progresion>> aux = new HashMap<>();
-        switch (ctrl.getUsuario().getRoles().getNombrerol()) {
-            case "EducandoKIM":
-                aux = controlAsis.getEventosKIM();
-            case "EducandoSIRYU":
-                aux = controlAsis.getEventosSIRYU();
-            case "EducandoTHA":
-                aux = controlAsis.getEventosTHA();
-            case "EducandoALMOGAMA":
-                aux = controlAsis.getEventosALMOGAMA();
-            default:
-                aux = null;
-        for(Eventos e: aux.keySet()){
-            if(aux.get(e).contains((ctrl.getUsuario().getProgresion()))){
-                for(Progresion p: aux.get(e)){
-                    if(p.getUsuarioP().equals(ctrl.getUsuario())) promesas.put(e.getNombre(),p.getPromesa());
-                }
-            }
-        }
-        }
+//        Map<Eventos, List<Progresion>> aux = new HashMap<>();
+//        switch (ctrl.getUsuario().getRoles().getNombrerol()) {
+//            case "EducandoKIM":
+//                aux = controlAsis.getEventosKIM();
+//            case "EducandoSIRYU":
+//                aux = controlAsis.getEventosSIRYU();
+//            case "EducandoTHA":
+//                aux = controlAsis.getEventosTHA();
+//            case "EducandoALMOGAMA":
+//                aux = controlAsis.getEventosALMOGAMA();
+//            default:
+//                aux = null;
+//        for(Eventos e: aux.keySet()){
+//            if(aux.get(e).contains((ctrl.getUsuario().getProgresion()))){
+//                for(Progresion p: aux.get(e)){
+//                    if(p.getUsuarioP().equals(ctrl.getUsuario())) promesas.put(e.getNombre(),p.getPromesa());
+//                }
+//            }
+//        }
+//        }
     }
 
     public Map<String, String> getPromesas() {

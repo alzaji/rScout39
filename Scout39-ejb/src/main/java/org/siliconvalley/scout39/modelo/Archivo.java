@@ -37,6 +37,10 @@ public class Archivo implements Serializable {
     @OneToOne
     private S03 s03;
 
+    public Archivo(){
+        this.id = new UsuarioArchivoDebil();
+    }
+    
     public String getTipo() {
         return tipo;
     }
