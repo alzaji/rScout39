@@ -14,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
@@ -30,8 +29,8 @@ public class Objeto implements Serializable {
     private Long id;
     @Column(nullable = false, length = 100, unique = true)
     private String nombre;
-    @ManyToMany
-    private List<Privilegios> listaPrivilegios;
+    @OneToMany(mappedBy = "idObjeto", cascade = CascadeType.ALL)
+    private List<AccesoRecurso> listaAcceso;
     @OneToMany
     private List<Grupo> listaGrupos;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -59,12 +58,12 @@ public class Objeto implements Serializable {
         this.nombre = nombre;
     }
 
-    public List<Privilegios> getListaPrivilegios() {
-        return listaPrivilegios;
+    public List<AccesoRecurso> getListaAcceso() {
+        return listaAcceso;
     }
 
-    public void setListaPrivilegios(List<Privilegios> listaPrivilegios) {
-        this.listaPrivilegios = listaPrivilegios;
+    public void setListaAcceso(List<AccesoRecurso> listaAcceso) {
+        this.listaAcceso = listaAcceso;
     }
 
     public List<Grupo> getListaGrupos() {

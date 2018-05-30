@@ -39,6 +39,10 @@ public class Progresion implements Serializable {
     @ManyToOne
     private Eventos eventoP;
 
+    public Progresion() {
+        this.idProgresion = new ProgresionUsuarioEventosDebil(); // Único workaround valido para la solucion a setter/getter de ids
+    }
+
     public ProgresionUsuarioEventosDebil getIdProgresion() {
         return idProgresion;
     }
