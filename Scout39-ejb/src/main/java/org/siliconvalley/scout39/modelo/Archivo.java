@@ -53,6 +53,10 @@ public class Archivo implements Serializable {
         this.idUsuario = idUsuario;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

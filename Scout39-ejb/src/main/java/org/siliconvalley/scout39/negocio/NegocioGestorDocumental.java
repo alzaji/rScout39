@@ -33,7 +33,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         ar.setNombre(nombre);
         ar.setTipo(tipo);
         ar.setRuta(ruta);
-        ar.setUsuario(aux);
+        ar.setIdUsuario(aux);
         em.merge(ar);
        } catch(Exception re){
            Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING,re.getMessage(),re.getCause());

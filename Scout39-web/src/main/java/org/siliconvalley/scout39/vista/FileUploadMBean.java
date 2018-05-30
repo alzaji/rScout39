@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +24,8 @@ import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
  *
  * @author hidden-process
  */
-@Named(value = "fileUploadMBean")
-@ViewScoped
+@Named (value = "fileUploadMBean")
+@RequestScoped
 public class FileUploadMBean implements Serializable {
 
     @Inject
@@ -42,8 +42,8 @@ public class FileUploadMBean implements Serializable {
         return file;
     }
 
-    public void setFile(Part f) {
-        this.file = f;
+    public void setFile(Part file) {
+        this.file = file;
     }
 
     public String getMessage() {
