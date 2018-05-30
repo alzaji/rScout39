@@ -1,0 +1,275 @@
+<ui:composition template="templates/principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">#{controlAutorizacion.grupo.nombre}</ui:define>
+    <ui:define name="link1"><h:link class="nav-link text-white" p:href="siryu.xhtml" value="Eventos"/></ui:define>
+    <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
+    <ui:define name="eventos">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!--Card-->
+                    <div class="card mt-5">
+                        <!--Card content-->
+                        <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title text-center">Evento Conciliación Grupo
+                                <a data-toggle="modal" data-target="#modalModificarEvento#{evento.id.toString()}">
+                                    <i class="fas fa-pencil-alt orange-text"></i>
+                                </a>
+                                <a data-toggle="modal" data-target="#modalBorrarEvento#{evento.id.toString()}">
+                                    <i class="fas fa-minus-circle red-text"></i>
+                                </a>
+                            </h4>
+                            <!--Text-->
+                            <p class="card-text text-justify">Lorem fistrum pupita sexuarl torpedo condemor a wan jarl me cago en tus muelas amatomaa. Ese que llega diodeno
+                                quietooor tiene musho peligro está la cosa muy malar amatomaa. Pecador benemeritaar diodeno caballo blanco
+                                caballo negroorl ahorarr la caidita llevame al sircoo se calle ustée. Diodenoo de la pradera por la gloria
+                                de mi madre va usté muy cargadoo pecador al ataquerl llevame al sircoo. Tiene musho peligro sexuarl a wan apetecan
+                                torpedo ese pedazo de caballo blanco caballo negroorl diodeno papaar papaar.</p>
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDwzZZYDEbnUpTTWcgbr3e3aUrXjjySciM&amp;center=36.7183391,-4.5193067&amp;zoom=14"></iframe>
+                            </div>
+                        </div>
+                        <!--Card image-->
+
+                        <div class="card-footer center">
+                            <div class="container">
+                                <div class="row">
+                                    <a class="btn btn-green col" href="eventos.html">
+                                        <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Asistir</a>
+                                    <a class="btn btn-blue col" data-toggle="collapse" href="#collapseComentarios" aria-expanded="false" aria-controls="collapseComentarios">
+                                        <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Comentarios</a>
+                                    <a class="btn btn-orange col" data-toggle="collapse" href="#collapseParticipantes" aria-expanded="false" aria-controls="collapseParticipantes">
+                                        <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Participantes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/.Card-->
+
+                    <div class="collapse" id="collapseComentarios">
+                        <div class="card mt-5">
+                            <!--Card content-->
+                            <div class="card-body">
+                                <!--Title-->
+                                <h4 class="card-title text-center" id="comentarios">Comentarios
+                                </h4>
+                                <div class="comment mb-2 row">
+                                    <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                        <a href="">
+                                            <img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+                                                 alt="avatar" />
+                                        </a>
+                                    </div>
+                                    <div class="comment-content col-md-11 col-sm-10">
+                                        <h6 class="small comment-meta">
+                                            <strong>Coordinador</strong>
+                                        </h6>
+                                        <div class="comment-body">
+                                            <p>
+                                                ¡Espero que os guste el evento!
+                                                <br/>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <hr class="my-3"/>
+                                    <div class="comment mb-2 row">
+                                        <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                            <a href="">
+                                                <img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+                                                     alt="avatar" />
+                                            </a>
+                                        </div>
+                                        <div class="comment-content col-md-11 col-sm-10">
+                                            <h6 class="small comment-meta">
+                                                <strong>Coordinador</strong>
+                                            </h6>
+                                            <div class="comment-body">
+                                                <p>
+                                                    ¡Espero que os guste el evento!
+                                                    <br/>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Text-->
+                            </div>
+                            <!--Card image-->
+
+                            <div class="card-footer center">
+                                <div class="container">
+                                    <div class="row">
+                                        <a class="btn col btn-primary" data-toggle="modal" data-target="#modalComentariosEvento">Comenta</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.Card-->
+                    </div>
+                </div>
+            </div>
+
+            <!--Card-->
+            <div class="collapse" id="collapseParticipantes">
+                <div class="card mt-5 mb-5">
+                    <!--Card content-->
+                    <div class=" card-body ">
+                        <!--Title-->
+                        <h4 class="card-title text-center ">Participantes</h4>
+
+                        <div>
+                            <div class="mt-3 ">
+                                <table class="table table-striped table-responsive-md btn-table ">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>Nombre de Usuario</th>
+                                            <th>Correo electrónico</th>
+                                            <th>Progresión</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>Nombre</td>
+                                            <td>apellidos</td>
+                                            <td>alias</td>
+                                            <td>email</td>
+                                            <td>
+                                                <button type="button " class="btn btn-default btn-rounded btn-sm my-0 " data-toggle="modal
+                                                        " data-target="#rellenarProgresion ">Rellenar</button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--Card image-->
+
+
+                    </div>
+                    <!--/.Card-->
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="modal fade" id="modalComentariosEvento" tabindex="-1 " role="dialog" aria-labelledby="modalComentariosEventoLabel"
+             aria-hidden="true ">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header btn-indigo white-text">
+                        <h4 class="title">
+                            <i class="fa fa-comments"></i> Nuevo Comentario</h4>
+                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <form id="formComentarioEvento">
+
+                            <div class="md-form">
+                                <textarea class="text-justify form-control" placeholder=" Escribe tu comentario aquí... " cols="50" rows="5" maxlength="500" id="textoComentario "></textarea>
+                            </div>
+                            <div class="text-center mt-4">
+                                <button class="btn btn-indigo">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalBorrarEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="modalBorrarEventoLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header danger-color white-text">
+                        <h4 class="title">
+                            <i class="fa fa-trash"></i> Borrar Evento</h4>
+                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: center;">¿Está seguro que desea borrar este evento?</p>
+                    </div>
+                    <div class="modal-footer center">
+                        <div class="container">
+                            <div class="row">
+                                <form>
+                                    <a class="btn btn-default col">Si, estoy seguro</a>
+                                    <a class="btn btn-danger col" data-dismiss="modal">Cancelar</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalModificarEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Modificar Evento</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <h:form id="formModificarEvento#{evento.id.toString()}">
+                            Material input text
+                            <div class="md-form">
+                                <i class="fa fa-font prefix grey-text"></i>
+                                <h:inputText class="form-control" id="modificarNombre" value="#{evento.nombre}" />
+                                <h:outputLabel>Nombre Evento</h:outputLabel>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-font prefix grey-text"></i>
+                                <h:inputTextarea cols="20" rows="5" class="form-control" id="modificarDescripcion" value="#{evento.descripcion}" />
+                                <h:outputLabel>Descripcion Evento</h:outputLabel>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-calendar prefix grey-text"></i>
+                                <h:inputText class="form-control" id="modificarFecha" />
+                                <h:outputLabel>Fecha Evento</h:outputLabel>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-compass prefix grey-text"></i>
+                                <h:inputText class="form-control" id="modificarLatitud" value="#{evento.latitud}" />
+                                <h:outputLabel>Latitud</h:outputLabel>
+                            </div>
+
+                            <div class="md-form">
+                                <i class="fa fa-compass prefix grey-text"></i>
+                                <h:inputText class="form-control" id="modificarLongitud" value="#{evento.longitud}" />
+                                <h:outputLabel>Longitud</h:outputLabel>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <h:commandButton class="btn btn-orange" value="Modificar Evento" action="#{beanEventos.doModificarEvento(evento.id.toString())}"
+                                                 />
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>

@@ -14,10 +14,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.ManagedBean;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.UserTransaction;
@@ -30,11 +33,13 @@ import org.siliconvalley.scout39.negocio.NegocioEventosLocal;
  * @author aruizdlt
  */
 @Named(value = "beanEventos")
-@RequestScoped
+@ManagedBean
+@SessionScoped
 public class beanEventos implements Serializable {
 
     private long idEvento = 1;
 
+    private List<Eventos> listaEventos = new ArrayList<>();
     private Eventos evento;
     private Comentarios comentario;
     private List<Eventos> eventosTHA;
@@ -59,8 +64,19 @@ public class beanEventos implements Serializable {
 
     }
 
-    public List<Eventos> misEventos(int idGrupo) {
-        return eventos.eventosProximos(new Long(idGrupo));
+    public void misEventos(int idGrupo) {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String nombre = request.getParameter("seleccionarEvento:opcion");
+            if (nombre.equals("0") || nombre.equals("1")) {
+                this.setListaEventos(eventos.eventosProximos(new Long(idGrupo)));
+            } else {
+                this.setListaEventos(eventos.eventosPasados(new Long(idGrupo)));
+            }
+        } catch (NullPointerException npe) {
+            this.setListaEventos(eventos.eventosProximos(new Long(idGrupo)));
+        }
+        //return "siryu.xhtml";
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
@@ -151,8 +167,16 @@ public class beanEventos implements Serializable {
             case "ScouterKIM":
                 eventos.borrarEvento(e);
                 return "kim.xhtml?faces-redirect=true";
-            case "ScouterSIRYU":
-                eventos.borrarEvento(e);
+            case "Scouter":
+                try {
+                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
+                        //userTransaction.begin();
+                        eventos.borrarEvento(e);
+                        //userTransaction.commit();
+                    }
+                } catch (Exception re) {
+                    Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
+                }
                 return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
                 eventos.borrarEvento(e);
@@ -179,11 +203,13 @@ public class beanEventos implements Serializable {
                 eventosKIM.add(evento);
                 comentariosKIM.put(evento, new ArrayList<Comentarios>());
                 return "kim.xhtml?faces-redirect=true";
-            case "ScouterSIRYU":
+            case "Scouter":
                 try {
-                    //userTransaction.begin();
-                    eventos.crearEvento(evento, new Long(32));
-                    //userTransaction.commit();
+                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
+                        //userTransaction.begin();
+                        eventos.crearEvento(evento, new Long(32));
+                        //userTransaction.commit();
+                    }
                 } catch (Exception re) {
                     Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
                 }
@@ -212,8 +238,16 @@ public class beanEventos implements Serializable {
             case "ScouterKIM":
                 modificarEvento(eventosKIM, evento);
                 return "kim.xhtml?faces-redirect=true";
-            case "ScouterSIRYU":
-                eventos.modificarEvento(evento);
+            case "Scouter":
+                try {
+                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
+                        //userTransaction.begin();
+                        eventos.modificarEvento(evento);
+                        //userTransaction.commit();
+                    }
+                } catch (Exception re) {
+                    Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
+                }
                 return "siryu.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
                 modificarEvento(eventosALMOGAMA, evento);
@@ -262,7 +296,6 @@ public class beanEventos implements Serializable {
 //        c.setCuerpo(cuerpo);
 //        return c;
 //    }
-
 //    private ComentariosUsuarioEventosDebil crearIdComentario(Long idEvento, Long idUsuario) {
 //        ComentariosUsuarioEventosDebil cId = new ComentariosUsuarioEventosDebil();
 //        cId.setIdEvento(idEvento);
@@ -270,7 +303,6 @@ public class beanEventos implements Serializable {
 //        cId.setIdComentarios(new Random().nextLong());
 //        return cId;
 //    }
-
     public Comentarios getComentario() {
         return comentario;
     }
@@ -349,6 +381,16 @@ public class beanEventos implements Serializable {
 
     public void setEventosALMOGAMA(List<Eventos> eventosALMOGAMA) {
         this.eventosALMOGAMA = eventosALMOGAMA;
+    }
+
+    public List<Eventos> getListaEventos() {
+        Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista getter: " + this.listaEventos.size());
+        return listaEventos;
+    }
+
+    public void setListaEventos(List<Eventos> listaEventos) {
+        this.listaEventos = listaEventos;
+        Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista setter: " + this.listaEventos.size());
     }
 
 }

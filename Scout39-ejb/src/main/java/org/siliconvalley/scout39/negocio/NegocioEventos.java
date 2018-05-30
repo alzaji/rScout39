@@ -82,22 +82,15 @@ public class NegocioEventos implements NegocioEventosLocal {
         q.setParameter("nombre", "eventosSIRYU");
         Objeto o = (Objeto) q.getSingleResult();
         List<Eventos> eventosObjeto = o.getListaEventos();
-//        List<Eventos> eventosProximos = new ArrayList<>();
-//        for (Eventos evento : eventosObjeto) {            
-//            if (evento.getFecha().after(new Date())) {
-//                eventosProximos.add(evento);
-//            }
+        List<Eventos> eventosProximos = new ArrayList<>();
+        for (Eventos evento : eventosObjeto) {            
+            if (evento.getFecha().after(new Date())) {
+                eventosProximos.add(evento);
+            }
+        }
+
 //        }
-//        Objeto o = new Objeto();
-//        o.setNombre("eventos" + idGrupo);        
-//        List<Eventos> eventosObjeto = em.find(Objeto.class, o).getListaEventos();
-//        List<Eventos> eventosProximos = new ArrayList<>();
-//        for (Eventos evento : eventosObjeto) {
-//            if (evento.getFecha().after(new Date())) {
-//                eventosProximos.add(evento);
-//            }
-//        }
-        return eventosObjeto;
+        return eventosProximos;
 //        Date now = new Date();
 //        Query q = em.createQuery("SELECT e FROM Eventos e WHERE e.fecha > :today");
 //        q.setParameter("today", now, TemporalType.DATE);        
@@ -106,10 +99,10 @@ public class NegocioEventos implements NegocioEventosLocal {
 
     @Override
     public List<Eventos> eventosPasados(Long idGrupo) {
-        Objeto o = new Objeto();
-        o.setNombre("eventos" + idGrupo);
-        List<Eventos> eventosObjeto = em.find(Objeto.class,
-                o).getListaEventos();
+        Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
+        q.setParameter("nombre", "eventosSIRYU");
+        Objeto o = (Objeto) q.getSingleResult();
+        List<Eventos> eventosObjeto = o.getListaEventos(); 
         List<Eventos> eventosPasados = new ArrayList<>();
         for (Eventos evento : eventosObjeto) {
             if (evento.getFecha().before(new Date())) {
