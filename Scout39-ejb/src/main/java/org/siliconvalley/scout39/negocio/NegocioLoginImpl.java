@@ -7,6 +7,9 @@ package org.siliconvalley.scout39.negocio;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -29,10 +32,32 @@ public class NegocioLoginImpl implements NegocioLogin {
     private EntityManager em;
 
     @Override
-    public void registrarUsuario(Usuario u) throws ScoutException {
+    public void registrarUsuario(Usuario u, Grupo g) throws ScoutException {
 
-        em.merge(u);
+       // Me traigo el usuario ya con su id y su rol
+        Usuario aux = em.merge(u);
+        Roles r = aux.getRoles();
+        
+        //Actualizo la lista de usuarios en el rol
+        List<Usuario> ru = r.getUsuarios();
+        ru.add(aux);
+        em.merge(ru);
 
+        // Creo sus objetos
+        Objeto archivos = new Objeto();
+        archivos.setNombre("archivos" + aux.getId());
+        em.persist(archivos);
+
+        // Le asigno a un grupo
+        AccesoGrupo ac = newAcceso(new Date(), null, aux, g);
+        em.persist(ac);
+
+        List<AccesoGrupo> lac = new ArrayList<>();
+        lac.add(ac);
+        aux.setAcceso_Grupo(lac);
+        
+        em.merge(aux);
+        
     }
 
     @Override
@@ -75,14 +100,9 @@ public class NegocioLoginImpl implements NegocioLogin {
             Usuario uaux = em.find(Usuario.class, u.getId());
             Roles r = uaux.getRoles();
 
-            Query q = em.createQuery("Select p "
-                    + "from Objeto o, Privilegios p, Roles ra "
-                    + "where :a = o.nombre "
-                    + "AND :rp = ra.nombrerol "
-                    + "AND p MEMBER of o.listaPrivilegios "
-                    + "AND p MEMBER of ra.privilegios");
-            q.setParameter("a", o.getNombre());
-            q.setParameter("rp", r.getNombrerol());
+            Query q = em.createQuery("Select ar.idPrivilegio from AccesoRecurso ar where ar.idObjeto = :o and ar.idRol = :r");
+            q.setParameter("o", o);
+            q.setParameter("r", r);
 
             Privilegios paux = (Privilegios) q.getSingleResult();
             return paux;
@@ -113,5 +133,22 @@ public class NegocioLoginImpl implements NegocioLogin {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private AccesoGrupo newAcceso(
+            Date fecha_alta,
+            Date fecha_baja,
+            Usuario u,
+            Grupo g
+    ) {
+
+        AccesoGrupo ac = new AccesoGrupo();
+        ac.setFecha_Alta_Grupo(fecha_alta);
+        ac.setFecha_Baja_Grupo(fecha_baja);
+        ac.setUsuario_Grupo(u);
+        ac.setGrupo(g);
+
+        return ac;
+
     }
 }

@@ -90,8 +90,11 @@ public class Login implements Serializable {
                 }
                 ctrl.setUsuario(aux);
                 Objeto o = new Objeto();
-                o.setNombre("eventosSIRYU");
+                o.setId(Long.valueOf(38));
+                o.setNombre("eventos8");
                 Privilegios p = negociologin.checkPrivilegios(o, aux);
+                ctrl.setLastobjeto(o);
+                ctrl.setPrivilegio(p);
                 return ctrl.home();
             }
 

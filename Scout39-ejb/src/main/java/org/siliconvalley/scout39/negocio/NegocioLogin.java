@@ -15,7 +15,7 @@ import org.siliconvalley.scout39.modelo.*;
 @Local
 public interface NegocioLogin {
     
-    public void registrarUsuario(Usuario u) throws ScoutException;
+    public void registrarUsuario(Usuario u, Grupo g) throws ScoutException;
     public Usuario comprobarUsuario(String alias) throws ScoutException;
     public Grupo grupoActualUsuario(Usuario u) throws ScoutException;
     public Privilegios checkPrivilegios (Objeto o, Usuario u) throws ScoutException;
