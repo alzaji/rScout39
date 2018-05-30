@@ -7,15 +7,18 @@ package org.siliconvalley.scout39.negocio;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.AccesoGrupo;
 import org.siliconvalley.scout39.modelo.Grupo;
+import org.siliconvalley.scout39.modelo.Objeto;
+import org.siliconvalley.scout39.modelo.Privilegios;
+import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
 
 /**
@@ -29,10 +32,32 @@ public class NegocioLoginImpl implements NegocioLogin {
     private EntityManager em;
 
     @Override
-    public void registrarUsuario(Usuario u) throws ScoutException {
+    public void registrarUsuario(Usuario u, Grupo g) throws ScoutException {
 
-        em.merge(u);
+       // Me traigo el usuario ya con su id y su rol
+        Usuario aux = em.merge(u);
+        Roles r = aux.getRoles();
+        
+        //Actualizo la lista de usuarios en el rol
+        List<Usuario> ru = r.getUsuarios();
+        ru.add(aux);
+        em.merge(ru);
 
+        // Creo sus objetos
+        Objeto archivos = new Objeto();
+        archivos.setNombre("archivos" + aux.getId());
+        em.persist(archivos);
+
+        // Le asigno a un grupo
+        AccesoGrupo ac = newAcceso(new Date(), null, aux, g);
+        em.persist(ac);
+
+        List<AccesoGrupo> lac = new ArrayList<>();
+        lac.add(ac);
+        aux.setAcceso_Grupo(lac);
+        
+        em.merge(aux);
+        
     }
 
     @Override
@@ -54,22 +79,41 @@ public class NegocioLoginImpl implements NegocioLogin {
 
     @Override
     public Grupo grupoActualUsuario(Usuario u) throws ScoutException {
-        
+
         try {
             Query q = em.createQuery("SELECT ac from AccesoGrupo ac where :u = ac.Usuario_Grupo and ac.Fecha_Baja_Grupo IS NULL");
             q.setParameter("u", u);
             AccesoGrupo ac = (AccesoGrupo) q.getSingleResult();
-            
+
             return ac.getGrupo();
-            
-            
+
         } catch (RuntimeException e) {
-            
+
             throw new ScoutException("No hay resultados para ese usuario");
         }
     }
 
-    
+    @Override
+    public Privilegios checkPrivilegios(Objeto o, Usuario u) throws ScoutException {
+
+        try {
+            Usuario uaux = em.find(Usuario.class, u.getId());
+            Roles r = uaux.getRoles();
+
+            Query q = em.createQuery("Select ar.idPrivilegio from AccesoRecurso ar where ar.idObjeto = :o and ar.idRol = :r");
+            q.setParameter("o", o);
+            q.setParameter("r", r);
+
+            Privilegios paux = (Privilegios) q.getSingleResult();
+            return paux;
+
+        } catch (RuntimeException e) {
+
+            throw new ScoutException(e.getMessage());
+        }
+
+    }
+
     @Override
     public String sha256(String rawString) {
         try {
@@ -89,5 +133,22 @@ public class NegocioLoginImpl implements NegocioLogin {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    private AccesoGrupo newAcceso(
+            Date fecha_alta,
+            Date fecha_baja,
+            Usuario u,
+            Grupo g
+    ) {
+
+        AccesoGrupo ac = new AccesoGrupo();
+        ac.setFecha_Alta_Grupo(fecha_alta);
+        ac.setFecha_Baja_Grupo(fecha_baja);
+        ac.setUsuario_Grupo(u);
+        ac.setGrupo(g);
+
+        return ac;
+
     }
 }

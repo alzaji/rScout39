@@ -20,15 +20,8 @@ public class ControlAutorizacion implements Serializable {
 
     private Usuario usuario;
     private Grupo grupo;
-    public final static String COORDINADOR = "Coordinador";
-    public final static String SCTHA = "ScouterTHA";
-    public final static String SCKIM = "ScouterKIM";
-    public final static String SCSIRYU = "ScouterSIRYU";
-    public final static String SCALMOGAMA = "ScouterALMOGAMA";
-    public final static String EDTHA = "EducandoTHA";
-    public final static String EDKIM = "EducandoKIM";
-    public final static String EDSIRYU = "EducandoSIRYU";
-    public final static String EDALMOGAMA = "EducandoALMOGAMA";
+    private Objeto lastobjeto;
+    private Privilegios privilegio;
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
@@ -44,6 +37,42 @@ public class ControlAutorizacion implements Serializable {
 
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
+    }
+
+    public Objeto getLastobjeto() {
+        return lastobjeto;
+    }
+
+    public void setLastobjeto(Objeto lastobjeto) {
+        this.lastobjeto = lastobjeto;
+    }
+
+    public Privilegios getPrivilegio() {
+        return privilegio;
+    }
+
+    public void setPrivilegio(Privilegios privilegio) {
+        this.privilegio = privilegio;
+    }
+
+    public boolean hasCreate() {
+
+        return privilegio.getCrear() == 'S';
+    }
+
+    public boolean hasRead() {
+
+        return privilegio.getLeer() == 'S';
+    }
+    
+    public boolean hasUpdate() {
+        
+        return privilegio.getModificar() == 'S';
+    }
+    
+    public boolean hasDelete(){
+        
+        return privilegio.getBorrar() == 'S';
     }
 
     public String home() {

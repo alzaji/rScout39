@@ -4,6 +4,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="title">Coordinador</ui:define>    
     <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
@@ -18,16 +19,17 @@
                 Crear nuevo usuario
             </button>
 
-            <div class="input-group col-md-2 mt-4 mb-4">
-                <select class="custom-select" id="selectFilter">
-                    <option selected="selected">Filtrar...</option>
-                    <option value="masculino">Por grupo</option>                    
-                    <option value="masculino">Por rol</option>                    
-                </select>                
+            <div class="input-group col-md-8 mt-4 mb-4">
+                <h:form>
+                    <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{controlUsuario.pal}" > 
+                        <f:ajax event="keyup" listener="#{controlUsuario.searchListUser()}" render="table"/>
+                    </h:inputText>
+                </h:form>                
             </div>
 
             <div class="container col-8">
-                <h:dataTable id="table" value="#{login.usuarios}" var="u" styleClass="table table-striped table-responsive-md btn-table">
+                <h:dataTable id="table" value="#{controlUsuario.listarUsuarios()}" var="u" styleClass="table table-striped table-responsive-md btn-table">                    
+                    
                 <h:column>
                     <!-- column header -->
                     <f:facet name="header">Código</f:facet>
@@ -139,7 +141,7 @@
                                 <p style="text-align: center;">¿Está seguro que desea eliminar este usuario?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default btn-sm my-0" data-dismiss="modal" onclick="#{controlUsuario.removeUsuario(u)}">Si, estoy seguro</button>
+                                <button type="button" class="btn btn-default btn-sm my-0" data-dismiss="modal" onclick="">Si, estoy seguro</button>
 
                                 <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
                             </div>
@@ -148,12 +150,13 @@
                 </div>
                 </h:column>
                    
-            </h:dataTable>   
-            </div>
-            
                     
-
-                         
+                      
+                    
+                    
+                    
+            </h:dataTable>   
+            </div>                 
         </center>
 
 

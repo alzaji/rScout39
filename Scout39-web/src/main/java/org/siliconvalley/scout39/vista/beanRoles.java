@@ -33,7 +33,7 @@ public class beanRoles implements Serializable {
 
     private Roles crearRol(Long idRol, String nombreRol) {
         Roles r = new Roles();
-        r.setIdrol(idRol);
+        r.setId(idRol);
         r.setNombrerol(nombreRol);
         return r;
     }
@@ -41,9 +41,9 @@ public class beanRoles implements Serializable {
     private Privilegios crearPrivilegios(Long id) {
         Privilegios p = new Privilegios();
         p.setId(id);
-        p.setLectura('N');
-        p.setBorrado('N');
-        p.setEscritura('N');
+//        p.setLectura('N');
+//        p.setBorrado('N');
+//        p.setEscritura('N');
         return p;
     }
 
