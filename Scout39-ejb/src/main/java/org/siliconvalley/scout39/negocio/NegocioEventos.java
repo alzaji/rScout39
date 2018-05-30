@@ -41,7 +41,7 @@ public class NegocioEventos implements NegocioEventosLocal {
             Eventos e1 = insertarEvento(e);
             Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, e1.getId().toString(), e1);
             Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
-            q.setParameter("nombre", "eventosSIRYU");
+            q.setParameter("nombre", "eventos" + idGrupo);
             Objeto o = (Objeto) q.getSingleResult();
             List<Eventos> eventosObjeto = o.getListaEventos();
             eventosObjeto.add(e1);
@@ -79,7 +79,7 @@ public class NegocioEventos implements NegocioEventosLocal {
     @Override
     public List<Eventos> eventosProximos(Long idGrupo) {
         Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
-        q.setParameter("nombre", "eventosSIRYU");
+        q.setParameter("nombre", "eventos" + idGrupo);
         Objeto o = (Objeto) q.getSingleResult();
         List<Eventos> eventosObjeto = o.getListaEventos();
         List<Eventos> eventosProximos = new ArrayList<>();
@@ -100,7 +100,7 @@ public class NegocioEventos implements NegocioEventosLocal {
     @Override
     public List<Eventos> eventosPasados(Long idGrupo) {
         Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
-        q.setParameter("nombre", "eventosSIRYU");
+        q.setParameter("nombre", "eventos" + idGrupo);
         Objeto o = (Objeto) q.getSingleResult();
         List<Eventos> eventosObjeto = o.getListaEventos(); 
         List<Eventos> eventosPasados = new ArrayList<>();

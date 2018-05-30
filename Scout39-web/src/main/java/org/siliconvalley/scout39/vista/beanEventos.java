@@ -69,14 +69,13 @@ public class beanEventos implements Serializable {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String nombre = request.getParameter("seleccionarEvento:opcion");
             if (nombre.equals("0") || nombre.equals("1")) {
-                this.setListaEventos(eventos.eventosProximos(new Long(idGrupo)));
+                this.setListaEventos(eventos.eventosProximos(control.getGrupo().getId()));
             } else {
-                this.setListaEventos(eventos.eventosPasados(new Long(idGrupo)));
+                this.setListaEventos(eventos.eventosPasados(control.getGrupo().getId()));
             }
         } catch (NullPointerException npe) {
-            this.setListaEventos(eventos.eventosProximos(new Long(idGrupo)));
+            this.setListaEventos(eventos.eventosProximos(control.getGrupo().getId()));
         }
-        //return "siryu.xhtml";
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
@@ -205,11 +204,7 @@ public class beanEventos implements Serializable {
                 return "kim.xhtml?faces-redirect=true";
             case "Scouter":
                 try {
-                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
-                        //userTransaction.begin();
-                        eventos.crearEvento(evento, new Long(32));
-                        //userTransaction.commit();
-                    }
+                    eventos.crearEvento(evento, control.getGrupo().getId());
                 } catch (Exception re) {
                     Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
                 }
