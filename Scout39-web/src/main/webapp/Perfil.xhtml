@@ -82,7 +82,7 @@
                                             <h:form>
                                             <td>#{a.nombre}</td>
                                             <td>#{a.tipo}</td>
-                                            <td> <h:commandButton class ="btn btn-sm btn-purple col" value="Descargar" action="#{fileUploadMBean.downloadFile(a.nombre)}"/></td>
+                                            <td> <h:outputLink class ="btn btn-sm btn-purple col" value = "#" >Descargar</h:outputLink></td>
                                             </h:form>
                                         </tr>
                                     </c:forEach>

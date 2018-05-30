@@ -5,7 +5,6 @@
  */
 package org.siliconvalley.scout39.negocio;
 
-
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,22 +25,28 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
 
     @Override
     public void subirArchivo(String ruta, String nombre, String tipo, Usuario u) {
-       Archivo ar = new Archivo();
-       Usuario aux = em.find(Usuario.class, u.getId());
+        Archivo ar = new Archivo();
+        Usuario aux = em.find(Usuario.class, u.getId());
         ar.setNombre(nombre);
         ar.setTipo(tipo);
         ar.setRuta(ruta);
         ar.setIdUsuario(aux);
         em.merge(ar);
     }
-    
+
     @Override
-    public List<Archivo> buscarArchivos(Usuario u){
-        
+    public List<Archivo> buscarArchivos(Usuario u) {
+
         Usuario aux = em.find(Usuario.class, u.getId());
         List<Archivo> ar = aux.getArchivo();
-        
+
         return ar;
-        
+
+    }
+
+    @Override
+    public String buscarPath(Archivo ar){
+        Archivo aux = em.find(Archivo.class, ar.getId());
+        return aux.getRuta();
     }
 }
