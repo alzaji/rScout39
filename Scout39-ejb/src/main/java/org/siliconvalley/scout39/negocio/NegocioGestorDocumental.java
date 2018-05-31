@@ -45,8 +45,18 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     }
 
     @Override
-    public String buscarPath(Archivo ar){
-        Archivo aux = em.find(Archivo.class, ar.getId());
-        return aux.getRuta();
+    public String buscarPath(Usuario u, String ruta) {
+        try {
+            List<Archivo> ar = buscarArchivos(u);
+            for (Archivo arch : ar) {
+                if (arch.getRuta().equals(ruta)) {
+                    return arch.getRuta();
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING, e.getMessage(), e.getCause());
+        }
+
+        return null;
     }
 }
