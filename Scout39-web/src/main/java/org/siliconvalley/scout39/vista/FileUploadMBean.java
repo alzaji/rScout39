@@ -58,14 +58,13 @@ public class FileUploadMBean implements Serializable {
     public String uploadFile() throws IOException {
         InputStream inputStream = null;
         OutputStream outputStream = null;
-
+        String fileName = control.getUsuario().getAlias() + "_" + Utils.getFileNameFromPart(file);
+        String ruta = File.separator + "resources" + File.separator + "archivos" + File.separator + fileName;
         FacesContext context = FacesContext.getCurrentInstance();
         ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
-        String path = servletContext.getRealPath("");
+        String path = servletContext.getRealPath("") + ruta;
         boolean file1Success = false;
 
-        String fileName = control.getUsuario().getAlias() + "_" + Utils.getFileNameFromPart(file);
-        String ruta = path + File.separator + "resources" + File.separator + "archivos" + File.separator + fileName;
         String extension = "";
 
         if (file.getSize() > 0) {
@@ -75,7 +74,7 @@ public class FileUploadMBean implements Serializable {
                 extension = fileName.substring(i + 1);
             }
 
-            File outputFile = new File(ruta);
+            File outputFile = new File(path);
 
             inputStream = file.getInputStream();
             outputStream = new FileOutputStream(outputFile);
@@ -94,17 +93,9 @@ public class FileUploadMBean implements Serializable {
         }
 
         if (file1Success) {
-            System.out.println("File uploaded to : " + path);
-            /**
-             * set the success message when the file upload is successful
-             */
-            setMessage("File successfully uploaded to " + path);
-
             gestor.subirArchivo(ruta, fileName, extension, control.getUsuario());
         } else {
-            /**
-             * set the error message when error occurs during the file upload
-             */
+
             setMessage("Error, select atleast one file!");
         }
         /**
@@ -112,10 +103,10 @@ public class FileUploadMBean implements Serializable {
          */
         return null;
     }
-    
-        public String getPath(Archivo ar){
-            return gestor.buscarPath(ar);
-        }
+
+    public String getPath(String ruta) {
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + gestor.buscarPath(control.getUsuario(), ruta);
+    }
 }
 //    public void downloadFile() throws IOException {
 //        FacesContext fc = FacesContext.getCurrentInstance();
@@ -125,7 +116,7 @@ public class FileUploadMBean implements Serializable {
 //
 //        ec.responseReset(); // Some JSF component library or some Filter might have set some headers in the buffer beforehand. We want to get rid of them, else it may collide.
 //        ec.setResponseContentType("application/pdf"); // Check http://www.iana.org/assignments/media-types for all types. Use if necessary ExternalContext#getMimeType() for auto-detection based on filename.
-//        ec.setResponseContentLength((int) file.getSize()); // Set it with the file size. This header is optional. It will work if it's omitted, but the download progress will be unknown.
+//        ec.setResponseContent +Length((int) file.getSize()); // Set it with the file size. This header is optional. It will work if it's omitted, but the download progress will be unknown.
 //        ec.setResponseHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\""); // The Save As popup magic is done here. You can give it any file name you want, this only won't work in MSIE, it will use current request URL as file name instead.
 //
 //        OutputStream output = ec.getResponseOutputStream();

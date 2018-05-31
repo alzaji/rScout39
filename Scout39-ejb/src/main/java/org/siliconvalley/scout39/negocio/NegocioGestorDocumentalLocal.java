@@ -18,5 +18,5 @@ public interface NegocioGestorDocumentalLocal {
     
     public void subirArchivo(String ruta,String nombre, String tipo,Usuario u);
     public List<Archivo> buscarArchivos(Usuario u);
-    public String buscarPath(Archivo ar);
+    public String buscarPath(Usuario u,String ruta);
 }
