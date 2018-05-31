@@ -31,15 +31,15 @@ public class Objeto implements Serializable {
     private String nombre;
     @OneToMany(mappedBy = "idObjeto", cascade = CascadeType.ALL)
     private List<AccesoRecurso> listaAcceso;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Grupo> listaGrupos;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Eventos> listaEventos;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Progresion> listaProgresion;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Archivo> listaArchivos;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     private List<Cuotas> listaCuotas;
 
     public Long getId() {

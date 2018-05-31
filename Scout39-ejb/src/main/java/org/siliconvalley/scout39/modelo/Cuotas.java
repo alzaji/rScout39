@@ -70,6 +70,14 @@ public class Cuotas implements Serializable {
         this.fecha_cuota = fecha_cuota;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

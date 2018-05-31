@@ -32,7 +32,7 @@ public class Comentarios implements Serializable {
     @Column(nullable = false, length = 500)
     private String cuerpo;
 
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne 
     private Usuario usuario;
 
     @ManyToOne
