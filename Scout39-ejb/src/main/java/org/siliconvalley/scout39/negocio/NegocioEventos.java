@@ -65,7 +65,7 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public void modificarEvento(Eventos e) {
+    public Eventos modificarEvento(Eventos e) {
         Eventos mEvento = em.find(Eventos.class, e.getId());
         mEvento.setNombre(e.getNombre());
         mEvento.setDescripcion(e.getDescripcion());
@@ -73,7 +73,7 @@ public class NegocioEventos implements NegocioEventosLocal {
         mEvento.setLatitud(e.getLatitud().stripTrailingZeros());
         mEvento.setLongitud(e.getLongitud().stripTrailingZeros());
         em.merge(mEvento);
-                
+        return em.find(Eventos.class, e.getId());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class NegocioEventos implements NegocioEventosLocal {
         Objeto o = (Objeto) q.getSingleResult();
         List<Eventos> eventosObjeto = o.getListaEventos();
         List<Eventos> eventosProximos = new ArrayList<>();
-        for (Eventos evento : eventosObjeto) {            
+        for (Eventos evento : eventosObjeto) {
             if (evento.getFecha().after(new Date())) {
                 eventosProximos.add(evento);
             }
@@ -102,7 +102,7 @@ public class NegocioEventos implements NegocioEventosLocal {
         Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
         q.setParameter("nombre", "eventos" + idGrupo);
         Objeto o = (Objeto) q.getSingleResult();
-        List<Eventos> eventosObjeto = o.getListaEventos(); 
+        List<Eventos> eventosObjeto = o.getListaEventos();
         List<Eventos> eventosPasados = new ArrayList<>();
         for (Eventos evento : eventosObjeto) {
             if (evento.getFecha().before(new Date())) {
@@ -122,9 +122,15 @@ public class NegocioEventos implements NegocioEventosLocal {
         return listaComentarios;
     }
 
+    @Override
+    public Eventos buscarEvento(Eventos evento) {
+        return em.find(Eventos.class, evento.getId());        
+    }
+
     private Eventos insertarEvento(Eventos e) {
         e.setComentariosE(new ArrayList<Comentarios>());
         e.setProgresionesE(new ArrayList<Progresion>());
         return em.merge(e);
     }
+
 }

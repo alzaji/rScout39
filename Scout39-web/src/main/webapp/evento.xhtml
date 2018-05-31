@@ -9,6 +9,7 @@
     <ui:define name="link1"><h:link class="nav-link text-white" p:href="siryu.xhtml" value="Eventos"/></ui:define>
     <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
+
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -17,22 +18,18 @@
                         <!--Card content-->
                         <div class="card-body">
                             <!--Title-->
-                            <h4 class="card-title text-center">Evento Conciliación Grupo
-                                <a data-toggle="modal" data-target="#modalModificarEvento#{evento.id.toString()}">
+                            <h4 class="card-title text-center">#{beanEventos.infoEvento.nombre}
+                                <a data-toggle="modal" data-target="#modalModificarEvento">
                                     <i class="fas fa-pencil-alt orange-text"></i>
                                 </a>
-                                <a data-toggle="modal" data-target="#modalBorrarEvento#{evento.id.toString()}">
+                                <a data-toggle="modal" data-target="#modalBorrarEvento">
                                     <i class="fas fa-minus-circle red-text"></i>
                                 </a>
                             </h4>
                             <!--Text-->
-                            <p class="card-text text-justify">Lorem fistrum pupita sexuarl torpedo condemor a wan jarl me cago en tus muelas amatomaa. Ese que llega diodeno
-                                quietooor tiene musho peligro está la cosa muy malar amatomaa. Pecador benemeritaar diodeno caballo blanco
-                                caballo negroorl ahorarr la caidita llevame al sircoo se calle ustée. Diodenoo de la pradera por la gloria
-                                de mi madre va usté muy cargadoo pecador al ataquerl llevame al sircoo. Tiene musho peligro sexuarl a wan apetecan
-                                torpedo ese pedazo de caballo blanco caballo negroorl diodeno papaar papaar.</p>
+                            <p class="card-text text-justify">#{beanEventos.infoEvento.descripcion}</p>
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDwzZZYDEbnUpTTWcgbr3e3aUrXjjySciM&amp;center=36.7183391,-4.5193067&amp;zoom=14"></iframe>
+                                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyDwzZZYDEbnUpTTWcgbr3e3aUrXjjySciM&amp;center=#{beanEventos.infoEvento.latitud},#{beanEventos.infoEvento.longitud}&amp;zoom=14"></iframe>
                             </div>
                         </div>
                         <!--Card image-->
@@ -80,26 +77,26 @@
 
                                 </div>
                                 <hr class="my-3"/>
-                                    <div class="comment mb-2 row">
-                                        <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-                                            <a href="">
-                                                <img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
-                                                     alt="avatar" />
-                                            </a>
-                                        </div>
-                                        <div class="comment-content col-md-11 col-sm-10">
-                                            <h6 class="small comment-meta">
-                                                <strong>Coordinador</strong>
-                                            </h6>
-                                            <div class="comment-body">
-                                                <p>
-                                                    ¡Espero que os guste el evento!
-                                                    <br/>
-                                                </p>
-                                            </div>
+                                <div class="comment mb-2 row">
+                                    <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                                        <a href="">
+                                            <img class="mx-auto rounded-circle img-fluid" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+                                                 alt="avatar" />
+                                        </a>
+                                    </div>
+                                    <div class="comment-content col-md-11 col-sm-10">
+                                        <h6 class="small comment-meta">
+                                            <strong>Coordinador</strong>
+                                        </h6>
+                                        <div class="comment-body">
+                                            <p>
+                                                ¡Espero que os guste el evento!
+                                                <br/>
+                                            </p>
                                         </div>
                                     </div>
-                                    <!--Text-->
+                                </div>
+                                <!--Text-->
                             </div>
                             <!--Card image-->
 
@@ -190,7 +187,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalBorrarEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="modalBorrarEventoLabel"
+        <div class="modal fade" id="modalBorrarEvento" tabindex="-1" role="dialog" aria-labelledby="modalBorrarEventoLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -205,21 +202,22 @@
                     <div class="modal-body">
                         <p style="text-align: center;">¿Está seguro que desea borrar este evento?</p>
                     </div>
-                    <div class="modal-footer center">
-                        <div class="container">
-                            <div class="row">
-                                <form>
-                                    <a class="btn btn-default col">Si, estoy seguro</a>
-                                    <a class="btn btn-danger col" data-dismiss="modal">Cancelar</a>
-                                </form>
+                    <div class="modal-footer">
+                        <h:form>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <h:commandButton class="btn btn-blue" value="Borrar" action="#{beanEventos.borrarEvento(beanEventos.infoEvento)}"></h:commandButton>
+                                    </div>                                    
+                                </div>
                             </div>
-                        </div>
+                        </h:form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="modal fade" id="modalModificarEvento#{evento.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="modalModificarEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -230,41 +228,41 @@
                         </button>
                     </div>
                     <div class="modal-body mx-3">
-                        <h:form id="formModificarEvento#{evento.id.toString()}">
-                            Material input text
+                        <h:form id="formModificarEvento">                            
                             <div class="md-form">
                                 <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputText class="form-control" id="modificarNombre" value="#{evento.nombre}" />
+                                <h:inputText class="form-control" id="modificarNombre" value="#{beanEventos.infoEvento.nombre}" />
                                 <h:outputLabel>Nombre Evento</h:outputLabel>
                             </div>
 
                             <div class="md-form">
                                 <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputTextarea cols="20" rows="5" class="form-control" id="modificarDescripcion" value="#{evento.descripcion}" />
+                                <h:inputTextarea cols="20" rows="5" class="form-control" id="modificarDescripcion" value="#{beanEventos.infoEvento.descripcion}" />
                                 <h:outputLabel>Descripcion Evento</h:outputLabel>
                             </div>
 
                             <div class="md-form">
-                                <i class="fa fa-calendar prefix grey-text"></i>
-                                <h:inputText class="form-control" id="modificarFecha" />
-                                <h:outputLabel>Fecha Evento</h:outputLabel>
+                                <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <i class="fa fa-calendar prefix grey-text"></i>
+                                    <h:inputText class="form-control" id="modificarFecha" p:data-target="#datetimepicker1"/>
+                                    <h:outputLabel>Fecha Anterior: #{beanEventos.parseFecha(beanEventos.infoEvento.fecha)}</h:outputLabel>
+                                </div>
                             </div>
 
                             <div class="md-form">
                                 <i class="fa fa-compass prefix grey-text"></i>
-                                <h:inputText class="form-control" id="modificarLatitud" value="#{evento.latitud}" />
+                                <h:inputText class="form-control" id="modificarLatitud" value="#{beanEventos.infoEvento.latitud}" />
                                 <h:outputLabel>Latitud</h:outputLabel>
                             </div>
 
                             <div class="md-form">
                                 <i class="fa fa-compass prefix grey-text"></i>
-                                <h:inputText class="form-control" id="modificarLongitud" value="#{evento.longitud}" />
+                                <h:inputText class="form-control" id="modificarLongitud" value="#{beanEventos.infoEvento.longitud}" />
                                 <h:outputLabel>Longitud</h:outputLabel>
                             </div>
 
                             <div class="text-center mt-4">
-                                <h:commandButton class="btn btn-orange" value="Modificar Evento" action="#{beanEventos.doModificarEvento(evento.id.toString())}"
-                                                 />
+                                <h:commandButton class="btn btn-orange" value="Modificar Evento" action="#{beanEventos.doModificarEvento()}"></h:commandButton>                                
                             </div>
                         </h:form>
                     </div>

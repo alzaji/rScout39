@@ -39,8 +39,8 @@ import org.siliconvalley.scout39.negocio.NegocioEventosLocal;
 @SessionScoped
 public class beanEventos implements Serializable {
 
-    private long idEvento = 1;
-
+    private long idEvento;
+    private Eventos infoEvento;
     private List<Eventos> listaEventos = new ArrayList<>();
     private Eventos evento;
     private Comentarios comentario;
@@ -78,6 +78,11 @@ public class beanEventos implements Serializable {
         } catch (NullPointerException npe) {
             this.setListaEventos(eventos.eventosProximos(control.getGrupo().getId()));
         }
+    }
+
+    public String buscarEvento(Eventos evento) {
+        infoEvento = eventos.buscarEvento(evento);
+        return "evento.xhtml";
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
@@ -220,49 +225,49 @@ public class beanEventos implements Serializable {
         }
     }
 
-    public String doModificarEvento(String idEvento) {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String nombre = request.getParameter("formModificarEvento" + idEvento + ":modificarNombre");
-        String descripcion = request.getParameter("formModificarEvento" + idEvento + ":modificarDescripcion");
-        //String fecha = request.getParameter("formModificarEvento" + idEvento + ":modificarFecha");
-        //String latitud = request.getParameter("formModificarEvento" + idEvento + ":modificarLatitud");
-        //String longitud = request.getParameter("formModificarEvento" + idEvento + ":modificarLongitud");
-        Eventos evento = crearEventoId(idEvento, nombre, descripcion, new Date(), BigDecimal.valueOf(36.7147093), new BigDecimal(36.7147093).setScale(11, BigDecimal.ROUND_HALF_UP));
+    public String doModificarEvento() {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String nombre = request.getParameter("formModificarEvento:modificarNombre");
+            String descripcion = request.getParameter("formModificarEvento:modificarDescripcion");
+            String fecha = request.getParameter("formModificarEvento:modificarFecha");
+            String latitud = request.getParameter("formModificarEvento:modificarLatitud");
+            String longitud = request.getParameter("formModificarEvento:modificarLongitud");
+            infoEvento.setNombre(nombre);
+            infoEvento.setDescripcion(descripcion);
+            if (fecha != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                Date date = sdf.parse(fecha);
+                infoEvento.setFecha(date);
+            }
+            infoEvento.setLatitud(new BigDecimal(latitud));
+            infoEvento.setLongitud(new BigDecimal(longitud));
+        } catch (Exception ex) {
+            Logger.getLogger(beanEventos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
-                modificarEvento(eventosTHA, evento);
+
+                //modificarEvento(eventosTHA, evento);
                 return "tha.xhtml?faces-redirect=true";
             case "ScouterKIM":
-                modificarEvento(eventosKIM, evento);
+                //modificarEvento(eventosKIM, evento);
                 return "kim.xhtml?faces-redirect=true";
             case "Scouter":
                 try {
-                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
-                        //userTransaction.begin();
-                        eventos.modificarEvento(evento);
-                        //userTransaction.commit();
-                    }
+                    infoEvento = eventos.modificarEvento(infoEvento);
                 } catch (Exception re) {
                     Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
                 }
-                return "siryu.xhtml?faces-redirect=true";
+                return "evento.xhtml?faces-redirect=true";
             case "ScouterALMOGAMA":
-                modificarEvento(eventosALMOGAMA, evento);
+                //modificarEvento(eventosALMOGAMA, evento);
                 return "almogama.xhtml?faces-redirect=true";
             default:
                 return "index.xhtml?faces-redirect=true";
         }
-    }
-
-    private Eventos crearEventoId(String id, String nombre, String descripcion, Date fecha, BigDecimal latitud, BigDecimal longitud) {
-        Eventos evento = new Eventos();
-        evento.setNombre(nombre);
-        evento.setId(new Long(id));
-        evento.setDescripcion(descripcion);
-        evento.setFecha(fecha);
-        evento.setLatitud(latitud);
-        evento.setLongitud(longitud);
-        return evento;
     }
 
     private Eventos crearEvento(String nombre, String descripcion, String fecha, BigDecimal latitud, BigDecimal longitud) {
@@ -271,8 +276,6 @@ public class beanEventos implements Serializable {
             Date date = sdf.parse(fecha);
             Eventos evento = new Eventos();
             evento.setNombre(nombre);
-//        evento.setId(idEvento);
-//        idEvento++;
             evento.setDescripcion(descripcion);
             evento.setFecha(date);
             evento.setLatitud(latitud);
@@ -284,14 +287,9 @@ public class beanEventos implements Serializable {
         }
     }
 
-    private void modificarEvento(List<Eventos> eventos, Eventos e) {
-        int posicion = eventos.indexOf(e);
-        eventos.toArray()[posicion] = e;
-    }
-
-    private void borrarEvento(List<Eventos> eventos, Map<Eventos, List<Comentarios>> comentarios, Eventos e) {
-        eventos.remove(e);
-        comentarios.remove(e);
+    public String borrarEvento(Eventos e) {
+        eventos.borrarEvento(e);
+        return "siryu.xhtml?faces-redirect=true";
     }
 
 //    private Comentarios crearComentario(ComentariosUsuarioEventosDebil idComentario, String cuerpo) {
@@ -307,6 +305,25 @@ public class beanEventos implements Serializable {
 //        cId.setIdComentarios(new Random().nextLong());
 //        return cId;
 //    }
+    public String parseFecha(Date fecha) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        try {
+            Date date = sdf.parse(fecha.toString());
+            return date.toString();
+        } catch (ParseException e) {
+            Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, e.getMessage(), e);
+            return null;
+        }        
+    }
+
+    public Eventos getInfoEvento() {
+        return infoEvento;
+    }
+
+    public void setInfoEvento(Eventos infoEvento) {
+        this.infoEvento = infoEvento;
+    }
+
     public Comentarios getComentario() {
         return comentario;
     }

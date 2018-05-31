@@ -7,7 +7,6 @@ package org.siliconvalley.scout39.negocio;
 
 import java.util.List;
 import javax.ejb.Local;
-import javax.transaction.SystemException;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -17,9 +16,10 @@ import org.siliconvalley.scout39.modelo.*;
 @Local
 public interface NegocioEventosLocal {
     
+    public Eventos buscarEvento(Eventos evento); 
     public void crearEvento(Eventos e, Long idGrupo);
     public void borrarEvento(Eventos e);
-    public void modificarEvento(Eventos e);
+    public Eventos modificarEvento(Eventos e);
     public List<Eventos> eventosProximos(Long idGrupo);
     public List<Eventos> eventosPasados(Long idGrupo);
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e);
