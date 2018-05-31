@@ -8,6 +8,8 @@ package org.siliconvalley.scout39.vista;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -189,10 +191,10 @@ public class beanEventos implements Serializable {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String nombre = request.getParameter("formCrearEvento:crearNombre");
         String descripcion = request.getParameter("formCrearEvento:crearDescripcion");
-        //String fecha = request.getParameter("formCrearEvento:crearFecha");
+        String fecha = request.getParameter("formCrearEvento:crearFecha");
         String latitud = request.getParameter("formCrearEvento:crearLatitud");
         String longitud = request.getParameter("formCrearEvento:crearLongitud");
-        Eventos evento = crearEvento(nombre, descripcion, new Date(), new BigDecimal(latitud), new BigDecimal(longitud));
+        Eventos evento = crearEvento(nombre, descripcion, fecha, new BigDecimal(latitud), new BigDecimal(longitud));
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
                 eventosTHA.add(evento);
@@ -263,16 +265,23 @@ public class beanEventos implements Serializable {
         return evento;
     }
 
-    private Eventos crearEvento(String nombre, String descripcion, Date fecha, BigDecimal latitud, BigDecimal longitud) {
-        Eventos evento = new Eventos();
-        evento.setNombre(nombre);
-        evento.setId(idEvento);
-        idEvento++;
-        evento.setDescripcion(descripcion);
-        evento.setFecha(fecha);
-        evento.setLatitud(latitud);
-        evento.setLongitud(longitud);
-        return evento;
+    private Eventos crearEvento(String nombre, String descripcion, String fecha, BigDecimal latitud, BigDecimal longitud) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+            Date date = sdf.parse(fecha);
+            Eventos evento = new Eventos();
+            evento.setNombre(nombre);
+//        evento.setId(idEvento);
+//        idEvento++;
+            evento.setDescripcion(descripcion);
+            evento.setFecha(date);
+            evento.setLatitud(latitud);
+            evento.setLongitud(longitud);
+            return evento;
+        } catch (ParseException ex) {
+            Logger.getLogger(beanEventos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     private void modificarEvento(List<Eventos> eventos, Eventos e) {
