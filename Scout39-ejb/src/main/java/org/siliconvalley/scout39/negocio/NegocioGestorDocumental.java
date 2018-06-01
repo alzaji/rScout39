@@ -6,11 +6,10 @@
 package org.siliconvalley.scout39.negocio;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -47,27 +46,39 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
 
     @Override
     public String buscarPath(Usuario u, String ruta) {
-        try {
             List<Archivo> ar = buscarArchivos(u);
             for (Archivo arch : ar) {
                 if (arch.getRuta().equals(ruta)) {
                     return arch.getRuta();
                 }
             }
-        } catch (Exception e) {
-            Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING, e.getMessage(), e.getCause());
-        }
+        
 
         return null;
     }
     
     @Override
     public void borrarArchivo(Usuario u,Archivo a){
-          try {
             Archivo aux = em.find(Archivo.class, a.getId());
             em.remove(aux);
-        } catch (Exception e) {
-            Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING, e.getMessage(), e.getCause());
-        }
+        } 
+    
+    
+     @Override
+    public List<Archivo> listarArchivos() {
+        Query q = em.createQuery("SELECT a FROM Archivo a");                
+        List<Archivo> archivos = (List<Archivo>) q.getResultList();        
+        return archivos;
+    }
+
+    @Override
+    public List<Archivo> listaArchivosAJAX(String pal) {
+        String cadena = "%" + pal.replace(" ", "%") + "%" ;
+        Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE u.alias LIKE :alias and a MEMBER of u.archivo");
+        q.setParameter("alias", cadena);
+        System.out.println(q.getResultList());
+        List<Archivo> archivos;
+        archivos = (List<Archivo>) q.getResultList();        
+        return archivos;
     }
 }
