@@ -38,6 +38,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     public List<Archivo> buscarArchivos(Usuario u) {
 
         Usuario aux = em.find(Usuario.class, u.getId());
+        aux.getArchivo().size();
         List<Archivo> ar = aux.getArchivo();
 
         return ar;
