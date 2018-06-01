@@ -13,19 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.UserTransaction;
 import org.siliconvalley.scout39.modelo.*;
 import org.siliconvalley.scout39.negocio.NegocioEventos;
 import org.siliconvalley.scout39.negocio.NegocioEventosLocal;
@@ -90,20 +85,20 @@ public class beanEventos implements Serializable {
         c.setCuerpo(cuerpo);
         c.setEventoC(e);
         
-        eventos.nuevoComentario(e, c);
+        eventos.nuevoComentario(c);
 
         return "evento.xhtml?faces-redirect=true";
     }
 
-    public String doRespuestaComentario(Eventos e, Comentarios c) {
+    public String doRespuestaComentario(Eventos e, Comentarios c, int indice) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cuerpo = request.getParameter("formRespuestaComentarioEvento" + c.getId().toString() + ":cuerpoRespuestaComentario");
+        String cuerpo = request.getParameter("Cpadre:"+indice+":formRespuestaComentarioEvento:cuerpoRespuestaComentario");
         Comentarios respuesta = new Comentarios();
         respuesta.setUsuario(control.getUsuario());
         respuesta.setCuerpo(cuerpo);
         respuesta.setEventoC(e);
         respuesta.setRespuesta(c);            
-        eventos.respuestaComentario(e, respuesta);
+        eventos.respuestaComentario(respuesta);
         return "evento.xhtml?faces-redirect=true";
     }
 

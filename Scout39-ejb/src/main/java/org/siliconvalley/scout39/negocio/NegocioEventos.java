@@ -14,7 +14,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -124,22 +123,17 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public void nuevoComentario(Eventos e, Comentarios c) {
+    public void nuevoComentario(Comentarios c) {
         try {
-            Eventos evento = em.find(Eventos.class, e.getId());
-            List<Comentarios> comentarios = evento.getComentariosE();
-            comentarios.add(c);
-            evento.setComentariosE(comentarios);
-            em.merge(evento);
+            em.merge(c);
         } catch (Exception re) {
             Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
         }
     }
 
     @Override
-    public void respuestaComentario(Eventos e, Comentarios c) {
+    public void respuestaComentario(Comentarios c) {
         em.merge(c);
-        //this.nuevoComentario(e, c);
     }
 
 }

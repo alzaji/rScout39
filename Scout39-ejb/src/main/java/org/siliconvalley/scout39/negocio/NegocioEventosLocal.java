@@ -24,6 +24,6 @@ public interface NegocioEventosLocal {
     public List<Eventos> eventosPasados(Long idGrupo);
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e);
     public List<Comentarios> listaRespuestasComentarios(Comentarios c); 
-    public void nuevoComentario(Eventos e, Comentarios c);
-    public void respuestaComentario(Eventos e, Comentarios c);
+    public void nuevoComentario(Comentarios c);
+    public void respuestaComentario(Comentarios c);
 }
