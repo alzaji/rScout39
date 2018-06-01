@@ -61,13 +61,13 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     }
     
     @Override
-    public String borrarArchivo(Usuario u,String ruta){
+    public String borrarArchivo(Usuario u,Archivo a){
           try {
             List<Archivo> ar = buscarArchivos(u);
-            for (Archivo arch : ar) {
-                if (arch.getRuta().equals(ruta)) {
-                   ar.remove(arch.getId());
-                   em.remove(arch);
+            for(Archivo arch : ar){
+                if(arch.equals(a)){
+                    ar.remove(a);
+                    em.remove(a);
                 }
             }
         } catch (Exception e) {

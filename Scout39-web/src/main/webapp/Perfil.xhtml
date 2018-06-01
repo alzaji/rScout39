@@ -84,7 +84,7 @@
                                                         <td>#{a.nombre}</td>
                                                         <td>#{a.tipo}</td>
                                                         <td><h:outputLink class ="btn btn-sm btn-purple center" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink>
-                                                            <h:commandButton class="btn btn-sm btn-red center" value="Borrar" action="#{fileUploadMBean.deleteFile(a.ruta)}"></h:commandButton></td>
+                                                            <h:commandButton class="btn btn-sm btn-red center" value="Borrar" action="#{fileUploadMBean.deleteFile(a)}"></h:commandButton></td>
                                                     </h:form>
                                                 </tr>
                                             </div>

@@ -105,8 +105,8 @@ public class FileUploadMBean implements Serializable {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + gestor.buscarPath(control.getUsuario(), ruta);
     }
     
-    public String deleteFile(String ruta){
-        gestor.borrarArchivo(control.getUsuario(), getPath(ruta));
+    public String deleteFile(Archivo ar){
+        gestor.borrarArchivo(control.getUsuario(), ar);
         return null;
     }
 }
