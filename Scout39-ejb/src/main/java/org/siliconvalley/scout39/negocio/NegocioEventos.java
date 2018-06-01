@@ -101,6 +101,7 @@ public class NegocioEventos implements NegocioEventosLocal {
     @Override
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e) {
         Eventos e1 = em.find(Eventos.class, e.getId());
+        e1.getComentariosE().size();
         List<Comentarios> listaComentarios = e1.getComentariosE();
 
         return listaComentarios;
@@ -119,7 +120,10 @@ public class NegocioEventos implements NegocioEventosLocal {
 
     @Override
     public List<Comentarios> listaRespuestasComentarios(Comentarios c) {
-        return em.find(Comentarios.class, c.getId()).getRespuestas();
+        Comentarios resp = em.find(Comentarios.class, c.getId());
+        resp.getRespuestas().size();
+        List<Comentarios> respuestas = resp.getRespuestas();
+        return respuestas;
     }
 
     @Override

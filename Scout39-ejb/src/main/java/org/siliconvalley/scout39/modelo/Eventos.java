@@ -46,7 +46,7 @@ public class Eventos implements Serializable {
     @Column(nullable = false, precision = 11, scale = 8)
     private BigDecimal longitud;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "eventoC", cascade = CascadeType.ALL)    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "eventoC", cascade = CascadeType.ALL)    
     private List<Comentarios> comentariosE;
 
     @OneToMany(mappedBy = "eventoP", cascade = CascadeType.ALL)
