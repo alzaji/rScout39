@@ -35,7 +35,7 @@ public class Comentarios implements Serializable {
     @ManyToOne
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)    
     private Eventos eventoC;
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "respuesta")

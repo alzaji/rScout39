@@ -5,23 +5,16 @@
  */
 package org.siliconvalley.scout39.negocio;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
+import javax.transaction.Transactional;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -88,13 +81,7 @@ public class NegocioEventos implements NegocioEventosLocal {
                 eventosProximos.add(evento);
             }
         }
-
-//        }
         return eventosProximos;
-//        Date now = new Date();
-//        Query q = em.createQuery("SELECT e FROM Eventos e WHERE e.fecha > :today");
-//        q.setParameter("today", now, TemporalType.DATE);        
-//        return q.getResultList();
     }
 
     @Override
@@ -112,25 +99,28 @@ public class NegocioEventos implements NegocioEventosLocal {
         return eventosPasados;
     }
 
-    @Override
+    @Override    
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e) {
-        Objeto o = new Objeto();
-        o.setNombre("evento" + idGrupo);
-        List<Eventos> listaEventos = em.find(Objeto.class,
-                o).getListaEventos();
-        List<Comentarios> listaComentarios = listaEventos.get(listaEventos.indexOf(e)).getComentariosE();
+        Eventos e1 = em.find(Eventos.class, e.getId());
+        List<Comentarios> listaComentarios = e1.getComentariosE();
+       
         return listaComentarios;
     }
 
     @Override
     public Eventos buscarEvento(Eventos evento) {
-        return em.find(Eventos.class, evento.getId());        
+        return em.find(Eventos.class, evento.getId());
     }
 
     private Eventos insertarEvento(Eventos e) {
         e.setComentariosE(new ArrayList<Comentarios>());
         e.setProgresionesE(new ArrayList<Progresion>());
         return em.merge(e);
+    }
+
+    @Override
+    public List<Comentarios> listaRespuestasComentarios(Comentarios c) {
+        return em.find(Comentarios.class, c.getId()).getRespuestas();
     }
 
 }

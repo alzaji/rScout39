@@ -12,6 +12,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +20,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /**
  *
@@ -43,7 +46,7 @@ public class Eventos implements Serializable {
     @Column(nullable = false, precision = 11, scale = 8)
     private BigDecimal longitud;
 
-    @OneToMany(mappedBy = "eventoC", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "eventoC", cascade = CascadeType.ALL)    
     private List<Comentarios> comentariosE;
 
     @OneToMany(mappedBy = "eventoP", cascade = CascadeType.ALL)

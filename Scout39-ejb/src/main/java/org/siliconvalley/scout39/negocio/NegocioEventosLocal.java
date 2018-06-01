@@ -23,4 +23,5 @@ public interface NegocioEventosLocal {
     public List<Eventos> eventosProximos(Long idGrupo);
     public List<Eventos> eventosPasados(Long idGrupo);
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e);
+    public List<Comentarios> listaRespuestasComentarios(Comentarios c); 
 }

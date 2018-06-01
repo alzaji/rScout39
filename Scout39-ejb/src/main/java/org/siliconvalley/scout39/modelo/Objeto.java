@@ -33,7 +33,7 @@ public class Objeto implements Serializable {
     private List<AccesoRecurso> listaAcceso;
     @OneToMany (cascade = CascadeType.ALL)
     private List<Grupo> listaGrupos;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Eventos> listaEventos;
     @OneToMany (cascade = CascadeType.ALL)
     private List<Progresion> listaProgresion;
