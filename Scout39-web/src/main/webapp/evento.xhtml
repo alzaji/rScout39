@@ -73,7 +73,7 @@
                                                     <p>
                                                         #{comentario.cuerpo}
                                                         <br/>
-                                                        <a href="" class="text-right small"><i class="fas fa-reply"></i> Responder</a>
+                                                        <a class="text-right small" data-toggle="modal" data-target="#modalRespuestaComentariosEvento#{comentario.id.toString()}"><i class="fas fa-reply"></i> Responder</a>
                                                     </p>
                                                 </div>
                                             </div>
@@ -101,6 +101,31 @@
 
                                         <!-- /reply is indented -->
                                         <hr class="my-3"/>
+                                        <div class="modal fade" id="modalRespuestaComentariosEvento#{comentario.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalRespuestaComentariosEventoLabel"
+                                             aria-hidden="true ">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header btn-indigo white-text">
+                                                        <h4 class="title">
+                                                            <i class="fa fa-comments"></i> Nuevo Comentario</h4>
+                                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">x</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <h:form id="formRespuestaComentarioEvento#{comentario.id.toString()}">
+
+                                                            <div class="md-form">
+                                                                <h:inputTextarea class="ext-justify form-control" cols="50" rows="5" p:maxlength="500" p:placeholder="Escribe tu comentario aquí..." id="cuerpoRespuestaComentario"></h:inputTextarea>                                
+                                                            </div>
+                                                            <div class="text-center mt-4">
+                                                                <h:commandButton class="btn btn-indigo" value="Enviar" type="submit" action="#{beanEventos.doRespuestaComentario(beanEventos.infoEvento, comentario)}"/>
+                                                            </div>
+                                                        </h:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
                                     </c:if>
                                 </ui:repeat>
                             </div>
@@ -179,15 +204,15 @@
                         </button>
                     </div>
                     <div class="modal-body mx-3">
-                        <form id="formComentarioEvento">
+                        <h:form id="formComentarioEvento">
 
                             <div class="md-form">
-                                <textarea class="text-justify form-control" placeholder=" Escribe tu comentario aquí... " cols="50" rows="5" maxlength="500" id="textoComentario "></textarea>
+                                <h:inputTextarea class="ext-justify form-control" cols="50" rows="5" p:maxlength="500" p:placeholder="Escribe tu comentario aquí..." id="cuerpoComentario"/>                                
                             </div>
                             <div class="text-center mt-4">
-                                <button class="btn btn-indigo">Enviar</button>
+                                <h:commandButton class="btn btn-indigo" value="Enviar" type="submit" action="#{beanEventos.doNuevoComentario(beanEventos.infoEvento)}"/>
                             </div>
-                        </form>
+                        </h:form>
                     </div>
                 </div>
             </div>

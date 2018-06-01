@@ -41,7 +41,7 @@ public class Comentarios implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "respuesta")
     private List<Comentarios> respuestas;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Comentarios respuesta;
 
     public Long getId() {

@@ -77,66 +77,37 @@ public class beanEventos implements Serializable {
     public List<Comentarios> doObtenerComentarios(Eventos e) {
         return eventos.listaComentarios(control.getGrupo().getId(), e);
     }
-    
-    public List<Comentarios> doObtenerRespuestasComentarios(Comentarios c){
+
+    public List<Comentarios> doObtenerRespuestasComentarios(Comentarios c) {
         return eventos.listaRespuestasComentarios(c);
     }
 
     public String doNuevoComentario(Eventos e) {
-//        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//        String cuerpo = request.getParameter("formComentarioEvento" + e.getId().toString() + ":textoComentario");
-//        ComentariosUsuarioEventosDebil idComentario = crearIdComentario(e.getId(), control.getUsuario().getId());
-//        Comentarios c = crearComentario(idComentario, cuerpo);
-//        c.setUsuario(control.getUsuario());
-//
-//        switch (control.getUsuario().getRoles().getNombrerol()) {
-//            case "EducandoTHA":
-//            case "ScouterTHA":
-//                comentariosTHA.get(e).add(c);
-//                return "tha.xhtml?faces-redirect=true";
-//            case "EducandoKIM":
-//            case "ScouterKIM":
-//                comentariosKIM.get(e).add(c);
-//                return "kim.xhtml?faces-redirect=true";
-//            case "EducandoSIRYU":
-//            case "ScouterSIRYU":
-//                comentariosSIRYU.get(e).add(c);
-//                return "siryu.xhtml?faces-redirect=true";
-//            case "EducandoALMOGAMA":
-//            case "ScouterALMOGAMA":
-//                comentariosALMOGAMA.get(e).add(c);
-//                return "almogama.xhtml?faces-redirect=true";
-//            default:
-//                return "index.xhtml";
-//        }
-        return null;
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String cuerpo = request.getParameter("formComentarioEvento:cuerpoComentario");
+        Comentarios c = new Comentarios();
+        c.setUsuario(control.getUsuario());
+        c.setCuerpo(cuerpo);
+        c.setEventoC(e);
+        
+        eventos.nuevoComentario(e, c);
+
+        return "evento.xhtml?faces-redirect=true";
     }
 
-    public int tamañoListaComentarios(Eventos evento) {
-//        switch (control.getUsuario().getRoles().getNombrerol()) {
-//
-//            case "ScouterTHA":
-//            case "EducandoTHA":
-//                return comentariosTHA.get(evento).size();
-//
-//            case "ScouterKIM":
-//            case "EducandoKIM":
-//                return comentariosKIM.get(evento).size();
-//
-//            case "ScouterSIRYU":
-//            case "EducandoSIRYU":
-//                return comentariosSIRYU.get(evento).size();
-//
-//            case "ScouterALMOGAMA":
-//            case "EducandoALMOGAMA":
-//                return comentariosALMOGAMA.get(evento).size();
-//
-//            default:
-//                return 0;
-//        }
-        return 0;
+    public String doRespuestaComentario(Eventos e, Comentarios c) {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String cuerpo = request.getParameter("formRespuestaComentarioEvento" + c.getId().toString() + ":cuerpoRespuestaComentario");
+        Comentarios respuesta = new Comentarios();
+        respuesta.setUsuario(control.getUsuario());
+        respuesta.setCuerpo(cuerpo);
+        respuesta.setEventoC(e);
+        respuesta.setRespuesta(c);            
+        eventos.respuestaComentario(e, respuesta);
+        return "evento.xhtml?faces-redirect=true";
     }
 
+   
     public String doBorrarEvento(Eventos e) {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":

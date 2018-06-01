@@ -99,11 +99,11 @@ public class NegocioEventos implements NegocioEventosLocal {
         return eventosPasados;
     }
 
-    @Override    
+    @Override
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e) {
         Eventos e1 = em.find(Eventos.class, e.getId());
         List<Comentarios> listaComentarios = e1.getComentariosE();
-       
+
         return listaComentarios;
     }
 
@@ -121,6 +121,25 @@ public class NegocioEventos implements NegocioEventosLocal {
     @Override
     public List<Comentarios> listaRespuestasComentarios(Comentarios c) {
         return em.find(Comentarios.class, c.getId()).getRespuestas();
+    }
+
+    @Override
+    public void nuevoComentario(Eventos e, Comentarios c) {
+        try {
+            Eventos evento = em.find(Eventos.class, e.getId());
+            List<Comentarios> comentarios = evento.getComentariosE();
+            comentarios.add(c);
+            evento.setComentariosE(comentarios);
+            em.merge(evento);
+        } catch (Exception re) {
+            Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
+        }
+    }
+
+    @Override
+    public void respuestaComentario(Eventos e, Comentarios c) {
+        em.merge(c);
+        //this.nuevoComentario(e, c);
     }
 
 }
