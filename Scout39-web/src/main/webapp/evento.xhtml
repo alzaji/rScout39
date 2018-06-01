@@ -81,7 +81,7 @@
 
                                         </div>
 
-                                        <ui:repeat id ="Chijo" value="#{comentario.respuestas}" var="respuesta">
+                                        <ui:repeat id ="Chijo" value="#{beanEventos.doObtenerRespuestasComentarios(comentario)}" var="respuesta">
                                             <!-- reply is indented -->
                                             <div class="comment-reply col-md-11 offset-md-1 col-sm-10 offset-sm-2">
                                                 <div class="row">
