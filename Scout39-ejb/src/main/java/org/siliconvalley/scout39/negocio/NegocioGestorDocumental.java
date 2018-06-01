@@ -38,9 +38,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     public List<Archivo> buscarArchivos(Usuario u) {
 
         Usuario aux = em.find(Usuario.class, u.getId());
-        List<Archivo> ar = aux.getArchivo();
-
-        return ar;
+        return aux.getArchivo();
 
     }
 
@@ -61,18 +59,12 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     }
     
     @Override
-    public String borrarArchivo(Usuario u,Archivo a){
+    public void borrarArchivo(Usuario u,Archivo a){
           try {
-            List<Archivo> ar = buscarArchivos(u);
-            for(Archivo arch : ar){
-                if(arch.equals(a)){
-                    ar.remove(a);
-                    em.remove(a);
-                }
-            }
+            Archivo aux = em.find(Archivo.class, a.getId());
+            em.remove(aux);
         } catch (Exception e) {
             Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING, e.getMessage(), e.getCause());
         }
-          return null;
     }
 }

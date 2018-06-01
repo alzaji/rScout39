@@ -126,6 +126,7 @@
         <ui:insert name="eventos"/>
         <ui:insert name="perfil" />
         <ui:insert name="tablaUsuarios"/>
+        <ui:insert name="GestorDocumental"/>
     </c:when>
     <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">
                 <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -150,6 +151,8 @@
         <!-- DEFINIR CONTENIDO AQUÍ -->
         <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
+        
+        
     </c:when>
         <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoKIM') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterKIM')}">
                 <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -198,6 +201,9 @@
          DEFINIR CONTENIDO AQUÍ -->
         <ui:insert name="perfil" />
         <ui:insert name="eventos"/>
+        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+            <ui:insert name="GestorDocumental"/>
+        </c:if>
     </c:when>
         <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoALMOGAMA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterALMOGAMA')}">
                 <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
