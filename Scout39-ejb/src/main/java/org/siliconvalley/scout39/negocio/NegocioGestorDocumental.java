@@ -59,4 +59,20 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
 
         return null;
     }
+    
+    @Override
+    public String borrarArchivo(Usuario u,String ruta){
+          try {
+            List<Archivo> ar = buscarArchivos(u);
+            for (Archivo arch : ar) {
+                if (arch.getRuta().equals(ruta)) {
+                   ar.remove(arch.getId());
+                   em.remove(arch);
+                }
+            }
+        } catch (Exception e) {
+            Logger.getLogger(NegocioGestorDocumental.class.getName()).log(Level.WARNING, e.getMessage(), e.getCause());
+        }
+          return null;
+    }
 }

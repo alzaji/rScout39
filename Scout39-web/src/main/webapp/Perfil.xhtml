@@ -49,69 +49,72 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                 <div class="container">
-                    <div class="row">
-                        <a class="btn btn-sm btn-purple col" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" data-original-title="Ver Documentos">Ver documentos</a>
+                    <div class="container">
+                        <div class="row">
+                            <a class="btn btn-sm btn-purple col" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" data-original-title="Ver Documentos">Ver documentos</a>
 
-                        <a class="btn btn-sm btn-purple col" data-toggle="collapse" data-target="#viewPromesa" aria-expanded="false" aria-controls="viewPromesa" data-original-title="Vew Promesa">Ver Promesa</a>
-                        <h:form enctype="multipart/form-data" class="row">
-                            <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
-                            <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"/>
-                        </h:form>
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                        <div class="mt-3">
-                            <!--Table-->
-                            <table class="table table-bordered table-striped">
-
-                                <!--Table head-->
-                                <thead class=" mdb-color darken-3" >
-                                    <tr class="text-white">
-                                        <th>Nombre</th>
-                                        <th>Tipo</th>
-                                        <th>Link</th>
-                                    </tr>
-                                </thead>
-                                <!--Table head-->
-
-                                <!--Table body-->
-
-                                <tbody>
-                                    <c:forEach items="#{beanPerfil.getUserFiles(controlAutorizacion.usuario)}" var="a">
-                                        <tr>
-                                            <h:form>
-                                            <td>#{a.nombre}</td>
-                                            <td>#{a.tipo}</td>
-                                            <td><h:outputLink class ="btn btn-sm btn-purple col" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink></td>
-                                            </h:form>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
-                                <!--Table body-->
-
-                            </table>
-                            <!--Table-->
-
+                            <a class="btn btn-sm btn-purple col" data-toggle="collapse" data-target="#viewPromesa" aria-expanded="false" aria-controls="viewPromesa" data-original-title="Vew Promesa">Ver Promesa</a>
+                            <h:form enctype="multipart/form-data" class="row">
+                                <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
+                                <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
+                            </h:form>
                         </div>
-                    </div>
-                    <div class="collapse" id="viewPromesa">
-                        <div class="mt-3">
-                            <!--Table-->
-                            <!--                    <c:forEach items="#/{beanPerfil.promesas}" var="entry">
-                                                    <p>Key: <h:outputText value="#/{entry.key}" /></p>
-                                                    <h:dataTable value="#/{entry.value}" var="evento">
-                                                        <h:column><h:outputText value="#/{evento}" /></h:column>
-                                                    </h:dataTable>
-                                                </c:forEach>-->
-                            <p>Evento: <h:outputText value="#Evento1" /></p>
-                            <h:dataTable value="Promesa" var="evento">
-                                <h:column><h:outputText value="Hola bueno diaa!" /></h:column>
-                            </h:dataTable>
+                        <div class="collapse" id="collapseExample">
+                            <div class="mt-3">
+                                <!--Table-->
+                                <table class="table table-bordered table-striped">
+
+                                    <!--Table head-->
+                                    <thead class=" mdb-color darken-3" >
+                                        <tr class="text-white">
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Link</th>
+                                        </tr>
+                                    </thead>
+                                    <!--Table head-->
+
+                                    <!--Table body-->
+
+                                    <tbody>
+                                        <c:forEach items="#{beanPerfil.getUserFiles(controlAutorizacion.usuario)}" var="a">
+                                            <div class="mx-auto">
+                                                <tr>
+                                                    <h:form>
+                                                        <td>#{a.nombre}</td>
+                                                        <td>#{a.tipo}</td>
+                                                        <td><h:outputLink class ="btn btn-sm btn-purple center" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink>
+                                                            <h:commandButton class="btn btn-sm btn-red center" value="Borrar" action="#{fileUploadMBean.deleteFile(a.ruta)}"></h:commandButton></td>
+                                                    </h:form>
+                                                </tr>
+                                            </div>
+                                        </c:forEach>
+                                    </tbody>
+                                    <!--Table body-->
+
+                                </table>
+                                <!--Table-->
+
+                            </div>
+                        </div>
+                        <div class="collapse" id="viewPromesa">
+                            <div class="mt-3">
+                                <!--Table-->
+                                <!--                    <c:forEach items="#/{beanPerfil.promesas}" var="entry">
+                                                        <p>Key: <h:outputText value="#/{entry.key}" /></p>
+                                                        <h:dataTable value="#/{entry.value}" var="evento">
+                                                            <h:column><h:outputText value="#/{evento}" /></h:column>
+                                                        </h:dataTable>
+                                                    </c:forEach>-->
+                                <p>Evento: <h:outputText value="#Evento1" /></p>
+                                <h:dataTable value="Promesa" var="evento">
+                                    <h:column><h:outputText value="Hola bueno diaa!" /></h:column>
+                                </h:dataTable>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </ui:define>
 </ui:composition>
