@@ -55,6 +55,7 @@ public class beanPerfil implements Serializable{
         return gestorArchivos.buscarArchivos(u);
     }
 
+    // Para Coordinador.
     public List<Archivo> listarArchivos() {
         if (update) {
             return listarArchivosAJAX();
@@ -70,6 +71,25 @@ public class beanPerfil implements Serializable{
     public List<Archivo> listarArchivosAJAX() {
         return gestorArchivos.listaArchivosAJAX(pal);
     }
+    
+    // Para Educando
+    
+       public List<Archivo> listarArchivosNombre() {
+        if (update) {
+            return listarArchivosAJAXNombre();
+        }
+        return gestorArchivos.listarArchivos();
+    }
+
+    public void searchListFilesNombre() {
+        update = true;
+        listarArchivosNombre();
+    }
+
+    public List<Archivo> listarArchivosAJAXNombre() {
+        return gestorArchivos.listaArchivosNombreAJAX(pal);
+    }
+    
 
 
 }
