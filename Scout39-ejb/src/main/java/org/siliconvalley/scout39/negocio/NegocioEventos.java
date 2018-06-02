@@ -186,11 +186,11 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public void rellenarProgresion(Progresion p) { 
+    public void rellenarProgresion(Progresion p) {
         Progresion p1 = em.find(Progresion.class, p.getIdProgresion());
         p1.setAnimacion(p.getAnimacion());
         p1.setIntegracion(p.getIntegracion());
-        p1.setParticipacion(p.getParticipacion());   
+        p1.setParticipacion(p.getParticipacion());
         em.merge(p1);
     }
 

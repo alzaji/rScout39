@@ -259,7 +259,7 @@ public class beanEventos implements Serializable {
         p1.setParticipacion(Integer.parseInt(participacion));       
         eventos.rellenarProgresion(p1);
     }
-
+    
     public String parseFecha(Date fecha) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {

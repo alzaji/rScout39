@@ -113,6 +113,18 @@ public class NegocioLoginImpl implements NegocioLogin {
         }
 
     }
+    
+    @Override
+    public Objeto getObjetoActual(String nombreobj, long id) throws ScoutException {
+        try {
+            Query q = em.createQuery("SELECT o FROM Objeto o WHERE o.nombre = :nombre");
+            q.setParameter("nombre", nombreobj + id);
+            Objeto o = (Objeto) q.getSingleResult();
+            return o;
+        } catch (RuntimeException e) {
+            throw new ScoutException("No se ha encontrado esta colección en la BD");
+        }
+    }
 
     @Override
     public String sha256(String rawString) {

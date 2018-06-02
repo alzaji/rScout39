@@ -6,11 +6,11 @@ package org.siliconvalley.scout39.vista;
 
 import org.siliconvalley.scout39.modelo.*;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.ScoutException;
@@ -63,8 +63,9 @@ public class ControlAutorizacion implements Serializable {
         this.privilegio = privilegio;
     }
 
-    public boolean hasCreate() {
+    public boolean hasCreate(Objeto o) {
 
+        privsobreobj(o);
         return privilegio.getCrear() == 'S';
     }
 
@@ -83,17 +84,31 @@ public class ControlAutorizacion implements Serializable {
         return privilegio.getBorrar() == 'S';
     }
 
-    public void privsobreobj(Objeto o) {
-        
+    public Objeto checkObjeto(String nombreobj, long id) {
+
         try {
-            setLastobjeto(o);
-            Privilegios p = login.checkPrivilegios(o, usuario);
-            setPrivilegio(p);
-            
+
+            return login.getObjetoActual(nombreobj, id);
         } catch (ScoutException ex) {
             Logger.getLogger(ControlAutorizacion.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
-        
+    }
+
+    public void privsobreobj(Objeto o) {
+
+        if ((null == lastobjeto) || (!lastobjeto.equals(o))) {
+
+            try {
+
+                Privilegios p = login.checkPrivilegios(o, usuario);
+                setLastobjeto(o);
+                setPrivilegio(p);
+
+            } catch (ScoutException ex) {
+                Logger.getLogger(ControlAutorizacion.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            }
+        }
     }
 
     public String home() {
