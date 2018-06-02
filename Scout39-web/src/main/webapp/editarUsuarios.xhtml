@@ -112,7 +112,7 @@
                                             </select>
                                         </div>
                                         <div class="text-center mt-4">
-                                            <h:commandButton class="btn btn-orange" value="Modificar" action="#{controlUsuario.doModificarUsuario(u)}"/>
+                                            <h:commandButton class="btn btn-orange" value="Modificar" action="#{controlUsuario.doModificarUsuario(u, controlUsuario.listarUsuarios().indexOf(u))}"/>
                                         </div>
                                     </h:form>
                                 </div>
