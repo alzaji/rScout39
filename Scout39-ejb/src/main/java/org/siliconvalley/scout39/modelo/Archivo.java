@@ -6,6 +6,7 @@
 package org.siliconvalley.scout39.modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,8 @@ public class Archivo implements Serializable {
     private String nombre;
     @Column(nullable = false, length = 3072)
     private String ruta;
+    private Character estado;
+    private Date fecha_limite;
     @ManyToOne
     private Usuario idUsuario;
     @OneToOne
@@ -85,6 +88,22 @@ public class Archivo implements Serializable {
         this.ruta = ruta;
     }
 
+    public Character getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Character estado) {
+        this.estado = estado;
+    }
+
+    public Date getFecha_limite() {
+        return fecha_limite;
+    }
+
+    public void setFecha_limite(Date fecha_limite) {
+        this.fecha_limite = fecha_limite;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

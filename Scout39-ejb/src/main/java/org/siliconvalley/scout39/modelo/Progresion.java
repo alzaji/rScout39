@@ -28,8 +28,6 @@ public class Progresion implements Serializable {
     private Integer integracion;
     private Integer participacion;
     private Integer animacion;
-    @Column(length = 500)
-    private String promesa;
     @MapsId("idUsuario")
     @JoinColumn(name = "idUsuario", referencedColumnName = "id")
     @ManyToOne
@@ -89,14 +87,6 @@ public class Progresion implements Serializable {
 
     public void setEventoP(Eventos eventoP) {
         this.eventoP = eventoP;
-    }
-
-    public String getPromesa() {
-        return promesa;
-    }
-
-    public void setPromesa(String promesa) {
-        this.promesa = promesa;
     }
 
     @Override

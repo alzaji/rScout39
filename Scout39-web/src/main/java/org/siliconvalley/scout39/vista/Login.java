@@ -79,6 +79,11 @@ public class Login implements Serializable {
         try {
             Usuario aux = negociologin.comprobarUsuario(getUsuario());
 
+            if (aux.getFecha_baja() != null) {
+
+                throw new ScoutException("Este usuario esta dado de baja, por favor contacte con el coordinador");
+            }
+
             if (!aux.getDigest().equals(negociologin.sha256(getContrasenia()))) {
 
                 throw new ScoutException("La contraseña proporcionada no coincide con la BD");
