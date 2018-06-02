@@ -72,8 +72,10 @@
                         <h:column>
                             <f:facet name="header">Archivo</f:facet>
                             <h:form enctype="multipart/form-data" class="row">
-                                <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
-                                <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
+                                <c:if test="#{(a.estado eq 'N') or (a.ruta eq '')}"
+                                    <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
+                                    <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
+                                </c:if>
                             </h:form>
                         </h:column>
                     </h:dataTable>   
@@ -122,7 +124,7 @@
                     <div class="modal-header text-center">
                         <h4 class="modal-title w-100 font-weight-bold">Crear Peticion</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">x</span>
                         </button>
                     </div>
                     <div class="modal-body mx-3">

@@ -164,7 +164,7 @@ public class FileUploadMBean implements Serializable {
             String nombre = request.getParameter("crearArchivo:nombreArchivo");
             String fecha = request.getParameter("crearArchivo:crearFecha");
             if (fecha != null) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                 Date date = sdf.parse(fecha);
                 infoArchivo.setFecha_limite(date);
             }
