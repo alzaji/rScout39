@@ -165,9 +165,9 @@ public class ControlUsuario implements Serializable {
         String apellidos = primerApellido + " " + segundoApellido;
         
         
-        String grupo = request.getParameter("formCrearUsuario:crearGrupo");
+        String grupo = request.getParameter("formCrearUsuario:crearGrupo.value");
         String email = request.getParameter("formCrearUsuario:crearEmail");
-        String rol = request.getParameter("formCrearUsuario:crearRol");
+        String rol = request.getParameter("formCrearUsuario:crearRol.value");
         System.out.println("Rol--------------------------------------------------------------: "+ rol);
         
         
