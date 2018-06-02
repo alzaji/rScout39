@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.*;
@@ -138,6 +139,44 @@ public class NegocioEventos implements NegocioEventosLocal {
     @Override
     public void respuestaComentario(Comentarios c) {
         em.merge(c);
+    }
+
+    @Override
+    public List<Progresion> obtenerParticipantes(Eventos e) {
+        return null;
+    }
+
+    @Override
+    public void asistirEvento(Usuario u, Eventos e) {
+        Progresion p = new Progresion();
+        p.setEventoP(e);
+        p.setUsuarioP(u);
+        em.merge(p);
+    }
+
+    @Override
+    public void noAsistirEvento(Usuario u, Eventos e) {
+        
+        Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento AND p.usuarioP = :usuario");
+        q.setParameter("usuario", u);
+        q.setParameter("evento", e);
+        Progresion p = (Progresion) q.getSingleResult();
+        em.remove(p);
+        
+    }
+   
+    @Override
+    public boolean comprobarAsistencia(Usuario u, Eventos e) {
+        try {
+            Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento AND p.usuarioP = :usuario");
+            q.setParameter("usuario", u);
+            q.setParameter("evento", e);
+            Progresion p = (Progresion) q.getSingleResult();
+            return true;
+        } catch (NoResultException nrw) {
+            return false;
+        }
+        
     }
 
 }

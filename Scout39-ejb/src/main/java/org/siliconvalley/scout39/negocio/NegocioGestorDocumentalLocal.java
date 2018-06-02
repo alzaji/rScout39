@@ -20,4 +20,6 @@ public interface NegocioGestorDocumentalLocal {
     public List<Archivo> buscarArchivos(Usuario u);
     public String buscarPath(Usuario u,String ruta);
     public void borrarArchivo(Usuario u,Archivo a );
+    public List<Archivo> listarArchivos();
+    public List<Archivo> listaArchivosAJAX(String pal);
 }

@@ -69,9 +69,20 @@
                                         <div class="card-footer center">
                                             <div class="container">
                                                 <div class="row">
-                                                    <h:form>
-                                                        <a class="btn btn-green col" href="evento.xhtml">Asistir</a>
-                                                        <h:commandButton class="btn btn-blue col" value="Más Info" type="submit" action="#{beanEventos.buscarEvento(evento)}"/>                                           
+                                                    <h:form>                                                        
+                                                        <c:choose>
+                                                            <c:when test="#{not beanEventos.doComprobarAsistencia(evento)}">
+                                                                <h:commandButton class="btn btn-green col" value="Asistir" action="#{beanEventos.doAsistirEvento(evento)}">
+                                                                    <f:ajax render="@form"/>
+                                                                </h:commandButton> 
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <h:commandButton class="btn btn-red col" value="No Asistir" action="#{beanEventos.doNoAsistirEvento(evento)}">
+                                                                    <f:ajax render="@form"/>
+                                                                </h:commandButton> 
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <h:commandButton class="btn btn-blue col" value="Más Info" type="submit" action="#{beanEventos.buscarEvento(evento)}"/>                                                           
                                                     </h:form>
                                                 </div>
                                             </div>
@@ -116,7 +127,7 @@
                                 <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion"/>
                                 <h:outputLabel>Descripcion Evento</h:outputLabel>
                             </div>
-                            
+
                             <!-- DateTimePicker para evento-->
                             <div class="md-form">
                                 <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">

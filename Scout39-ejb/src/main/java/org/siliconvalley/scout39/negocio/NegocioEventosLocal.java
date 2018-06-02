@@ -26,4 +26,8 @@ public interface NegocioEventosLocal {
     public List<Comentarios> listaRespuestasComentarios(Comentarios c); 
     public void nuevoComentario(Comentarios c);
     public void respuestaComentario(Comentarios c);
+    public List<Progresion> obtenerParticipantes(Eventos e);
+    public void asistirEvento(Usuario u, Eventos e);
+    public void noAsistirEvento(Usuario u, Eventos e);
+    public boolean comprobarAsistencia(Usuario u, Eventos e);
 }
