@@ -172,8 +172,7 @@
                                             <td>alias</td>
                                             <td>email</td>
                                             <td>
-                                                <button type="button " class="btn btn-default btn-rounded btn-sm my-0 " data-toggle="modal
-                                                        " data-target="#rellenarProgresion ">Rellenar</button>
+                                                <a class="btn btn-default btn-rounded btn-sm my-0 " data-toggle="modal" data-target="#modalProgresionEvento">Rellenar</a>
                                             </td>
 
                                         </tr>
@@ -295,6 +294,48 @@
                             <div class="text-center mt-4">
                                 <h:commandButton class="btn btn-orange" value="Modificar Evento" action="#{beanEventos.doModificarEvento()}"></h:commandButton>                                
                             </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalProgresionEvento" tabindex="-1 " role="dialog" aria-labelledby="modalProgresionEventoLabel"
+             aria-hidden="true ">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header btn-indigo white-text">
+                        <h4 class="title">
+                            <i class="fa fa-comments"></i>Promesa</h4>
+                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <h:form id="formProgresionEvento">
+                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Scouter'}">
+                        <div class="md-form">
+                            <i class="fa fa-compass prefix grey-text"></i>
+                            <h:inputText class="form-control" id="integracionProgresion" value=""/>
+                            <h:outputLabel>Integración</h:outputLabel>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-compass prefix grey-text"></i>
+                            <h:inputText class="form-control" id="participacionProgresion" value=""/>
+                            <h:outputLabel>Participación</h:outputLabel>
+                        </div>
+                        <div class ="md-form">
+                            <i class="fa fa-compass prefix grey-text"></i>
+                            <h:inputText class="form-control" id="animacionProgresion" value=""/>
+                            <h:outputLabel>Progresión</h:outputLabel>
+                        </div>
+                        </c:if>
+                        <div class="md-form">
+                            <h:inputTextarea class="ext-justify form-control" cols="50" rows="5" p:maxlength="500" p:placeholder="Escribe tu promesa aquí..." id="cuerpoProgresion"/>                                
+                        </div>
+                        <div class="text-center mt-4">
+                            <h:commandButton class="btn btn-indigo" value="Enviar" type="submit" action="#"/>
+                        </div>
                         </h:form>
                     </div>
                 </div>
