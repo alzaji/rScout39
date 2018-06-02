@@ -10,6 +10,7 @@
     <ui:define name="title">Gestor Documental</ui:define>
     <ui:define name="seccionnav">Gestor Documental</ui:define>
     <ui:define name="GestorDocumental">
+    <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
             <center> 
                 <div class="text-center">
@@ -48,7 +49,7 @@
             <center> 
                 <div class="input-group col-md-8 mt-4 mb-4">
                     <h:form>
-                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
+                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar Archivo..." value="#{beanPerfil.pal}" > 
                             <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesNombre()}" render="table"/>
                         </h:inputText>
                     </h:form>                

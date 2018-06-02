@@ -160,16 +160,22 @@ public class FileUploadMBean implements Serializable {
     }
     public String crearArchivo(){
         try{
+            Archivo a = new Archivo();
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String nombre = request.getParameter("crearArchivo:nombreArchivo");
             String fecha = request.getParameter("crearArchivo:crearFecha");
+            a.setNombre(nombre);
             if (fecha != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
                 Date date = sdf.parse(fecha);
-                infoArchivo.setFecha_limite(date);
+                a.setFecha_limite(date);
             }
-            infoArchivo.setEstado('N');
-            infoArchivo.setRuta("");
+            a.setEstado('N');
+            a.setRuta("");
+            a.setTipo("pdf");
+          
+            gestor.registrarArchivo(a,control.getGrupo());
+            
         } catch (ParseException ex) {
             Logger.getLogger(FileUploadMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
