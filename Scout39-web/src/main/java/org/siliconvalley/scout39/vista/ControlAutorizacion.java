@@ -80,7 +80,7 @@ public class ControlAutorizacion implements Serializable {
         switch (getUsuario().getRoles().getNombrerol()) {
 
             case "Coordinador":
-                return "coordinador.xhtml";
+                return "editarUsuarios.xhtml";
 
             case "Scouter":
             case "Educando":

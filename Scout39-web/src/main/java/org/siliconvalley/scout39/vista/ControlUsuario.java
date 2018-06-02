@@ -115,9 +115,7 @@ public class ControlUsuario implements Serializable {
         String apellidos = request.getParameter("table:" + index + ":formModificarUsuario:modificarApellidos");
         String correo = request.getParameter("table:" + index + ":formModificarUsuario:modificarEmail");
         Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
-                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-        System.out.println("Alias en Control usuario: ------------------------------------------------>"+ alias);
-        System.out.println("Nombre-<<<<<<-<<<<<"  + nombr);
+                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());        
         users.modificarUsuario(user);
         return "editarUsuarios.xhtml?faces-redirect=true";
 
