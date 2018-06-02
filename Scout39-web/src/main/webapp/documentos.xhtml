@@ -10,39 +10,151 @@
     <ui:define name="title">Gestor Documental</ui:define>
     <ui:define name="seccionnav">Gestor Documental</ui:define>
     <ui:define name="GestorDocumental">
-        <center> 
-            <div class="input-group col-md-8 mt-4 mb-4">
-                <h:form>
-                    <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
-                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table"/>
-                    </h:inputText>
-                </h:form>                
-            </div>
+        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+            <center> 
+                <div class="text-center">
+                    <a href="" class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearPeticion">Crear Peticion</a>
+                </div>
+                <div class="container col-8">
+                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
 
-            <div class="container col-8">
-                <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
+                        <h:column>
+                            <f:facet name="header">Nombre Archivo</f:facet>
+                                #{a.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Limite</f:facet>
+                                #{a.fecha_limite}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                                <!--TODO desplegable--> 
+                                #{a.estado}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Archivo</f:facet>
+                            <h:form enctype="multipart/form-data" class="row">
+                                <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
+                                <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>   
+                </div>                 
+            </center>
+        </c:if>
+        
+        
+        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Educando')}">
+            <center> 
+                <div class="input-group col-md-8 mt-4 mb-4">
+                    <h:form>
+                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
+                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table"/>
+                        </h:inputText>
+                    </h:form>                
+                </div>
 
-                    <h:column>
-                        <f:facet name="header">Usuario</f:facet>
-                            #{a.idUsuario.alias}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Nombre Archivo</f:facet>
-                            #{a.nombre}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Extensión</f:facet>
-                            #{a.tipo}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Link</f:facet>
-                        <h:form>
-                            <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink>
-                            <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(a)}"></h:commandButton>
+                <div class="container col-8">
+                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
+
+                        <h:column>
+                            <f:facet name="header">Nombre Archivo</f:facet>
+                                #{a.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Limite</f:facet>
+                                #{a.fecha_limite}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                                #{a.estado}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Archivo</f:facet>
+                            <h:form enctype="multipart/form-data" class="row">
+                                <c:if test="#{(a.estado eq 'N') or (a.ruta eq '')}"
+                                    <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
+                                    <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
+                                </c:if>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>   
+                </div>                 
+            </center>
+        </c:if>
+        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+            <center> 
+                <div class="input-group col-md-8 mt-4 mb-4">
+                    <h:form>
+                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
+                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table"/>
+                        </h:inputText>
+                    </h:form>
+                </div>
+
+                <div class="container col-8">
+                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">
+
+                        <h:column>
+                            <f:facet name="header">Usuario</f:facet>
+                                #{a.idUsuario.alias}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nombre Archivo</f:facet>
+                                #{a.nombre}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Extensión</f:facet>
+                                #{a.tipo}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Link</f:facet>
+                            <h:form>
+                                <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink>
+                                <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(a)}"></h:commandButton>
+                            </h:form>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </center>
+        </c:if>
+        <div class="modal fade" id="modalCrearPeticion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Crear Peticion</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">x</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <h:form id="crearArchivo">
+
+                            <!-- Material input text -->
+                            <div class="md-form">
+                                <i class="fa fa-font prefix grey-text"></i>
+                                <h:inputText id="nombreArchivo"/>
+                                <h:outputLabel>Nombre Archivo</h:outputLabel>
+                            </div>
+
+                            <div class="md-form">
+                                <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                    <i class="fa fa-calendar prefix grey-text"></i>
+                                    <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1"/>
+                                    <h:outputLabel>Fecha Límite de Entrega</h:outputLabel>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <h:commandButton class="btn btn-primary" type="submit" value="Crear" action="#{fileUploadMBean.crearArchivo()}"/>
+                            </div>
                         </h:form>
-                    </h:column>
-                </h:dataTable>   
-            </div>                 
-        </center>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </ui:define>
 </ui:composition>

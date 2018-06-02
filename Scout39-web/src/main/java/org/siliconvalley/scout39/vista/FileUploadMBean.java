@@ -22,6 +22,9 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,6 +35,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import org.siliconvalley.scout39.modelo.*;
 import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
@@ -43,7 +47,6 @@ import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
 @Named(value = "fileUploadMBean")
 @RequestScoped
 public class FileUploadMBean implements Serializable {
-
     @Inject
     private ControlAutorizacion control;
 
@@ -53,6 +56,7 @@ public class FileUploadMBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private Part file;
     private String message;
+    private Archivo infoArchivo;
 
     public Part getFile() {
         return file;
@@ -153,5 +157,22 @@ public class FileUploadMBean implements Serializable {
             Logger.getLogger(FileUploadMBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
             return null;
         }
+    }
+    public String crearArchivo(){
+        try{
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String nombre = request.getParameter("crearArchivo:nombreArchivo");
+            String fecha = request.getParameter("crearArchivo:crearFecha");
+            if (fecha != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+                Date date = sdf.parse(fecha);
+                infoArchivo.setFecha_limite(date);
+            }
+            infoArchivo.setEstado('N');
+            infoArchivo.setRuta("");
+        } catch (ParseException ex) {
+            Logger.getLogger(FileUploadMBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "documentos.xhtml?faces-redirect=true";
     }
 }
