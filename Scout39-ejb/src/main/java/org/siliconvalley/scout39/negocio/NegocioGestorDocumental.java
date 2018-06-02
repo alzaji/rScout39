@@ -81,6 +81,17 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     }
 
     @Override
+    public List<Archivo> listaArchivosNombreAJAX(String pal) {
+        String cadena = "%" + pal.replace(" ", "%") + "%";
+        Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE a.nombre LIKE :archivo and a.Fecha_limite < CURRENT_DATE");
+        q.setParameter("archivo", cadena);
+        System.out.println(q.getResultList());
+        List<Archivo> archivos;
+        archivos = (List<Archivo>) q.getResultList();
+        return archivos;
+    }
+
+    @Override
     public List<Usuario> generaCSVParticipantes(Eventos e) {
 
         Eventos epart = em.find(Eventos.class, e.getId());
@@ -88,7 +99,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         Query q = em.createQuery("SELECT u from Eventos e, Progresion p, Usuario u where p.usuarioP = u and e = :epart");
         q.setParameter("epart", epart);
         List<Usuario> participantes = q.getResultList();
-        
+
         return participantes;
 
     }

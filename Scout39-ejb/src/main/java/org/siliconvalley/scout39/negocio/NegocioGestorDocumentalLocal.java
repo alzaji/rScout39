@@ -22,5 +22,6 @@ public interface NegocioGestorDocumentalLocal {
     public void borrarArchivo(Usuario u,Archivo a );
     public List<Archivo> listarArchivos();
     public List<Archivo> listaArchivosAJAX(String pal);
+    public List<Archivo> listaArchivosNombreAJAX(String pal);
     public List<Usuario> generaCSVParticipantes(Eventos e);
 }

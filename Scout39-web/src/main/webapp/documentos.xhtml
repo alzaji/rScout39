@@ -49,13 +49,13 @@
                 <div class="input-group col-md-8 mt-4 mb-4">
                     <h:form>
                         <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
-                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table"/>
+                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesNombre()}" render="table"/>
                         </h:inputText>
                     </h:form>                
                 </div>
 
                 <div class="container col-8">
-                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
+                    <h:dataTable id="table" value="#{beanPerfil.listarArchivosNombre}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
 
                         <h:column>
                             <f:facet name="header">Nombre Archivo</f:facet>
@@ -72,7 +72,7 @@
                         <h:column>
                             <f:facet name="header">Archivo</f:facet>
                             <h:form enctype="multipart/form-data" class="row">
-                                <c:if test="#{(a.estado eq 'N') or (a.ruta eq '')}"
+                                <c:if test="#{(a.estado eq 'N') or (a.ruta eq '')}">
                                     <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
                                     <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
                                 </c:if>
