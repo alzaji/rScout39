@@ -148,7 +148,7 @@ public class FileUploadMBean implements Serializable {
                     .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).withMappingStrategy(strategy).build();
             beanToCsv.write(participantes);
 
-            gestor.subirArchivo(ruta, fileName, "csv", control.getUsuario());
+            gestor.subirArchivoCSV(ruta, fileName, "csv", control.getUsuario());
             return "evento.xhtml?faces-redirect=true";
 
         } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException ex) {
