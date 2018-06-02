@@ -107,6 +107,6 @@ public class FileUploadMBean implements Serializable {
     
     public String deleteFile(Archivo ar){
         gestor.borrarArchivo(control.getUsuario(), ar);
-        return null;
+        return "Perfil.xhtml?faces-redirect=true";
     }
 }

@@ -63,7 +63,10 @@
                                 <li class="nav-item">
                                     <ui:insert name="link6"/>
                                 </li>
-
+                                <li class="nav-item">
+                                    <ui:insert name="link7"/>
+                                </li>
+                                
                             </c:when>
                             <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">
                                 <li class="nav-item">
@@ -124,7 +127,7 @@
                                     <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hola #{controlAutorizacion.usuario.alias}</button>
 
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="Perfil.xhtml">
+                                        <a class="dropdown-item" href="perfil.xhtml">
                                             <i class="fa fa-user left"></i> Mi perfil</a>                                       
                                         <h:commandLink class="dropdown-item" action="#{controlAutorizacion.logout()}" value="Cerrar sesión"/>
                                     </div>
