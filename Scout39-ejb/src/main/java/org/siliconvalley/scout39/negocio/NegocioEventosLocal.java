@@ -31,5 +31,9 @@ public interface NegocioEventosLocal {
     public void noAsistirEvento(Usuario u, Eventos e);
     public boolean comprobarAsistencia(Usuario u, Eventos e);
     public void rellenarProgresion(Progresion p);
+<<<<<<< HEAD
     public List<Progresion> mediaProgresion(Usuario u);
+=======
+    
+>>>>>>> 44f75b3783592dfaeb7d145271f33ffde735a081
 }

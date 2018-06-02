@@ -7,18 +7,17 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="link1"><h:link class="nav-link text-white" p:href="#eventos" value="Eventos"/></ui:define>
+    <ui:define name="link2"><h:link class="nav-link text-white" p:href="documentos.xhtml" value="Gestor Documental"/></ui:define>
     <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
-
         #{beanEventos.misEventos(controlAutorizacion.grupo.id.toString())}
-
         <div class="container mt-5">
 
             <div class="row mb-5">
                 <div class="col">
                     <div class="row">
                         <h2 id="eventos" class="h1-responsive font-weight-bold mb-5">Eventos</h2>                        
-                        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                        <c:if test="#{controlAutorizacion.hasCreate(controlAutorizacion.checkObjeto('eventos',controlAutorizacion.grupo.id))}">
                             <div class="text-left col-6 col-sm-4">
                                 <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
                             </div>
@@ -90,7 +89,7 @@
 
             <!-- Container -->
         </div>
-        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+        <c:if test="#{controlAutorizacion.hasCreate(controlAutorizacion.checkObjeto('eventos',controlAutorizacion.grupo.id))}">
             <div class="modal fade" id="modalCrearEvento" tabindex="-1" role="dialog" aria-labelledby="modalCrearEventoLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

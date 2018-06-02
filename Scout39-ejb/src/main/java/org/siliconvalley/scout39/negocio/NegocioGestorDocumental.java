@@ -6,10 +6,14 @@
 package org.siliconvalley.scout39.negocio;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -31,6 +35,26 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         ar.setRuta(ruta);
         ar.setIdUsuario(aux);
         em.merge(ar);
+    }
+
+    @Override
+    public void subirArchivoCSV(String ruta, String nombre, String tipo, Usuario u) {
+
+        try {
+            TypedQuery<Archivo> tq = em.createQuery("from Archivo where nombre=?", Archivo.class);
+            Archivo arux = tq.setParameter(1, nombre).getSingleResult();
+
+        } catch (NoResultException ex) {
+
+            Archivo ar = new Archivo();
+            Usuario aux = em.find(Usuario.class, u.getId());
+            ar.setNombre(nombre);
+            ar.setTipo(tipo);
+            ar.setRuta(ruta);
+            ar.setIdUsuario(aux);
+            em.merge(ar);
+
+        }
     }
 
     @Override
@@ -81,6 +105,17 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     }
 
     @Override
+    public List<Archivo> listaArchivosNombreAJAX(String pal) {
+        String cadena = "%" + pal.replace(" ", "%") + "%";
+        Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE a.nombre LIKE :archivo and a.Fecha_limite < CURRENT_DATE");
+        q.setParameter("archivo", cadena);
+        System.out.println(q.getResultList());
+        List<Archivo> archivos;
+        archivos = (List<Archivo>) q.getResultList();
+        return archivos;
+    }
+
+    @Override
     public List<Usuario> generaCSVParticipantes(Eventos e) {
 
         Eventos epart = em.find(Eventos.class, e.getId());
@@ -88,9 +123,31 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         Query q = em.createQuery("SELECT u from Eventos e, Progresion p, Usuario u where p.usuarioP = u and e = :epart");
         q.setParameter("epart", epart);
         List<Usuario> participantes = q.getResultList();
-        
+
         return participantes;
 
+    }
+
+    @Override
+    public void registrarArchivo(Archivo ar, Grupo g) {
+        try {
+            Query q = em.createQuery("SELECT ac from AccesoGrupo ac where :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL");
+            q.setParameter("grupo", g);
+            List<AccesoGrupo> ac = q.getResultList();
+            for (AccesoGrupo gr : ac) {
+                Archivo a = new Archivo();
+                a.setNombre(gr.getUsuario_Grupo().getAlias() + "_" + ar.getNombre());
+                a.setRuta(ar.getRuta());
+                a.setTipo(ar.getTipo());
+                a.setEstado(ar.getEstado());
+                a.setFecha_limite(ar.getFecha_limite());
+                a.setIdUsuario(gr.getUsuario_Grupo());
+                em.merge(a);
+            }
+
+        } catch (Exception re) {
+            Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
+        }
     }
 
 }
