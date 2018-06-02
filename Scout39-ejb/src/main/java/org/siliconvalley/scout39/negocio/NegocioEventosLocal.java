@@ -30,4 +30,5 @@ public interface NegocioEventosLocal {
     public void asistirEvento(Usuario u, Eventos e);
     public void noAsistirEvento(Usuario u, Eventos e);
     public boolean comprobarAsistencia(Usuario u, Eventos e);
+    public void rellenarProgresion(Progresion p);
 }

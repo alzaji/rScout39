@@ -143,12 +143,18 @@ public class NegocioEventos implements NegocioEventosLocal {
 
     @Override
     public List<Progresion> obtenerParticipantes(Eventos e) {
-        return null;
+        Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento");
+        q.setParameter("evento", e);
+        List<Progresion> participantes = q.getResultList();
+        return participantes;
     }
 
     @Override
     public void asistirEvento(Usuario u, Eventos e) {
         Progresion p = new Progresion();
+        p.setAnimacion(0);
+        p.setIntegracion(0);
+        p.setParticipacion(0);
         p.setEventoP(e);
         p.setUsuarioP(u);
         em.merge(p);
@@ -156,15 +162,15 @@ public class NegocioEventos implements NegocioEventosLocal {
 
     @Override
     public void noAsistirEvento(Usuario u, Eventos e) {
-        
+
         Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento AND p.usuarioP = :usuario");
         q.setParameter("usuario", u);
         q.setParameter("evento", e);
         Progresion p = (Progresion) q.getSingleResult();
         em.remove(p);
-        
+
     }
-   
+
     @Override
     public boolean comprobarAsistencia(Usuario u, Eventos e) {
         try {
@@ -176,7 +182,16 @@ public class NegocioEventos implements NegocioEventosLocal {
         } catch (NoResultException nrw) {
             return false;
         }
-        
+
+    }
+
+    @Override
+    public void rellenarProgresion(Progresion p) { 
+        Progresion p1 = em.find(Progresion.class, p.getIdProgresion());
+        p1.setAnimacion(p.getAnimacion());
+        p1.setIntegracion(p.getIntegracion());
+        p1.setParticipacion(p.getParticipacion());   
+        em.merge(p1);
     }
 
 }
