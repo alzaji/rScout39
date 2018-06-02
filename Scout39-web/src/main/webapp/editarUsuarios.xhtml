@@ -140,11 +140,13 @@
                             <div class="modal-body">
                                 <p style="text-align: center;">¿Está seguro que desea eliminar este usuario?</p>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default btn-sm my-0" data-dismiss="modal" onclick="">Si, estoy seguro</button>
-
-                                <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
-                            </div>
+                            <h:form>
+                                <div class="modal-footer">                                
+                                    <h:commandButton class="btn btn-blue" value="Borrar" action="#{controlUsuario.removeUsuario(u)}"></h:commandButton>
+                                    <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
+                                </div>
+                            </h:form>
+                            
                         </div>
                     </div>
                 </div>
@@ -173,14 +175,16 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- Grid row -->
+                            
+                            <h:form id="formCrearUsuario">
+                                <!-- Grid row -->
                             <div class="form-row">
 
                                 <!-- Grid column -->
                                 <div class="col-md-4">
                                     <!-- Material input -->
                                     <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{nombre}"/>
+                                        <h:inputText class="form-control" id="crearNombre"/>
                                         <h:outputLabel for="inputNombre">Nombre</h:outputLabel>
                                     </div>
                                 </div>
@@ -190,7 +194,7 @@
                                 <div class="col-md-4">
                                     <!-- Material input -->
                                     <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{primerApellido}"/>
+                                        <h:inputText class="form-control" id="crearPrimerApellido"/>
                                         <h:outputLabel for="inputPrimerApellido">Primer Apellido</h:outputLabel>
                                     </div>
                                 </div>
@@ -200,26 +204,20 @@
                                 <div class="col-md-4">
                                     <!-- Material input -->
                                     <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{segundoApellido}"/>
+                                        <h:inputText class="form-control" id="crearSegundoApellido"/>
                                         <h:outputLabel for="inputSegundoApellido">Segundo Apellido</h:outputLabel>
                                     </div>
                                 </div>
                                 <!-- Grid column -->
 
                                 <!-- Grid column -->
-                                <div class="col-md-4">
-                                    <!-- Material input -->
-                                    <div class="md-form form-group">
-                                        <h:inputText  class="form-control" binding="#{dni}" />
-                                        <h:outputLabel for="inputDNI">DNI/NIF</h:outputLabel>
-                                    </div>
-                                </div>
-                                <!-- Grid column -->
                                 <div class="input-group col-md-4 mt-4 mb-4">
-                                    <select class="custom-select" binding="#{sexo}">
-                                        <option selected="selected">Sexo</option>
-                                        <option value="masculino">Masculino</option>
-                                        <option value="femenino">Femenino</option>
+                                    <select class="custom-select" id="crearGrupo">
+                                        <option selected="selected">Grupo</option>
+                                        <option value="Manada de Tha">Manada de Tha</option>
+                                        <option value="Tropa de Kim">Tropa de Kim</option>
+                                        <option value="Unidad Esculta Siryu">Unidad Esculta Siryu</option>
+                                        <option value="Clan Rover Almogama">Clan Rover Almogama</option>
                                     </select>
                                 </div>
                             </div>
@@ -230,7 +228,7 @@
                                 <div class="col-md-4">
                                     <!-- Material input -->
                                     <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{email}" />
+                                        <h:inputText class="form-control" id="crearEmail"/>
                                         <h:outputLabel for="inputTelf">Email</h:outputLabel>
                                     </div>
                                 </div>
@@ -240,7 +238,7 @@
                                 <div class="col-md-4">
                                     <!-- Material input -->
                                     <div class="md-form form-group">
-                                        <h:inputText  class="form-control" binding="#{movil}" />
+                                        <h:inputText  class="form-control" id="crearMovil"/>
                                         <h:outputLabel for="inputMovil">Móvil</h:outputLabel>
                                     </div>
                                 </div>
@@ -248,50 +246,10 @@
                             </div>
 
                             <!-- Grid row -->
-                            <div class="row">
-                                <!-- Grid column -->
-                                <div class="col-md-4">
-                                    <!-- Material input -->
-                                    <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{direccion}"/>
-                                        <h:outputLabel for="inputDireccion">Dirección</h:outputLabel>
-                                    </div>
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Grid column -->
-                                <div class="col-md-4">
-                                    <!-- Material input -->
-                                    <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{localidad}"/>
-                                        <h:outputLabel for="inputLocalidad">Localidad</h:outputLabel>
-                                    </div>
-                                </div>
-                                <!-- Grid column -->
-                                <!-- Grid column -->
-                                <div class="col-md-4">
-                                    <!-- Material input -->
-                                    <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{provincia}"/>
-                                        <h:outputLabel for="inputProvincia">Provincia</h:outputLabel>
-                                    </div>
-                                </div>
-                                <!-- Grid column -->
-
-                                <!-- Grid column -->
-                                <div class="col-md-4">
-                                    <!-- Material input -->
-                                    <div class="md-form form-group">
-                                        <h:inputText class="form-control" binding="#{codPostal}"/>
-                                        <h:outputLabel for="inputCodPostal">Código Postal</h:outputLabel>
-                                    </div>
-                                </div>
-                                <!-- Grid column -->
-                            </div>
-                            <!-- Grid row -->
-
+                            
                             <div class="row">
                                 <div class="input-group col-md-4 mt-3 mb-4">
-                                    <select class="custom-select" binding="#{rol}">
+                                    <select class="custom-select" id="crearRol">
                                         <option selected="selected">Rol</option>
                                         <option value="Scouter">Scouter</option>
                                         <option value="Educando">Educando</option>
@@ -299,14 +257,12 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="modal-footer justify-content-center">                        
-                            <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario(nombre.value,primerApellido.value, 
-                                                                                               segundoApellido.value, dni.value, sexo.value, email.value, movil.value,
-                                                                                               direccion.value, localidad.value, provincia.value, codPostal.value, rol.value)}" type="submit">
-                            </h:commandButton>
-                        </div>
+                            <div class="modal-footer justify-content-center">                        
+                                <h:commandButton class="btn btn-default" value="Guardar" action="#{controlUsuario.doCrearUsuario()}">
+                                </h:commandButton>
+                            </div>
+                            </h:form>    
+                        </div>                                                                                                       
 
 
                     </div>
