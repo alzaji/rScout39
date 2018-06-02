@@ -76,7 +76,25 @@ public class beanEventos implements Serializable {
     public List<Comentarios> doObtenerRespuestasComentarios(Comentarios c) {
         return eventos.listaRespuestasComentarios(c);
     }
-
+    
+    public List<Progresion> doListaParticipantes(Eventos e){
+        return eventos.obtenerParticipantes(e);
+    }
+    
+    public boolean doComprobarAsistencia(Eventos e){
+        return eventos.comprobarAsistencia(control.getUsuario(), e);        
+    }
+    
+    public void doAsistirEvento(Eventos e){
+        eventos.asistirEvento(control.getUsuario(), e);     
+        //return "siryu.xhtml?faces-redirect=true";
+    }
+    
+    public void doNoAsistirEvento(Eventos e){
+        eventos.noAsistirEvento(control.getUsuario(), e);
+        //return "siryu.xhtml?faces-redirect=true";        
+    }
+    
     public String doNuevoComentario(Eventos e) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String cuerpo = request.getParameter("formComentarioEvento:cuerpoComentario");
@@ -274,13 +292,13 @@ public class beanEventos implements Serializable {
     }
 
     public List<Eventos> getListaEventos() {
-        Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista getter: " + this.listaEventos.size());
+        //Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista getter: " + this.listaEventos.size());
         return listaEventos;
     }
 
     public void setListaEventos(List<Eventos> listaEventos) {
         this.listaEventos = listaEventos;
-        Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista setter: " + this.listaEventos.size());
+        //Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, "Tamaño lista setter: " + this.listaEventos.size());
     }
 
 }
