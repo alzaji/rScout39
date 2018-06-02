@@ -46,39 +46,51 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
 
     @Override
     public String buscarPath(Usuario u, String ruta) {
-            List<Archivo> ar = buscarArchivos(u);
-            for (Archivo arch : ar) {
-                if (arch.getRuta().equals(ruta)) {
-                    return arch.getRuta();
-                }
+        List<Archivo> ar = buscarArchivos(u);
+        for (Archivo arch : ar) {
+            if (arch.getRuta().equals(ruta)) {
+                return arch.getRuta();
             }
-        
+        }
 
         return null;
     }
-    
+
     @Override
-    public void borrarArchivo(Usuario u,Archivo a){
-            Archivo aux = em.find(Archivo.class, a.getId());
-            em.remove(aux);
-        } 
-    
-    
-     @Override
+    public void borrarArchivo(Usuario u, Archivo a) {
+        Archivo aux = em.find(Archivo.class, a.getId());
+        em.remove(aux);
+    }
+
+    @Override
     public List<Archivo> listarArchivos() {
-        Query q = em.createQuery("SELECT a FROM Archivo a");                
-        List<Archivo> archivos = (List<Archivo>) q.getResultList();        
+        Query q = em.createQuery("SELECT a FROM Archivo a");
+        List<Archivo> archivos = (List<Archivo>) q.getResultList();
         return archivos;
     }
 
     @Override
     public List<Archivo> listaArchivosAJAX(String pal) {
-        String cadena = "%" + pal.replace(" ", "%") + "%" ;
+        String cadena = "%" + pal.replace(" ", "%") + "%";
         Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE u.alias LIKE :alias and a MEMBER of u.archivo");
         q.setParameter("alias", cadena);
         System.out.println(q.getResultList());
         List<Archivo> archivos;
-        archivos = (List<Archivo>) q.getResultList();        
+        archivos = (List<Archivo>) q.getResultList();
         return archivos;
     }
+
+    @Override
+    public List<Usuario> generaCSVParticipantes(Eventos e) {
+
+        Eventos epart = em.find(Eventos.class, e.getId());
+
+        Query q = em.createQuery("SELECT u from Eventos e, Progresion p, Usuario u where p.usuarioP = u and e = :epart");
+        q.setParameter("epart", epart);
+        List<Usuario> participantes = q.getResultList();
+        
+        return participantes;
+
+    }
+
 }

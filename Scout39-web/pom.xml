@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>Scout39</artifactId>
-    <groupId>org.siliconvalley</groupId>
-    <version>RC</version>
-  </parent>
+        <artifactId>Scout39</artifactId>
+        <groupId>org.siliconvalley</groupId>
+        <version>RC</version>
+    </parent>
 
     <groupId>org.siliconvalley</groupId>
     <artifactId>Scout39-web</artifactId>
@@ -20,6 +20,11 @@
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>4.1</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Scout39-ejb</artifactId>

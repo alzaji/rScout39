@@ -9,7 +9,6 @@
     <ui:define name="link1"><h:link class="nav-link text-white" p:href="siryu.xhtml" value="Eventos"/></ui:define>
     <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
-
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -154,30 +153,75 @@
 
                         <div>
                             <div class="mt-3 ">
-                                <table class="table table-striped table-responsive-md btn-table ">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellidos</th>
-                                            <th>Nombre de Usuario</th>
-                                            <th>Correo electrónico</th>
-                                            <th>Progresión</th>
-                                        </tr>
-                                    </thead>
+                                <h:dataTable id="table" value="#{beanEventos.doListaParticipantes(beanEventos.infoEvento)}" var="progresion" styleClass="table table-striped table-responsive-md btn-table">                    
 
-                                    <tbody>
-                                        <tr>
-                                            <td>Nombre</td>
-                                            <td>apellidos</td>
-                                            <td>alias</td>
-                                            <td>email</td>
-                                            <td>
-                                                <a class="btn btn-default btn-rounded btn-sm my-0 " data-toggle="modal" data-target="#modalProgresionEvento">Rellenar</a>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Alias</f:facet>
+                                        <!-- row record -->
+                                        #{progresion.usuarioP.alias}
+                                    </h:column>
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Nombre</f:facet>
+                                        <!-- row record -->
+                                        #{progresion.usuarioP.nombre}
+                                    </h:column>
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Apellidos</f:facet>
+                                        <!-- row record -->
+                                        #{progresion.usuarioP.apellidos}
+                                    </h:column>                                    
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Email</f:facet>
+                                        <!-- row record -->
+                                        #{progresion.usuarioP.email}
+                                    </h:column>                                    
+                                    <h:column>
+                                        <!-- column header -->
+                                        <f:facet name="header">Progresión</f:facet>
+                                        <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalProgresion#{progresion.usuarioP.id.toString()}">Rellenar</button>
+                                        <!-- row record -->
+                                        <div class="modal fade" id="modalProgresion#{progresion.usuarioP.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalProgresionEventoLabel"
+                                             aria-hidden="true ">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header btn-indigo white-text">
+                                                        <h4 class="title">
+                                                            <i class="fas fa-tasks"></i> Progresión</h4>
+                                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">x</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body mx-3">
+                                                        <h:form id="formProgresionEvento">                            
+                                                            <div class="md-form">
+                                                                <i class="fa fa-compass prefix grey-text"></i>
+                                                                <h:inputText class="form-control" id="integracion"/>
+                                                                <h:outputLabel>Integración</h:outputLabel>
+                                                            </div>
+                                                            <div class="md-form">
+                                                                <i class="fa fa-compass prefix grey-text"></i>
+                                                                <h:inputText class="form-control" id="participacion"/>
+                                                                <h:outputLabel>Participación</h:outputLabel>
+                                                            </div>
+                                                            <div class ="md-form">
+                                                                <i class="fa fa-compass prefix grey-text"></i>
+                                                                <h:inputText class="form-control" id="animacion"/>
+                                                                <h:outputLabel>Animación</h:outputLabel>
+                                                            </div>                                                       
+                                                            <div class="text-center mt-4">
+                                                                <h:commandButton class="btn btn-indigo" value="Rellenar" type="submit" action="#{beanEventos.rellenarProgresion(progresion, beanEventos.doListaParticipantes(beanEventos.infoEvento).indexOf(progresion))}"/>
+                                                            </div>
+                                                        </h:form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </h:column>
+                                </h:dataTable> 
                             </div>
                         </div>
                         <!--Card image-->
@@ -300,46 +344,6 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalProgresionEvento" tabindex="-1 " role="dialog" aria-labelledby="modalProgresionEventoLabel"
-             aria-hidden="true ">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header btn-indigo white-text">
-                        <h4 class="title">
-                            <i class="fa fa-comments"></i>Promesa</h4>
-                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">x</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <h:form id="formProgresionEvento">
-                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Scouter'}">
-                        <div class="md-form">
-                            <i class="fa fa-compass prefix grey-text"></i>
-                            <h:inputText class="form-control" id="integracionProgresion" value=""/>
-                            <h:outputLabel>Integración</h:outputLabel>
-                        </div>
-                        <div class="md-form">
-                            <i class="fa fa-compass prefix grey-text"></i>
-                            <h:inputText class="form-control" id="participacionProgresion" value=""/>
-                            <h:outputLabel>Participación</h:outputLabel>
-                        </div>
-                        <div class ="md-form">
-                            <i class="fa fa-compass prefix grey-text"></i>
-                            <h:inputText class="form-control" id="animacionProgresion" value=""/>
-                            <h:outputLabel>Progresión</h:outputLabel>
-                        </div>
-                        </c:if>
-                        <div class="md-form">
-                            <h:inputTextarea class="ext-justify form-control" cols="50" rows="5" p:maxlength="500" p:placeholder="Escribe tu promesa aquí..." id="cuerpoProgresion"/>                                
-                        </div>
-                        <div class="text-center mt-4">
-                            <h:commandButton class="btn btn-indigo" value="Enviar" type="submit" action="#"/>
-                        </div>
-                        </h:form>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </ui:define>
 </ui:composition>

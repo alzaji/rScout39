@@ -23,10 +23,20 @@ public class AccesoGrupo implements Serializable {
     private Date Fecha_Alta_Grupo;
     @Temporal(TemporalType.DATE)
     private Date Fecha_Baja_Grupo;
+    @Column(length = 500)
+    private String promesa;
     @ManyToOne
     private Usuario Usuario_Grupo;
     @ManyToOne
     private Grupo grupo;
+
+    public String getPromesa() {
+        return promesa;
+    }
+
+    public void setPromesa(String promesa) {
+        this.promesa = promesa;
+    }
 
     public Date getFecha_Alta_Grupo() {
         return Fecha_Alta_Grupo;

@@ -48,7 +48,6 @@ public class ControlAsistencia implements Serializable {
         p.setAnimacion(0);
         p.setIntegracion(0);
         p.setParticipacion(0);
-        p.setPromesa("");
         return p;
     }
 

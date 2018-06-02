@@ -39,6 +39,7 @@ public class beanEventos implements Serializable {
     private Eventos evento;
     private Comentarios comentario;
     private Comentarios respuesta;
+    private Progresion progresion;
 
     @Inject
     private ControlAutorizacion control;
@@ -76,25 +77,25 @@ public class beanEventos implements Serializable {
     public List<Comentarios> doObtenerRespuestasComentarios(Comentarios c) {
         return eventos.listaRespuestasComentarios(c);
     }
-    
-    public List<Progresion> doListaParticipantes(Eventos e){
+
+    public List<Progresion> doListaParticipantes(Eventos e) {
         return eventos.obtenerParticipantes(e);
     }
-    
-    public boolean doComprobarAsistencia(Eventos e){
-        return eventos.comprobarAsistencia(control.getUsuario(), e);        
+
+    public boolean doComprobarAsistencia(Eventos e) {
+        return eventos.comprobarAsistencia(control.getUsuario(), e);
     }
-    
-    public void doAsistirEvento(Eventos e){
-        eventos.asistirEvento(control.getUsuario(), e);     
+
+    public void doAsistirEvento(Eventos e) {
+        eventos.asistirEvento(control.getUsuario(), e);
         //return "siryu.xhtml?faces-redirect=true";
     }
-    
-    public void doNoAsistirEvento(Eventos e){
+
+    public void doNoAsistirEvento(Eventos e) {
         eventos.noAsistirEvento(control.getUsuario(), e);
         //return "siryu.xhtml?faces-redirect=true";        
     }
-    
+
     public String doNuevoComentario(Eventos e) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String cuerpo = request.getParameter("formComentarioEvento:cuerpoComentario");
@@ -102,7 +103,7 @@ public class beanEventos implements Serializable {
         c.setUsuario(control.getUsuario());
         c.setCuerpo(cuerpo);
         c.setEventoC(e);
-        
+
         eventos.nuevoComentario(c);
 
         return "evento.xhtml?faces-redirect=true";
@@ -110,17 +111,16 @@ public class beanEventos implements Serializable {
 
     public String doRespuestaComentario(Eventos e, Comentarios c, int indice) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cuerpo = request.getParameter("Cpadre:"+indice+":formRespuestaComentarioEvento:cuerpoRespuestaComentario");
+        String cuerpo = request.getParameter("Cpadre:" + indice + ":formRespuestaComentarioEvento:cuerpoRespuestaComentario");
         Comentarios respuesta = new Comentarios();
         respuesta.setUsuario(control.getUsuario());
         respuesta.setCuerpo(cuerpo);
         respuesta.setEventoC(e);
-        respuesta.setRespuesta(c);            
+        respuesta.setRespuesta(c);
         eventos.respuestaComentario(respuesta);
         return "evento.xhtml?faces-redirect=true";
     }
 
-   
     public String doBorrarEvento(Eventos e) {
         switch (control.getUsuario().getRoles().getNombrerol()) {
             case "ScouterTHA":
@@ -248,6 +248,18 @@ public class beanEventos implements Serializable {
         return "siryu.xhtml?faces-redirect=true";
     }
 
+    public void rellenarProgresion(Progresion p1, int index) {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String integracion = request.getParameter("table:" + index + ":formProgresionEvento:integracion");
+        String participacion = request.getParameter("table:" + index + ":formProgresionEvento:participacion");
+        String animacion = request.getParameter("table:" + index + ":formProgresionEvento:animacion");
+        
+        p1.setAnimacion(Integer.parseInt(animacion));
+        p1.setIntegracion(Integer.parseInt(integracion));
+        p1.setParticipacion(Integer.parseInt(participacion));       
+        eventos.rellenarProgresion(p1);
+    }
+
     public String parseFecha(Date fecha) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
@@ -257,6 +269,14 @@ public class beanEventos implements Serializable {
             Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, e.getMessage(), e);
             return null;
         }
+    }
+
+    public Progresion getProgresion() {
+        return progresion;
+    }
+
+    public void setProgresion(Progresion progresion) {
+        this.progresion = progresion;
     }
 
     public Comentarios getRespuesta() {
