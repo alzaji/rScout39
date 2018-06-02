@@ -49,6 +49,18 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
         em.merge(usuario);        
     }
 
+    @Override
+    public void modificarUsuario(Usuario u) {
+        System.out.println("Alias: ------------------------------------------------>"+ u.getAlias());
+        Usuario user = em.find(Usuario.class, u.getId());
+        user.setAlias(u.getAlias());
+        user.setApellidos(u.getApellidos());
+        user.setNombre(u.getNombre());
+        user.setEmail(u.getEmail());
+        user.setRoles(u.getRoles());
+        em.merge(user);
+    }
+
    
     
 }

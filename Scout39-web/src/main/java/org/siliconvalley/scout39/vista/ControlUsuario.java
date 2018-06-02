@@ -110,16 +110,14 @@ public class ControlUsuario implements Serializable {
 
     public String doModificarUsuario(Usuario u) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String alia = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarAlias");
+        String alias = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarAlias");
         String nombr = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarNombre");
         String apellidos = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarApellidos");
         String correo = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarEmail");
-        Usuario user = newUsuario(u.getId(), alia, u.getDigest(),
+        Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
                 nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-
-        int pos = login.getUsuarios().indexOf(u);
-        login.getUsuarios().toArray()[pos] = user;
-
+        System.out.println("Alias en Control usuario: ------------------------------------------------>"+ alias);
+        users.modificarUsuario(user);
         return "editarUsuarios.xhtml?faces-redirect=true";
 
     }
