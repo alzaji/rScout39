@@ -6,7 +6,7 @@
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="title">#{controlAutorizacion.grupo.nombre}</ui:define>
-    <ui:define name="link1"><h:link class="nav-link text-white" p:href="siryu.xhtml" value="Eventos"/></ui:define>
+    <ui:define name="link1"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
     <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
         <div class="container">
@@ -36,8 +36,14 @@
                         <div class="card-footer center">
                             <div class="container">
                                 <div class="row">
-                                    <a class="btn btn-green col" href="eventos.html">
-                                        <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Asistir</a>
+                                    <h:form id="prueba1">                                                                                                               
+                                        <h:commandButton id="asistir" class="btn btn-green col" value="Asistir" rendered="#{not beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doAsistirEvento(evento)}">                                                               
+                                            <f:ajax render="@form"/>                                                                                                                                    
+                                        </h:commandButton>                                                         
+                                        <h:commandButton id="noasistir" class="btn btn-red col" value="No Asistir" rendered="#{beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doNoAsistirEvento(evento)}">
+                                            <f:ajax render="@form"/>
+                                        </h:commandButton>
+                                    </h:form>
                                     <a class="btn btn-blue col" data-toggle="collapse" href="#collapseComentarios" aria-expanded="false" aria-controls="collapseComentarios">
                                         <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Comentarios</a>
                                     <a class="btn btn-orange col" data-toggle="collapse" href="#collapseParticipantes" aria-expanded="false" aria-controls="collapseParticipantes">

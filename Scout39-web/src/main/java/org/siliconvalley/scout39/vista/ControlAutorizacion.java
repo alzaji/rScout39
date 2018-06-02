@@ -64,14 +64,14 @@ public class ControlAutorizacion implements Serializable {
 
         return privilegio.getLeer() == 'S';
     }
-    
+
     public boolean hasUpdate() {
-        
+
         return privilegio.getModificar() == 'S';
     }
-    
-    public boolean hasDelete(){
-        
+
+    public boolean hasDelete() {
+
         return privilegio.getBorrar() == 'S';
     }
 
@@ -84,15 +84,7 @@ public class ControlAutorizacion implements Serializable {
 
             case "Scouter":
             case "Educando":
-                if (getGrupo().getNombre().equals("Manada de Tha")) {
-                    return "tha.xhtml";
-                } else if (getGrupo().getNombre().equals("Tropa de Kim")) {
-                    return "kim.xhtml";
-                } else if (getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
-                    return "siryu.xhtml";
-                } else if (getGrupo().getNombre().equals("Clan Rover Almogama")) {
-                    return "almogama.xhtml";
-                }
+                return "listaeventos.xhtml";
 
             default:
                 return "index.xthml";

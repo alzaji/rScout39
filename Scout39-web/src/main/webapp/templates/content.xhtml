@@ -1,234 +1,242 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-<!-- Pendiente de revision -->
-<div class="navbar scrolling-navbar">
-    <h2 class="navbar-brand text-color">Grupo Scout 39</h2>
-</div>
-<!-- Full Page Intro -->
-<c:choose>
-    <c:when test="#{empty controlAutorizacion.usuario}">
-        <ui:insert name="contenidonolog">
-        <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-            <!-- Mask & flexbox options-->
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                <!-- Content -->
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row wow fadeIn">
-                        <!--Grid column-->
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <!-- Pendiente de revision -->
+    <div class="navbar scrolling-navbar">
+        <h2 class="navbar-brand text-color">Grupo Scout 39</h2>
+    </div>
+    <!-- Full Page Intro -->
+    <c:choose>
+        <c:when test="#{empty controlAutorizacion.usuario}">
+            <ui:insert name="contenidonolog">
+                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                    <!-- Mask & flexbox options-->
+                    <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                        <!-- Content -->
+                        <div class="container">
+                            <!--Grid row-->
+                            <div class="row wow fadeIn">
+                                <!--Grid column-->
+                                <div class="col-md-12 text-center">
+                                    <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                </div>
+                                <!--Grid column-->
+                            </div>
+                            <!--Grid row-->
                         </div>
-                        <!--Grid column-->
+                        <!-- Content -->
                     </div>
-                    <!--Grid row-->
+                    <!-- Mask & flexbox options-->
                 </div>
-                <!-- Content -->
-            </div>
-            <!-- Mask & flexbox options-->
-        </div>
-        <!-- Full Page Intro -->
-        <!--Projects section v.3-->
-        <section class="mr-5 ml-5" id="sectionAboutUs">
+                <!-- Full Page Intro -->
+                <!--Projects section v.3-->
+                <section class="mr-5 ml-5" id="sectionAboutUs">
 
-            <!--Section heading-->
-            <h2 class="text-center h1 my-5">
-                <strong><ui:insert name="sectionh">Our best projects</ui:insert></strong>
-            </h2>
-            <!--Section description-->            
-
-            <!--Grid row-->
-            <div class="row">
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5">
-
-                    <!--Image-->
-                    <img src="./resources/img/bg.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-6 col-xl-7 pl-lg-5 pb-4">
-
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fas fa-hand-point-right fa-2x cyan-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Integración</h5>
-                            <p class="grey-text">Como buen boy scout, la integración con tu grupo debe ser máxima.</p>
-                        </div>
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row mb-3">
-                        <div class="col-1 mr-1">
-                            <i class="fas fa-hand-point-right fa-2x red-text"></i>
-                        </div>
-                        <div class="col-10 ">
-                            <h5 class="font-weight-bold black-text">Participación</h5>
-                            <p class="grey-text">Como buen boy scout, particiar en los eventos es lo más importante</p>
-                        </div>
-                    </div>
-                    <!--Grid row-->
+                    <!--Section heading-->
+                    <h2 class="text-center h1 my-5">
+                        <strong><ui:insert name="sectionh">Our best projects</ui:insert></strong>
+                    </h2>
+                    <!--Section description-->            
 
                     <!--Grid row-->
                     <div class="row">
-                        <div class="col-1 mr-1">
-                            <i class="fas fa-hand-point-right fa-2x deep-purple-text"></i>
-                        </div>
-                        <div class="col-10">
-                            <h5 class="font-weight-bold black-text">Animación</h5>
-                            <p class="grey-text">Como buen boy scout, debes animar y apoyar a tus compañeros</p>
-                        </div>
-                    </div>
-                    <!--/Grid row-->
 
-                </div>
-                <!--Grid column-->
+                        <!--Grid column-->
+                        <div class="col-lg-6 col-xl-5 pr-lg-5 pb-5">
 
-            </div>
-            <!--Grid row-->
+                            <!--Image-->
+                            <img src="./resources/img/bg.jpg" alt="Sample project image" class="img-fluid rounded z-depth-1 h-100 w-75"/>
 
-            <hr/>
-            
-        </section>
-        <!--Projects section v.3-->
-        </ui:insert>
-    </c:when>
-    <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
-<!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-             Mask & flexbox options
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                 Content 
-                <div class="container">
-                    Grid row
-                    <div class="row wow fadeIn">
-                        Grid column
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                        </div>
-                        Grid column
-                    </div>
-                    Grid row
-                </div>
-                 Content 
-            </div>
-              Mask & flexbox options
-        </div>-->
-        <ui:insert name="eventos"/>
-        <ui:insert name="perfil" />
-        <ui:insert name="tablaUsuarios"/>
-        <ui:insert name="GestorDocumental"/>
-        <ui:insert name="promesas"/>
-    </c:when>
-    <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoTHA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterTHA')}">
-                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-            <!-- Mask & flexbox options-->
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                <!-- Content -->
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row wow fadeIn">
-                        <!--Grid column-->
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
                         </div>
                         <!--Grid column-->
-                    </div>
-                    <!--Grid row-->
-                </div>
-                <!-- Content -->
-            </div>
-            <!-- Mask & flexbox options-->
-        </div>
-        <!-- DEFINIR CONTENIDO AQUÍ -->
-        <ui:insert name="perfil" />
-        <ui:insert name="eventos"/>
-        
-        
-    </c:when>
-        <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoKIM') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterKIM')}">
-                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-            <!-- Mask & flexbox options-->
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                <!-- Content -->
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row wow fadeIn">
+
                         <!--Grid column-->
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                        <div class="col-lg-6 col-xl-7 pl-lg-5 pb-4">
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fas fa-hand-point-right fa-2x cyan-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Integración</h5>
+                                    <p class="grey-text">Como buen boy scout, la integración con tu grupo debe ser máxima.</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row mb-3">
+                                <div class="col-1 mr-1">
+                                    <i class="fas fa-hand-point-right fa-2x red-text"></i>
+                                </div>
+                                <div class="col-10 ">
+                                    <h5 class="font-weight-bold black-text">Participación</h5>
+                                    <p class="grey-text">Como buen boy scout, particiar en los eventos es lo más importante</p>
+                                </div>
+                            </div>
+                            <!--Grid row-->
+
+                            <!--Grid row-->
+                            <div class="row">
+                                <div class="col-1 mr-1">
+                                    <i class="fas fa-hand-point-right fa-2x deep-purple-text"></i>
+                                </div>
+                                <div class="col-10">
+                                    <h5 class="font-weight-bold black-text">Animación</h5>
+                                    <p class="grey-text">Como buen boy scout, debes animar y apoyar a tus compañeros</p>
+                                </div>
+                            </div>
+                            <!--/Grid row-->
+
                         </div>
                         <!--Grid column-->
+
                     </div>
                     <!--Grid row-->
-                </div>
-                <!-- Content -->
-            </div>
-            <!-- Mask & flexbox options-->
-        </div>
-        <!-- DEFINIR CONTENIDO AQUÍ -->
-        <ui:insert name="perfil" />
-        <ui:insert name="eventos"/>
-    </c:when>
-    <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
-<!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-             Mask & flexbox options
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                 Content 
-                <div class="container">
-                    Grid row
-                    <div class="row wow fadeIn">
-                        Grid column
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+
+                    <hr/>
+
+                </section>
+                <!--Projects section v.3-->
+            </ui:insert>
+        </c:when>
+        <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
+            <!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                         Mask & flexbox options
+                        <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                             Content 
+                            <div class="container">
+                                Grid row
+                                <div class="row wow fadeIn">
+                                    Grid column
+                                    <div class="col-md-12 text-center">
+                                        <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                    </div>
+                                    Grid column
+                                </div>
+                                Grid row
+                            </div>
+                             Content 
                         </div>
-                        Grid column
-                    </div>
-                    Grid row
-                </div>
-                 Content 
-            </div>
-             Mask & flexbox options
-        </div>
-         DEFINIR CONTENIDO AQUÍ -->
-        <ui:insert name="perfil" />
-        <ui:insert name="eventos"/>
-        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+                          Mask & flexbox options
+                    </div>-->
+            <ui:insert name="eventos"/>
+            <ui:insert name="perfil" />
+            <ui:insert name="tablaUsuarios"/>
             <ui:insert name="GestorDocumental"/>
-        </c:if>
-    </c:when>
-        <c:when test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'EducandoALMOGAMA') or (controlAutorizacion.usuario.roles.nombrerol eq 'ScouterALMOGAMA')}">
-                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-            <!-- Mask & flexbox options-->
-            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                <!-- Content -->
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row wow fadeIn">
-                        <!--Grid column-->
-                        <div class="col-md-12 text-center">
-                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+            <ui:insert name="promesas"/>
+        </c:when>
+        <c:when test="#{controlAutorizacion.grupo.nombre eq 'Clan Rover Almogama'}">
+            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                             Mask & flexbox options
+                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                                 Content 
+                                <div class="container">
+                                    Grid row
+                                    <div class="row wow fadeIn">
+                                        Grid column
+                                        <div class="col-md-12 text-center">
+                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                        </div>
+                                        Grid column
+                                    </div>
+                                    Grid row
+                                </div>
+                                 Content 
+                            </div>
+                             Mask & flexbox options
+                        </div>-->
+            <!-- DEFINIR CONTENIDO AQUÍ -->
+            <ui:insert name="perfil" />
+            <ui:insert name="eventos"/>
+            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+                <ui:insert name="GestorDocumental"/>
+            </c:if>
+
+        </c:when>
+        <c:when test="#{controlAutorizacion.grupo.nombre eq 'Manada de Tha'}">
+            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                             Mask & flexbox options
+                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                                 Content 
+                                <div class="container">
+                                    Grid row
+                                    <div class="row wow fadeIn">
+                                        Grid column
+                                        <div class="col-md-12 text-center">
+                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                        </div>
+                                        Grid column
+                                    </div>
+                                    Grid row
+                                </div>
+                                 Content 
+                            </div>
+                             Mask & flexbox options
+                        </div>-->
+            <!-- DEFINIR CONTENIDO AQUÍ -->
+            <ui:insert name="perfil" />
+            <ui:insert name="eventos"/>
+            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+                <ui:insert name="GestorDocumental"/>
+            </c:if>
+        </c:when>
+        <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
+            <!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                         Mask & flexbox options
+                        <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                             Content 
+                            <div class="container">
+                                Grid row
+                                <div class="row wow fadeIn">
+                                    Grid column
+                                    <div class="col-md-12 text-center">
+                                        <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                    </div>
+                                    Grid column
+                                </div>
+                                Grid row
+                            </div>
+                             Content 
                         </div>
-                        <!--Grid column-->
+                         Mask & flexbox options
                     </div>
-                    <!--Grid row-->
-                </div>
-                <!-- Content -->
-            </div>
-            <!-- Mask & flexbox options-->
-        </div>
-        <!-- DEFINIR CONTENIDO AQUÍ -->
-        <ui:insert name="perfil" />
-        <ui:insert name="eventos"/>
-    </c:when>
-</c:choose>        
+                     DEFINIR CONTENIDO AQUÍ -->
+            <ui:insert name="perfil" />
+            <ui:insert name="eventos"/>
+            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+                <ui:insert name="GestorDocumental"/>
+            </c:if>
+        </c:when>
+        <c:when test="#{controlAutorizacion.grupo.nombre eq 'Tropa de Kim'}">
+            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                             Mask & flexbox options
+                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
+                                 Content 
+                                <div class="container">
+                                    Grid row
+                                    <div class="row wow fadeIn">
+                                        Grid column
+                                        <div class="col-md-12 text-center">
+                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
+                                        </div>
+                                        Grid column
+                                    </div>
+                                    Grid row
+                                </div>
+                                 Content 
+                            </div>
+                             Mask & flexbox options
+                        </div>-->
+            <!-- DEFINIR CONTENIDO AQUÍ -->
+            <ui:insert name="perfil" />
+            <ui:insert name="eventos"/>
+            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
+                <ui:insert name="GestorDocumental"/>
+            </c:if>
+        </c:when>
+    </c:choose>        
 </ui:composition>

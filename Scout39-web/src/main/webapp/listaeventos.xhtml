@@ -10,14 +10,14 @@
     <ui:define name="seccionnav">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="eventos">
 
-        #{beanEventos.misEventos(9)}
+        #{beanEventos.misEventos(controlAutorizacion.grupo.id.toString())}
 
         <div class="container mt-5">
 
             <div class="row mb-5">
                 <div class="col">
                     <div class="row">
-                        <h2 id="eventos" class="h1-responsive font-weight-bold mb-5">Eventos</h2>
+                        <h2 id="eventos" class="h1-responsive font-weight-bold mb-5">Eventos</h2>                        
                         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
                             <div class="text-left col-6 col-sm-4">
                                 <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
@@ -33,7 +33,7 @@
                                     <f:selectItem itemValue = "1" itemLabel = "Próximos eventos" /> 
                                     <f:selectItem itemValue = "2" itemLabel = "Eventos anteriores"/> 
                                 </h:selectOneMenu>                                                                                
-                                <h:commandLink class="btn btn-primary mb-2 text-center" value="Cargar" action="#{beanEventos.misEventos(9)}">                                
+                                <h:commandLink class="btn btn-primary mb-2 text-center" value="Cargar" action="#{beanEventos.misEventos(controlAutorizacion.grupo.id.toString())}">                                
                                     <f:ajax execute="@form" render="eventosSeleccionados" />
                                 </h:commandLink>
                             </div>
@@ -45,9 +45,6 @@
                     <h:panelGroup id="eventosSeleccionados" class="container">
                         <div class="row">
                             <ui:repeat id="leventos" varStatus="indiceEvento" value="#{beanEventos.listaEventos}" var="evento">
-
-
-
                                 <div class="col-md-4 mb-4 d-flex align-items-stretch">
 
                                     <!--Card-->
@@ -87,72 +84,68 @@
                             </ui:repeat>
                         </div>
                     </h:panelGroup>
-
-
-
                 </div>
             </div>
             <!-- Container -->
 
             <!-- Container -->
         </div>
+        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+            <div class="modal fade" id="modalCrearEvento" tabindex="-1" role="dialog" aria-labelledby="modalCrearEventoLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Crear Evento</h4>
+                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <h:form id="formCrearEvento">
 
-        <div class="modal fade" id="modalCrearEvento" tabindex="-1" role="dialog" aria-labelledby="modalCrearEventoLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Crear Evento</h4>
-                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <h:form id="formCrearEvento">
-
-                            <!-- Material input text -->
-                            <div class="md-form">
-                                <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputText class="form-control" id="crearNombre"/>
-                                <h:outputLabel>Nombre Evento</h:outputLabel>
-                            </div>
-
-                            <div class="md-form">
-                                <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion"/>
-                                <h:outputLabel>Descripcion Evento</h:outputLabel>
-                            </div>
-
-                            <!-- DateTimePicker para evento-->
-                            <div class="md-form">
-                                <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                    <i class="fa fa-calendar prefix grey-text"></i>
-                                    <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1"/>
-                                    <h:outputLabel>Seleccionar Fecha</h:outputLabel>
+                                <!-- Material input text -->
+                                <div class="md-form">
+                                    <i class="fa fa-font prefix grey-text"></i>
+                                    <h:inputText class="form-control" id="crearNombre"/>
+                                    <h:outputLabel>Nombre Evento</h:outputLabel>
                                 </div>
-                            </div>
 
-                            <div class="md-form">
-                                <i class="fa fa-compass prefix grey-text"></i>
-                                <h:inputText class="form-control" id="crearLatitud"/>
-                                <h:outputLabel>Latitud</h:outputLabel>
-                            </div>
+                                <div class="md-form">
+                                    <i class="fa fa-font prefix grey-text"></i>
+                                    <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion"/>
+                                    <h:outputLabel>Descripcion Evento</h:outputLabel>
+                                </div>
 
-                            <div class="md-form">
-                                <i class="fa fa-compass prefix grey-text"></i>
-                                <h:inputText class="form-control" id="crearLongitud"/>
-                                <h:outputLabel>Longitud</h:outputLabel>
-                            </div>
+                                <!-- DateTimePicker para evento-->
+                                <div class="md-form">
+                                    <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                        <i class="fa fa-calendar prefix grey-text"></i>
+                                        <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1"/>
+                                        <h:outputLabel>Seleccionar Fecha</h:outputLabel>
+                                    </div>
+                                </div>
 
-                            <div class="text-center mt-4">
-                                <h:commandButton class="btn btn-primary" value="Crear Evento" action="#{beanEventos.doCrearEvento()}">                                   
-                                </h:commandButton>
-                            </div>
-                        </h:form>
+                                <div class="md-form">
+                                    <i class="fa fa-compass prefix grey-text"></i>
+                                    <h:inputText class="form-control" id="crearLatitud"/>
+                                    <h:outputLabel>Latitud</h:outputLabel>
+                                </div>
 
+                                <div class="md-form">
+                                    <i class="fa fa-compass prefix grey-text"></i>
+                                    <h:inputText class="form-control" id="crearLongitud"/>
+                                    <h:outputLabel>Longitud</h:outputLabel>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <h:commandButton class="btn btn-primary" value="Crear Evento" action="#{beanEventos.doCrearEvento()}">                                   
+                                    </h:commandButton>
+                                </div>
+                            </h:form>
+                        </div>
                     </div>
-
                 </div>
             </div>
-        </div>
+        </c:if>
     </ui:define>
 </ui:composition>
