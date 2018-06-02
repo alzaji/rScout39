@@ -33,10 +33,8 @@ public class Objeto implements Serializable {
     private List<AccesoRecurso> listaAcceso;
     @OneToMany (cascade = CascadeType.ALL)
     private List<Grupo> listaGrupos;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Eventos> listaEventos;
-    @OneToMany (cascade = CascadeType.ALL)
-    private List<Progresion> listaProgresion;
     @OneToMany (cascade = CascadeType.ALL)
     private List<Archivo> listaArchivos;
     @OneToMany (cascade = CascadeType.ALL)
@@ -80,14 +78,6 @@ public class Objeto implements Serializable {
 
     public void setListaEventos(List<Eventos> listaEventos) {
         this.listaEventos = listaEventos;
-    }
-
-    public List<Progresion> getListaProgresion() {
-        return listaProgresion;
-    }
-
-    public void setListaProgresion(List<Progresion> listaProgresion) {
-        this.listaProgresion = listaProgresion;
     }
 
     public List<Archivo> getListaArchivos() {
