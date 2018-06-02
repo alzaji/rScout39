@@ -44,7 +44,7 @@
 
                     <h:panelGroup id="eventosSeleccionados" class="container">
                         <div class="row">
-                            <ui:repeat value="#{beanEventos.listaEventos}" var="evento">
+                            <ui:repeat id="leventos" varStatus="indiceEvento" value="#{beanEventos.listaEventos}" var="evento">
 
 
 
@@ -69,19 +69,13 @@
                                         <div class="card-footer center">
                                             <div class="container">
                                                 <div class="row">
-                                                    <h:form>                                                        
-                                                        <c:choose>
-                                                            <c:when test="#{not beanEventos.doComprobarAsistencia(evento)}">
-                                                                <h:commandButton class="btn btn-green col" value="Asistir" action="#{beanEventos.doAsistirEvento(evento)}">
-                                                                    <f:ajax render="@form"/>
-                                                                </h:commandButton> 
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <h:commandButton class="btn btn-red col" value="No Asistir" action="#{beanEventos.doNoAsistirEvento(evento)}">
-                                                                    <f:ajax render="@form"/>
-                                                                </h:commandButton> 
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                    <h:form id="prueba1">                                                                                                               
+                                                        <h:commandButton id="asistir" class="btn btn-green col" value="Asistir" rendered="#{not beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doAsistirEvento(evento)}">                                                               
+                                                            <f:ajax render="@form"/>                                                                                                                                    
+                                                        </h:commandButton>                                                         
+                                                        <h:commandButton id="noasistir" class="btn btn-red col" value="No Asistir" rendered="#{beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doNoAsistirEvento(evento)}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton> 
                                                         <h:commandButton class="btn btn-blue col" value="Más Info" type="submit" action="#{beanEventos.buscarEvento(evento)}"/>                                                           
                                                     </h:form>
                                                 </div>
