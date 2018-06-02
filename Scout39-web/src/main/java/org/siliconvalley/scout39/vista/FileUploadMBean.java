@@ -169,6 +169,7 @@ public class FileUploadMBean implements Serializable {
                 infoArchivo.setFecha_limite(date);
             }
             infoArchivo.setEstado('N');
+            infoArchivo.setRuta("");
         } catch (ParseException ex) {
             Logger.getLogger(FileUploadMBean.class.getName()).log(Level.SEVERE, null, ex);
         }
