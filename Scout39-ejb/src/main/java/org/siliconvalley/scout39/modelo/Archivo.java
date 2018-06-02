@@ -15,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -34,11 +36,14 @@ public class Archivo implements Serializable {
     @Column(nullable = false, length = 3072)
     private String ruta;
     private Character estado;
+    @Temporal(TemporalType.DATE)
     private Date fecha_limite;
     @ManyToOne
     private Usuario idUsuario;
     @OneToOne
     private S03 s03;
+    @OneToOne
+    private Cuotas cuota;
 
     public Long getId() {
         return id;
@@ -103,7 +108,15 @@ public class Archivo implements Serializable {
     public void setFecha_limite(Date fecha_limite) {
         this.fecha_limite = fecha_limite;
     }
-    
+
+    public Cuotas getCuota() {
+        return cuota;
+    }
+
+    public void setCuota(Cuotas cuota) {
+        this.cuota = cuota;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

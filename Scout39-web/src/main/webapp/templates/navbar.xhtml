@@ -44,7 +44,7 @@
                                     </li>
                                 </ui:insert>
                             </c:when>
-                            <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
+                            <c:when test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
                                 <li class="nav-item">
                                     <ui:insert name="link1"/>
                                 </li>

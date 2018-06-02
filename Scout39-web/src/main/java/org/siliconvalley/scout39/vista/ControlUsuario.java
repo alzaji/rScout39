@@ -108,18 +108,15 @@ public class ControlUsuario implements Serializable {
         return "editarUsuario.xhtml";
     }
 
-    public String doModificarUsuario(Usuario u) {
+    public String doModificarUsuario(Usuario u, int index) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String alia = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarAlias");
-        String nombr = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarNombre");
-        String apellidos = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarApellidos");
-        String correo = request.getParameter("formModificarUsuario" + u.getId().toString() + ":modificarEmail");
-        Usuario user = newUsuario(u.getId(), alia, u.getDigest(),
-                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-
-        int pos = login.getUsuarios().indexOf(u);
-        login.getUsuarios().toArray()[pos] = user;
-
+        String alias = request.getParameter("table:" + index + ":formModificarUsuario:modificarAlias");
+        String nombr = request.getParameter("table:" + index + ":formModificarUsuario:modificarNombre");
+        String apellidos = request.getParameter("table:" + index + ":formModificarUsuario:modificarApellidos");
+        String correo = request.getParameter("table:" + index + ":formModificarUsuario:modificarEmail");
+        Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
+                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());        
+        users.modificarUsuario(user);
         return "editarUsuarios.xhtml?faces-redirect=true";
 
     }

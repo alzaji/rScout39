@@ -8,7 +8,12 @@ import org.siliconvalley.scout39.modelo.*;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
+import org.siliconvalley.scout39.negocio.NegocioLogin;
+import org.siliconvalley.scout39.negocio.ScoutException;
 
 /**
  *
@@ -22,6 +27,9 @@ public class ControlAutorizacion implements Serializable {
     private Grupo grupo;
     private Objeto lastobjeto;
     private Privilegios privilegio;
+
+    @EJB
+    private NegocioLogin login;
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
@@ -75,12 +83,25 @@ public class ControlAutorizacion implements Serializable {
         return privilegio.getBorrar() == 'S';
     }
 
+    public void privsobreobj(Objeto o) {
+        
+        try {
+            setLastobjeto(o);
+            Privilegios p = login.checkPrivilegios(o, usuario);
+            setPrivilegio(p);
+            
+        } catch (ScoutException ex) {
+            Logger.getLogger(ControlAutorizacion.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+        }
+        
+    }
+
     public String home() {
 
         switch (getUsuario().getRoles().getNombrerol()) {
 
             case "Coordinador":
-                return "coordinador.xhtml";
+                return "editarUsuarios.xhtml";
 
             case "Scouter":
             case "Educando":

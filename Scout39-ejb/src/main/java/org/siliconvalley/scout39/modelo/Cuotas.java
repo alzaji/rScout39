@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -35,8 +36,12 @@ public class Cuotas implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date fecha_cuota;
+    @Column(nullable = false)
+    private Character estado;
     @ManyToOne
     private Usuario usuario;
+    @OneToOne
+    private Archivo archivo;
 
     public Long getId() {
         return id;
@@ -76,6 +81,22 @@ public class Cuotas implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Archivo getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Archivo archivo) {
+        this.archivo = archivo;
+    }
+
+    public Character getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Character estado) {
+        this.estado = estado;
     }
 
     @Override
