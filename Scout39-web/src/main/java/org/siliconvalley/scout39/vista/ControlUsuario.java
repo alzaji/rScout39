@@ -17,9 +17,12 @@ import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.siliconvalley.scout39.modelo.Grupo;
 import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
+import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.NegocioUsuarioLocal;
+import org.siliconvalley.scout39.negocio.ScoutException;
 
 
 
@@ -36,15 +39,27 @@ public class ControlUsuario implements Serializable {
     private Login login;
     @EJB
     private NegocioUsuarioLocal users;
+    @EJB
+    private NegocioLogin registrar;
 
-    private Usuario usuario;    
-    private Roles roles;
+    private Usuario usuario;   
+    private Grupo group = new Grupo();
+    private Roles roles = new Roles();
     protected String pal;
     protected boolean update = false;
     
     public ControlUsuario() {
     }
 
+    public Grupo getGroup() {
+        return group;
+    }
+
+    public void setGroup(Grupo group) {
+        this.group = group;
+    }
+
+    
     public String getPal() {
         return pal;
     }
@@ -88,7 +103,7 @@ public class ControlUsuario implements Serializable {
     
     public String removeUsuario(Usuario u) {
 
-        login.getUsuarios().remove(u);
+        users.borrarUsuario(u);
 
         return "editarUsuario.xhtml";
     }
@@ -142,25 +157,49 @@ public class ControlUsuario implements Serializable {
         return usuario;
     }
 
-    public String doCrearUsuario(String nombre, String primerApellido, String segundoApellido, String dni, String sexo,
-            String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
-
+    public String doCrearUsuario() throws ScoutException {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String nombre = request.getParameter("formCrearUsuario:crearNombre");
+        String primerApellido = request.getParameter("formCrearUsuario:crearPrimerApellido");
+        String segundoApellido = request.getParameter("formCrearUsuario:crearSegundoApellido");
         String apellidos = primerApellido + " " + segundoApellido;
-        Usuario u = crearUsuario(nombre, apellidos, email, movil, direccion, localidad, provincia, codPostal, rol);
-        login.getUsuarios().add(u);
-        System.out.println("Nombre: " + login.getUsuarios().get(login.getUsuarios().indexOf(u)).getNombre() + " Size: " + login.getUsuarios().size());
+        
+        
+        String grupo = request.getParameter("formCrearUsuario:crearGrupo.value");
+        String email = request.getParameter("formCrearUsuario:crearEmail");
+        String rol = request.getParameter("formCrearUsuario:crearRol.value");
+        System.out.println("Rol--------------------------------------------------------------: "+ rol);
+        
+        
+        Usuario u = crearUsuario(nombre, apellidos, email, rol); 
+        group.setId(5L);
+        group.setNombre(grupo);
+        
+        System.out.println("Usuario nuevo: " + u);
+        System.out.println("Grupo del usuario: " + group);
+        registrar.registrarUsuario(u, group);
 
         return "editarUsuarios.xhtml?faces-redirect=true";
     }
 
-    public Usuario crearUsuario(String nombre, String apellidos, String email, String movil, String direccion, String localidad, String provincia, String codPostal, String rol) {
+    public Usuario crearUsuario(String nombre, String apellidos, String email, String rol) {
 
-        Usuario user = new Usuario();
+        Usuario user = new Usuario();        
         Random rnd = new Random();
-        user.setId(rnd.nextLong() % 100);
+        user.setId(rnd.nextLong() % 100);        
         user.setNombre(nombre);
         user.setApellidos(apellidos);
         user.setEmail(email);
+        user.setAlias(nombre); //inicialmente, el alias es igual al nombre        
+        System.out.println("Usuario nuevo en crearUsuario: " + user);
+        user.setDigest("asdja212"); //digest actual es el nombre----probando
+        
+        //prueba
+        roles.setId(3L);
+        roles.setNombrerol("Coordinador");
+        
+        user.setRoles(roles);
+        
 
         return user;
 

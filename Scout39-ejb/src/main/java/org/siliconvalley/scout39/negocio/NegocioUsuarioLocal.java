@@ -18,4 +18,5 @@ public interface NegocioUsuarioLocal {
     
     public List<Usuario> listaUsuarios();
     public List<Usuario> listaUsuariosAJAX(String pal);
+    public void borrarUsuario(Usuario u);
 }

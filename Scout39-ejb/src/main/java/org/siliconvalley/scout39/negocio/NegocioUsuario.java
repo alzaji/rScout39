@@ -5,6 +5,7 @@
  */
 package org.siliconvalley.scout39.negocio;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,7 +25,7 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
     
     @Override
     public List<Usuario> listaUsuarios() {
-        Query q = em.createQuery("SELECT u FROM Usuario u");                
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.fecha_baja IS null");                
         List<Usuario> usuarios = (List<Usuario>) q.getResultList();        
         return usuarios;
     }
@@ -32,12 +33,20 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
     @Override
     public List<Usuario> listaUsuariosAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%" ;
-        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.alias LIKE :alias");
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.alias LIKE :alias AND u.fecha_baja IS null");
         q.setParameter("alias", cadena);
         System.out.println(q.getResultList());
         List<Usuario> usuarios;
         usuarios = (List<Usuario>) q.getResultList();        
         return usuarios;
+    }
+
+    @Override
+    public void borrarUsuario(Usuario u) {            
+        Usuario usuario = em.find(Usuario.class, u.getId());
+        Date f = new Date();        
+        usuario.setFecha_baja(f);
+        em.merge(usuario);        
     }
 
    
