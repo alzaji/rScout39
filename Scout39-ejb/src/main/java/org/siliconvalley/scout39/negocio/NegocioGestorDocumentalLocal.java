@@ -17,6 +17,7 @@ import org.siliconvalley.scout39.modelo.*;
 public interface NegocioGestorDocumentalLocal {
     
     public void subirArchivo(String ruta,String nombre, String tipo,Usuario u);
+    public void subirArchivoCSV(String ruta,String nombre, String tipo,Usuario u);
     public List<Archivo> buscarArchivos(Usuario u);
     public String buscarPath(Usuario u,String ruta);
     public void borrarArchivo(Usuario u,Archivo a );

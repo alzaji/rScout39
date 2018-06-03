@@ -10,8 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import org.siliconvalley.scout39.modelo.*;
 
 /**
@@ -33,6 +35,26 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         ar.setRuta(ruta);
         ar.setIdUsuario(aux);
         em.merge(ar);
+    }
+
+    @Override
+    public void subirArchivoCSV(String ruta, String nombre, String tipo, Usuario u) {
+
+        try {
+            TypedQuery<Archivo> tq = em.createQuery("from Archivo where nombre=?", Archivo.class);
+            Archivo arux = tq.setParameter(1, nombre).getSingleResult();
+
+        } catch (NoResultException ex) {
+
+            Archivo ar = new Archivo();
+            Usuario aux = em.find(Usuario.class, u.getId());
+            ar.setNombre(nombre);
+            ar.setTipo(tipo);
+            ar.setRuta(ruta);
+            ar.setIdUsuario(aux);
+            em.merge(ar);
+
+        }
     }
 
     @Override
