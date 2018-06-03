@@ -11,6 +11,7 @@
     <ui:define name="seccionnav">Gestor Documental</ui:define>
     <ui:define name="GestorDocumental">
         <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
+        
         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
             <center> 
                 <div class="text-center">
@@ -38,7 +39,7 @@
         </c:if>
 
 
-        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Educando')}">
+        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
             <center> 
                 <div class="input-group col-md-8 mt-4 mb-4">
                     <h:form>
@@ -49,7 +50,7 @@
                 </div>
 
                 <div class="container col-8">
-                    <h:dataTable id="table" value="#{beanPerfil.listarArchivosNombre}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
+                    <h:dataTable id="table" value="#{beanPerfil.listarArchivosNombre()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
 
                         <h:column>
                             <f:facet name="header">Nombre Archivo</f:facet>
@@ -76,6 +77,7 @@
                 </div>                 
             </center>
         </c:if>
+        
         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
             <center> 
                 <div class="input-group col-md-8 mt-4 mb-4">
@@ -112,6 +114,7 @@
                 </div>
             </center>
         </c:if>
+        
         <div class="modal fade" id="modalCrearPeticion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

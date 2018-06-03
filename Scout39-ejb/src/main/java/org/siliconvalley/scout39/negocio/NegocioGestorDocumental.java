@@ -19,6 +19,7 @@ import org.siliconvalley.scout39.modelo.*;
 /**
  *
  * @author hidden-process
+ * @author pasantru
  */
 @Stateless
 public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
@@ -92,6 +93,13 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         List<Archivo> archivos = (List<Archivo>) q.getResultList();
         return archivos;
     }
+    @Override
+    public List<Archivo> listarArchivosScouter(Grupo g) {
+        Query q = em.createQuery("SELECT a FROM Archivo a, Usuario u WHERE u.Acceso_Grupo.grupo LIKE :grupo");
+        q.setParameter("grupo", g);
+        List<Archivo> archivos = (List<Archivo>) q.getResultList();
+        return archivos;
+    }
 
     @Override
     public List<Archivo> listaArchivosAJAX(String pal) {
@@ -127,7 +135,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         return participantes;
 
     }
-
+    
     @Override
     public void registrarArchivo(Archivo ar, Grupo g) {
         try {

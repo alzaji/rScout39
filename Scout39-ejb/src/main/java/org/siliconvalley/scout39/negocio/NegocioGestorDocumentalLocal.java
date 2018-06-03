@@ -12,6 +12,7 @@ import org.siliconvalley.scout39.modelo.*;
 /**
  *
  * @author hidden-process
+ * @author pasantru
  */
 @Local
 public interface NegocioGestorDocumentalLocal {
@@ -22,6 +23,7 @@ public interface NegocioGestorDocumentalLocal {
     public String buscarPath(Usuario u,String ruta);
     public void borrarArchivo(Usuario u,Archivo a );
     public List<Archivo> listarArchivos();
+    public List<Archivo> listarArchivosScouter(Grupo g);
     public List<Archivo> listaArchivosAJAX(String pal);
     public List<Archivo> listaArchivosNombreAJAX(String pal);
     public List<Usuario> generaCSVParticipantes(Eventos e);
