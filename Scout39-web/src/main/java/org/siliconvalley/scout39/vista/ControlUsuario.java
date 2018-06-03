@@ -24,8 +24,6 @@ import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.NegocioUsuarioLocal;
 import org.siliconvalley.scout39.negocio.ScoutException;
 
-
-
 /**
  *
  * @author Dani
@@ -42,12 +40,12 @@ public class ControlUsuario implements Serializable {
     @EJB
     private NegocioLogin registrar;
 
-    private Usuario usuario;   
+    private Usuario usuario;
     private Grupo group = new Grupo();
     private Roles roles = new Roles();
     protected String pal;
     protected boolean update = false;
-    
+
     public ControlUsuario() {
     }
 
@@ -59,7 +57,6 @@ public class ControlUsuario implements Serializable {
         this.group = group;
     }
 
-    
     public String getPal() {
         return pal;
     }
@@ -67,19 +64,19 @@ public class ControlUsuario implements Serializable {
     public void setPal(String pal) {
         this.pal = pal;
     }
-    
+
     public List<Usuario> listarUsuarios() {
         if (update) {
             return listarUsuariosAJAX();
         }
         return users.listaUsuarios();
-    } 
-    
-    public void searchListUser(){
+    }
+
+    public void searchListUser() {
         update = true;
         listarUsuarios();
     }
-    
+
     public List<Usuario> listarUsuariosAJAX() {
         return users.listaUsuariosAJAX(pal);
     }
@@ -100,7 +97,6 @@ public class ControlUsuario implements Serializable {
         this.usuario = usuario;
     }
 
-    
     public String removeUsuario(Usuario u) {
 
         users.borrarUsuario(u);
@@ -115,7 +111,7 @@ public class ControlUsuario implements Serializable {
         String apellidos = request.getParameter("table:" + index + ":formModificarUsuario:modificarApellidos");
         String correo = request.getParameter("table:" + index + ":formModificarUsuario:modificarEmail");
         Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
-                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());        
+                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
         users.modificarUsuario(user);
         return "editarUsuarios.xhtml?faces-redirect=true";
 
@@ -160,18 +156,16 @@ public class ControlUsuario implements Serializable {
         String primerApellido = request.getParameter("formCrearUsuario:crearPrimerApellido");
         String segundoApellido = request.getParameter("formCrearUsuario:crearSegundoApellido");
         String apellidos = primerApellido + " " + segundoApellido;
-        
-        
+
         String grupo = request.getParameter("formCrearUsuario:crearGrupo.value");
         String email = request.getParameter("formCrearUsuario:crearEmail");
         String rol = request.getParameter("formCrearUsuario:crearRol.value");
-        System.out.println("Rol--------------------------------------------------------------: "+ rol);
-        
-        
-        Usuario u = crearUsuario(nombre, apellidos, email, rol); 
+        System.out.println("Rol--------------------------------------------------------------: " + rol);
+
+        Usuario u = crearUsuario(nombre, apellidos, email, rol);
         group.setId(5L);
         group.setNombre(grupo);
-        
+
         System.out.println("Usuario nuevo: " + u);
         System.out.println("Grupo del usuario: " + group);
         registrar.registrarUsuario(u, group);
@@ -181,26 +175,24 @@ public class ControlUsuario implements Serializable {
 
     public Usuario crearUsuario(String nombre, String apellidos, String email, String rol) {
 
-        Usuario user = new Usuario();        
+        Usuario user = new Usuario();
         Random rnd = new Random();
-        user.setId(rnd.nextLong() % 100);        
+        user.setId(rnd.nextLong() % 100);
         user.setNombre(nombre);
         user.setApellidos(apellidos);
         user.setEmail(email);
         user.setAlias(nombre); //inicialmente, el alias es igual al nombre        
         System.out.println("Usuario nuevo en crearUsuario: " + user);
         user.setDigest("asdja212"); //digest actual es el nombre----probando
-        
+
         //prueba
         roles.setId(3L);
         roles.setNombrerol("Coordinador");
-        
+
         user.setRoles(roles);
-        
 
         return user;
 
     }
-    
 
 }
