@@ -22,4 +22,7 @@ public interface NegocioUsuarioLocal {
     public void modificarUsuario(Usuario u);
     public void cambiarPromesa(Usuario u, String promesa);
     public List<AccesoGrupo> listaPromesas(Usuario u);
+    public void cambiarPassword(Usuario u, String nueva);
+    public String sha256(String rawString);
+    
 }
