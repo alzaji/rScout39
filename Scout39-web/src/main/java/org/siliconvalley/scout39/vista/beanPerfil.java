@@ -104,16 +104,13 @@ public class beanPerfil implements Serializable {
         return gestorArchivos.listaArchivosNombreAJAX(pal);
     }
 
-    public List<Archivo> listarDocumentos() {
-        return null;
+    //Para Scouter
+    public List<Archivo> listarArchivosScouter(Grupo g) {
+        return gestorArchivos.listarArchivosScouter(g);
     }
 
     public void validarArchivo(Archivo ar) {
         gestorArchivos.validarArchivo(ar);
-    }
-
-    public void listarDocumentosGrupo() {
-        gestorArchivos.listarPorGrupo();
     }
 
     public void nuevaPromesa() {

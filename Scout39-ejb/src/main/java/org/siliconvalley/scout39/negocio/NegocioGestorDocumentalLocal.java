@@ -30,6 +30,5 @@ public interface NegocioGestorDocumentalLocal {
     public void registrarArchivo(Archivo ar,Grupo g);
     public List<Archivo> obtenerArchivos(Grupo gr);
     public void validarArchivo(Archivo ar);
-    public void listarPorGrupo();
 }
 
