@@ -88,7 +88,7 @@ public class beanEventos implements Serializable {
 
     public String buscarEvento(Eventos evento) {
         infoEvento = eventos.buscarEvento(evento);
-        return "evento.xhtml";
+        return "evento.xhtml?faces-redirect=true";
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
