@@ -12,181 +12,176 @@
     <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
     <ui:define name="GestorDocumental">
 
-        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
-            <center> 
-                <div class="text-center">
-                    <a href="" class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearPeticion">Crear Peticion</a>
-                </div>
-                <div class="container col-8">
-                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
-
-                        <h:column>
-                            <f:facet name="header">Nombre Archivo</f:facet>
-                                #{a.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Fecha Limite</f:facet>
-                                #{a.fecha_limite}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Estado</f:facet>
-                            <a class="btn btn-orange center" data-toggle="collapse" href="#collapseParticipantes" aria-expanded="false" aria-controls="collapseParticipantes">
-                                <i class="fa fa-user-o pr-2" aria-hidden="true"></i>Estado</a>
-                        </h:column>
-                    </h:dataTable>   
-                </div>                 
-            </center>
-        </c:if>
-
-
-        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
-            <center> 
-                <div class="input-group col-md-8 mt-4 mb-4">
-                    <h:form>
-                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar Archivo..." value="#{beanPerfil.pal}" > 
-                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesNombre()}" render="table"/>
-                        </h:inputText>
-                    </h:form>                
-                </div>
-
-                <div class="container col-8">
-                    <h:dataTable id="table" value="#{beanPerfil.listarArchivosNombre()}" var="a" styleClass="table table-striped table-responsive-md btn-table">                    
-
-                        <h:column>
-                            <f:facet name="header">Nombre Archivo</f:facet>
-                                #{a.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Fecha Limite</f:facet>
-                                #{a.fecha_limite}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Estado</f:facet>
-                                #{a.estado}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Archivo</f:facet>
-                            <h:form enctype="multipart/form-data" class="row">
-                                <c:if test="#{(a.estado eq 'N') or (a.ruta eq '')}">
-                                    <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" />
-                                    <h:commandButton class ="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile()}"></h:commandButton>
-                                </c:if>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>   
-                </div>                 
-            </center>
-        </c:if>
-
-        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
-            <center> 
-                <div class="input-group col-md-8 mt-4 mb-4">
-                    <h:form>
-                        <h:inputText class="form-control center" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" > 
-                            <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table"/>
-                        </h:inputText>
-                    </h:form>
-                </div>
-
-                <div class="container col-8">
-                    <h:dataTable id="table" value="#{beanPerfil.listarArchivos()}" var="a" styleClass="table table-striped table-responsive-md btn-table">
-
-                        <h:column>
-                            <f:facet name="header">Usuario</f:facet>
-                                #{a.idUsuario.alias}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Nombre Archivo</f:facet>
-                                #{a.nombre}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Extensión</f:facet>
-                                #{a.tipo}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Link</f:facet>
-                            <h:form>
-                                <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(a.ruta)}">Descargar</h:outputLink>
-                                <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(a)}"></h:commandButton>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
-                </div>
-            </center>
-        </c:if>
-
-        <div class="modal fade" id="modalCrearPeticion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Crear Peticion</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">x</span>
-                        </button>
+        <div class="container mt-5">
+            <div class="row mb-5">
+                <div class="col">
+                    <div class="row justify-content-md-center">
+                        <h2 id="eventos" class="h1-responsive font-weight-bold mb-5">Archivos</h2>                        
+                        <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">                            
+                            <div class="text-left">
+                                <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearPeticion">Crear Peticion</a>
+                            </div>
+                        </c:if>
                     </div>
-                    <div class="modal-body mx-3">
-                        <h:form id="crearArchivo">
-
-                            <!-- Material input text -->
-                            <div class="md-form">
-                                <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputText id="nombreArchivo"/>
-                                <h:outputLabel>Nombre Archivo</h:outputLabel>
-                            </div>
-
-                            <div class="md-form">
-                                <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                    <i class="fa fa-calendar prefix grey-text"></i>
-                                    <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1"/>
-                                    <h:outputLabel>Fecha Límite de Entrega</h:outputLabel>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt-4">
-                                <h:commandButton class="btn btn-primary" type="submit" value="Crear" action="#{fileUploadMBean.crearArchivo()}"/>
+                    <div class="row justify-content-md-center">
+                        <h:form id="seleccionarArchivo">
+                            <div class="form-inline">
+                                <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" >
+                                    <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Scouter'}">
+                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesScouter()}" render="table2"/>
+                                    </c:if>
+                                    <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
+                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesNombre()}" render="table2"/>
+                                    </c:if>
+                                    <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
+                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table2"/>
+                                    </c:if>
+                                </h:inputText>
                             </div>
                         </h:form>
-
                     </div>
+                    <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter') or (controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
+                        <div class="modal fade" id="modalCrearPeticion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title w-100 font-weight-bold">Crear Peticion</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <h:form id="crearArchivo">
 
-                </div>
-            </div>
-        </div>
-        <!--Card-->
-        <div class="collapse" id="collapseParticipantes">
-            <div class="card mt-5 mb-5">
-                <!--Card content-->
-                <div class=" card-body ">
-                    <!--Title-->
-                    <div class="container">
-                        <h4 class="card-title text-center ">Estados de los Documentos</h4>
-                        <div>
-                            <div class="mt-3 ">
-                                <h:dataTable id="table2" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">                    
-                                    <h:column>
-                                        <f:facet name="header">Alias</f:facet>
-                                            #{archivo.idUsuario.alias}
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Archivo</f:facet>
-                                            #{archivo.nombre}
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">Link</f:facet>
-                                        <c:if test="#{(arhivo.estado eq 'S')}">
-                                            <h:form>
-                                                <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(archivo.ruta)}">Descargar</h:outputLink>
-                                                <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}"></h:commandButton>
-                                            </h:form>
+                                            <!-- Material input text -->
+                                            <div class="md-form">
+                                                <i class="fa fa-font prefix grey-text"></i>
+                                                <h:inputText id="nombreArchivo" />
+                                                <h:outputLabel>Nombre Archivo</h:outputLabel>
+                                            </div>
+
+                                            <div class="md-form">
+                                                <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                                    <i class="fa fa-calendar prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1" />
+                                                    <h:outputLabel>Fecha Límite de Entrega</h:outputLabel>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center mt-4">
+                                                <h:commandButton class="btn btn-primary" type="submit" value="Crear" action="#{fileUploadMBean.crearArchivo()}" />
+                                            </div>
+                                        </h:form>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </c:if>
+                    <div class="card mt-5 mb-5">
+                        <!--Card content-->
+                        <div class=" card-body ">
+                            <!--Title-->
+                            <div class="container">
+                                <h4 class="card-title text-center">Estados de los Documentos</h4>
+                                <div>
+                                    <div class="mt-3 ">
+                                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Scouter'}">
+                                            <h:dataTable id="table1" value="#{beanPerfil.listarArchivosScouter()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
+                                                <h:column>
+                                                    <f:facet name="header">Alias</f:facet>
+                                                        #{archivo.idUsuario.alias}
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Archivo</f:facet>
+                                                        #{archivo.nombre}
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Link Descarga</f:facet>
+                                                    <h:form>
+                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{fileUploadMBean.getPath(archivo.ruta)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">Descargar</h:outputLink>
+                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton>
+                                                    </h:form>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Estado</f:facet>
+                                                    <h:form>
+                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton>
+                                                    </h:form>                                                    
+                                                </h:column>    
+                                            </h:dataTable>
                                         </c:if>
-                                    </h:column>                                    
-                                    <h:column>
-                                        <f:facet name="header">Estado</f:facet>
-                                        <c:if test="#{(arhivo.estado eq 'N')}">
-                                            <h:commandButton class ="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}"></h:commandButton>
+                                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
+                                            <h:dataTable id="table2" value="#{beanPerfil.listarArchivosNombre()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
+                                                <h:column>
+                                                    <f:facet name="header">Alias</f:facet>
+                                                        #{archivo.idUsuario.alias}
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Archivo</f:facet>
+                                                        #{archivo.nombre}
+                                                </h:column>
+                                                <h:form enctype="multipart/form-data">
+                                                    <h:column>
+                                                        <f:facet name="header">Subir</f:facet>                                                   
+
+                                                        <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" rendered="#{(archivo.estado eq 'N')}"/>
+                                                        <h:commandButton class="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile(archivo)}" rendered="#{(archivo.estado eq 'N')}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton>
+
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Estado</f:facet>
+                                                        <c:if test="#{((archivo.estado eq 'N') and (archivo.ruta eq ''))}">
+                                                            <p>No entregado</p>
+                                                        </c:if>
+                                                        <c:if test="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                            <p>Pendiente validacion</p>
+                                                        </c:if>
+                                                        <c:if test="#{(archivo.estado eq 'S')}">
+                                                            <p>Correcto y validado</p>
+                                                        </c:if>
+                                                    </h:column>
+                                                </h:form> 
+                                            </h:dataTable>
                                         </c:if>
-                                    </h:column>
-                                </h:dataTable> 
+                                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
+                                            <h:dataTable id="table1" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
+                                                <h:column>
+                                                    <f:facet name="header">Alias</f:facet>
+                                                        #{archivo.idUsuario.alias}
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Archivo</f:facet>
+                                                        #{archivo.nombre}
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Link Descarga</f:facet>
+                                                    <h:form>
+                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{fileUploadMBean.getPath(archivo.ruta)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">Descargar</h:outputLink>
+                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton>
+                                                    </h:form>
+                                                </h:column>
+                                                <h:column>
+                                                    <f:facet name="header">Estado</f:facet>
+                                                    <h:form>
+                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                            <f:ajax render="@form"/>
+                                                        </h:commandButton>
+                                                    </h:form>                                                    
+                                                </h:column>    
+                                            </h:dataTable>
+                                        </c:if>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

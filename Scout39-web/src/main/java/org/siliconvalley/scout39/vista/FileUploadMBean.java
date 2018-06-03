@@ -44,6 +44,7 @@ import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
 @Named(value = "fileUploadMBean")
 @RequestScoped
 public class FileUploadMBean implements Serializable {
+
     @Inject
     private ControlAutorizacion control;
 
@@ -117,6 +118,52 @@ public class FileUploadMBean implements Serializable {
         return null;
     }
 
+    public String uploadFile(Archivo o) throws IOException {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        String fileName = o.getNombre();
+        String ruta = File.separator + "resources" + File.separator + "archivos" + File.separator + fileName;
+        FacesContext context = FacesContext.getCurrentInstance();
+        ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+        String path = servletContext.getRealPath("") + ruta;
+        boolean file1Success = false;
+
+        String extension = "";
+
+        if (file.getSize() > 0) {
+
+            int i = fileName.lastIndexOf('.');
+            if (i > 0) {
+                extension = fileName.substring(i + 1);
+            }
+
+            File outputFile = new File(path);
+
+            inputStream = file.getInputStream();
+            outputStream = new FileOutputStream(outputFile);
+            byte[] buffer = new byte[1024];
+            int bytesRead = 0;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            if (outputStream != null) {
+                outputStream.close();
+            }
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            file1Success = true;
+        }
+
+        if (file1Success) {
+            gestor.subirArchivo(ruta, fileName, extension, control.getUsuario(), o);
+        } else {
+
+            setMessage("Error, select atleast one file!");
+        }
+        return null;
+    }
+
     public String getPath(String ruta) {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + gestor.buscarPath(control.getUsuario(), ruta);
     }
@@ -137,7 +184,7 @@ public class FileUploadMBean implements Serializable {
 
         try (Writer writer = Files.newBufferedWriter(Paths.get(path));) {
 
-            String[] mapeoColumnas  = new String[]{"nombre","apellidos","alias"};
+            String[] mapeoColumnas = new String[]{"nombre", "apellidos", "alias"};
 
             ColumnPositionMappingStrategy<Usuario> strategy = new ColumnPositionMappingStrategy<Usuario>();
             strategy.setType(Usuario.class);
@@ -155,8 +202,9 @@ public class FileUploadMBean implements Serializable {
             return null;
         }
     }
-    public String crearArchivo(){
-        try{
+
+    public String crearArchivo() {
+        try {
             Archivo a = new Archivo();
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String nombre = request.getParameter("crearArchivo:nombreArchivo");
@@ -171,7 +219,7 @@ public class FileUploadMBean implements Serializable {
             a.setRuta("");
             a.setTipo("pdf");
 
-            gestor.registrarArchivo(a,control.getGrupo());
+            gestor.registrarArchivo(a, control.getGrupo());
 
         } catch (ParseException ex) {
             Logger.getLogger(FileUploadMBean.class.getName()).log(Level.SEVERE, null, ex);

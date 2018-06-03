@@ -8,7 +8,7 @@
 
     <ui:define name="title">Crear usuario</ui:define>
     <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
-    <ui:define name="link2"><h:link class="nav-link text-white" outcome="documentos.xhtml" value="Gestor Documental"/></ui:define> 
+    <ui:define name="link2"><h:link class="nav-link text-white" outcome="documentos.xhtml" value="Gestor Documental"/></ui:define>
     <ui:define name="link3"><h:link class="nav-link text-white" outcome="editarRoles.xhtml" value="Roles"/></ui:define>
     <ui:define name="link4"><h:link class="nav-link text-white" outcome="crearUsuario.xhtml" value="Crear nuevo usuario"/></ui:define>
     <ui:define name="crearUsuario">
@@ -19,7 +19,7 @@
             <div class="carousel-inner" role="listbox">
                 <!--First slide-->
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="./resources/img/coord.jpg" alt="First slide"/>
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
                 </div>
                 <!--/First slide-->
             </div>
@@ -32,50 +32,50 @@
             <div class="container">
                 <div class="row mt-4 pt-4">
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="nombre" required="true"/>
                         <h:outputLabel>Nombre</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="apellido1" required="true"/>
                         <h:outputLabel>Primer apellido</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="apellido2" />
                         <h:outputLabel>Segundo Apellido</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="alias" required="true"/>
                         <h:outputLabel>Alias</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="email" required="true"/>
                         <h:outputLabel>Email</h:outputLabel>
                     </div>
 
-                    <div class="md-form pr-2">  
+                    <div class="md-form pr-2">
                         <div class="md-form pr-2">
-                            <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="seccion" required="true"> 
-                                <f:selectItem itemValue = "Manada de Tha" itemLabel = "Manada de Tha" /> 
-                                <f:selectItem itemValue = "Tropa de Kim" itemLabel = "Tropa de Kim" /> 
+                            <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="seccion" required="true">
+                                <f:selectItem itemValue = "Manada de Tha" itemLabel = "Manada de Tha" />
+                                <f:selectItem itemValue = "Tropa de Kim" itemLabel = "Tropa de Kim" />
                                 <f:selectItem itemValue = "Unidad Esculta Siryu" itemLabel = "Unidad Esculta Siryu"/>
                                 <f:selectItem itemValue = "Clan Rover Almogama" itemLabel = "Clan Rover Almogama"/>
                             </h:selectOneMenu>
                         </div>
                     </div>
-                    <div class="md-form pr-2">  
+                    <div class="md-form pr-2">
                         <div class="md-form pr-2">
-                            <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="sexo" required="true"> 
-                                <f:selectItem itemValue = "M" itemLabel = "Hombre" /> 
-                                <f:selectItem itemValue = "F" itemLabel = "Mujer" /> 
+                            <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="sexo" required="true">
+                                <f:selectItem itemValue = "M" itemLabel = "Hombre" />
+                                <f:selectItem itemValue = "F" itemLabel = "Mujer" />
                             </h:selectOneMenu>
                         </div>
                     </div>
@@ -87,13 +87,13 @@
 
                 <div class="row">
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="dni" required="true"/>
                         <h:outputLabel>DNI-NIF</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <!--                    <div class="md-form pr-2">                                                
+                    <!--                    <div class="md-form pr-2">
                                             <h:inputText class="form-control" id="fechaNacimiento"/>
                                             <h:outputLabel>Fecha Nacimiento</h:outputLabel>
                                         </div>-->
@@ -105,21 +105,21 @@
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="direccion" required="true"/>
                         <h:outputLabel>Dirección</h:outputLabel>
                     </div>
 
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="codigopostal" required="true"/>
                         <h:outputLabel>Código Postal</h:outputLabel>
-                    </div>                                
+                    </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="localidad" required="true"/>
                         <h:outputLabel>Localidad</h:outputLabel>
-                    </div>                                
+                    </div>
                 </div>
 
 
@@ -127,47 +127,47 @@
                 <!--FILA 3-->
                 <div class="row">
 
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="provincia" required="true"/>
                         <h:outputLabel>Provincia</h:outputLabel>
                     </div>
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="telefono"/>
                         <h:outputLabel>Teléfono</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="movil"/>
                         <h:outputLabel>Móvil</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="cargo"/>
                         <h:outputLabel>Cargo</h:outputLabel>
-                    </div>                             
+                    </div>
                 </div>
 
                 <div class="row">
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="federal"/>
                         <h:outputLabel>Federal</h:outputLabel>
-                    </div>   
+                    </div>
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="asociativo"/>
                         <h:outputLabel>Asociativo</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="provincial"/>
                         <h:outputLabel>Provincial</h:outputLabel>
-                    </div>                                    
+                    </div>
                 </div>
 
 
@@ -177,34 +177,34 @@
 
                 <div class="row mb-4 pb-4">
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="nombreResponsable"/>
                         <h:outputLabel>Nombre responsable</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="apellido1Responsable"/>
                         <h:outputLabel>Primer apellido</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="apellido2Responsable"/>
                         <h:outputLabel>Segundo Apellido</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
+                    <div class="md-form pr-2">
                         <h:inputText class="form-control" id="dniResponsable"/>
                         <h:outputLabel>DNI responsable</h:outputLabel>
-                    </div>                                                
+                    </div>
                 </div>
-
                 <div class="row mb-4 pb-4">
                     <div class="text-center mt-4">
                         <h:commandButton class="btn btn-outline-secondary" type="submit" value="Enviar" action="#{beanS03Usuario.createUser()}"/>
                     </div>
+
                 </div>
 
             </div>
