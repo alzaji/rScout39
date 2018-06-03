@@ -9,9 +9,9 @@
 
     <ui:define name="title">Gestor Documental</ui:define>
     <ui:define name="seccionnav">Gestor Documental</ui:define>
+    <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
     <ui:define name="GestorDocumental">
-        <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
-        
+
         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
             <center> 
                 <div class="text-center">
@@ -77,7 +77,7 @@
                 </div>                 
             </center>
         </c:if>
-        
+
         <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador')}">
             <center> 
                 <div class="input-group col-md-8 mt-4 mb-4">
@@ -114,7 +114,7 @@
                 </div>
             </center>
         </c:if>
-        
+
         <div class="modal fade" id="modalCrearPeticion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -159,37 +159,37 @@
                 <div class=" card-body ">
                     <!--Title-->
                     <div class="container">
-                    <h4 class="card-title text-center ">Estados de los Documentos</h4>
-                    <div>
-                        <div class="mt-3 ">
-                            <h:dataTable id="table2" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">                    
-                                <h:column>
-                                    <f:facet name="header">Alias</f:facet>
-                                        #{archivo.idUsuario.alias}
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Archivo</f:facet>
-                                        #{archivo.nombre}
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">Link</f:facet>
-                                     <c:if test="#{(arhivo.estado eq 'S')}">
-                                    <h:form>
-                                        <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(archivo.ruta)}">Descargar</h:outputLink>
-                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}"></h:commandButton>
-                                    </h:form>
-                                     </c:if>
-                                </h:column>                                    
-                                <h:column>
-                                    <f:facet name="header">Estado</f:facet>
-                                    <c:if test="#{(arhivo.estado eq 'N')}">
-                                        <h:commandButton class ="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}"></h:commandButton>
-                                    </c:if>
-                                </h:column>
-                            </h:dataTable> 
+                        <h4 class="card-title text-center ">Estados de los Documentos</h4>
+                        <div>
+                            <div class="mt-3 ">
+                                <h:dataTable id="table2" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">                    
+                                    <h:column>
+                                        <f:facet name="header">Alias</f:facet>
+                                            #{archivo.idUsuario.alias}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Archivo</f:facet>
+                                            #{archivo.nombre}
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Link</f:facet>
+                                        <c:if test="#{(arhivo.estado eq 'S')}">
+                                            <h:form>
+                                                <h:outputLink class ="btn btn-sm btn-purple" value = "#{fileUploadMBean.getPath(archivo.ruta)}">Descargar</h:outputLink>
+                                                <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}"></h:commandButton>
+                                            </h:form>
+                                        </c:if>
+                                    </h:column>                                    
+                                    <h:column>
+                                        <f:facet name="header">Estado</f:facet>
+                                        <c:if test="#{(arhivo.estado eq 'N')}">
+                                            <h:commandButton class ="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}"></h:commandButton>
+                                        </c:if>
+                                    </h:column>
+                                </h:dataTable> 
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>

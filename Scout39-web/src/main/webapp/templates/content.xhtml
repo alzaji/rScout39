@@ -154,9 +154,7 @@
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
-            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
-                <ui:insert name="GestorDocumental"/>
-            </c:if>
+            <ui:insert name="GestorDocumental"/>
 
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Manada de Tha'}">
@@ -182,9 +180,7 @@
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
-            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
-                <ui:insert name="GestorDocumental"/>
-            </c:if>
+            <ui:insert name="GestorDocumental"/>
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
             <!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -209,9 +205,7 @@
                      DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
-            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
-                <ui:insert name="GestorDocumental"/>
-            </c:if>
+            <ui:insert name="GestorDocumental"/>
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Tropa de Kim'}">
             <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
@@ -236,9 +230,7 @@
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
-            <c:if test="#{(controlAutorizacion.usuario.roles.nombrerol eq 'Scouter')}">
-                <ui:insert name="GestorDocumental"/>
-            </c:if>
+            <ui:insert name="GestorDocumental"/>
         </c:when>
     </c:choose>        
 </ui:composition>
