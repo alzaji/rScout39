@@ -112,9 +112,9 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
             Query q = em.createQuery("SELECT ac from AccesoGrupo ac where :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL");
             q.setParameter("grupo", g);
             List<AccesoGrupo> ac = q.getResultList();
-            for(AccesoGrupo gr : ac){
+            for (AccesoGrupo gr : ac) {
                 Archivo a = new Archivo();
-                a.setNombre(gr.getUsuario_Grupo().getAlias() +"_" + ar.getNombre());
+                a.setNombre(gr.getUsuario_Grupo().getAlias() + "_" + ar.getNombre());
                 a.setRuta(ar.getRuta());
                 a.setTipo(ar.getTipo());
                 a.setEstado(ar.getEstado());
@@ -122,11 +122,29 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
                 a.setIdUsuario(gr.getUsuario_Grupo());
                 em.merge(a);
             }
-            
-            
+
         } catch (Exception re) {
             Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
         }
     }
 
-} 
+    @Override
+    public List<Archivo> obtenerArchivos(Grupo gr) {
+        Query q = em.createQuery("SELECT a FROM Archivo a, Objeto o, Grupo g  WHERE o.id = a.id and g.id = o.id");
+        q.setParameter("grupo",  gr);
+        List<Archivo> archivos= q.getResultList();
+        return archivos;
+    }
+    
+    @Override
+    public void validarArchivo(Archivo ar){
+        ar.setEstado('S');
+        em.merge(ar);
+    }
+    
+    @Override
+    public void listarPorGrupo(){
+        // Query para mostrar los archivos de los educando de tu grupo
+    }
+
+}
