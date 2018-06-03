@@ -150,4 +150,23 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         }
     }
 
+    @Override
+    public List<Archivo> obtenerArchivos(Grupo gr) {
+        Query q = em.createQuery("SELECT a FROM Archivo a, Objeto o, Grupo g  WHERE o.id = a.id and g.id = o.id");
+        q.setParameter("grupo",  gr);
+        List<Archivo> archivos= q.getResultList();
+        return archivos;
+    }
+    
+    @Override
+    public void validarArchivo(Archivo ar){
+        ar.setEstado('S');
+        em.merge(ar);
+    }
+    
+    @Override
+    public void listarPorGrupo(){
+        // Query para mostrar los archivos de los educando de tu grupo
+    }
+
 }

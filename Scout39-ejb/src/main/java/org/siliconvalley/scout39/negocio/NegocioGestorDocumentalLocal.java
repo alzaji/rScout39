@@ -26,4 +26,8 @@ public interface NegocioGestorDocumentalLocal {
     public List<Archivo> listaArchivosNombreAJAX(String pal);
     public List<Usuario> generaCSVParticipantes(Eventos e);
     public void registrarArchivo(Archivo ar,Grupo g);
+    public List<Archivo> obtenerArchivos(Grupo gr);
+    public void validarArchivo(Archivo ar);
+    public void listarPorGrupo();
 }
+
