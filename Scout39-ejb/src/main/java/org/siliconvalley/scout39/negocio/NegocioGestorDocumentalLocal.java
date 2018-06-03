@@ -18,6 +18,7 @@ import org.siliconvalley.scout39.modelo.*;
 public interface NegocioGestorDocumentalLocal {
     
     public void subirArchivo(String ruta,String nombre, String tipo,Usuario u);
+    public void subirArchivo(String ruta,String nombre, String tipo,Usuario u, Archivo o);
     public void subirArchivoCSV(String ruta,String nombre, String tipo,Usuario u);
     public List<Archivo> buscarArchivos(Usuario u);
     public String buscarPath(Usuario u,String ruta);
@@ -26,9 +27,11 @@ public interface NegocioGestorDocumentalLocal {
     public List<Archivo> listarArchivosScouter(Grupo g);
     public List<Archivo> listaArchivosAJAX(String pal);
     public List<Archivo> listaArchivosNombreAJAX(String pal);
+    public List<Archivo> listaArchivosNombreAJAXScouter(Grupo g, String pal);
     public List<Usuario> generaCSVParticipantes(Eventos e);
     public void registrarArchivo(Archivo ar,Grupo g);
     public List<Archivo> obtenerArchivos(Grupo gr);
     public void validarArchivo(Archivo ar);
+    public List<Archivo> buscarArchivosScouter(Usuario u);   
 }
 

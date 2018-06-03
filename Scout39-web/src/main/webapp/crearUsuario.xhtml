@@ -3,7 +3,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">Crear usuario</ui:define>
     <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
@@ -11,7 +12,7 @@
     <ui:define name="link3"><h:link class="nav-link text-white" outcome="editarRoles.xhtml" value="Roles"/></ui:define>
     <ui:define name="link4"><h:link class="nav-link text-white" outcome="crearUsuario.xhtml" value="Crear nuevo usuario"/></ui:define>
     <ui:define name="crearUsuario">
-        
+
         <!--Carousel Wrapper-->
         <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
             <!--Slides-->
@@ -25,180 +26,177 @@
             <!--/.Slides-->
         </div>
         <!--/.Carousel Wrapper-->
-        
-        <h:form>
-        
-        <div class="container">
-            <div class="row mt-4 pt-4">
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="nombre"/>
-                    <h:outputLabel>Nombre</h:outputLabel>
+
+        <h:form id="cUsuario">
+
+            <div class="container">
+                <div class="row mt-4 pt-4">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="nombre"/>
+                        <h:outputLabel>Nombre</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="apellido1"/>
+                        <h:outputLabel>Primer apellido</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="apellido2"/>
+                        <h:outputLabel>Segundo Apellido</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="alias"/>
+                        <h:outputLabel>Alias</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="email"/>
+                        <h:outputLabel>Email</h:outputLabel>
+                    </div>                                
                 </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="apellido1"/>
-                    <h:outputLabel>Primer apellido</h:outputLabel>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <div class="row">
+                    <div class="md-form pr-2"> 
+                        <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="opcion"> 
+                            <f:selectItem itemValue = "0" itemLabel = "Elija una opción" /> 
+                            <f:selectItem itemValue = "1" itemLabel = "Próximos eventos" /> 
+                            <f:selectItem itemValue = "2" itemLabel = "Eventos anteriores"/> 
+                        </h:selectOneMenu> 
+                    </div>
+                    
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="dni"/>
+                        <h:outputLabel>DNI-NIF</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="fechaNacimiento"/>
+                        <h:outputLabel>Fecha Nacimiento</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="direccion"/>
+                        <h:outputLabel>Dirección</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="localidad"/>
+                        <h:outputLabel>Localidad</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="provincia"/>
+                        <h:outputLabel>Provincia</h:outputLabel>
+                    </div>                                
                 </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="apellido2"/>
-                    <h:outputLabel>Segundo Apellido</h:outputLabel>
+
+
+
+                <!--FILA 3-->
+                <div class="row">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="telefono"/>
+                        <h:outputLabel>Teléfono</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="movil"/>
+                        <h:outputLabel>Móvil</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="seccion"/>
+                        <h:outputLabel>Sección</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="cargo"/>
+                        <h:outputLabel>Cargo</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="federal"/>
+                        <h:outputLabel>Federal</h:outputLabel>
+                    </div>                                
                 </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="alias"/>
-                    <h:outputLabel>Alias</h:outputLabel>
+
+                <div class="row">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="asociativo"/>
+                        <h:outputLabel>Asociativo</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="provincial"/>
+                        <h:outputLabel>Provincial</h:outputLabel>
+                    </div>                                    
                 </div>
-                                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="email"/>
-                    <h:outputLabel>Email</h:outputLabel>
-                </div>                                
+
+
+                <br></br>
+                <br></br>
+
+
+                <div class="row mb-4 pb-4">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="nombreResponsable"/>
+                        <h:outputLabel>Nombre responsable</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="apellido1Responsable"/>
+                        <h:outputLabel>Primer apellido</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="apellido2Responsable"/>
+                        <h:outputLabel>Segundo Apellido</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">                                                
+                        <h:inputText class="form-control" id="dniResponsable"/>
+                        <h:outputLabel>DNI responsable</h:outputLabel>
+                    </div>                                                
+                </div>
+
+                <div class="row mb-4 pb-4">
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline-secondary" type="submit">Enviar
+                            <i class="fa fa-paper-plane ml-2 text-secondary"></i>
+                        </button>
+                    </div>
+                </div>
+
             </div>
-            
-            <br></br>
-            <br></br>
-            <br></br>
-            
-            <div class="row">
-                <!-- Grid column 
-                <div class="input-group col-md-3 mt-4 mb-4">
-                    <select class="custom-select" id="grupo">
-                        <option selected="selected">Grupo</option>
-                        <option value="Manada de Tha">Manada de Tha</option>
-                        <option value="Tropa de Kim">Tropa de Kim</option>
-                        <option value="Unidad Esculta Siryu">Unidad Esculta Siryu</option>
-                        <option value="Clan Rover Almogama">Clan Rover Almogama</option>
-                    </select>
-                </div>-->
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="dni"/>
-                    <h:outputLabel>DNI-NIF</h:outputLabel>
-                </div>
-                                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="fechaNacimiento"/>
-                    <h:outputLabel>Fecha Nacimiento</h:outputLabel>
-                </div>
-                                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="direccion"/>
-                    <h:outputLabel>Dirección</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="localidad"/>
-                    <h:outputLabel>Localidad</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="provincia"/>
-                    <h:outputLabel>Provincia</h:outputLabel>
-                </div>                                
-            </div>
-            
-            
-            
-            <!--FILA 3-->
-            <div class="row">
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="telefono"/>
-                    <h:outputLabel>Teléfono</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="movil"/>
-                    <h:outputLabel>Móvil</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="seccion"/>
-                    <h:outputLabel>Sección</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="cargo"/>
-                    <h:outputLabel>Cargo</h:outputLabel>
-                </div>
-                                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="federal"/>
-                    <h:outputLabel>Federal</h:outputLabel>
-                </div>                                
-            </div>
-            
-            <div class="row">
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="asociativo"/>
-                    <h:outputLabel>Asociativo</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="provincial"/>
-                    <h:outputLabel>Provincial</h:outputLabel>
-                </div>                                    
-            </div>
-            
-            
-            <br></br>
-            <br></br>
-            
-            
-            <div class="row mb-4 pb-4">
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="nombreResponsable"/>
-                    <h:outputLabel>Nombre responsable</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="apellido1Responsable"/>
-                    <h:outputLabel>Primer apellido</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="apellido2Responsable"/>
-                    <h:outputLabel>Segundo Apellido</h:outputLabel>
-                </div>
-                
-                <!-- Material input text -->
-                <div class="md-form pr-2">                                                
-                    <h:inputText class="form-control" id="dniResponsable"/>
-                    <h:outputLabel>DNI responsable</h:outputLabel>
-                </div>                                                
-            </div>
-            
-            <div class="row mb-4 pb-4">
-                <div class="text-center mt-4">
-                    <button class="btn btn-outline-secondary" type="submit">Enviar
-                        <i class="fa fa-paper-plane ml-2 text-secondary"></i>
-                    </button>
-                </div>
-            </div>
-            
-        </div>
-        
-    </h:form>
-        
+
+        </h:form>
+
     </ui:define>
 </ui:composition>

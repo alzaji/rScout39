@@ -6,6 +6,7 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import org.siliconvalley.scout39.modelo.*;
 
 import java.util.Map;
@@ -30,10 +31,10 @@ import javax.servlet.http.HttpServletRequest;
 public class beanPerfil implements Serializable {
 
     private AccesoGrupo promesa;
+    private Archivo requeridos;
     private Usuario usuario;
     private Archivo archivo;
-    private Map<Usuario, List<Archivo>> archivos;
-    private Map<String, String> promesas;
+    private List<Archivo> listaArchivos;
     protected String pal;
     protected boolean update = false;
 
@@ -46,8 +47,28 @@ public class beanPerfil implements Serializable {
     @EJB
     private NegocioUsuarioLocal user;
 
+    public Archivo getRequeridos() {
+        return requeridos;
+    }
+
+    public void setRequeridos(Archivo requeridos) {
+        this.requeridos = requeridos;
+    }
+
     public beanPerfil() {
 
+    }
+
+    public List<Archivo> getListaArchivos() {
+        return listaArchivos;
+    }
+
+    public void setListaArchivos(List<Archivo> listaArchivos) {
+        this.listaArchivos = listaArchivos;
+    }
+
+    public void listarEstadoArchivo() {
+        listaArchivos = gestorArchivos.obtenerArchivos(ctrl.getGrupo());
     }
 
     public AccesoGrupo getPromesa() {
@@ -95,18 +116,30 @@ public class beanPerfil implements Serializable {
         return gestorArchivos.listarArchivos();
     }
 
+    // Para Scouter
+    public List<Archivo> listarArchivosScouter() {
+        if (update) {
+            return listarArchivosAJAXScouter();
+        }
+        return gestorArchivos.listarArchivosScouter(ctrl.getGrupo());
+    }
+
     public void searchListFilesNombre() {
         update = true;
         listarArchivosNombre();
+    }
+
+    public void searchListFilesScouter() {
+        update = true;
+        listarArchivosScouter();
     }
 
     public List<Archivo> listarArchivosAJAXNombre() {
         return gestorArchivos.listaArchivosNombreAJAX(pal);
     }
 
-    //Para Scouter
-    public List<Archivo> listarArchivosScouter(Grupo g) {
-        return gestorArchivos.listarArchivosScouter(g);
+    public List<Archivo> listarArchivosAJAXScouter() {
+        return gestorArchivos.listaArchivosNombreAJAXScouter(ctrl.getGrupo(), pal);
     }
 
     public void validarArchivo(Archivo ar) {
@@ -123,4 +156,11 @@ public class beanPerfil implements Serializable {
         return user.listaPromesas(ctrl.getUsuario());
     }
 
+    public Archivo getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(Archivo archivo) {
+        this.archivo = archivo;
+    }           
 }
