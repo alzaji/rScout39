@@ -19,6 +19,7 @@ import org.siliconvalley.scout39.modelo.*;
 /**
  *
  * @author hidden-process
+ * @author pasantru
  */
 @Stateless
 public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
@@ -92,6 +93,13 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         List<Archivo> archivos = (List<Archivo>) q.getResultList();
         return archivos;
     }
+    @Override
+    public List<Archivo> listarArchivosScouter(Grupo g) {
+        Query q = em.createQuery("SELECT a FROM Archivo a, Usuario u WHERE u.Acceso_Grupo.grupo LIKE :grupo");
+        q.setParameter("grupo", g);
+        List<Archivo> archivos = (List<Archivo>) q.getResultList();
+        return archivos;
+    }
 
     @Override
     public List<Archivo> listaArchivosAJAX(String pal) {
@@ -127,7 +135,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         return participantes;
 
     }
-
+    
     @Override
     public void registrarArchivo(Archivo ar, Grupo g) {
         try {
@@ -148,6 +156,25 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         } catch (Exception re) {
             Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
         }
+    }
+
+    @Override
+    public List<Archivo> obtenerArchivos(Grupo gr) {
+        Query q = em.createQuery("SELECT a FROM Archivo a, Objeto o, Grupo g  WHERE o.id = a.id and g.id = o.id");
+        q.setParameter("grupo",  gr);
+        List<Archivo> archivos= q.getResultList();
+        return archivos;
+    }
+    
+    @Override
+    public void validarArchivo(Archivo ar){
+        ar.setEstado('S');
+        em.merge(ar);
+    }
+    
+    @Override
+    public void listarPorGrupo(){
+        // Query para mostrar los archivos de los educando de tu grupo
     }
 
 }

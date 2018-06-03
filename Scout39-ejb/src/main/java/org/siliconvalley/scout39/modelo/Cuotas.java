@@ -29,7 +29,7 @@ public class Cuotas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false, length = 30)
     private String tipo;
     @Column(nullable = false, precision = 3, scale = 2)
     private BigDecimal precio;
@@ -38,6 +38,8 @@ public class Cuotas implements Serializable {
     private Date fecha_cuota;
     @Column(nullable = false)
     private Character estado;
+    @Column(nullable = false, length = 100)
+    private String concepto;
     @ManyToOne
     private Usuario usuario;
     @OneToOne
@@ -97,6 +99,14 @@ public class Cuotas implements Serializable {
 
     public void setEstado(Character estado) {
         this.estado = estado;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 
     @Override
