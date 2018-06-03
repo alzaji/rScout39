@@ -6,15 +6,15 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.*;
+import org.siliconvalley.scout39.negocio.NegocioRolesLocal;
 
 /**
  *
@@ -24,54 +24,100 @@ import org.siliconvalley.scout39.modelo.*;
 @SessionScoped
 public class beanRoles implements Serializable {
 
+    @EJB
+    private NegocioRolesLocal roles;
     private String nombreRol;
-    private Map<Roles, List<Privilegios>> roles;
+    private String priv;
+    private boolean peine;
+    private String c;
+    private String re;
+    private String u;
+    private String d;
+    
+    private String cI;
+    private String reI;
+    private String uI;
+    private String dI;
+    
+    
+    
 
     public beanRoles() {
-        roles = new HashMap<>();
+    }
+    
+    public void setCRUD(Roles r, Objeto o){
+        pCreate(r, o);
+        pDelete(r, o);
+        pRead(r, o);
+        pUpdate(r, o);
+    }
+    
+    public void setInverso(Roles r, Objeto o){
+        setcI(pInverso(c));
+        setreI(pInverso(re));
+        setuI(pInverso(u));
+        setdI(pInverso(d));
+        
     }
 
-    private Roles crearRol(Long idRol, String nombreRol) {
+    public List<Roles> obtenerRoles() {
+        return roles.listaRoles();
+    }
+
+    public List<Objeto> obtenerObjetos() {
+        return roles.listaObjetos();
+    }
+
+    public void hasPriv(Roles rol, Objeto o) {
+        setPeine(roles.hasP(rol, o) == 1);
+    }
+
+    public void pCreate(Roles rol, Objeto o) {
+        String cad = roles.getPCreate(rol, o);
+        setPriv(cad);
+        setC(cad);
+    }
+
+    public void pRead(Roles rol, Objeto o) {
+        String cad = roles.getPRead(rol, o);
+        setPriv(cad);
+        setRe(cad);
+    }
+
+    public void pUpdate(Roles rol, Objeto o) {
+        String cad = roles.getPUpdate(rol, o);
+        setPriv(cad);
+        setU(cad);
+    }
+
+    public void pDelete(Roles rol, Objeto o) {
+        String cad = roles.getPDelete(rol, o);
+        setPriv(cad);
+        setD(cad);
+    }
+
+    public String pInverso(String s) {
+        if (s.equals("S")) {
+            return "N";
+        } else {
+            return "S";
+        }
+    }
+
+    // public void modificarPrivilegio(Privilegio p, Roles rol, Objeto o){
+    //   roles.;
+    //}
+    public String borrarRol(Roles rol) {
+        return null;
+    }
+
+    public String crearRol() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String nombre = request.getParameter("formCrearRol:nombreR");
         Roles r = new Roles();
-        r.setId(idRol);
         r.setNombrerol(nombreRol);
-        return r;
-    }
-
-    private Privilegios crearPrivilegios(Long id) {
-        Privilegios p = new Privilegios();
-        p.setId(id);
-//        p.setLectura('N');
-//        p.setBorrado('N');
-//        p.setEscritura('N');
-        return p;
-    }
-
-    public void añadirNuevoRol(Roles rol) {
-
-        Roles r = crearRol(rol.getId(), rol.getNombrerol());
-
-        FacesContext ctx = FacesContext.getCurrentInstance();
-
-        if (!roles.containsKey(r)) {
-            roles.put(r, new ArrayList<Privilegios>());
-        } else {
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rol " + rol.getNombrerol() + " ya se encuentra en la lista de roles", "El rol " + rol.getNombrerol() + " ya se encuentra en la lista de roles"));
-        }
-
-    }
-
-    public void eliminarRole(Roles rol) {
-
-        Roles r = crearRol(rol.getId(), rol.getNombrerol());
-
-        FacesContext ctx = FacesContext.getCurrentInstance();
-
-        if (roles.containsKey(r)) {
-            roles.remove(r);
-        } else {
-            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "El rol " + rol.getNombrerol() + " no se encuentra en la lista de roles", "El rol " + rol.getNombrerol() + " no se encuentra en la lista de roles"));
-        }
+        roles.crearRol(r);
+        return null;
     }
 
     public String getNombreRol() {
@@ -81,4 +127,86 @@ public class beanRoles implements Serializable {
     public void setNombreRol(String nombreRol) {
         this.nombreRol = nombreRol;
     }
+
+    public String getPriv() {
+        return priv;
+    }
+
+    public void setPriv(String priv) {
+        this.priv = priv;
+    }
+
+    public boolean isPeine() {
+        return peine;
+    }
+
+    public void setPeine(boolean peine) {
+        this.peine = peine;
+    }
+
+    public String getC() {
+        return c;
+    }
+
+    public void setC(String c) {
+        this.c = c;
+    }
+
+    public String getRe() {
+        return re;
+    }
+
+    public void setRe(String re) {
+        this.re = re;
+    }
+
+    public String getU() {
+        return u;
+    }
+
+    public void setU(String u) {
+        this.u = u;
+    }
+
+    public String getD() {
+        return d;
+    }
+
+    public void setD(String d) {
+        this.d = d;
+    }
+
+    public String getcI() {
+        return cI;
+    }
+
+    public void setcI(String cI) {
+        this.cI = cI;
+    }
+
+    public String getreI() {
+        return reI;
+    }
+
+    public void setreI(String reI) {
+        this.reI = reI;
+    }
+
+    public String getuI() {
+        return uI;
+    }
+
+    public void setuI(String uI) {
+        this.uI = uI;
+    }
+
+    public String getdI() {
+        return dI;
+    }
+
+    public void setdI(String dI) {
+        this.dI = dI;
+    }
+
+    
 }
