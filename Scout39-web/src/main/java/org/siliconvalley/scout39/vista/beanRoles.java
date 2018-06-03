@@ -33,31 +33,27 @@ public class beanRoles implements Serializable {
     private String re;
     private String u;
     private String d;
-    
     private String cI;
     private String reI;
     private String uI;
     private String dI;
-    
-    
-    
 
     public beanRoles() {
     }
-    
-    public void setCRUD(Roles r, Objeto o){
+
+    public void setCRUD(Roles r, Objeto o) {
         pCreate(r, o);
         pDelete(r, o);
         pRead(r, o);
         pUpdate(r, o);
     }
-    
-    public void setInverso(Roles r, Objeto o){
+
+    public void setInverso(Roles r, Objeto o) {
         setcI(pInverso(c));
-        setreI(pInverso(re));
+        setReI(pInverso(re));
         setuI(pInverso(u));
         setdI(pInverso(d));
-        
+
     }
 
     public List<Roles> obtenerRoles() {
@@ -108,6 +104,7 @@ public class beanRoles implements Serializable {
     //   roles.;
     //}
     public String borrarRol(Roles rol) {
+        roles.borrarRol(rol);
         return null;
     }
 
@@ -118,6 +115,18 @@ public class beanRoles implements Serializable {
         r.setNombrerol(nombreRol);
         roles.crearRol(r);
         return null;
+    }
+
+    public void updateRol(Roles rol, Objeto o) {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String cre = request.getParameter("formModificarPrivilegio"+o+":modificarCreate");
+        String rea = request.getParameter("formModificarPrivilegio"+o+":modificarRead");
+        String upd = request.getParameter("formModificarPrivilegio"+o+":modificarUpdate");
+        String del = request.getParameter("formModificarPrivilegio"+o+":modificarDelete");
+        AccesoRecurso ar = roles.findAr(rol, o);
+        Privilegios p = roles.find(cre, rea, upd, del);
+        ar.setIdPrivilegio(p);
+        roles.modificarRol(ar);
     }
 
     public String getNombreRol() {
@@ -184,11 +193,11 @@ public class beanRoles implements Serializable {
         this.cI = cI;
     }
 
-    public String getreI() {
+    public String getReI() {
         return reI;
     }
 
-    public void setreI(String reI) {
+    public void setReI(String reI) {
         this.reI = reI;
     }
 
@@ -208,5 +217,6 @@ public class beanRoles implements Serializable {
         this.dI = dI;
     }
 
-    
+
+
 }

@@ -86,19 +86,16 @@ and open the template in the editor.
                                                 <!-- Material input text -->
                                                 <div class="md-form">                                                
                                                     <h:outputText class="form-control" id="modificarNombre" value="#{o.nombre}"/>
-
                                                 </div>
                                                 #{beanRoles.hasPriv(r, o)}
                                                 <c:choose >
-                                                    <c:when test="#{beanRoles.peine}" >
-                                                        <div class="md-form">
-                                                            #{beanRoles.setCRUD(r, o)}
-                                                            #{beanRoles.setInverso(r, o)}
-                                                            <select class="custom-select" id="modificarCreate">
-                                                                <option selected="selected"  value="#{beanRoles.c}">#{beanRoles.c}</option>
-                                                                <option value="#{beanRoles.cI}">#{beanRoles.cI}</option>
-                                                            </select>
-                                                        </div>
+                                                    #{beanRoles.setCRUD(r, o)}
+                                                    #{beanRoles.setInverso(r, o)}
+                                                    <c:when test="#{beanRoles.peine}">
+                                                        <select class="custom-select" id="modificarCreate">
+                                                            <option selected="selected"  value="#{beanRoles.c}">#{beanRoles.c}</option>
+                                                            <option value="#{beanRoles.cI}">#{beanRoles.cI}</option>
+                                                        </select>
                                                         <div class="md-form">
                                                             <select class="custom-select" id="modificarRead">
                                                                 <option selected="selected"  value="#{beanRoles.re}">#{beanRoles.re}</option>
@@ -113,8 +110,8 @@ and open the template in the editor.
                                                         </div>
                                                         <div class="md-form">
                                                             <select class="custom-select" id="modificarDelete">
-                                                                <option selected="selected"  value="#{beanRoles.pDelete(r, o)}">#{beanRoles.priv}</option>
-                                                                <option value="#{beanRoles.pInverso(beanRoles.priv)}">#{beanRoles.pInverso(beanRoles.priv)}</option>
+                                                                <option selected="selected"  value="#{beanRoles.d}">#{beanRoles.d}</option>
+                                                                <option value="#{beanRoles.pInverso(beanRoles.dI)}">#{beanRoles.dI}</option>
                                                             </select>
                                                         </div>  
 
@@ -145,15 +142,11 @@ and open the template in the editor.
                                                                 <option value="S">S</option>
                                                             </select>
                                                         </div>
-
-
-
-
                                                     </c:otherwise>
                                                 </c:choose>
 
                                                 <div class="text-center mt-4">
-                                                    <h:commandButton class="btn btn-orange" value="Modificar" />
+                                                    <h:commandButton class="btn btn-orange" value="Modificar" action="#{beanRoles.updateRol(r, o)}" />
                                                 </div>
                                             </h:form>
                                         </c:forEach>
@@ -166,7 +159,32 @@ and open the template in the editor.
                         <f:facet name="header">Borrar</f:facet>
                         <!-- row record -->
                         <button class="btn btn-danger btn-rounded mb-3" data-toggle="modal" data-target="#removeModal#{r.id.toString()}">Eliminar</button>
+                        <div class="modal fade" id="removeModal#{r.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <!--Header-->
+                                    <div class="modal-header danger-color white-text">
+                                        <h4 class="title">
+                                            <i class="fa fa-trash"></i> Eliminar Rol</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="text-align: center;">¿Está seguro que desea eliminar este Rol?</p>
+                                    </div>
+                                    <h:form>
+                                        <div class="modal-footer">                                
+                                            <h:commandButton class="btn btn-blue" value="Borrar" action="#{beanRoles.borrarRol(r)}"></h:commandButton>
+                                            <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
+                                        </div>
+                                    </h:form>
+
+                                </div>
+                            </div>
+                        </div>
                     </h:column>
+
                     <!--Table head-->
 
                     <!--FILAS DE LA TABLA, EL CUERPO-->
