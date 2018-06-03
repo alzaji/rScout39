@@ -39,10 +39,10 @@
                             <div class="container">
                                 <div class="row">
                                     <h:form id="prueba1">                                                                                                               
-                                        <h:commandButton id="asistir" class="btn btn-green col" value="Asistir" rendered="#{not beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doAsistirEvento(evento)}">                                                               
+                                        <h:commandButton id="asistir" class="btn btn-green col" value="Asistir" rendered="#{not beanEventos.doComprobarAsistencia(beanEventos.infoEvento)}" action="#{beanEventos.doAsistirEvento(beanEventos.infoEvento)}">                                                               
                                             <f:ajax render="@form"/>                                                                                                                                    
                                         </h:commandButton>                                                         
-                                        <h:commandButton id="noasistir" class="btn btn-red col" value="No Asistir" rendered="#{beanEventos.doComprobarAsistencia(evento)}" action="#{beanEventos.doNoAsistirEvento(evento)}">
+                                        <h:commandButton id="noasistir" class="btn btn-red col" value="No Asistir" rendered="#{beanEventos.doComprobarAsistencia(beanEventos.infoEvento)}" action="#{beanEventos.doNoAsistirEvento(beanEventos.infoEvento)}">
                                             <f:ajax render="@form"/>
                                         </h:commandButton>
                                     </h:form>

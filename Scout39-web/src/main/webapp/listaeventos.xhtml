@@ -4,7 +4,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:pf="http://primefaces.org/ui">
     <ui:define name="title">#{controlAutorizacion.grupo.nombre}</ui:define>
     <ui:define name="link1"><h:link class="nav-link text-white" p:href="#eventos" value="Eventos"/></ui:define>
     <ui:define name="link2"><h:link class="nav-link text-white" p:href="documentos.xhtml" value="Gestor Documental"/></ui:define>
@@ -105,34 +106,37 @@
                                 <!-- Material input text -->
                                 <div class="md-form">
                                     <i class="fa fa-font prefix grey-text"></i>
-                                    <h:inputText class="form-control" id="crearNombre"/>
+                                    <h:inputText class="form-control" id="crearNombre" required="true"/>
                                     <h:outputLabel>Nombre Evento</h:outputLabel>
+                                    <pf:message for="crearNombre" />
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-font prefix grey-text"></i>
-                                    <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion"/>
+                                    <h:inputTextarea cols="20" rows="5" class="form-control" id="crearDescripcion" required="true"/>
                                     <h:outputLabel>Descripcion Evento</h:outputLabel>
+                                    <pf:message for="crearDescripcion"/>
                                 </div>
 
                                 <!-- DateTimePicker para evento-->
                                 <div class="md-form">
                                     <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                         <i class="fa fa-calendar prefix grey-text"></i>
-                                        <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1"/>
+                                        <h:inputText class="form-control" id="crearFecha" p:data-target="#datetimepicker1" required="true"/>
                                         <h:outputLabel>Seleccionar Fecha</h:outputLabel>
+                                        <pf:message for="crearFecha"/>
                                     </div>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-compass prefix grey-text"></i>
-                                    <h:inputText class="form-control" id="crearLatitud"/>
+                                    <h:inputText class="form-control" id="crearLatitud" required="true"/>
                                     <h:outputLabel>Latitud</h:outputLabel>
                                 </div>
 
                                 <div class="md-form">
                                     <i class="fa fa-compass prefix grey-text"></i>
-                                    <h:inputText class="form-control" id="crearLongitud"/>
+                                    <h:inputText class="form-control" id="crearLongitud" required="true"/>
                                     <h:outputLabel>Longitud</h:outputLabel>
                                 </div>
 

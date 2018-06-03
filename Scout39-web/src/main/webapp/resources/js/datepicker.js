@@ -15,7 +15,7 @@ $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Const
         today: 'far fa-calendar-check',
         clear: 'far fa-trash',
         close: 'fas fa-times'
-    }, locale: 'es', debug: true});
+    }, locale: 'es'});
 $(function () {
     $('#datetimepicker1').datetimepicker();
 });
