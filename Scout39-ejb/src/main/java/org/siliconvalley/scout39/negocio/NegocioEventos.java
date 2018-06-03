@@ -28,7 +28,7 @@ public class NegocioEventos implements NegocioEventosLocal {
     private EntityManager em;
 
     @Override
-    public void crearEvento(Eventos e, Long idGrupo) {
+    public void crearEvento(Eventos e, Long idGrupo) throws ScoutException {
 
         try {
             Eventos e1 = insertarEvento(e);
@@ -40,33 +40,42 @@ public class NegocioEventos implements NegocioEventosLocal {
             eventosObjeto.add(e1);
             o.setListaEventos(eventosObjeto);
             em.merge(o);
-        } catch (Exception re) {
-            Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
+        } catch (Exception ex) {
+            throw new ScoutException("No se pudo crear el evento en la BD");
         }
 
     }
 
     @Override
-    public void borrarEvento(Eventos e) {
-        Query q = em.createQuery("SELECT o FROM Objeto o WHERE :evento MEMBER OF o.listaEventos");
-        q.setParameter("evento", e);
-        Objeto o = (Objeto) q.getSingleResult();
-        List<Eventos> eventos = o.getListaEventos();
-        eventos.remove(e);
-        em.merge(o);
-        em.remove(em.find(Eventos.class, e.getId()));
+    public void borrarEvento(Eventos e) throws ScoutException {
+        try {
+            Query q = em.createQuery("SELECT o FROM Objeto o WHERE :evento MEMBER OF o.listaEventos");
+            q.setParameter("evento", e);
+            Objeto o = (Objeto) q.getSingleResult();
+            List<Eventos> eventos = o.getListaEventos();
+            eventos.remove(e);
+            em.merge(o);
+            em.remove(em.find(Eventos.class, e.getId()));
+        } catch (Exception ex) {
+            throw new ScoutException("Error al borrar el evento de la BD");
+        }
     }
 
     @Override
-    public Eventos modificarEvento(Eventos e) {
-        Eventos mEvento = em.find(Eventos.class, e.getId());
-        mEvento.setNombre(e.getNombre());
-        mEvento.setDescripcion(e.getDescripcion());
-        mEvento.setFecha(e.getFecha());
-        mEvento.setLatitud(e.getLatitud().stripTrailingZeros());
-        mEvento.setLongitud(e.getLongitud().stripTrailingZeros());
-        em.merge(mEvento);
-        return em.find(Eventos.class, e.getId());
+    public Eventos modificarEvento(Eventos e) throws ScoutException {
+        try {
+            Eventos mEvento = em.find(Eventos.class, e.getId());
+            mEvento.setNombre(e.getNombre());
+            mEvento.setDescripcion(e.getDescripcion());
+            mEvento.setFecha(e.getFecha());
+            mEvento.setLatitud(e.getLatitud().stripTrailingZeros());
+            mEvento.setLongitud(e.getLongitud().stripTrailingZeros());
+            em.merge(mEvento);
+            return em.find(Eventos.class, e.getId());
+        } catch (Exception ex) {
+
+            throw new ScoutException("No se pudo modificar el evento en la BD");
+        }
     }
 
     @Override
@@ -109,8 +118,13 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public Eventos buscarEvento(Eventos evento) {
-        return em.find(Eventos.class, evento.getId());
+    public Eventos buscarEvento(Eventos evento) throws ScoutException {
+        try {
+
+            return em.find(Eventos.class, evento.getId());
+        } catch (Exception e) {
+            throw new ScoutException("No se ha encontrado el evento pedido");
+        }
     }
 
     private Eventos insertarEvento(Eventos e) {
@@ -128,17 +142,21 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public void nuevoComentario(Comentarios c) {
+    public void nuevoComentario(Comentarios c) throws ScoutException {
         try {
             em.merge(c);
-        } catch (Exception re) {
-            Logger.getLogger(NegocioEventos.class.getName()).log(Level.WARNING, re.getMessage(), re.getCause());
+        } catch (Exception ex) {
+            throw new ScoutException("Error al insertar el comentario en la BD");
         }
     }
 
     @Override
-    public void respuestaComentario(Comentarios c) {
-        em.merge(c);
+    public void respuestaComentario(Comentarios c) throws ScoutException {
+        try {
+            em.merge(c);
+        } catch (Exception e) {
+            throw new ScoutException("Error al insertar la respuesta al comentario en la BD");
+        }
     }
 
     @Override
@@ -150,24 +168,32 @@ public class NegocioEventos implements NegocioEventosLocal {
     }
 
     @Override
-    public void asistirEvento(Usuario u, Eventos e) {
-        Progresion p = new Progresion();
-        p.setAnimacion(0);
-        p.setIntegracion(0);
-        p.setParticipacion(0);
-        p.setEventoP(e);
-        p.setUsuarioP(u);
-        em.merge(p);
+    public void asistirEvento(Usuario u, Eventos e) throws ScoutException {
+        try {
+            Progresion p = new Progresion();
+            p.setAnimacion(0);
+            p.setIntegracion(0);
+            p.setParticipacion(0);
+            p.setEventoP(e);
+            p.setUsuarioP(u);
+            em.merge(p);
+        } catch (Exception ex) {
+            throw new ScoutException("Error al insertar la progresión en la BD");
+        }
     }
 
     @Override
-    public void noAsistirEvento(Usuario u, Eventos e) {
+    public void noAsistirEvento(Usuario u, Eventos e) throws ScoutException {
 
-        Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento AND p.usuarioP = :usuario");
-        q.setParameter("usuario", u);
-        q.setParameter("evento", e);
-        Progresion p = (Progresion) q.getSingleResult();
-        em.remove(p);
+        try {
+            Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.eventoP = :evento AND p.usuarioP = :usuario");
+            q.setParameter("usuario", u);
+            q.setParameter("evento", e);
+            Progresion p = (Progresion) q.getSingleResult();
+            em.remove(p);
+        } catch (Exception ex) {
+            throw new ScoutException("Error al quitar la progresion de la BD");
+        }
 
     }
 
