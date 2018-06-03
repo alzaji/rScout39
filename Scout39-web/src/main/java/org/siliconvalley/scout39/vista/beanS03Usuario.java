@@ -24,6 +24,7 @@ import org.siliconvalley.scout39.modelo.Grupo;
 import org.siliconvalley.scout39.modelo.S03;
 import org.siliconvalley.scout39.modelo.Usuario;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
+import org.siliconvalley.scout39.negocio.ScoutException;
 
 
 /**
@@ -108,15 +109,24 @@ public class beanS03Usuario implements Serializable{
             List<Archivo> listArch = new ArrayList<>();
             listArch.add(dummy);
             aux.setArchivo(listArch);
-            
-            
-            
-            
+            Grupo g = usr.getGrupofromString(grupo);
+            usr.registrarUsuario(aux, g);
             
         } catch (ParseException ex) {
+            Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ScoutException ex) {
             Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return "index.xhtml?faces-redirect=true";
+    }
+    
+    public String getGrupoFromUser(Usuario u){
+        try {
+            return usr.grupoActualUsuario(u).getNombre();
+        } catch (ScoutException ex) {
+            Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
 }
