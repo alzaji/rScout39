@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <ui:composition template="templates/principal.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -89,24 +83,30 @@ and open the template in the editor.
                                                 <h:outputLabel>#{obj.nombre}</h:outputLabel>
                                                 <div class="md-form">
                                                     <i class="fa fa-compass prefix grey-text"></i>
-                                                    <h:inputText class="form-control" id="Crear" required="true" validatorMessage="Introduzca Y o N">
-                                                        <f:validateRegex pattern="[YN]{1}"/>
+                                                    <h:inputText class="form-control" id="Crear" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
                                                     </h:inputText>
                                                     <h:outputLabel>Crear (S/N)</h:outputLabel>
                                                 </div>
                                                 <div class="md-form">
                                                     <i class="fa fa-compass prefix grey-text"></i>
-                                                    <h:inputText class="form-control" id="Leer"/>
+                                                    <h:inputText class="form-control" id="Leer" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
                                                     <h:outputLabel>Borrar (S/N)</h:outputLabel>
                                                 </div>
                                                 <div class ="md-form">
                                                     <i class="fa fa-compass prefix grey-text"></i>
-                                                    <h:inputText class="form-control" id="Modificar"/>
+                                                    <h:inputText class="form-control" id="Modificar" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
                                                     <h:outputLabel>Modificar (S/N)</h:outputLabel>
                                                 </div>    
                                                 <div class ="md-form">
                                                     <i class="fa fa-compass prefix grey-text"></i>
-                                                    <h:inputText class="form-control" id="Borrar"/>
+                                                    <h:inputText class="form-control" id="Borrar"required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
                                                     <h:outputLabel>Borrar (S/N)</h:outputLabel>
                                                 </div>                                                    
                                                 <div class="text-center mt-4">
