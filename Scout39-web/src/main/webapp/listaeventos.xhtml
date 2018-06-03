@@ -16,15 +16,15 @@
 
             <div class="row mb-5">
                 <div class="col">
-                    <div class="row">
+                    <div class="row justify-content-md-center">
                         <h2 id="eventos" class="h1-responsive font-weight-bold mb-5">Eventos</h2>                        
                         <c:if test="#{controlAutorizacion.hasCreate(controlAutorizacion.checkObjeto('eventos',controlAutorizacion.grupo.id))}">
-                            <div class="text-left col-6 col-sm-4">
+                            <div class="text-left">
                                 <a class="btn btn-default btn-rounded mb-4 btn-blue" data-toggle="modal" data-target="#modalCrearEvento">Crear Evento</a>
                             </div>
                         </c:if>
                     </div>
-                    <div class="row">
+                    <div class="row justify-content-md-center">
                         <h:form id="seleccionarEvento">
                             <div class="form-inline">
                                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">¿Qué eventos desea ver?</label>

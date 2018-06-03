@@ -7,7 +7,7 @@ package org.siliconvalley.scout39.negocio;
 
 import java.util.List;
 import javax.ejb.Local;
-import org.siliconvalley.scout39.modelo.Usuario;
+import org.siliconvalley.scout39.modelo.*;
 
 /**
  *
@@ -20,4 +20,6 @@ public interface NegocioUsuarioLocal {
     public List<Usuario> listaUsuariosAJAX(String pal);
     public void borrarUsuario(Usuario u);
     public void modificarUsuario(Usuario u);
+    public void cambiarPromesa(Usuario u, String promesa);
+    public List<AccesoGrupo> listaPromesas(Usuario u);
 }

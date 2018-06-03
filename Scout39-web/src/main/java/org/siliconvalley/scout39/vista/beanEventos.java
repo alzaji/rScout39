@@ -40,7 +40,10 @@ public class beanEventos implements Serializable {
     private Comentarios comentario;
     private Comentarios respuesta;
     private Progresion progresion;
-
+    private Progresion mediaProgresion;
+    private int participacion;
+    private int integracion;
+    private int animacion;
     @Inject
     private ControlAutorizacion control;
 
@@ -65,9 +68,27 @@ public class beanEventos implements Serializable {
         }
     }
 
+    public void doMediaProgresion() {
+        List<Progresion> pMedia = eventos.mediaProgresion(control.getUsuario());
+        participacion = 0;
+        integracion = 0;
+        animacion = 0;
+        if (!pMedia.isEmpty()) {
+
+            for (Progresion p : pMedia) {
+                participacion += p.getParticipacion();
+                integracion += p.getIntegracion();
+                animacion += p.getAnimacion();
+            }
+            participacion = participacion / pMedia.size();
+            integracion = integracion / pMedia.size();
+            animacion = animacion / pMedia.size();
+        }
+    }
+
     public String buscarEvento(Eventos evento) {
         infoEvento = eventos.buscarEvento(evento);
-        return "evento.xhtml";
+        return "evento.xhtml?faces-redirect=true";
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
@@ -253,10 +274,10 @@ public class beanEventos implements Serializable {
         String integracion = request.getParameter("table:" + index + ":formProgresionEvento:integracion");
         String participacion = request.getParameter("table:" + index + ":formProgresionEvento:participacion");
         String animacion = request.getParameter("table:" + index + ":formProgresionEvento:animacion");
-        
+
         p1.setAnimacion(Integer.parseInt(animacion));
         p1.setIntegracion(Integer.parseInt(integracion));
-        p1.setParticipacion(Integer.parseInt(participacion));       
+        p1.setParticipacion(Integer.parseInt(participacion));
         eventos.rellenarProgresion(p1);
     }
     
@@ -269,6 +290,38 @@ public class beanEventos implements Serializable {
             Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, e.getMessage(), e);
             return null;
         }
+    }
+
+    public int getParticipacion() {
+        return participacion;
+    }
+
+    public void setParticipacion(int participacion) {
+        this.participacion = participacion;
+    }
+
+    public int getIntegracion() {
+        return integracion;
+    }
+
+    public void setIntegracion(int integracion) {
+        this.integracion = integracion;
+    }
+
+    public int getAnimacion() {
+        return animacion;
+    }
+
+    public void setAnimacion(int animacion) {
+        this.animacion = animacion;
+    }
+
+    public Progresion getMediaProgresion() {
+        return mediaProgresion;
+    }
+
+    public void setMediaProgresion(Progresion mediaProgresion) {
+        this.mediaProgresion = mediaProgresion;
     }
 
     public Progresion getProgresion() {

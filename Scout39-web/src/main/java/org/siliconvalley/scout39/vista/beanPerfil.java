@@ -8,23 +8,28 @@ package org.siliconvalley.scout39.vista;
 import java.io.Serializable;
 import org.siliconvalley.scout39.modelo.*;
 
-
 import java.util.Map;
-import org.siliconvalley.scout39.negocio.NegocioGestorDocumentalLocal;
+import org.siliconvalley.scout39.negocio.*;
 import java.util.List;
+import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author pasantru
  */
 @Named(value = "beanPerfil")
-@RequestScoped
-public class beanPerfil implements Serializable{
+@ManagedBean
+@SessionScoped
+public class beanPerfil implements Serializable {
 
+    private AccesoGrupo promesa;
     private Usuario usuario;
     private Archivo archivo;
     private Map<Usuario, List<Archivo>> archivos;
@@ -38,11 +43,21 @@ public class beanPerfil implements Serializable{
     @EJB
     private NegocioGestorDocumentalLocal gestorArchivos;
 
+    @EJB
+    private NegocioUsuarioLocal user;
+
     public beanPerfil() {
 
     }
-    
-    
+
+    public AccesoGrupo getPromesa() {
+        return promesa;
+    }
+
+    public void setPromesa(AccesoGrupo promesa) {
+        this.promesa = promesa;
+    }
+
     public String getPal() {
         return pal;
     }
@@ -71,10 +86,9 @@ public class beanPerfil implements Serializable{
     public List<Archivo> listarArchivosAJAX() {
         return gestorArchivos.listaArchivosAJAX(pal);
     }
-    
+
     // Para Educando
-    
-       public List<Archivo> listarArchivosNombre() {
+    public List<Archivo> listarArchivosNombre() {
         if (update) {
             return listarArchivosAJAXNombre();
         }
@@ -89,18 +103,27 @@ public class beanPerfil implements Serializable{
     public List<Archivo> listarArchivosAJAXNombre() {
         return gestorArchivos.listaArchivosNombreAJAX(pal);
     }
-    
-    public List<Archivo> listarDocumentos(){
+
+    public List<Archivo> listarDocumentos() {
         return null;
     }
-    
-    public void validarArchivo(Archivo ar){
+
+    public void validarArchivo(Archivo ar) {
         gestorArchivos.validarArchivo(ar);
     }
-    
-    public void listarDocumentosGrupo(){
+
+    public void listarDocumentosGrupo() {
         gestorArchivos.listarPorGrupo();
     }
 
+    public void nuevaPromesa() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String nPromesa = request.getParameter("cambiarPromesa:promesa");
+        user.cambiarPromesa(ctrl.getUsuario(), nPromesa);
+    }
+
+    public List<AccesoGrupo> listarPromesas() {
+        return user.listaPromesas(ctrl.getUsuario());
+    }
 
 }

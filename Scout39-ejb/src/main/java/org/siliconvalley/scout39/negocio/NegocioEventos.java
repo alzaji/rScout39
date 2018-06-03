@@ -194,4 +194,11 @@ public class NegocioEventos implements NegocioEventosLocal {
         em.merge(p1);
     }
 
+    @Override
+    public List<Progresion> mediaProgresion(Usuario u) {
+        Query q = em.createQuery("SELECT p FROM Progresion p WHERE p.usuarioP = :usuario AND p.animacion > 0 AND p.integracion > 0 AND p.participacion > 0");
+        q.setParameter("usuario", u);
+        return q.getResultList();
+    }
+
 }
