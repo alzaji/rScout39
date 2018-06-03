@@ -18,6 +18,7 @@ public interface NegocioLogin {
     public void registrarUsuario(Usuario u, Grupo g) throws ScoutException;
     public Usuario comprobarUsuario(String alias) throws ScoutException;
     public Grupo grupoActualUsuario(Usuario u) throws ScoutException;
+    public Grupo getGrupofromString(String nombre) throws ScoutException;
     public Privilegios checkPrivilegios (Objeto o, Usuario u) throws ScoutException;
     public Objeto getObjetoActual(String nombreobj, long id) throws ScoutException;
     public String sha256(String rawString);

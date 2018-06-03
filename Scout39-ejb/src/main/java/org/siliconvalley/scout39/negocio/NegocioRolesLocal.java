@@ -36,7 +36,7 @@ public interface NegocioRolesLocal {
     
     public String getPDelete(Roles r, Objeto o);
     
-    public void crearRol(Roles rol);
+    public void crearRol(Roles rol) throws ScoutException;
     
     public void borrarRol(Roles rol);
         

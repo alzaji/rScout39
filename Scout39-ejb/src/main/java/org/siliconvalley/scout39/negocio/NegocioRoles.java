@@ -47,11 +47,11 @@ public class NegocioRoles implements NegocioRolesLocal {
     }
 
     @Override
-    public void crearRol(Roles rol) {
+    public void crearRol(Roles rol) throws ScoutException{
         try {
             em.merge(rol);
         } catch (RuntimeException r) {
-
+            throw new ScoutException("Ya existe ese rol");
         }
     }
 
@@ -70,11 +70,19 @@ public class NegocioRoles implements NegocioRolesLocal {
     }
     @Override
      public AccesoRecurso findAr(Roles rol, Objeto o){
-         Query q= em.createQuery("select ar from AccesoRecurso ar where ar.idObjeto=:ob and ar.idRol = :r ");
-         q.setParameter("r", rol);
-         q.setParameter("ob",o);
-         AccesoRecurso a= (AccesoRecurso)q.getSingleResult();
-         return a;
+        try {
+            Query q = em.createQuery("select ar from AccesoRecurso ar where ar.idObjeto=:ob and ar.idRol = :r ");
+            q.setParameter("r", rol);
+            q.setParameter("ob", o);
+            AccesoRecurso a = (AccesoRecurso) q.getSingleResult();
+            return a;
+        } catch (NoResultException e) {
+            
+            AccesoRecurso a = new AccesoRecurso();
+            a.setIdObjeto(o);
+            a.setIdRol(rol);
+            return a;
+        }
      }
 
     @Override
@@ -106,18 +114,31 @@ public class NegocioRoles implements NegocioRolesLocal {
 
     @Override
     public Privilegios find(String c, String r, String u, String d) {
-        Query q = em.createQuery("select p from privilegios p where ");
-        q.setParameter("cr", c);
-        q.setParameter("re", r);
-        q.setParameter("up", u);
-        q.setParameter("de", d);
-        Privilegios p = (Privilegios) q.getSingleResult();
-        return p;
+        try {
+            Query q = em.createQuery("select p from Privilegios p where p.crear = :cr and p.leer = :re and p.modificar = :up and p.borrar = :de");
+            q.setParameter("cr", c.charAt(0));
+            q.setParameter("re", r.charAt(0));
+            q.setParameter("up", u.charAt(0));
+            q.setParameter("de", d.charAt(0));
+            Privilegios p = (Privilegios) q.getSingleResult();
+            return p;
+        } catch (NoResultException e) {
+            
+            Privilegios p = new Privilegios();
+            p.setCrear(c.charAt(0));
+            p.setLeer(r.charAt(0));
+            p.setModificar(u.charAt(0));
+            p.setBorrar(d.charAt(0));
+            em.merge(p);
+            
+            return em.find(Privilegios.class, p);
+        }
     }
 
     @Override
     public void borrarRol(Roles rol) {
-        em.remove(rol);
+        Roles r = em.find(Roles.class, rol);
+        em.remove(r);
     }
     /*
      @Override

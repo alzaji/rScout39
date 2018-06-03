@@ -7,6 +7,8 @@ package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -15,6 +17,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.*;
 import org.siliconvalley.scout39.negocio.NegocioRolesLocal;
+import org.siliconvalley.scout39.negocio.ScoutException;
 
 /**
  *
@@ -100,29 +103,33 @@ public class beanRoles implements Serializable {
         }
     }
 
-    // public void modificarPrivilegio(Privilegio p, Roles rol, Objeto o){
-    //   roles.;
-    //}
     public String borrarRol(Roles rol) {
         roles.borrarRol(rol);
         return null;
     }
 
     public String crearRol() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String nombre = request.getParameter("formCrearRol:nombreR");
-        Roles r = new Roles();
-        r.setNombrerol(nombreRol);
-        roles.crearRol(r);
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String nombre = request.getParameter("formCrearRol:nombreR");
+            Roles r = new Roles();
+            r.setNombrerol(nombre);
+            roles.crearRol(r);
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+        }
         return null;
     }
 
-    public void updateRol(Roles rol, Objeto o) {
+    public void updateRol(Roles rol, Objeto o, int idxr, int idxo) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cre = request.getParameter("formModificarPrivilegio"+o+":modificarCreate");
-        String rea = request.getParameter("formModificarPrivilegio"+o+":modificarRead");
-        String upd = request.getParameter("formModificarPrivilegio"+o+":modificarUpdate");
-        String del = request.getParameter("formModificarPrivilegio"+o+":modificarDelete");
+        String cre = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Crear");
+        String rea = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Leer");
+        String upd = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Modificar");
+        String del = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Borrar");
         AccesoRecurso ar = roles.findAr(rol, o);
         Privilegios p = roles.find(cre, rea, upd, del);
         ar.setIdPrivilegio(p);
