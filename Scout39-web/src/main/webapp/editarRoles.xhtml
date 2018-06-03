@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <ui:composition template="templates/principal.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -58,7 +52,7 @@ and open the template in the editor.
                 <!--Table-->
                 <!--FILAS DE LA TABLA, EL CUERPO-->
 
-                <h:dataTable id="table" value="#{beanRoles.obtenerRoles()}" var="r" styleClass="table table-striped table-responsive-md btn-table">
+                <h:dataTable id="table" value="#{beanRoles.obtenerRoles()}" var="r"  styleClass="table table-striped table-responsive-md btn-table">
                     <!--Table head-->
                     <h:column>
                         <f:facet name="header">Código</f:facet>
@@ -70,103 +64,91 @@ and open the template in the editor.
                     </h:column>
                     <h:column>
                         <f:facet name="header">Modificar</f:facet>
-                        <button class="btn btn-orange btn-rounded mb-3" data-toggle="modal" data-target="#modalModificarRol#{r.id.toString()}">Modificar</button>
-                        <div class="modal fade" id="modalModificarRol#{r.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">Modificar Usuario</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">x</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body mx-3">
-                                        <c:forEach items="#{beanRoles.obtenerObjetos()}" var="o">
-                                            <h:form id="formModificarPrivilegio#{o.id.toString()}">
-                                                <!-- Material input text -->
-                                                <div class="md-form">                                                
-                                                    <h:outputText class="form-control" id="modificarNombre" value="#{o.nombre}"/>
-
+                        <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarRol#{r.id.toString()}">Modificar</button>
+                            <!-- row record -->
+                            <div class="modal fade" id="modalModificarRol#{r.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalModificarRolLabel"
+                                 aria-hidden="true ">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header btn-indigo white-text">
+                                            <h4 class="title">
+                                                <i class="fas fa-tasks"></i> Modificar Usuario</h4>
+                                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">x</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body mx-3">
+                                            <ui:repeat id ="Objeto" value="#{beanRoles.obtenerObjetos()}" var="obj" varStatus="objst">
+                                            <h:form id="formModificarRoles">
+                                                <h:outputLabel>#{obj.nombre}</h:outputLabel>
+                                                <div class="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Crear" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Crear (S/N)</h:outputLabel>
                                                 </div>
-                                                #{beanRoles.hasPriv(r, o)}
-                                                <c:choose >
-                                                    <c:when test="#{beanRoles.peine}" >
-                                                        <div class="md-form">
-                                                            #{beanRoles.setCRUD(r, o)}
-                                                            #{beanRoles.setInverso(r, o)}
-                                                            <select class="custom-select" id="modificarCreate">
-                                                                <option selected="selected"  value="#{beanRoles.c}">#{beanRoles.c}</option>
-                                                                <option value="#{beanRoles.cI}">#{beanRoles.cI}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarRead">
-                                                                <option selected="selected"  value="#{beanRoles.re}">#{beanRoles.re}</option>
-                                                                <option value="#{beanRoles.reI}">#{beanRoles.reI}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarUpdate">
-                                                                <option selected="selected"  value="#{beanRoles.u}">#{beanRoles.u}</option>
-                                                                <option value="#{beanRoles.uI}">#{beanRoles.uI}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarDelete">
-                                                                <option selected="selected"  value="#{beanRoles.pDelete(r, o)}">#{beanRoles.priv}</option>
-                                                                <option value="#{beanRoles.pInverso(beanRoles.priv)}">#{beanRoles.pInverso(beanRoles.priv)}</option>
-                                                            </select>
-                                                        </div>  
-
-                                                    </c:when>
-
-                                                    <c:otherwise > 
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarCreate">
-                                                                <option selected="selected" value="N">N</option>
-                                                                <option value="S">S</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarRead">
-                                                                <option selected="selected" value="N">N</option>
-                                                                <option value="S">S</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarUpdate">
-                                                                <option selected="selected" value="N">N</option>
-                                                                <option value="S">S</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="md-form">
-                                                            <select class="custom-select" id="modificarDelete">
-                                                                <option selected="selected" value="N">N</option>
-                                                                <option value="S">S</option>
-                                                            </select>
-                                                        </div>
-
-
-
-
-                                                    </c:otherwise>
-                                                </c:choose>
-
+                                                <div class="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Leer" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Borrar (S/N)</h:outputLabel>
+                                                </div>
+                                                <div class ="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Modificar" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Modificar (S/N)</h:outputLabel>
+                                                </div>    
+                                                <div class ="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Borrar"required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Borrar (S/N)</h:outputLabel>
+                                                </div>                                                    
                                                 <div class="text-center mt-4">
-                                                    <h:commandButton class="btn btn-orange" value="Modificar" />
+                                                    <h:commandButton class="btn btn-indigo" value="Modificar" type="submit" action="#{beanRoles.updateRol(r, obj, beanRoles.obtenerRoles().indexOf(r),objst.index)}"/>
                                                 </div>
                                             </h:form>
-                                        </c:forEach>
+                                            </ui:repeat>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Borrar</f:facet>
                         <!-- row record -->
                         <button class="btn btn-danger btn-rounded mb-3" data-toggle="modal" data-target="#removeModal#{r.id.toString()}">Eliminar</button>
+                        <div class="modal fade" id="removeModal#{r.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <!--Header-->
+                                    <div class="modal-header danger-color white-text">
+                                        <h4 class="title">
+                                            <i class="fa fa-trash"></i> Eliminar Rol</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="text-align: center;">¿Está seguro que desea eliminar este Rol?</p>
+                                    </div>
+                                    <h:form>
+                                        <div class="modal-footer">                                
+                                            <h:commandButton class="btn btn-blue" value="Borrar" action="#{beanRoles.borrarRol(r)}"></h:commandButton>
+                                            <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
+                                        </div>
+                                    </h:form>
+
+                                </div>
+                            </div>
+                        </div>
                     </h:column>
+
                     <!--Table head-->
 
                     <!--FILAS DE LA TABLA, EL CUERPO-->

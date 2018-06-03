@@ -40,11 +40,13 @@ public class ControlUsuario implements Serializable {
     @EJB
     private NegocioLogin registrar;
 
-    private Usuario usuario;
+    private Usuario usuario;    
     private Grupo group = new Grupo();
     private Roles roles = new Roles();
     protected String pal;
     protected boolean update = false;
+    @Inject
+    private ControlAutorizacion controlAutorizacion;
 
     public ControlUsuario() {
     }
@@ -104,6 +106,14 @@ public class ControlUsuario implements Serializable {
         return "editarUsuario.xhtml";
     }
 
+    public void cambiarPass(){
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        String pass = request.getParameter("cambiarContraseña:nuevapass"); 
+        Usuario u = controlAutorizacion.getUsuario();
+        
+        users.cambiarPassword(u, pass);                
+    }
+    
     public String doModificarUsuario(Usuario u, int index) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         String alias = request.getParameter("table:" + index + ":formModificarUsuario:modificarAlias");

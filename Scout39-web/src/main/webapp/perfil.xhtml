@@ -46,6 +46,10 @@
                                             <td>Fecha Alta</td>
                                             <td>#{controlAutorizacion.usuario.fecha_alta}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Cambiar contraseña</td>
+                                            <td><button data-toggle="modal" data-target="#modalCambiarContraseña"><i class="fas fa-key"></i></button></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -65,13 +69,13 @@
                                     <div class="row mt-3">
                                         <h5 class="text-info col-3">Participacion</h5>
                                         <div class="progress col-sm-6">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: #{beanEventos.participacion}" aria-valuenow="#{beanEventos.participacion}" aria-valuemin="0" aria-valuemax="100">#{beanEventos.participacion}%</div>
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: #{beanEventos.participacion}%" aria-valuenow="#{beanEventos.participacion}" aria-valuemin="0" aria-valuemax="100">#{beanEventos.participacion}%</div>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <h5 class="text-warning col-3">Integracion</h5>
                                         <div class="progress col-sm-6">
-                                            <div class="progress-bar bg-warning" role="progressbar" style="width: #{beanEventos.integracion}" aria-valuenow="#{beanEventos.integracion}" aria-valuemin="0" aria-valuemax="100">#{beanEventos.integracion}%</div>
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: #{beanEventos.integracion}%" aria-valuenow="#{beanEventos.integracion}" aria-valuemin="0" aria-valuemax="100">#{beanEventos.integracion}%</div>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +159,7 @@
              aria-hidden="true ">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header btn-indigo white-text">
+                    <div class="modal-header btn-secondary white-text">
                         <h4 class="title">
                             <i class="fas fa-exchange-alt"></i> Cambiar Contraseña</h4>
                         <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
@@ -164,16 +168,22 @@
                     </div>
                     <h:form id="cambiarContraseña">
                         <div class="modal-body mx-3">
-                            <div class="md-form">
-                                <i class="fa fa-font prefix grey-text"></i>
-                                <h:inputText class="form-control" id="contraseñaAntigua"/>
-                                <h:outputLabel>Contraseña Antigua</h:outputLabel>
-                            </div>                            
+                            <div class="md-form pr-2">                                                
+                                <h:inputSecret class="form-control" id="nuevapass"/>
+                                <h:outputLabel>Nueva contraseña</h:outputLabel>
+                            </div>                           
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <h:commandButton class="btn btn-secondary" value="Guardar" action="#{controlUsuario.cambiarPass()}"/>
                         </div>
                     </h:form>
                 </div>
             </div>
         </div>  
 
+        
+        
+        
     </ui:define>
 </ui:composition>

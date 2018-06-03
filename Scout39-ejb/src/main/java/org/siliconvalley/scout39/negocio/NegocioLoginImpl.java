@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.AccesoGrupo;
@@ -93,6 +94,22 @@ public class NegocioLoginImpl implements NegocioLogin {
         }
     }
 
+    @Override
+    public Grupo getGrupofromString(String nombre) throws ScoutException {
+        
+        try{
+            
+            Query q = em.createQuery("Select g from Grupo g where g.nombre = :nombre");
+            q.setParameter("nombre", nombre);
+            Grupo g = (Grupo) q.getSingleResult();
+            return g;
+            
+        }catch (NoResultException ex){
+            throw new ScoutException("No se encontro el grupo");
+        }
+    }
+
+    
     @Override
     public Privilegios checkPrivilegios(Objeto o, Usuario u) throws ScoutException {
 

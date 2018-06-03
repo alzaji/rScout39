@@ -16,19 +16,19 @@ import org.siliconvalley.scout39.modelo.*;
 @Local
 public interface NegocioEventosLocal {
     
-    public Eventos buscarEvento(Eventos evento); 
-    public void crearEvento(Eventos e, Long idGrupo);
-    public void borrarEvento(Eventos e);
-    public Eventos modificarEvento(Eventos e);
+    public Eventos buscarEvento(Eventos evento) throws ScoutException; 
+    public void crearEvento(Eventos e, Long idGrupo) throws ScoutException;
+    public void borrarEvento(Eventos e) throws ScoutException ;
+    public Eventos modificarEvento(Eventos e) throws ScoutException;
     public List<Eventos> eventosProximos(Long idGrupo);
     public List<Eventos> eventosPasados(Long idGrupo);
     public List<Comentarios> listaComentarios(Long idGrupo, Eventos e);
     public List<Comentarios> listaRespuestasComentarios(Comentarios c); 
-    public void nuevoComentario(Comentarios c);
-    public void respuestaComentario(Comentarios c);
+    public void nuevoComentario(Comentarios c) throws ScoutException;
+    public void respuestaComentario(Comentarios c) throws ScoutException;
     public List<Progresion> obtenerParticipantes(Eventos e);
-    public void asistirEvento(Usuario u, Eventos e);
-    public void noAsistirEvento(Usuario u, Eventos e);
+    public void asistirEvento(Usuario u, Eventos e) throws ScoutException;
+    public void noAsistirEvento(Usuario u, Eventos e) throws ScoutException;
     public boolean comprobarAsistencia(Usuario u, Eventos e);
     public void rellenarProgresion(Progresion p);
     public List<Progresion> mediaProgresion(Usuario u);

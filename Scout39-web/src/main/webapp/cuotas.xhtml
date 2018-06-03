@@ -4,72 +4,65 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-    <ui:define name="title">Coordinador</ui:define>    
+    <ui:define name="title">Cuotas</ui:define>    
     <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
     <ui:define name="link2"><h:link class="nav-link text-white" outcome="documentos.xhtml" value="Gestor Documental"/></ui:define> 
     <ui:define name="link3"><h:link class="nav-link text-white" outcome="editarRoles.xhtml" value="Roles"/></ui:define>
     <ui:define name="link4"><h:link class="nav-link text-white" outcome="crearUsuario.xhtml" value="Crear nuevo usuario"/></ui:define>
     <ui:define name="link5"><h:link class="nav-link text-white" outcome="cuotas.xhtml" value="Cuotas"/></ui:define>
-    
-    <ui:define name="seccionnav">Editar Usuario</ui:define>
-    <ui:define name="tablaUsuarios">
+        
+    <ui:define name="cuotaCoord">
 
         <center>             
                 
             <div class="input-group col-md-8 mt-4 mb-4">
                 <h:form>
-                    <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar alias..." value="#{controlUsuario.pal}" > 
-                        <f:ajax event="keyup" listener="#{controlUsuario.searchListUser()}" render="table"/>
+                    <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar concepto..." value="#{controlUsuario.pal}" > 
+                        <f:ajax event="keyup" listener="#{beanCoutas.searchListUser()}" render="table"/>
                     </h:inputText>
                 </h:form>                
             </div>
 
             <div class="container col-8">
-                <h:dataTable id="table" value="#{controlUsuario.listarUsuarios()}" var="u" styleClass="table table-striped table-responsive-md btn-table">                    
+                <h:dataTable id="table" value="#{beanCuotas.listarCuotas()}" var="u" styleClass="table table-striped table-responsive-md btn-table">                    
                     
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Código</f:facet>
+                    <f:facet name="header">Id</f:facet>
                     <!-- row record -->
                     #{u.id.toString()}
                 </h:column>
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Nombre</f:facet>
+                    <f:facet name="header">Tipo</f:facet>
                     <!-- row record -->
-                    #{u.nombre}
+                    #{u.tipo}
                 </h:column>
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Apellidos</f:facet>
+                    <f:facet name="header">Importe</f:facet>
                     <!-- row record -->
-                    #{u.apellidos}
+                    #{u.importe}
                 </h:column>
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Alias</f:facet>
+                    <f:facet name="header">Concepto</f:facet>
                     <!-- row record -->
-                    #{u.alias}
+                    #{u.concepto}
                 </h:column>
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Email</f:facet>
+                    <f:facet name="header">Fecha Cuota</f:facet>
                     <!-- row record -->
-                    #{u.email}
-                </h:column>  
-                <h:column>
-                    <!-- column header -->
-                    <f:facet name="header">Grupo</f:facet>
-                    <!-- row record -->
-                    #{u.roles.nombrerol}
+                    #{u.fecha_cuota}
                 </h:column>
                 <h:column>
                     <!-- column header -->
-                    <f:facet name="header">Rol</f:facet>
+                    <f:facet name="header">Estado</f:facet>
                     <!-- row record -->
-                    #{u.roles.nombrerol}
+                    #{u.estado}
                 </h:column>
                 <h:column>
                     <!-- column header -->
@@ -137,13 +130,13 @@
                             <!--Header-->
                             <div class="modal-header danger-color white-text">
                                 <h4 class="title">
-                                    <i class="fa fa-trash"></i> Eliminar usuario</h4>
+                                    <i class="fa fa-trash"></i> Eliminar cuota</h4>
                                 <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p style="text-align: center;">¿Está seguro que desea eliminar este usuario?</p>
+                                <p style="text-align: center;">¿Está seguro que desea eliminar esta cuota?</p>
                             </div>
                             <h:form>
                                 <div class="modal-footer">                                
