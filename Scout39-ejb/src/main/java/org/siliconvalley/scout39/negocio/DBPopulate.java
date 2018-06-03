@@ -48,6 +48,8 @@ public class DBPopulate {
         // Privilegios
         Privilegios crud = new Privilegios();
         Privilegios read = new Privilegios();
+        Privilegios none = new Privilegios();
+        
 
         crud.setCrear('S');
         crud.setLeer('S');
@@ -58,9 +60,15 @@ public class DBPopulate {
         read.setLeer('S');
         read.setModificar('N');
         read.setBorrar('N');
+        
+        none.setCrear('N');
+        none.setLeer('N');
+        none.setModificar('N');
+        none.setBorrar('N');
 
         em.persist(crud);
         em.persist(read);
+        em.persist(none);
 
         // Roles y privilegios
         List<Privilegios> priv = new ArrayList<>();

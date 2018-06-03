@@ -16,7 +16,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import org.siliconvalley.scout39.modelo.*;
-import org.siliconvalley.scout39.negocio.NegocioCuotas;
+import org.siliconvalley.scout39.negocio.NegocioCuotasLocal;
+
 
 /**
  *
@@ -30,7 +31,7 @@ public class beanCuotas {
     protected boolean update = false;
 
     @EJB
-    private NegocioCuotas cuotas;
+    private NegocioCuotasLocal cuotas;
 
     public beanCuotas() {
     }
@@ -59,7 +60,7 @@ public class beanCuotas {
         return cuotas.listaCuotas();
     }
 
-    public void searchListUser() {
+    public void searchList() {
         update = true;
         listarCuotas();
     }

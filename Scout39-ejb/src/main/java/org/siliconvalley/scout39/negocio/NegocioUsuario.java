@@ -5,6 +5,8 @@
  */
 package org.siliconvalley.scout39.negocio;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,14 +24,14 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
 
     @PersistenceContext(unitName = "Scout39MPU")
     private EntityManager em;
-
+ 
     @Override
     public List<Usuario> listaUsuarios() {
         Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.fecha_baja IS null");
         List<Usuario> usuarios = (List<Usuario>) q.getResultList();
         return usuarios;
     }
-
+    
     @Override
     public List<Usuario> listaUsuariosAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
@@ -50,8 +52,7 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
     }
 
     @Override
-    public void modificarUsuario(Usuario u) {
-        System.out.println("Alias: ------------------------------------------------>" + u.getAlias());
+    public void modificarUsuario(Usuario u) {        
         Usuario user = em.find(Usuario.class, u.getId());
         user.setAlias(u.getAlias());
         user.setApellidos(u.getApellidos());
@@ -78,4 +79,33 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
         return lista;
     }
 
+    @Override
+    public void cambiarPassword(Usuario u, String nueva) {
+        String digestNuevo = sha256(nueva);
+        Usuario user = em.find(Usuario.class, u.getId());
+        user.setDigest(digestNuevo);
+        em.merge(user);
+        
+    }
+
+    @Override
+    public String sha256(String rawString) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(rawString.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte hashByte : hash) {
+                String hex = Integer.toHexString(0xff & hashByte);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

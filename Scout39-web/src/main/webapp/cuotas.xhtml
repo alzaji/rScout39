@@ -1,0 +1,79 @@
+<ui:composition template="templates/principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:define name="title">Cuotas</ui:define>    
+    <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
+    <ui:define name="link2"><h:link class="nav-link text-white" outcome="documentos.xhtml" value="Gestor Documental"/></ui:define> 
+    <ui:define name="link3"><h:link class="nav-link text-white" outcome="editarRoles.xhtml" value="Roles"/></ui:define>
+    <ui:define name="link4"><h:link class="nav-link text-white" outcome="crearUsuario.xhtml" value="Crear nuevo usuario"/></ui:define>
+    <ui:define name="link5"><h:link class="nav-link text-white" outcome="cuotas.xhtml" value="Cuotas"/></ui:define>
+        
+    <ui:define name="cuotaCoord">
+
+        <center>             
+                
+            <div class="input-group col-md-8 mt-4 mb-4">
+                <h:form>
+                    <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar concepto..." > 
+                        <f:ajax event="keyup" listener="#{beanCuotas.searchListCuotas()}" render="table"/>
+                    </h:inputText>
+                </h:form>                
+            </div>
+
+            <div class="container col-8">
+                <h:dataTable id="table" value="#{beanCuotas.listarCuotas()}" var="u" styleClass="table table-striped table-responsive-md btn-table">                    
+                    
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Id</f:facet>
+                    <!-- row record -->
+                    #{u.id.toString()}
+                </h:column>
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Tipo</f:facet>
+                    <!-- row record -->
+                    #{u.tipo}
+                </h:column>
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Importe</f:facet>
+                    <!-- row record -->
+                    #{u.importe}
+                </h:column>
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Concepto</f:facet>
+                    <!-- row record -->
+                    #{u.concepto}
+                </h:column>
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Fecha Cuota</f:facet>
+                    <!-- row record -->
+                    #{u.fecha_cuota}
+                </h:column>
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Estado</f:facet>
+                    <!-- row record -->
+                    #{u.estado}
+                </h:column>                                                                                                     
+                    
+            </h:dataTable>   
+            </div>                 
+        </center>
+               
+
+    </ui:define>
+
+
+
+
+    <ui:define name="sectionh">Novedades</ui:define>
+</ui:composition>

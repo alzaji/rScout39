@@ -19,47 +19,136 @@
             <div class="carousel-inner" role="listbox">
                 <!--First slide-->
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="./resources/img/coord.jpg" alt="First slide"/>
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
                 </div>
                 <!--/First slide-->
             </div>
             <!--/.Slides-->
         </div>
         <!--/.Carousel Wrapper-->
-
-        <h:form id="cUsuario">
-
-            <div class="container">
-                <div class="row mt-4 pt-4">
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
-                        <h:inputText class="form-control" id="nombre"/>
-                        <h:outputLabel>Nombre</h:outputLabel>
+        
+        <h:form id="crearUsuarioS03">
+        
+        <div class="container">
+            <div class="row mt-4 pt-4">
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="nombre"/>
+                    <h:outputLabel>Nombre</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="apellido1"/>
+                    <h:outputLabel>Primer apellido</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="apellido2"/>
+                    <h:outputLabel>Segundo Apellido</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="alias"/>
+                    <h:outputLabel>Alias</h:outputLabel>
+                </div>
+                                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="email"/>
+                    <h:outputLabel>Email</h:outputLabel>
+                </div>
+                
+                <div class="md-form pr-2">  
+                    <div class="md-form pr-2">
+                        <h:outputLabel>Grupo</h:outputLabel>
                     </div>
+                    <h:selectOneMenu class="custom-select form-control mb-2 mr-sm-2 text-center" id="grupo"> 
+                                    <f:selectItem itemValue = "0" itemLabel = "SYRYU" /> 
+                                    <f:selectItem itemValue = "1" itemLabel = "THA" /> 
+                                    <f:selectItem itemValue = "2" itemLabel = "KYM"/>
+                                    <f:selectItem itemValue = "3" itemLabel = "ALMOGAMA"/>
+                                </h:selectOneMenu>
+                </div>
+                
+            </div>
+            
+            <br></br>
+            <br></br>
+            <br></br>
+            
+            <div class="row">
+                <!-- Grid column 
+                <div class="input-group col-md-3 mt-4 mb-4">
+                    <select class="custom-select" id="grupo">
+                        <option selected="selected">Grupo</option>
+                        <option value="Manada de Tha">Manada de Tha</option>
+                        <option value="Tropa de Kim">Tropa de Kim</option>
+                        <option value="Unidad Esculta Siryu">Unidad Esculta Siryu</option>
+                        <option value="Clan Rover Almogama">Clan Rover Almogama</option>
+                    </select>
+                </div>-->
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="dni"/>
+                    <h:outputLabel>DNI-NIF</h:outputLabel>
+                </div>
+                                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="fechaNacimiento"/>
+                    <h:outputLabel>Fecha Nacimiento</h:outputLabel>
+                </div>
+                                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="direccion"/>
+                    <h:outputLabel>Dirección</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="localidad"/>
+                    <h:outputLabel>Localidad</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="provincia"/>
+                    <h:outputLabel>Provincia</h:outputLabel>
+                </div>                                
+            </div>
+            
+            
+            
+            <!--FILA 3-->
+            <div class="row">
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="telefono"/>
+                    <h:outputLabel>Teléfono</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="movil"/>
+                    <h:outputLabel>Móvil</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="seccion"/>
+                    <h:outputLabel>Sección</h:outputLabel>
+                </div>
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="cargo"/>
+                    <h:outputLabel>Cargo</h:outputLabel>
 
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
-                        <h:inputText class="form-control" id="apellido1"/>
-                        <h:outputLabel>Primer apellido</h:outputLabel>
-                    </div>
-
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
-                        <h:inputText class="form-control" id="apellido2"/>
-                        <h:outputLabel>Segundo Apellido</h:outputLabel>
-                    </div>
-
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
-                        <h:inputText class="form-control" id="alias"/>
-                        <h:outputLabel>Alias</h:outputLabel>
-                    </div>
-
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">                                                
-                        <h:inputText class="form-control" id="email"/>
-                        <h:outputLabel>Email</h:outputLabel>
-                    </div>                                
                 </div>
 
                 <br></br>
@@ -185,6 +274,7 @@
                         <h:outputLabel>DNI responsable</h:outputLabel>
                     </div>                                                
                 </div>
+<<<<<<< HEAD
 
                 <div class="row mb-4 pb-4">
                     <div class="text-center mt-4">
@@ -192,6 +282,22 @@
                             <i class="fa fa-paper-plane ml-2 text-secondary"></i>
                         </button>
                     </div>
+=======
+                
+                <!-- Material input text -->
+                <div class="md-form pr-2">                                                
+                    <h:inputText class="form-control" id="dniResponsable"/>
+                    <h:outputLabel>DNI responsable</h:outputLabel>
+                </div>                                                
+            </div>
+            
+            <div class="row mb-4 pb-4">
+                <div class="text-center mt-4">
+<!--                    <button class="btn btn-outline-secondary" type="submit">Enviar
+                        <i class="fa fa-paper-plane ml-2 text-secondary"></i>
+                    </button>-->
+                    <h:commandButton class="btn btn-outline-secondary" type="submit" value="Enviar" action="#{beanS03Usuario.createUser()}"/>
+>>>>>>> 6bfec32bcba24c990a5795d358d75bef396e319f
                 </div>
 
             </div>

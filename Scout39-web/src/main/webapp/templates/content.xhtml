@@ -13,7 +13,7 @@
     <c:choose>
         <c:when test="#{empty controlAutorizacion.usuario}">
             <ui:insert name="contenidonolog">
-                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/scout.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/wallpaper.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
                     <!-- Mask & flexbox options-->
                     <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
                         <!-- Content -->
@@ -106,52 +106,41 @@
             </ui:insert>
         </c:when>
         <c:when test="#{controlAutorizacion.usuario.roles.nombrerol == 'Coordinador'}">
-            <!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-                         Mask & flexbox options
-                        <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                             Content 
-                            <div class="container">
-                                Grid row
-                                <div class="row wow fadeIn">
-                                    Grid column
-                                    <div class="col-md-12 text-center">
-                                        <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                                    </div>
-                                    Grid column
-                                </div>
-                                Grid row
-                            </div>
-                             Content 
-                        </div>
-                          Mask & flexbox options
-                    </div>-->
+                     <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
+                </div>
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
+
+        </div>
             <ui:insert name="eventos"/>
             <ui:insert name="perfil" />
             <ui:insert name="tablaUsuarios"/>            
             <ui:insert name="GestorDocumental"/>
             <ui:insert name="promesas"/>
             <ui:insert name="crearUsuario"/>
+            <ui:insert name="cuotaCoord"/>
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Clan Rover Almogama'}">
-            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-                             Mask & flexbox options
-                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                                 Content 
-                                <div class="container">
-                                    Grid row
-                                    <div class="row wow fadeIn">
-                                        Grid column
-                                        <div class="col-md-12 text-center">
-                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                                        </div>
-                                        Grid column
-                                    </div>
-                                    Grid row
-                                </div>
-                                 Content 
-                            </div>
-                             Mask & flexbox options
-                        </div>-->
+            <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
+                </div>
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
+
+        </div>
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
@@ -159,75 +148,57 @@
 
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Manada de Tha'}">
-            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-                             Mask & flexbox options
-                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                                 Content 
-                                <div class="container">
-                                    Grid row
-                                    <div class="row wow fadeIn">
-                                        Grid column
-                                        <div class="col-md-12 text-center">
-                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                                        </div>
-                                        Grid column
-                                    </div>
-                                    Grid row
-                                </div>
-                                 Content 
-                            </div>
-                             Mask & flexbox options
-                        </div>-->
+           <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
+                </div>
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
+
+        </div>
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
             <ui:insert name="GestorDocumental"/>
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Unidad Esculta Siryu'}">
-            <!--                <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg1.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-                         Mask & flexbox options
-                        <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                             Content 
-                            <div class="container">
-                                Grid row
-                                <div class="row wow fadeIn">
-                                    Grid column
-                                    <div class="col-md-12 text-center">
-                                        <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                                    </div>
-                                    Grid column
-                                </div>
-                                Grid row
-                            </div>
-                             Content 
-                        </div>
-                         Mask & flexbox options
-                    </div>
+            <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
+                </div>
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
+
+        </div>
                      DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>
             <ui:insert name="GestorDocumental"/>
         </c:when>
         <c:when test="#{controlAutorizacion.grupo.nombre eq 'Tropa de Kim'}">
-            <!--            <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('./resources/img/bg.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-                             Mask & flexbox options
-                            <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-                                 Content 
-                                <div class="container">
-                                    Grid row
-                                    <div class="row wow fadeIn">
-                                        Grid column
-                                        <div class="col-md-12 text-center">
-                                            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp"><ui:insert name="seccionnav"></ui:insert></h1>                                    
-                                        </div>
-                                        Grid column
-                                    </div>
-                                    Grid row
-                                </div>
-                                 Content 
-                            </div>
-                             Mask & flexbox options
-                        </div>-->
+            <!--Carousel Wrapper-->
+        <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+                <!--First slide-->
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="./resources/img/scout.jpg" alt="First slide"/>
+                </div>
+                <!--/First slide-->
+            </div>
+            <!--/.Slides-->
+
+        </div>
             <!-- DEFINIR CONTENIDO AQUÍ -->
             <ui:insert name="perfil" />
             <ui:insert name="eventos"/>

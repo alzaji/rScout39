@@ -1,15 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <ui:composition template="templates/principal.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 
 
     <ui:define name="title">Coordinador</ui:define>    
@@ -21,79 +17,149 @@ and open the template in the editor.
 
         <center> 
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-default mt-4" data-toggle="modal" data-target="#exampleModal">
+            <button type="button" class="btn btn-default mt-4" data-toggle="modal" data-target="#crearRol">
                 Crear nuevo rol
-            </button>         
+            </button> 
+            <div class="modal fade" id="crearRol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Modificar Usuario</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                        </div>
+                        <div class="modal-body mx-3">
+                            <h:form id="formCrearRol">
+                                <!-- Material input text -->
+                                <div class="md-form">                                                
+                                    <h:inputText class="form-control" id="nombreR" />
+                                    <h:outputLabel>Nombre Rol</h:outputLabel>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <h:commandButton class="btn btn-orange" value="Crear" action="#{beanRoles.crearRol()}"/>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div class="col-md-8">
                 <!--Table-->
-                <table class="table table-striped table-responsive-md btn-table">
+                <!--FILAS DE LA TABLA, EL CUERPO-->
 
+                <h:dataTable id="table" value="#{beanRoles.obtenerRoles()}" var="r"  styleClass="table table-striped table-responsive-md btn-table">
                     <!--Table head-->
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
-                        </tr>
-                    </thead>
+                    <h:column>
+                        <f:facet name="header">Código</f:facet>
+                            #{r.id.toString()}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Nombre</f:facet>
+                            #{r.nombrerol.toString()}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Modificar</f:facet>
+                        <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarRol#{r.id.toString()}">Modificar</button>
+                            <!-- row record -->
+                            <div class="modal fade" id="modalModificarRol#{r.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalModificarRolLabel"
+                                 aria-hidden="true ">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header btn-indigo white-text">
+                                            <h4 class="title">
+                                                <i class="fas fa-tasks"></i> Modificar Usuario</h4>
+                                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">x</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body mx-3">
+                                            <ui:repeat id ="Objeto" value="#{beanRoles.obtenerObjetos()}" var="obj" varStatus="objst">
+                                            <h:form id="formModificarRoles">
+                                                <h:outputLabel>#{obj.nombre}</h:outputLabel>
+                                                <div class="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Crear" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Crear (S/N)</h:outputLabel>
+                                                </div>
+                                                <div class="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Leer" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Borrar (S/N)</h:outputLabel>
+                                                </div>
+                                                <div class ="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Modificar" required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Modificar (S/N)</h:outputLabel>
+                                                </div>    
+                                                <div class ="md-form">
+                                                    <i class="fa fa-compass prefix grey-text"></i>
+                                                    <h:inputText class="form-control" id="Borrar"required="true" validatorMessage="Introduzca S o N">
+                                                        <f:validateRegex pattern="[SN]{1}"/>
+                                                    </h:inputText>
+                                                    <h:outputLabel>Borrar (S/N)</h:outputLabel>
+                                                </div>                                                    
+                                                <div class="text-center mt-4">
+                                                    <h:commandButton class="btn btn-indigo" value="Modificar" type="submit" action="#{beanRoles.updateRol(r, obj, beanRoles.obtenerRoles().indexOf(r),objst.index)}"/>
+                                                </div>
+                                            </h:form>
+                                            </ui:repeat>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Borrar</f:facet>
+                        <!-- row record -->
+                        <button class="btn btn-danger btn-rounded mb-3" data-toggle="modal" data-target="#removeModal#{r.id.toString()}">Eliminar</button>
+                        <div class="modal fade" id="removeModal#{r.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <!--Header-->
+                                    <div class="modal-header danger-color white-text">
+                                        <h4 class="title">
+                                            <i class="fa fa-trash"></i> Eliminar Rol</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="text-align: center;">¿Está seguro que desea eliminar este Rol?</p>
+                                    </div>
+                                    <h:form>
+                                        <div class="modal-footer">                                
+                                            <h:commandButton class="btn btn-blue" value="Borrar" action="#{beanRoles.borrarRol(r)}"></h:commandButton>
+                                            <button type="button" class="btn btn-danger btn-sm my-0" data-dismiss="modal" >Cancelar</button>
+                                        </div>
+                                    </h:form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </h:column>
+
                     <!--Table head-->
 
                     <!--FILAS DE LA TABLA, EL CUERPO-->
 
-                    <c:forEach  items="#{login.roles}" var="roles">                        
-                        <tbody>
-                            <tr>
-                                <th scope="row" >#{roles.id}</th>
-                                <td>#{roles.nombrerol}</td>
 
-                                <td>                                    
-                                    <button type="button" class="btn btn-orange btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#modalEditRol#{roles.id.toString()}">Modificar</button>
-                                </td>      
-                                <td>
-                                    <button type="button" class="btn btn-danger btn-rounded mb-4 btn-sm my-0" data-toggle="modal" data-target="#removeModal">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <!--Modal: Edit USER-->
-                        <div class="modal fade" id="modalEditRol#{roles.id.toString()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header text-center">
-                                        <h4 class="modal-title w-100 font-weight-bold">Modificar Rol</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">x</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body mx-3">
-                                        <h:form id="formEditRol#{roles.id.toString()}">
-                                            <!-- Material input text -->
-                                            <div class="md-form">
-                                                <i class="fa prefix grey-text"></i>
-                                                <h:inputText class="form-control" id="modificarNombre" value="#{roles.idrol}"/>
-                                                <h:outputLabel>Nombre</h:outputLabel>
-                                            </div>
-
-                                            <div class="md-form">
-                                                <i class="fa prefix grey-text"></i>
-                                                <h:inputText class="form-control" id="modificarRol" value="#{roles.nombrerol}"/>
-                                                <h:outputLabel>Rol</h:outputLabel>
-                                            </div>
-
-                                            <div class="text-center mt-4">
-                                                <h:commandButton  class="btn btn-orange" value="Modificar Usuario" action="#{controlUsuario.doModificarUsuario(usuario)}"/>
-                                            </div>
-                                        </h:form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </c:forEach> 
                     <!--Table body-->
 
-                </table>
+
+
+                </h:dataTable>   
+
 
                 <!--Table-->
 
