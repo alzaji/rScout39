@@ -18,12 +18,14 @@ import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.*;
 import org.siliconvalley.scout39.negocio.NegocioEventos;
 import org.siliconvalley.scout39.negocio.NegocioEventosLocal;
+import org.siliconvalley.scout39.negocio.ScoutException;
 
 /**
  *
@@ -87,8 +89,16 @@ public class beanEventos implements Serializable {
     }
 
     public String buscarEvento(Eventos evento) {
-        infoEvento = eventos.buscarEvento(evento);
-        return "evento.xhtml?faces-redirect=true";
+        try {
+            infoEvento = eventos.buscarEvento(evento);
+            return "evento.xhtml?faces-redirect=true";
+
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+        }
     }
 
     public List<Comentarios> doObtenerComentarios(Eventos e) {
@@ -108,64 +118,63 @@ public class beanEventos implements Serializable {
     }
 
     public void doAsistirEvento(Eventos e) {
-        eventos.asistirEvento(control.getUsuario(), e);
-        //return "siryu.xhtml?faces-redirect=true";
+        try {
+            eventos.asistirEvento(control.getUsuario(), e);
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+        }
+
     }
 
     public void doNoAsistirEvento(Eventos e) {
-        eventos.noAsistirEvento(control.getUsuario(), e);
-        //return "siryu.xhtml?faces-redirect=true";        
+        try {
+            eventos.noAsistirEvento(control.getUsuario(), e);
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+        }
+
     }
 
     public String doNuevoComentario(Eventos e) {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cuerpo = request.getParameter("formComentarioEvento:cuerpoComentario");
-        Comentarios c = new Comentarios();
-        c.setUsuario(control.getUsuario());
-        c.setCuerpo(cuerpo);
-        c.setEventoC(e);
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String cuerpo = request.getParameter("formComentarioEvento:cuerpoComentario");
+            Comentarios c = new Comentarios();
+            c.setUsuario(control.getUsuario());
+            c.setCuerpo(cuerpo);
+            c.setEventoC(e);
 
-        eventos.nuevoComentario(c);
+            eventos.nuevoComentario(c);
 
-        return "evento.xhtml?faces-redirect=true";
+            return "evento.xhtml?faces-redirect=true";
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+        }
     }
 
     public String doRespuestaComentario(Eventos e, Comentarios c, int indice) {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cuerpo = request.getParameter("Cpadre:" + indice + ":formRespuestaComentarioEvento:cuerpoRespuestaComentario");
-        Comentarios respuesta = new Comentarios();
-        respuesta.setUsuario(control.getUsuario());
-        respuesta.setCuerpo(cuerpo);
-        respuesta.setEventoC(e);
-        respuesta.setRespuesta(c);
-        eventos.respuestaComentario(respuesta);
-        return "evento.xhtml?faces-redirect=true";
-    }
-
-    public String doBorrarEvento(Eventos e) {
-        switch (control.getUsuario().getRoles().getNombrerol()) {
-            case "ScouterTHA":
-                eventos.borrarEvento(e);
-                return "tha.xhtml?faces-redirect=true";
-            case "ScouterKIM":
-                eventos.borrarEvento(e);
-                return "kim.xhtml?faces-redirect=true";
-            case "Scouter":
-                try {
-                    if (control.getGrupo().getNombre().equals("Unidad Esculta Siryu")) {
-                        //userTransaction.begin();
-                        eventos.borrarEvento(e);
-                        //userTransaction.commit();
-                    }
-                } catch (Exception re) {
-                    Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
-                }
-                return "siryu.xhtml?faces-redirect=true";
-            case "ScouterALMOGAMA":
-                eventos.borrarEvento(e);
-                return "almogama.xhtml?faces-redirect=true";
-            default:
-                return "index.xhtml";
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String cuerpo = request.getParameter("Cpadre:" + indice + ":formRespuestaComentarioEvento:cuerpoRespuestaComentario");
+            Comentarios respuesta = new Comentarios();
+            respuesta.setUsuario(control.getUsuario());
+            respuesta.setCuerpo(cuerpo);
+            respuesta.setEventoC(e);
+            respuesta.setRespuesta(c);
+            eventos.respuestaComentario(respuesta);
+            return "evento.xhtml?faces-redirect=true";
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
     }
 
@@ -177,29 +186,16 @@ public class beanEventos implements Serializable {
         String latitud = request.getParameter("formCrearEvento:crearLatitud");
         String longitud = request.getParameter("formCrearEvento:crearLongitud");
         Eventos evento = crearEvento(nombre, descripcion, fecha, new BigDecimal(latitud), new BigDecimal(longitud));
-        switch (control.getUsuario().getRoles().getNombrerol()) {
-            case "ScouterTHA":
-//                eventosTHA.add(evento);
-//                comentariosTHA.put(evento, new ArrayList<Comentarios>());
-                return "tha.xhtml?faces-redirect=true";
-            case "ScouterKIM":
-//                eventosKIM.add(evento);
-//                comentariosKIM.put(evento, new ArrayList<Comentarios>());
-                return "kim.xhtml?faces-redirect=true";
-            case "Scouter":
-                try {
-                    eventos.crearEvento(evento, control.getGrupo().getId());
-                } catch (Exception re) {
-                    Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
-                }
-                return "siryu.xhtml?faces-redirect=true";
-            case "ScouterALMOGAMA":
-//                eventosALMOGAMA.add(evento);
-//                comentariosALMOGAMA.put(evento, new ArrayList<Comentarios>());
-                return "almogama.xhtml?faces-redirect=true";
-            default:
-                return "index.xhtml?faces-redirect=true";
+        try {
+            eventos.crearEvento(evento, control.getGrupo().getId());
+            return "listaeventos.xhtml?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
+
     }
 
     public String doModificarEvento() {
@@ -224,26 +220,14 @@ public class beanEventos implements Serializable {
             return null;
         }
 
-        switch (control.getUsuario().getRoles().getNombrerol()) {
-            case "ScouterTHA":
-
-                //modificarEvento(eventosTHA, evento);
-                return "tha.xhtml?faces-redirect=true";
-            case "ScouterKIM":
-                //modificarEvento(eventosKIM, evento);
-                return "kim.xhtml?faces-redirect=true";
-            case "Scouter":
-                try {
-                    infoEvento = eventos.modificarEvento(infoEvento);
-                } catch (Exception re) {
-                    Logger.getLogger(NegocioEventos.class.getName()).log(Level.SEVERE, re.getMessage(), re.getCause());
-                }
-                return "evento.xhtml?faces-redirect=true";
-            case "ScouterALMOGAMA":
-                //modificarEvento(eventosALMOGAMA, evento);
-                return "almogama.xhtml?faces-redirect=true";
-            default:
-                return "index.xhtml?faces-redirect=true";
+        try {
+            infoEvento = eventos.modificarEvento(infoEvento);
+            return "evento.xhtml?faces-redirect=true";
+        } catch (Exception ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
     }
 
@@ -265,8 +249,15 @@ public class beanEventos implements Serializable {
     }
 
     public String borrarEvento(Eventos e) {
-        eventos.borrarEvento(e);
-        return "siryu.xhtml?faces-redirect=true";
+        try {
+            eventos.borrarEvento(e);
+            return "listaeventos.xhtml?faces-redirect=true";
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+        }
     }
 
     public void rellenarProgresion(Progresion p1, int index) {
@@ -280,7 +271,7 @@ public class beanEventos implements Serializable {
         p1.setParticipacion(Integer.parseInt(participacion));
         eventos.rellenarProgresion(p1);
     }
-    
+
     public String parseFecha(Date fecha) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
