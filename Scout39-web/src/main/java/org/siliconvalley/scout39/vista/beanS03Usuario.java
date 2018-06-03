@@ -16,34 +16,34 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.Archivo;
 import org.siliconvalley.scout39.modelo.Grupo;
+import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.S03;
 import org.siliconvalley.scout39.modelo.Usuario;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.ScoutException;
-
 
 /**
  *
  * @author hidden-process
  * @author pasantru
  */
-
 @Named(value = "beanS03Usuario")
 @SessionScoped
-public class beanS03Usuario implements Serializable{
-    
+public class beanS03Usuario implements Serializable {
+
     @EJB
     private NegocioLogin usr;
-    
-    @Inject 
+
+    @Inject
     private ControlAutorizacion ctrl;
-    
-    public String createUser(){
+
+    public String createUser() {
         try {
             Usuario aux = new Usuario();
             S03 s03 = new S03();
@@ -55,11 +55,13 @@ public class beanS03Usuario implements Serializable{
             String apellido2 = request.getParameter("crearUsuarioS03:apellido2");
             String alias = request.getParameter("crearUsuarioS03:alias");
             String email = request.getParameter("crearUsuarioS03:email");
-            String grupo = request.getParameter("crearUsuarioS03:grupo");
+            // String grupo = request.getParameter("crearUsuarioS03:grupo");
+            String sexo = request.getParameter("crearUsuarioS03:sexo");
             String dni = request.getParameter("crearUsuarioS03:dni");
             String fechaNacimiento = request.getParameter("crearUsuarioS03:fechaNacimiento");
             String direccion = request.getParameter("crearUsuarioS03:direccion");
             String localidad = request.getParameter("crearUsuarioS03:localidad");
+            String codigopostal = request.getParameter("crearUsuarioS03:codigopostal");
             String provincia = request.getParameter("crearUsuarioS03:provincia");
             String telefono = request.getParameter("crearUsuarioS03:telefono");
             String movil = request.getParameter("crearUsuarioS03:movil");
@@ -74,59 +76,98 @@ public class beanS03Usuario implements Serializable{
             String apellido2Responsable = request.getParameter("crearUsuarioS03:apellido2Responsable");
             String dniResponsable = request.getParameter("crearUsuarioS03:dniResponsable");
 
-                        //Usuario
+            //Usuario
+            Grupo g = usr.getGrupofromString(seccion);
+            Roles r = usr.getRolesfromString("Educando");
             aux.setNombre(nombre);
             aux.setAlias(alias);
             aux.setDigest(alias);
             aux.setApellidos(apellido1 + "," + apellido2);
             aux.setEmail(email);
             aux.setFecha_alta(new Date());
-            
+            aux.setRoles(r);
+
             //Archivo
+            //Obligatorios
             s03.setNombre(nombre);
             s03.setApellido1(apellido1);
             s03.setApellido2(apellido2);
-            s03.setGrupo(grupo);
+            s03.setSeccion(seccion);
             s03.setDni(dni);
-            s03.setFnacimiento(new SimpleDateFormat("dd/MM/yyyy").parse(fechaNacimiento));
+            s03.setFnacimiento(new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(fechaNacimiento));
             s03.setCalleynumero(direccion);
             s03.setLocalidad(localidad);
+            s03.setCodPostal(Integer.parseInt(codigopostal));
             s03.setProvincia(provincia);
-            s03.setTelefono(Integer.parseInt(telefono));
-            s03.setMovil(Integer.parseInt(movil));
-            s03.setSeccion(seccion);
-            s03.setCargo(cargo);
-            s03.setFederal(federal.charAt(0));
-            s03.setAsociativo(asociativo.charAt(0));
-            s03.setProvincial(provincial.charAt(0));
-            s03.setNombreResponsableLegal(nombreResponsable);
-            s03.setApellido1ResponsableLegal(apellido1Responsable);
-            s03.setApellido2ResponsableLegal(apellido2Responsable);
-            s03.setDniResponsableLegal(dniResponsable);
+            s03.setSexo(sexo.charAt(0));
+            s03.setGrupo("Scout 39 Santo Ángel");
 
-            
-            dummy.setS03(s03);
-            List<Archivo> listArch = new ArrayList<>();
-            listArch.add(dummy);
-            aux.setArchivo(listArch);
-            Grupo g = usr.getGrupofromString(grupo);
+            //Nulos
+            if ((telefono.length() > 0) && (telefono.matches("[0-9]{9}"))) {
+                s03.setTelefono(Integer.parseInt(telefono));
+            }
+            if ((movil.length() > 0) && (movil.matches("[0-9]{9}"))) {
+                s03.setMovil(Integer.parseInt(movil));
+            }
+            if (seccion.length() > 0) {
+                s03.setSeccion(seccion);
+            }
+            if (cargo.length() > 0) {
+                s03.setCargo(cargo);
+            }
+            if ((federal.length() > 0) && (federal.matches("[X]{1}"))) {
+                s03.setFederal(federal.charAt(0));
+            }
+            if ((asociativo.length() > 0) && (asociativo.matches("[X]{1}"))) {
+                s03.setAsociativo(asociativo.charAt(0));
+            }
+            if ((provincial.length() > 0) && (provincial.matches("[X]{1}"))) {
+                s03.setProvincial(provincial.charAt(0));
+            }
+            if (nombreResponsable.length() > 0) {
+                s03.setNombreResponsableLegal(nombreResponsable);
+            }
+            if (apellido1Responsable.length() > 0) {
+                s03.setApellido1ResponsableLegal(apellido1Responsable);
+            }
+            if (apellido1Responsable.length() > 0) {
+                s03.setApellido2ResponsableLegal(apellido2Responsable);
+            }
+            if (dniResponsable.length() > 0) {
+                s03.setDniResponsableLegal(dniResponsable);
+            }
             usr.registrarUsuario(aux, g);
-            
+            aux = usr.comprobarUsuario("HAZJ");
+            dummy.setNombre(alias + "_S03");
+            dummy.setTipo("pdf");
+            dummy.setRuta("null");
+            usr.registrarS03(aux, s03, dummy);
+
         } catch (ParseException ex) {
-            Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         } catch (ScoutException ex) {
-            Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+
         }
 
-        return "index.xhtml?faces-redirect=true";
+        return "editarUsuarios.xhtml?faces-redirect=true";
     }
-    
-    public String getGrupoFromUser(Usuario u){
+
+    public String getGrupoFromUser(Usuario u) {
         try {
             return usr.grupoActualUsuario(u).getNombre();
         } catch (ScoutException ex) {
-            Logger.getLogger(beanS03Usuario.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
         }
-        return "";
     }
+
 }

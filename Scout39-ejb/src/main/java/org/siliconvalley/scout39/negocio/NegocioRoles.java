@@ -50,7 +50,7 @@ public class NegocioRoles implements NegocioRolesLocal {
     public void crearRol(Roles rol) throws ScoutException{
         try {
             em.merge(rol);
-        } catch (RuntimeException r) {
+        } catch (Exception r) {
             throw new ScoutException("Ya existe ese rol");
         }
     }
@@ -136,18 +136,13 @@ public class NegocioRoles implements NegocioRolesLocal {
     }
 
     @Override
-    public void borrarRol(Roles rol) {
-        Roles r = em.find(Roles.class, rol);
-        em.remove(r);
+    public void borrarRol(Roles rol) throws ScoutException {
+        try {
+            Roles r = em.find(Roles.class, rol);
+            em.remove(r);
+        } catch (Exception e) {
+            throw new ScoutException("Error al borrar el rol");
+        }
     }
-    /*
-     @Override
-     public Privilegios obtenerP(Roles rol, Objeto o){       
-         Query q= em.createQuery("select p from Privilegios p,AccesoRecurso ac where p.id=ac.idPrivilegio and ac.idObjeto = :obj and ac.idRol = :r");
-         q.setParameter("obj", o.getId());
-         q.setParameter("r", rol.getId());
-         Privilegios p=(Privilegios) q.getSingleResult();
-         return p;
-     }
-     */
+    
 }

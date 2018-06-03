@@ -23,7 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.siliconvalley.scout39.modelo.*;
-import org.siliconvalley.scout39.negocio.NegocioEventos;
 import org.siliconvalley.scout39.negocio.NegocioEventosLocal;
 import org.siliconvalley.scout39.negocio.ScoutException;
 

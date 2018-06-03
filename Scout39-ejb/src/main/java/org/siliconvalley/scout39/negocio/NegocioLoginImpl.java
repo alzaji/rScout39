@@ -16,10 +16,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.siliconvalley.scout39.modelo.AccesoGrupo;
+import org.siliconvalley.scout39.modelo.Archivo;
 import org.siliconvalley.scout39.modelo.Grupo;
 import org.siliconvalley.scout39.modelo.Objeto;
 import org.siliconvalley.scout39.modelo.Privilegios;
 import org.siliconvalley.scout39.modelo.Roles;
+import org.siliconvalley.scout39.modelo.S03;
 import org.siliconvalley.scout39.modelo.Usuario;
 
 /**
@@ -36,13 +38,14 @@ public class NegocioLoginImpl implements NegocioLogin {
     public void registrarUsuario(Usuario u, Grupo g) throws ScoutException {
 
        // Me traigo el usuario ya con su id y su rol
+        u.setDigest(sha256(u.getDigest()));
         Usuario aux = em.merge(u);
         Roles r = aux.getRoles();
         
-        //Actualizo la lista de usuarios en el rol
-        List<Usuario> ru = r.getUsuarios();
-        ru.add(aux);
-        em.merge(ru);
+//        //Actualizo la lista de usuarios en el rol
+//        List<Usuario> ru = r.getUsuarios();
+//        ru.add(aux);
+//        em.merge(ru);
 
         // Creo sus objetos
         Objeto archivos = new Objeto();
@@ -53,12 +56,12 @@ public class NegocioLoginImpl implements NegocioLogin {
         AccesoGrupo ac = newAcceso(new Date(), null, aux, g);
         em.persist(ac);
 
-        List<AccesoGrupo> lac = new ArrayList<>();
-        lac.add(ac);
-        aux.setAcceso_Grupo(lac);
-        
-        em.merge(aux);
-        
+//        List<AccesoGrupo> lac = new ArrayList<>();
+//        lac.add(ac);
+//        aux.setAcceso_Grupo(lac);
+//        
+//        em.merge(aux);
+//        
     }
 
     @Override
@@ -142,6 +145,43 @@ public class NegocioLoginImpl implements NegocioLogin {
             throw new ScoutException("No se ha encontrado esta colección en la BD");
         }
     }
+
+    @Override
+    public Roles getRolesfromString(String nombrerol) throws ScoutException {
+        
+        try {
+            Query q = em.createQuery("Select r from Roles r where r.nombrerol = :nombre");
+            q.setParameter("nombre", nombrerol);
+            Roles r = (Roles) q.getSingleResult();
+            return r;
+        } catch (NoResultException e) {
+            
+            throw new ScoutException("No se encontro el rol");
+        }
+    
+    }
+
+    @Override
+    public void registrarS03(Usuario u, S03 s03, Archivo a) throws ScoutException {
+        
+        try {
+            S03 s = em.merge(s03);
+            Archivo ar = em.merge(a);
+//            Query q = em.createQuery("Select u from Usuarios u where u.alias = :alias");
+//            q.setParameter("alias", u.getAlias());
+//            Usuario aux = (Usuario) q.getSingleResult();
+            Usuario aux = em.find(Usuario.class,u.getId());
+            
+            ar.setIdUsuario(aux);
+            ar.setS03(s);
+            em.merge(ar);
+        } catch (Exception e) {
+            throw new ScoutException("Error al registrar S03");
+        }
+       
+    }
+    
+    
 
     @Override
     public String sha256(String rawString) {

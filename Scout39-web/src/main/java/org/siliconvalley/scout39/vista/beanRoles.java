@@ -104,8 +104,17 @@ public class beanRoles implements Serializable {
     }
 
     public String borrarRol(Roles rol) {
-        roles.borrarRol(rol);
-        return null;
+        try {
+            roles.borrarRol(rol);
+            return null;
+        } catch (ScoutException ex) {
+
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return null;
+
+        }
     }
 
     public String crearRol() {
@@ -126,10 +135,10 @@ public class beanRoles implements Serializable {
 
     public void updateRol(Roles rol, Objeto o, int idxr, int idxo) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cre = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Crear");
-        String rea = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Leer");
-        String upd = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Modificar");
-        String del = request.getParameter("table:"+idxr+":Objeto:"+idxo+":formModificarRoles:Borrar");
+        String cre = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Crear");
+        String rea = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Leer");
+        String upd = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Modificar");
+        String del = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Borrar");
         AccesoRecurso ar = roles.findAr(rol, o);
         Privilegios p = roles.find(cre, rea, upd, del);
         ar.setIdPrivilegio(p);
@@ -223,7 +232,5 @@ public class beanRoles implements Serializable {
     public void setdI(String dI) {
         this.dI = dI;
     }
-
-
 
 }

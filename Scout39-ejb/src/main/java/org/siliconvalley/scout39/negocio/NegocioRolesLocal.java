@@ -38,13 +38,12 @@ public interface NegocioRolesLocal {
     
     public void crearRol(Roles rol) throws ScoutException;
     
-    public void borrarRol(Roles rol);
+    public void borrarRol(Roles rol) throws ScoutException;
         
     public Privilegios find(String c, String r, String u, String d);
     
     public AccesoRecurso findAr(Roles rol, Objeto o);
     
     public void modificarRol(AccesoRecurso ar);
-    
-   // public Privilegios obtenerP(Roles rol, Objeto o);
+
 }
