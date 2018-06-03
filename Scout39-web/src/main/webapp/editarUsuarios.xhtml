@@ -4,7 +4,7 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <ui:define name="title">Coordinador</ui:define>    
     <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
@@ -64,6 +64,12 @@
                     <f:facet name="header">Email</f:facet>
                     <!-- row record -->
                     #{u.email}
+                </h:column>  
+                <h:column>
+                    <!-- column header -->
+                    <f:facet name="header">Grupo</f:facet>
+                    <!-- row record -->
+                    #{u.roles.nombrerol}
                 </h:column>
                 <h:column>
                     <!-- column header -->

@@ -22,14 +22,14 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
 
     @PersistenceContext(unitName = "Scout39MPU")
     private EntityManager em;
-
+ 
     @Override
     public List<Usuario> listaUsuarios() {
         Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.fecha_baja IS null");
         List<Usuario> usuarios = (List<Usuario>) q.getResultList();
         return usuarios;
     }
-
+    
     @Override
     public List<Usuario> listaUsuariosAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
