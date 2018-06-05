@@ -71,7 +71,7 @@ public class NegocioEventos implements NegocioEventosLocal {
             mEvento.setLatitud(e.getLatitud().stripTrailingZeros());
             mEvento.setLongitud(e.getLongitud().stripTrailingZeros());
             em.merge(mEvento);
-            return em.find(Eventos.class, e.getId());
+            return em.find(Eventos.class, mEvento.getId());
         } catch (Exception ex) {
 
             throw new ScoutException("No se pudo modificar el evento en la BD");

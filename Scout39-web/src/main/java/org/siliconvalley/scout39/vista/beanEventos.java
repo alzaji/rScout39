@@ -272,15 +272,16 @@ public class beanEventos implements Serializable {
     }
 
     public String parseFecha(Date fecha) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         try {
             Date date = sdf.parse(fecha.toString());
-            return date.toString();
+            return date.toLocaleString();
         } catch (ParseException e) {
             Logger.getLogger(beanEventos.class.getName()).log(Level.WARNING, e.getMessage(), e);
             return null;
         }
     }
+    
 
     public int getParticipacion() {
         return participacion;

@@ -225,10 +225,10 @@ public class DBPopulate {
         em.merge(ueducalmogama);
 
         // Eventos
-        String fevento1 = "03-6-2018 23:55:00";
-        String fevento2 = "06-6-2018 10:45:00";
-        String fevento3 = "01-7-2018 00:00:00";
-        String fevento4 = "03-9-2018 00:00:00";
+        String fevento1 = "03/6/2018 23:55";
+        String fevento2 = "06/6/2018 10:45";
+        String fevento3 = "01/7/2018 00:00";
+        String fevento4 = "03/9/2018 00:00";
 
         Eventos evento1 = newEvento(
                 "Deadline",
@@ -444,7 +444,7 @@ public class DBPopulate {
     ) {
 
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
             Date date = sdf.parse(fecha);
             Eventos evento = new Eventos();
             evento.setNombre(nombre);
