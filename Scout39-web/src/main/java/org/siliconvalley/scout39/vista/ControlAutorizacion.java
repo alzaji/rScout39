@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
 import org.siliconvalley.scout39.negocio.ScoutException;
@@ -70,13 +71,13 @@ public class ControlAutorizacion implements Serializable {
     }
 
     public boolean hasRead(Objeto o) {
-        
+
         privsobreobj(o);
         return privilegio.getLeer() == 'S';
     }
 
     public boolean hasUpdate(Objeto o) {
-        
+
         privsobreobj(o);
         return privilegio.getModificar() == 'S';
     }
@@ -109,7 +110,9 @@ public class ControlAutorizacion implements Serializable {
                 setPrivilegio(p);
 
             } catch (ScoutException ex) {
-                Logger.getLogger(ControlAutorizacion.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+                FacesContext ctx = FacesContext.getCurrentInstance();
+                ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
             }
         }
     }

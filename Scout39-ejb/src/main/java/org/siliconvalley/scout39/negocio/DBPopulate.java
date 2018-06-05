@@ -320,21 +320,81 @@ public class DBPopulate {
         AccesoRecurso a2 = new AccesoRecurso();
         AccesoRecurso a3 = new AccesoRecurso();
 
-        a1.setIdObjeto(e3);
+        a1.setIdObjeto(e1);
         a1.setIdPrivilegio(crud);
         a1.setIdRol(coordinador);
         
-        a2.setIdObjeto(e3);
+        a2.setIdObjeto(e1);
         a2.setIdPrivilegio(crud);
         a2.setIdRol(scouter);
         
-        a3.setIdObjeto(e3);
+        a3.setIdObjeto(e1);
         a3.setIdPrivilegio(read);
         a3.setIdRol(educando);
         
         em.merge(a1);
         em.merge(a2);
         em.merge(a3);
+        
+        AccesoRecurso a4 = new AccesoRecurso();
+        AccesoRecurso a5 = new AccesoRecurso();
+        AccesoRecurso a6 = new AccesoRecurso();
+
+        a4.setIdObjeto(e2);
+        a4.setIdPrivilegio(crud);
+        a4.setIdRol(coordinador);
+        
+        a5.setIdObjeto(e2);
+        a5.setIdPrivilegio(crud);
+        a5.setIdRol(scouter);
+        
+        a6.setIdObjeto(e2);
+        a6.setIdPrivilegio(read);
+        a6.setIdRol(educando);
+        
+        em.merge(a4);
+        em.merge(a5);
+        em.merge(a6);
+        
+        AccesoRecurso a7 = new AccesoRecurso();
+        AccesoRecurso a8 = new AccesoRecurso();
+        AccesoRecurso a9 = new AccesoRecurso();
+
+        a7.setIdObjeto(e3);
+        a7.setIdPrivilegio(crud);
+        a7.setIdRol(coordinador);
+        
+        a8.setIdObjeto(e3);
+        a8.setIdPrivilegio(crud);
+        a8.setIdRol(scouter);
+        
+        a9.setIdObjeto(e3);
+        a9.setIdPrivilegio(read);
+        a9.setIdRol(educando);
+        
+        em.merge(a7);
+        em.merge(a8);
+        em.merge(a9);
+        
+        AccesoRecurso a10 = new AccesoRecurso();
+        AccesoRecurso a11 = new AccesoRecurso();
+        AccesoRecurso a12 = new AccesoRecurso();
+
+        a10.setIdObjeto(e4);
+        a10.setIdPrivilegio(crud);
+        a10.setIdRol(coordinador);
+        
+        a11.setIdObjeto(e4);
+        a11.setIdPrivilegio(crud);
+        a11.setIdRol(scouter);
+        
+        a12.setIdObjeto(e4);
+        a12.setIdPrivilegio(read);
+        a12.setIdRol(educando);
+        
+        em.merge(a10);
+        em.merge(a11);
+        em.merge(a12);
 
         // Objetos y Grupos
         g1.setNombre("grupo" + tha.getId());
