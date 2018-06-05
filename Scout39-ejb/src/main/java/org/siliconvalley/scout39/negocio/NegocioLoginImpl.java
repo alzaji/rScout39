@@ -7,7 +7,6 @@ package org.siliconvalley.scout39.negocio;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -42,10 +41,10 @@ public class NegocioLoginImpl implements NegocioLogin {
         Usuario aux = em.merge(u);
         Roles r = aux.getRoles();
 
-//        //Actualizo la lista de usuarios en el rol
-//        List<Usuario> ru = r.getUsuarios();
-//        ru.add(aux);
-//        em.merge(ru);
+        //Actualizo la lista de usuarios en el rol
+        r.getUsuarios().add(aux);
+        em.merge(r);
+
         // Creo sus objetos
         Objeto archivos = new Objeto();
         archivos.setNombre("archivos" + aux.getId());
@@ -55,12 +54,6 @@ public class NegocioLoginImpl implements NegocioLogin {
         AccesoGrupo ac = newAcceso(new Date(), null, aux, g);
         em.persist(ac);
 
-//        List<AccesoGrupo> lac = new ArrayList<>();
-//        lac.add(ac);
-//        aux.setAcceso_Grupo(lac);
-//        
-//        em.merge(aux);
-//        
     }
 
     @Override
