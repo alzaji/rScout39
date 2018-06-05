@@ -6,16 +6,12 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import org.siliconvalley.scout39.modelo.*;
-
-import java.util.Map;
 import org.siliconvalley.scout39.negocio.*;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Named(value = "beanPerfil")
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class beanPerfil implements Serializable {
 
     private AccesoGrupo promesa;
@@ -162,5 +158,5 @@ public class beanPerfil implements Serializable {
 
     public void setArchivo(Archivo archivo) {
         this.archivo = archivo;
-    }           
+    }
 }

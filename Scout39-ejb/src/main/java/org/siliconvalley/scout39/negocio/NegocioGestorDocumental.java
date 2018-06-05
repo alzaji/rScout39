@@ -125,7 +125,6 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         String cadena = "%" + pal.replace(" ", "%") + "%";
         Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE u.alias LIKE :alias and a MEMBER of u.archivo");
         q.setParameter("alias", cadena);
-        System.out.println(q.getResultList());
         List<Archivo> archivos;
         archivos = (List<Archivo>) q.getResultList();
         return archivos;
@@ -137,7 +136,6 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         String cadena = "%" + pal.replace(" ", "%") + "%";
         Query q = em.createQuery("SELECT a from Archivo a, Usuario u WHERE a.nombre LIKE :archivo and a.fecha_limite > CURRENT_DATE");
         q.setParameter("archivo", cadena);
-        System.out.println(q.getResultList());
         List<Archivo> archivos;
         archivos = (List<Archivo>) q.getResultList();
         return archivos;
@@ -203,7 +201,6 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         q.setParameter("archivo", cadena);
         q.setParameter("grupo", g);
         q.setParameter("nombrerol", "Scouter");
-        System.out.println(q.getResultList());
         List<Archivo> archivos;
         archivos = (List<Archivo>) q.getResultList();
         return archivos;

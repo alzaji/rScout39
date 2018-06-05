@@ -26,15 +26,15 @@
                     <div class="row justify-content-md-center">
                         <h:form id="seleccionarArchivo">
                             <div class="form-inline">
-                                <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar usuario..." value="#{beanPerfil.pal}" >
+                                <h:inputText class="form-control" id="buscadorTabla" autocomplete="off" a:placeholder="Buscar archivo..." value="#{beanPerfil.pal}" >
                                     <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Scouter'}">
-                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesScouter()}" render="table2"/>
+                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesScouter()}" render="table1"/>
                                     </c:if>
                                     <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Educando'}">
                                         <f:ajax event="keyup" listener="#{beanPerfil.searchListFilesNombre()}" render="table2"/>
                                     </c:if>
                                     <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
-                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table2"/>
+                                        <f:ajax event="keyup" listener="#{beanPerfil.searchListFiles()}" render="table3"/>
                                     </c:if>
                                 </h:inputText>
                             </div>
@@ -152,7 +152,7 @@
                                             </h:dataTable>
                                         </c:if>
                                         <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
-                                            <h:dataTable id="table1" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
+                                            <h:dataTable id="table3" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
                                                 <h:column>
                                                     <f:facet name="header">Alias</f:facet>
                                                         #{archivo.idUsuario.alias}
