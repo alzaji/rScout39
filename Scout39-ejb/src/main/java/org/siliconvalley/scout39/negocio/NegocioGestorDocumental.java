@@ -135,7 +135,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     @Override
     public List<Archivo> listaArchivosNombreAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
-        Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE a.nombre LIKE :archivo and a.Fecha_limite > CURRENT_DATE");
+        Query q = em.createQuery("SELECT a from Archivo a, Usuario u WHERE a.nombre LIKE :archivo and a.fecha_limite > CURRENT_DATE");
         q.setParameter("archivo", cadena);
         System.out.println(q.getResultList());
         List<Archivo> archivos;

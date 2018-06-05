@@ -65,20 +65,20 @@
                     <h:column>
                         <f:facet name="header">Modificar</f:facet>
                         <button class="btn btn-orange btn-rounded mb-4" data-toggle="modal" data-target="#modalModificarRol#{r.id.toString()}">Modificar</button>
-                            <!-- row record -->
-                            <div class="modal fade" id="modalModificarRol#{r.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalModificarRolLabel"
-                                 aria-hidden="true ">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header btn-indigo white-text">
-                                            <h4 class="title">
-                                                <i class="fas fa-tasks"></i> Modificar Usuario</h4>
-                                            <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">x</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body mx-3">
-                                            <ui:repeat id ="Objeto" value="#{beanRoles.obtenerObjetos()}" var="obj" varStatus="objst">
+                        <!-- row record -->
+                        <div class="modal fade" id="modalModificarRol#{r.id.toString()}" tabindex="-1 " role="dialog" aria-labelledby="modalModificarRolLabel"
+                             aria-hidden="true ">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header btn-indigo white-text">
+                                        <h4 class="title">
+                                            <i class="fas fa-tasks"></i> Modificar Usuario</h4>
+                                        <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body mx-3">
+                                        <ui:repeat id ="Objeto" value="#{beanRoles.obtenerObjetos()}" var="obj" varStatus="objst">
                                             <h:form id="formModificarRoles">
                                                 <h:outputLabel>#{obj.nombre}</h:outputLabel>
                                                 <div class="md-form">
@@ -104,7 +104,7 @@
                                                 </div>    
                                                 <div class ="md-form">
                                                     <i class="fa fa-compass prefix grey-text"></i>
-                                                    <h:inputText class="form-control" id="Borrar"required="true" validatorMessage="Introduzca S o N">
+                                                    <h:inputText class="form-control" id="Borrar" required="true" validatorMessage="Introduzca S o N">
                                                         <f:validateRegex pattern="[SN]{1}"/>
                                                     </h:inputText>
                                                     <h:outputLabel>Borrar (S/N)</h:outputLabel>
@@ -113,11 +113,11 @@
                                                     <h:commandButton class="btn btn-indigo" value="Modificar" type="submit" action="#{beanRoles.updateRol(r, obj, beanRoles.obtenerRoles().indexOf(r),objst.index)}"/>
                                                 </div>
                                             </h:form>
-                                            </ui:repeat>
-                                        </div>
+                                        </ui:repeat>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </h:column>
                     <h:column>
                         <f:facet name="header">Borrar</f:facet>
