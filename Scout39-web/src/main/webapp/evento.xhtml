@@ -340,7 +340,7 @@
                                 <div id="datetimepicker1" data-target-input="nearest" data-target="#datetimepicker1" data-toggle="datetimepicker">
                                     <i class="fa fa-calendar prefix grey-text"></i>
                                     <h:inputText class="form-control" id="modificarFecha" p:data-target="#datetimepicker1"/>
-                                    <h:outputLabel>Fecha Anterior: #{beanEventos.infoEvento.fecha}</h:outputLabel>
+                                    <h:outputLabel>Fecha Anterior: #{beanEventos.infoEvento.fecha.toLocaleString()}</h:outputLabel>
                                 </div>
                             </div>
 
