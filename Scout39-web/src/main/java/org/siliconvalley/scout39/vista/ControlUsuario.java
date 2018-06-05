@@ -6,17 +6,22 @@
 package org.siliconvalley.scout39.vista;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.siliconvalley.scout39.modelo.AccesoGrupo;
 import org.siliconvalley.scout39.modelo.Grupo;
 import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.Usuario;
@@ -40,7 +45,7 @@ public class ControlUsuario implements Serializable {
     @EJB
     private NegocioLogin registrar;
 
-    private Usuario usuario;    
+    private Usuario usuario;
     private Grupo group = new Grupo();
     private Roles roles = new Roles();
     protected String pal;
@@ -106,25 +111,62 @@ public class ControlUsuario implements Serializable {
         return "editarUsuario.xhtml";
     }
 
-    public void cambiarPass(){
+    public void cambiarPass() {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String pass = request.getParameter("cambiarContraseña:nuevapass"); 
+        String pass = request.getParameter("cambiarContraseña:nuevapass");
         Usuario u = controlAutorizacion.getUsuario();
-        
-        users.cambiarPassword(u, pass);                
-    }
-    
-    public String doModificarUsuario(Usuario u, int index) {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String alias = request.getParameter("table:" + index + ":formModificarUsuario:modificarAlias");
-        String nombr = request.getParameter("table:" + index + ":formModificarUsuario:modificarNombre");
-        String apellidos = request.getParameter("table:" + index + ":formModificarUsuario:modificarApellidos");
-        String correo = request.getParameter("table:" + index + ":formModificarUsuario:modificarEmail");
-        Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
-                nombr, apellidos, correo, u.getFecha_alta(), u.getRoles());
-        users.modificarUsuario(user);
-        return "editarUsuarios.xhtml?faces-redirect=true";
 
+        users.cambiarPassword(u, pass);
+    }
+
+    public String doModificarUsuario(Usuario u, int index) {
+        try {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String alias = request.getParameter("table:" + index + ":formModificarUsuario:modificarAlias");
+            String nombr = request.getParameter("table:" + index + ":formModificarUsuario:modificarNombre");
+            String apellidos = request.getParameter("table:" + index + ":formModificarUsuario:modificarApellidos");
+            String correo = request.getParameter("table:" + index + ":formModificarUsuario:modificarEmail");
+            String grupo = request.getParameter("table:" + index + ":formModificarUsuario:modificarGrupo");
+            String rol = request.getParameter("table:" + index + ":formModificarUsuario:modificarRol");
+
+            Roles r = registrar.getRolesfromString(rol);
+            Grupo g = registrar.getGrupofromString(grupo);
+            Usuario user = newUsuario(u.getId(), alias, u.getDigest(),
+                    nombr, apellidos, correo, u.getFecha_alta(), r);
+            AccesoGrupo ag = newAcceso(new Date(), null, null, g);
+            users.modificarUsuario(user, ag);
+            return "editarUsuarios.xhtml?faces-redirect=true";
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return "editarUsuarios.xhtml?faces-redirect=true";
+        }
+
+    }
+
+    public List<Roles> getlistaRoles() {
+
+        try {
+            return registrar.getAllRoles();
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return new ArrayList<Roles>();
+        }
+    }
+
+    public List<Grupo> getlistaGrupos() {
+
+        try {
+            return registrar.getAllGrupos();
+        } catch (ScoutException ex) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
+            return new ArrayList<Grupo>();
+        }
     }
 
     private Roles newRol(String nombrerol) {
@@ -158,6 +200,23 @@ public class ControlUsuario implements Serializable {
         usuario.setRoles(rol);
 
         return usuario;
+    }
+    
+        private AccesoGrupo newAcceso(
+            Date fecha_alta,
+            Date fecha_baja,
+            Usuario u,
+            Grupo g
+    ) {
+
+        AccesoGrupo ac = new AccesoGrupo();
+        ac.setFecha_Alta_Grupo(fecha_alta);
+        ac.setFecha_Baja_Grupo(fecha_baja);
+        ac.setUsuario_Grupo(u);
+        ac.setGrupo(g);
+
+        return ac;
+
     }
 
     public String doCrearUsuario() throws ScoutException {

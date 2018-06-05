@@ -37,16 +37,15 @@ public class NegocioLoginImpl implements NegocioLogin {
     @Override
     public void registrarUsuario(Usuario u, Grupo g) throws ScoutException {
 
-       // Me traigo el usuario ya con su id y su rol
+        // Me traigo el usuario ya con su id y su rol
         u.setDigest(sha256(u.getDigest()));
         Usuario aux = em.merge(u);
         Roles r = aux.getRoles();
-        
+
 //        //Actualizo la lista de usuarios en el rol
 //        List<Usuario> ru = r.getUsuarios();
 //        ru.add(aux);
 //        em.merge(ru);
-
         // Creo sus objetos
         Objeto archivos = new Objeto();
         archivos.setNombre("archivos" + aux.getId());
@@ -62,6 +61,26 @@ public class NegocioLoginImpl implements NegocioLogin {
 //        
 //        em.merge(aux);
 //        
+    }
+
+    @Override
+    public void registrarS03(Usuario u, S03 s03, Archivo a) throws ScoutException {
+
+        try {
+            S03 s = em.merge(s03);
+            Archivo ar = em.merge(a);
+//            Query q = em.createQuery("Select u from Usuarios u where u.alias = :alias");
+//            q.setParameter("alias", u.getAlias());
+//            Usuario aux = (Usuario) q.getSingleResult();
+            Usuario aux = em.find(Usuario.class, u.getId());
+
+            ar.setIdUsuario(aux);
+            ar.setS03(s);
+            em.merge(ar);
+        } catch (Exception e) {
+            throw new ScoutException("Error al registrar S03");
+        }
+
     }
 
     @Override
@@ -99,20 +118,19 @@ public class NegocioLoginImpl implements NegocioLogin {
 
     @Override
     public Grupo getGrupofromString(String nombre) throws ScoutException {
-        
-        try{
-            
+
+        try {
+
             Query q = em.createQuery("Select g from Grupo g where g.nombre = :nombre");
             q.setParameter("nombre", nombre);
             Grupo g = (Grupo) q.getSingleResult();
             return g;
-            
-        }catch (NoResultException ex){
+
+        } catch (NoResultException ex) {
             throw new ScoutException("No se encontro el grupo");
         }
     }
 
-    
     @Override
     public Privilegios checkPrivilegios(Objeto o, Usuario u) throws ScoutException {
 
@@ -133,7 +151,7 @@ public class NegocioLoginImpl implements NegocioLogin {
         }
 
     }
-    
+
     @Override
     public Objeto getObjetoActual(String nombreobj, long id) throws ScoutException {
         try {
@@ -148,40 +166,42 @@ public class NegocioLoginImpl implements NegocioLogin {
 
     @Override
     public Roles getRolesfromString(String nombrerol) throws ScoutException {
-        
+
         try {
             Query q = em.createQuery("Select r from Roles r where r.nombrerol = :nombre");
             q.setParameter("nombre", nombrerol);
             Roles r = (Roles) q.getSingleResult();
             return r;
         } catch (NoResultException e) {
-            
+
             throw new ScoutException("No se encontro el rol");
         }
-    
+
     }
 
     @Override
-    public void registrarS03(Usuario u, S03 s03, Archivo a) throws ScoutException {
-        
+    public List<Roles> getAllRoles() throws ScoutException {
+
         try {
-            S03 s = em.merge(s03);
-            Archivo ar = em.merge(a);
-//            Query q = em.createQuery("Select u from Usuarios u where u.alias = :alias");
-//            q.setParameter("alias", u.getAlias());
-//            Usuario aux = (Usuario) q.getSingleResult();
-            Usuario aux = em.find(Usuario.class,u.getId());
-            
-            ar.setIdUsuario(aux);
-            ar.setS03(s);
-            em.merge(ar);
+            Query q = em.createQuery("Select r from Roles r");
+            List<Roles> r = (List<Roles>) q.getResultList();
+            return r;
         } catch (Exception e) {
-            throw new ScoutException("Error al registrar S03");
+            throw new ScoutException(e.getLocalizedMessage());
         }
-       
     }
-    
-    
+
+    @Override
+    public List<Grupo> getAllGrupos() throws ScoutException {
+
+        try {
+            Query q = em.createQuery("Select g from Grupo g");
+            List<Grupo> g = (List<Grupo>) q.getResultList();
+            return g;
+        } catch (Exception e) {
+            throw new ScoutException(e.getLocalizedMessage());
+        }
+    }
 
     @Override
     public String sha256(String rawString) {

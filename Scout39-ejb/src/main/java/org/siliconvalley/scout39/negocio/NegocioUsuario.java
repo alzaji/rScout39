@@ -52,14 +52,33 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
     }
 
     @Override
-    public void modificarUsuario(Usuario u) {        
+    public void modificarUsuario(Usuario u, AccesoGrupo ag) {        
+        
+        // Me traigo al usuario de la BD
         Usuario user = em.find(Usuario.class, u.getId());
         user.setAlias(u.getAlias());
         user.setApellidos(u.getApellidos());
         user.setNombre(u.getNombre());
         user.setEmail(u.getEmail());
         user.setRoles(u.getRoles());
-        em.merge(user);
+        
+        //Miro su AccesoGrupo
+        Query q = em.createQuery("Select ag from AccesoGrupo ag where ag.Usuario_Grupo IS :usuario AND ag.Fecha_Baja_Grupo IS NULL");
+        q.setParameter("usuario", user);
+        AccesoGrupo agbd = (AccesoGrupo) q.getSingleResult();
+        
+        if(agbd.getGrupo().equals(ag.getGrupo())){
+            em.merge(user);
+        }
+        else{
+            
+            user = em.merge(user);
+            agbd.setFecha_Baja_Grupo(new Date());
+            em.merge(agbd);
+            ag.setUsuario_Grupo(user);
+            em.merge(ag);
+        }
+
     }
 
     @Override

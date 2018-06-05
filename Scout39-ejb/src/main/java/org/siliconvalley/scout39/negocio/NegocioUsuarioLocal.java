@@ -19,7 +19,7 @@ public interface NegocioUsuarioLocal {
     public List<Usuario> listaUsuarios();
     public List<Usuario> listaUsuariosAJAX(String pal);
     public void borrarUsuario(Usuario u);
-    public void modificarUsuario(Usuario u);
+    public void modificarUsuario(Usuario u, AccesoGrupo ag);
     public void cambiarPromesa(Usuario u, String promesa);
     public List<AccesoGrupo> listaPromesas(Usuario u);
     public void cambiarPassword(Usuario u, String nueva);
