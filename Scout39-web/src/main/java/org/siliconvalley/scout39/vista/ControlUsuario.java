@@ -105,6 +105,13 @@ public class ControlUsuario implements Serializable {
 
     public String removeUsuario(Usuario u) {
 
+        if (u.getNombre().equals("Coordinador")) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Borrado de usuario de sistema no permitido", "El usuario Coordinador es un usuario de sistema"));
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "Intento de borrado de usuario de sistema", "Se intento borrar el usuario Coordinador");
+            return null;
+
+        }
         users.borrarUsuario(u);
 
         return "editarUsuario.xhtml";
@@ -120,6 +127,10 @@ public class ControlUsuario implements Serializable {
 
     public String doModificarUsuario(Usuario u, int index) {
         try {
+            if (u.getNombre().equals("Coordinador")) {
+                throw new ScoutException("No se puede modificar el usuario de sistema Coordinador");
+            }
+
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String alias = request.getParameter("table:" + index + ":formModificarUsuario:modificarAlias");
             String nombr = request.getParameter("table:" + index + ":formModificarUsuario:modificarNombre");
@@ -139,7 +150,11 @@ public class ControlUsuario implements Serializable {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getMessage(), ex.getLocalizedMessage()));
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, ex.getMessage(), ex.getCause());
-            return "editarUsuarios.xhtml?faces-redirect=true";
+            if (u.getNombre().equals("Coordinador")) {
+                return null;
+            } else {
+                return "editarUsuarios.xhtml?faces-redirect=true";
+            }
         }
 
     }
@@ -168,15 +183,6 @@ public class ControlUsuario implements Serializable {
         }
     }
 
-    private Roles newRol(String nombrerol) {
-
-        Roles rol = new Roles();
-
-        rol.setNombrerol(nombrerol);
-
-        return rol;
-    }
-
     private Usuario newUsuario(
             Long id,
             String alias,
@@ -200,8 +206,8 @@ public class ControlUsuario implements Serializable {
 
         return usuario;
     }
-    
-        private AccesoGrupo newAcceso(
+
+    private AccesoGrupo newAcceso(
             Date fecha_alta,
             Date fecha_baja,
             Usuario u,
@@ -215,51 +221,6 @@ public class ControlUsuario implements Serializable {
         ac.setGrupo(g);
 
         return ac;
-
-    }
-
-    public String doCrearUsuario() throws ScoutException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String nombre = request.getParameter("formCrearUsuario:crearNombre");
-        String primerApellido = request.getParameter("formCrearUsuario:crearPrimerApellido");
-        String segundoApellido = request.getParameter("formCrearUsuario:crearSegundoApellido");
-        String apellidos = primerApellido + " " + segundoApellido;
-
-        String grupo = request.getParameter("formCrearUsuario:crearGrupo.value");
-        String email = request.getParameter("formCrearUsuario:crearEmail");
-        String rol = request.getParameter("formCrearUsuario:crearRol.value");
-        System.out.println("Rol--------------------------------------------------------------: " + rol);
-
-        Usuario u = crearUsuario(nombre, apellidos, email, rol);
-        group.setId(5L);
-        group.setNombre(grupo);
-
-        System.out.println("Usuario nuevo: " + u);
-        System.out.println("Grupo del usuario: " + group);
-        registrar.registrarUsuario(u, group);
-
-        return "editarUsuarios.xhtml?faces-redirect=true";
-    }
-
-    public Usuario crearUsuario(String nombre, String apellidos, String email, String rol) {
-
-        Usuario user = new Usuario();
-        Random rnd = new Random();
-        user.setId(rnd.nextLong() % 100);
-        user.setNombre(nombre);
-        user.setApellidos(apellidos);
-        user.setEmail(email);
-        user.setAlias(nombre); //inicialmente, el alias es igual al nombre        
-        System.out.println("Usuario nuevo en crearUsuario: " + user);
-        user.setDigest("asdja212"); //digest actual es el nombre----probando
-
-        //prueba
-        roles.setId(3L);
-        roles.setNombrerol("Coordinador");
-
-        user.setRoles(roles);
-
-        return user;
 
     }
 

@@ -116,6 +116,20 @@ public class ControlAutorizacion implements Serializable {
             }
         }
     }
+    
+    public String adminVeEventos(Grupo g){
+        
+        if(grupo == null) setGrupo(g);
+       
+        return "listaeventos.xhtml?faces-redirect=true";
+    }
+    
+    public String adminRegresaHome(){
+        
+        setGrupo(null);
+        
+        return home();
+    }
 
     public String home() {
 

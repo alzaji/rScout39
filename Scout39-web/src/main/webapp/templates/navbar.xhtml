@@ -97,6 +97,9 @@
                                         <a class="dropdown-item" href="perfil.xhtml">
                                             <i class="fa fa-user left"></i> Mi perfil</a>                                       
                                         <h:commandLink class="dropdown-item" action="#{controlAutorizacion.logout()}" value="Cerrar sesión"/>
+                                        <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
+                                            <h:commandLink class="dropdown-item" action="#{controlAutorizacion.adminRegresaHome()}" value="Administración" />
+                                        </c:if>
                                     </div>
                                 </div>
                             </h:form>

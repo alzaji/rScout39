@@ -9,7 +9,29 @@
 
     <ui:define name="title">Gestor Documental</ui:define>
     <ui:define name="seccionnav">Gestor Documental</ui:define>
-    <ui:define name="link3"><h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/></ui:define>
+    <ui:define name="link1">
+        <c:choose>
+
+            <c:when test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
+                <h:form id="GruposCoord">
+
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle btn-profileUser" type="button" data-toggle="dropdown" a:aria-haspopup="true" a:aria-expanded="false">Eventos</button>
+                        <div class="dropdown-menu">
+                            <ui:repeat value="#{controlUsuario.getlistaGrupos()}" var="grupo" varStatus="g">
+                                <h:commandLink class="dropdown-item" action="#{controlAutorizacion.adminVeEventos(grupo)}" value="#{grupo.nombre}"/>
+                            </ui:repeat>
+                        </div>
+                    </div>
+
+                </h:form>
+
+            </c:when>
+            <c:otherwise>
+                <h:link class="nav-link text-white" p:href="listaeventos.xhtml" value="Eventos"/>
+            </c:otherwise>
+        </c:choose>
+    </ui:define>
     <ui:define name="GestorDocumental">
 
         <div class="container mt-5">
