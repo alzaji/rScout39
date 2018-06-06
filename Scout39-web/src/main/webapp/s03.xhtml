@@ -19,17 +19,20 @@
                 <div class="row mt-4 pt-4">
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="nombre" value="#{beanS03Usuario.s.nombre}"/>
+                        <h:inputText class="form-control" id="nombre" value="#{beanS03Usuario.s.nombre}" disabled="true"/>
+                        <h:outputLabel class="active">Nombre</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="apellido1" value="#{beanS03Usuario.s.apellido1}"/>
+                        <h:inputText class="form-control" id="apellido1" value="#{beanS03Usuario.s.apellido1}" disabled="true"/>
+                        <h:outputLabel class="active">Primer apellido</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="apellido2" value="#{beanS03Usuario.s.apellido2}"/>
+                        <h:inputText class="form-control" id="apellido2" value="#{beanS03Usuario.s.apellido2}" disabled="true"/>
+                        <h:outputLabel class="active">Segundo Apellido</h:outputLabel>
                     </div>
 
 
@@ -37,10 +40,12 @@
 
 
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="seccion" value="#{beanS03Usuario.s.seccion}"/>
+                        <h:inputText class="form-control" id="seccion" value="#{beanS03Usuario.s.seccion}" disabled="true"/>
+                        <h:outputLabel class="active">Sección</h:outputLabel>
                     </div>
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="sexo" value="#{beanS03Usuario.s.sexo}"/>
+                        <h:inputText class="form-control" id="sexo" value="#{beanS03Usuario.s.sexo}" disabled="true"/>
+                        <h:outputLabel class="active">Sexo</h:outputLabel>
                     </div>
                 </div>
 
@@ -51,7 +56,8 @@
                 <div class="row">
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="dni" value="#{beanS03Usuario.s.dni}"/>
+                        <h:inputText class="form-control" id="dni" value="#{beanS03Usuario.s.dni}" disabled="true"/>
+                        <h:outputLabel class="active">DNI</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
@@ -60,21 +66,25 @@
                                             <h:outputLabel>Fecha Nacimiento</h:outputLabel>
                                         </div>-->
                     <div class="md-form">        
-                        <h:outputText class="form-control" id="fechaNacimiento" value="#{beanS03Usuario.s.fnacimiento}"/>
+                        <h:inputText class="form-control" id="fechaNacimiento" value="#{beanS03Usuario.s.fnacimiento.toLocaleString()}" disabled="true"/>
+                        <h:outputLabel class="active">Fecha de nacimiento</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="direccion" value="#{beanS03Usuario.s.calleynumero}"/>
+                        <h:inputText class="form-control" id="direccion" value="#{beanS03Usuario.s.calleynumero}" disabled="true"/>
+                        <h:outputLabel class="active">Dirección</h:outputLabel>
                     </div>
 
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="codigopostal" value="#{beanS03Usuario.s.codPostal}"/>
+                        <h:inputText class="form-control" id="codigopostal" value="#{beanS03Usuario.s.codPostal}" disabled="true"/>
+                        <h:outputLabel class="active">Código Postal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="localidad" value="#{beanS03Usuario.s.localidad}"/>
+                        <h:inputText class="form-control" id="localidad" value="#{beanS03Usuario.s.localidad}" disabled="true"/>
+                        <h:outputLabel class="active">Localidad</h:outputLabel>
                     </div>
                 </div>
 
@@ -84,21 +94,25 @@
                 <div class="row">
 
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="provincia" value="#{beanS03Usuario.s.provincia}"/>
+                        <h:inputText class="form-control" id="provincia" value="#{beanS03Usuario.s.provincia}" disabled="true"/>
+                                                <h:outputLabel class="active">Provincia</h:outputLabel>
                     </div>
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="telefono" value="#{beanS03Usuario.s.telefono}"/>
-                    </div>
-
-                    <!-- Material input text -->
-                    <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="movil" value="#{beanS03Usuario.s.movil}"/>
+                        <h:inputText class="form-control" id="telefono" value="#{beanS03Usuario.s.telefono}" disabled="true"/>
+                                                <h:outputLabel class="active">Teléfono</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="cargo" value="#{beanS03Usuario.s.cargo}"/>
+                        <h:inputText class="form-control" id="movil" value="#{beanS03Usuario.s.movil}" disabled="true"/>
+                                                <h:outputLabel class="active">Móvil</h:outputLabel>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:inputText class="form-control" id="cargo" value="#{beanS03Usuario.s.cargo}" disabled="true"/>
+                                                <h:outputLabel class="active">Cargo</h:outputLabel>
 
                     </div>
                 </div>
@@ -107,19 +121,21 @@
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="federal" value="#{beanS03Usuario.s.federal}"/>
+                        <h:inputText class="form-control" id="federal" value="#{beanS03Usuario.s.federal}" disabled="true"/>
+                                                <h:outputLabel class="active">Federal</h:outputLabel>
 
                     </div>
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="asociativo" value="#{beanS03Usuario.s.asociativo}"/>
+                        <h:inputText class="form-control" id="asociativo" value="#{beanS03Usuario.s.asociativo}" disabled="true"/>
+                                                <h:outputLabel class="active">Asociativo</h:outputLabel>
 
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="provincial" value="#{beanS03Usuario.s.provincial}"/>
-
+                        <h:inputText class="form-control" id="provincial" value="#{beanS03Usuario.s.provincial}" disabled="true"/>
+                        <h:outputLabel class="active">Provincial</h:outputLabel>
                     </div>
                 </div>
 
@@ -131,25 +147,26 @@
                 <div class="row mb-4 pb-4">
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="nombreResponsable" value="#{beanS03Usuario.s.nombreResponsableLegal}"/>
-
+                        <h:inputText class="form-control" id="nombreResponsable" value="#{beanS03Usuario.s.nombreResponsableLegal}" disabled="true"/>
+                        <h:outputLabel class="active">Nombre R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:inputText class="form-control" id="apellido1Responsable" value="#{beanS03Usuario.s.apellido1ResponsableLegal}"/>
-
+                        <h:inputText class="form-control" id="apellido1Responsable" value="#{beanS03Usuario.s.apellido1ResponsableLegal}" disabled="true"/>
+                        <h:outputLabel class="active">Apellido R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="apellido2Responsable" value="#{beanS03Usuario.s.apellido2ResponsableLegal}"/>
-
+                        <h:inputText class="form-control" id="apellido2Responsable" value="#{beanS03Usuario.s.apellido2ResponsableLegal}" disabled="true"/>
+                        <h:outputLabel class="active">Segundo Apellido R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="dniResponsable" value="#{beanS03Usuario.s.dniResponsableLegal}"/>
+                        <h:inputText class="form-control" id="dniResponsable" value="#{beanS03Usuario.s.dniResponsableLegal}" disabled="true"/>
+                                                <h:outputLabel class="active">DNI R.Legal</h:outputLabel>
                     </div>
                 </div>
 
@@ -160,25 +177,26 @@
                 <div class="row mb-4 pb-4">
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="nombreResponsableOtro" value="#{beanS03Usuario.s.nombreResponsableLegalOtro}"/>
-
+                        <h:inputText class="form-control" id="nombreResponsableOtro" value="#{beanS03Usuario.s.nombreResponsableLegalOtro}" disabled="true"/>
+                        <h:outputLabel class="active">Nombre Otro R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:inputText class="form-control" id="apellido1ResponsableOtro" value="#{beanS03Usuario.s.apellido1ResponsableLegalOtrol}"/>
-
+                        <h:inputText class="form-control" id="apellido1ResponsableOtro" value="#{beanS03Usuario.s.apellido1ResponsableLegalOtro}" disabled="true"/>
+                        <h:outputLabel class="active">Apellido Otro R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="apellido2ResponsableOtro" value="#{beanS03Usuario.s.apellido2ResponsableLegalOtro}"/>
-
+                        <h:inputText class="form-control" id="apellido2ResponsableOtro" value="#{beanS03Usuario.s.apellido2ResponsableLegalOtro}" disabled="true"/>
+                        <h:outputLabel class="active">Segundo Apellido Otro R.Legal</h:outputLabel>
                     </div>
 
                     <!-- Material input text -->
                     <div class="md-form pr-2">
-                        <h:outputText class="form-control" id="dniResponsableOtro" value="#{beanS03Usuario.s.dniResponsableLegal2}"/>
+                        <h:inputText class="form-control" id="dniResponsableOtro" value="#{beanS03Usuario.s.dniResponsableLegal2}" disabled="true"/>
+                                                <h:outputLabel class="active">DNI Otro R.Legal</h:outputLabel>
                     </div>
                 </div>
             </div>

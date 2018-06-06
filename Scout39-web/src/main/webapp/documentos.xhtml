@@ -186,6 +186,7 @@
                                                         <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'S') or (beanPerfil.checkEstadoArchivo(archivo) eq 'P')) or ((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">
                                                             <f:ajax render="@form"/>
                                                         </h:commandButton>
+                                                        <h:commandButton class="btn btn-sm btn-teal" value="S03" action="#{beanS03Usuario.obtenerS03(archivo.idUsuario)}" rendered="#{not empty archivo.s03}"/>
                                                     </h:form>
                                                 </h:column>
                                                 <h:column>

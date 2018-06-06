@@ -26,7 +26,7 @@ import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.S03;
 import org.siliconvalley.scout39.modelo.Usuario;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
-import org.siliconvalley.scout39.negocio.NegocioUsuario;
+import org.siliconvalley.scout39.negocio.NegocioUsuarioLocal;
 import org.siliconvalley.scout39.negocio.ScoutException;
 
 /**
@@ -42,7 +42,7 @@ public class beanS03Usuario implements Serializable {
     private NegocioLogin usr;
 
     @EJB
-    private NegocioUsuario negocioU;
+    private NegocioUsuarioLocal negocioU;
 
     @Inject
     private ControlAutorizacion ctrl;
@@ -148,6 +148,7 @@ public class beanS03Usuario implements Serializable {
             dummy.setNombre(alias + "_S03");
             dummy.setTipo("pdf");
             dummy.setRuta("null");
+            dummy.setEstado('P');
             usr.registrarS03(aux, s03, dummy);
 
         } catch (ParseException ex) {
@@ -192,8 +193,6 @@ public class beanS03Usuario implements Serializable {
         this.user = user;
     }
 
-
-
     public S03 getS() {
         return s;
     }
@@ -201,7 +200,6 @@ public class beanS03Usuario implements Serializable {
     public void setS(S03 s) {
         this.s = s;
     }
-    
-    
+  
 
 }
