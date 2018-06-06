@@ -121,7 +121,7 @@ public class FileUploadMBean implements Serializable {
     public String uploadFile(Archivo o) throws IOException {
         InputStream inputStream = null;
         OutputStream outputStream = null;
-        String fileName = o.getNombre();
+        String fileName = o.getNombre() + Utils.getFileNameFromPart(file);
         String ruta = File.separator + "resources" + File.separator + "archivos" + File.separator + fileName;
         FacesContext context = FacesContext.getCurrentInstance();
         ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
@@ -216,7 +216,7 @@ public class FileUploadMBean implements Serializable {
                 a.setFecha_limite(date);
             }
             a.setEstado('N');
-            a.setRuta("");
+            a.setRuta("null");
             a.setTipo("pdf");
 
             gestor.registrarArchivo(a, control.getGrupo());

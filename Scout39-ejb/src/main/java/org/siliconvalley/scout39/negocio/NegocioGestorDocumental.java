@@ -36,6 +36,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         ar.setTipo(tipo);
         ar.setRuta(ruta);
         ar.setIdUsuario(aux);
+        ar.setEstado('P');
         em.merge(ar);
     }
 
@@ -85,14 +86,13 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     // Se obtiene el path para permitir descagar un archivo almacenado.
     @Override
     public String buscarPath(Usuario u, String ruta) {
-        List<Archivo> ar = buscarArchivos(u);
-        for (Archivo arch : ar) {
-            if (arch.getRuta().equals(ruta)) {
-                return arch.getRuta();
-            }
-        }
+        
+        Query q = em.createQuery("Select a from Archivo a where a.idUsuario = :user and a.ruta = :ruta");
+        q.setParameter("user", u);
+        q.setParameter("ruta", ruta);
+        Archivo path = (Archivo) q.getSingleResult();
+        return path.getRuta();
 
-        return null;
     }
 
     // Se borra un archivo de la BD.
@@ -110,11 +110,12 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         return archivos;
     }
 
-    // Muestra los Archivos de los Educando de un grupo
+    // Muestra los Archivos de los Educando de un grupo para Scouter
     @Override
     public List<Archivo> listarArchivosScouter(Grupo g) {
-        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where a.idUsuario = u and u = ac.Usuario_Grupo and :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL");
+        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where a.idUsuario = u and u = ac.Usuario_Grupo and :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL and u.roles.nombrerol IS NOT :rol");
         q.setParameter("grupo", g);
+        q.setParameter("rol", "Scouter");
         List<Archivo> archivos = (List<Archivo>) q.getResultList();
         return archivos;
     }
@@ -123,7 +124,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     @Override
     public List<Archivo> listaArchivosAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
-        Query q = em.createQuery("SELECT a from Archivo a,Usuario u WHERE u.alias LIKE :alias and a MEMBER of u.archivo");
+        Query q = em.createQuery("SELECT a from Archivo a, Usuario u WHERE u.alias LIKE :alias and a MEMBER of u.archivo");
         q.setParameter("alias", cadena);
         List<Archivo> archivos;
         archivos = (List<Archivo>) q.getResultList();
@@ -134,7 +135,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     @Override
     public List<Archivo> listaArchivosNombreAJAX(String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
-        Query q = em.createQuery("SELECT a from Archivo a, Usuario u WHERE a.nombre LIKE :archivo and a.fecha_limite > CURRENT_DATE");
+        Query q = em.createQuery("SELECT a from Archivo a WHERE a.nombre LIKE :archivo and a.fecha_limite > CURRENT_DATE");
         q.setParameter("archivo", cadena);
         List<Archivo> archivos;
         archivos = (List<Archivo>) q.getResultList();
@@ -193,6 +194,22 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
         em.merge(aux);
     }
 
+    @Override
+    public String getEstadoArchivo(Archivo ar) {
+        
+        Archivo a = em.find(Archivo.class, ar.getId());
+        return a.getEstado().toString();
+        
+    }
+
+    @Override
+    public String getRuta(Archivo ar) {
+       
+        Archivo a = em.find(Archivo.class, ar.getId());
+        return a.getRuta();
+    }
+    
+    
     @Override
     public List<Archivo> listaArchivosNombreAJAXScouter(Grupo g, String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";

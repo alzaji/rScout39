@@ -32,6 +32,8 @@ public interface NegocioGestorDocumentalLocal {
     public void registrarArchivo(Archivo ar,Grupo g);
     public List<Archivo> obtenerArchivos(Grupo gr);
     public void validarArchivo(Archivo ar);
+    public String getEstadoArchivo(Archivo ar);
+    public String getRuta(Archivo ar);
     public List<Archivo> buscarArchivosScouter(Usuario u);   
 }
 

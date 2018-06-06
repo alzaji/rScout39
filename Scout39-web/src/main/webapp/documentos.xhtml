@@ -122,8 +122,8 @@
                                                 <h:column>
                                                     <f:facet name="header">Link Descarga</f:facet>
                                                     <h:form>
-                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{fileUploadMBean.getPath(archivo.ruta)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">Descargar</h:outputLink>
-                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{beanPerfil.getRutadeUsuario(archivo.idUsuario, archivo.ruta)}" rendered="#{(beanPerfil.checkEstadoArchivo(archivo) eq 'S') or ((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">Descargar</h:outputLink>
+                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{(beanPerfil.checkEstadoArchivo(archivo) eq 'S') or ((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">
                                                             <f:ajax render="@form"/>
                                                         </h:commandButton>
                                                     </h:form>
@@ -131,7 +131,7 @@
                                                 <h:column>
                                                     <f:facet name="header">Estado</f:facet>
                                                     <h:form>
-                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">
                                                             <f:ajax render="@form"/>
                                                         </h:commandButton>
                                                     </h:form>                                                    
@@ -148,30 +148,26 @@
                                                     <f:facet name="header">Archivo</f:facet>
                                                         #{archivo.nombre}
                                                 </h:column>
-                                                <h:form enctype="multipart/form-data">
+                                               
                                                     <h:column>
-                                                        <f:facet name="header">Subir</f:facet>                                                   
+                                                        <h:form enctype="multipart/form-data">
+                                                            <f:facet name="header">Subir</f:facet>                                                   
 
-                                                        <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" rendered="#{(archivo.estado eq 'N')}"/>
-                                                        <h:commandButton class="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile(archivo)}" rendered="#{(archivo.estado eq 'N')}">
-                                                            <f:ajax render="@form"/>
-                                                        </h:commandButton>
+                                                            <h:inputFile class="col" value="#{fileUploadMBean.file}" id="fileUpload" rendered="#{beanPerfil.checkEstadoArchivo(archivo) eq 'N'}"/>
+                                                            <h:commandButton class="btn btn-sm btn-purple col" value="Subir" action="#{fileUploadMBean.uploadFile(archivo)}" rendered="#{beanPerfil.checkEstadoArchivo(archivo) eq 'N'}">
+                                                                <f:ajax execute="@form" render="table2"/>
+                                                            </h:commandButton>
+                                                        </h:form> 
 
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Estado</f:facet>
-                                                        <c:if test="#{((archivo.estado eq 'N') and (archivo.ruta eq ''))}">
-                                                            <p>No entregado</p>
-                                                        </c:if>
-                                                        <c:if test="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
-                                                            <p>Pendiente validacion</p>
-                                                        </c:if>
-                                                        <c:if test="#{(archivo.estado eq 'S')}">
-                                                            <p>Correcto y validado</p>
-                                                        </c:if>
+                                                        <h:outputText rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) eq 'null'))}" value="No entregado"/>
+                                                        <h:outputText rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}" value="Entregado y pendiente de revision"/>
+                                                        <h:outputText rendered="#{beanPerfil.checkEstadoArchivo(archivo) eq 'S'}" value="Correcto"/>
+                                                        <h:outputText rendered="#{beanPerfil.checkEstadoArchivo(archivo) eq 'P'}" value="Archivo propio" />
                                                     </h:column>
-                                                </h:form> 
-                                            </h:dataTable>
+                                               </h:dataTable>
                                         </c:if>
                                         <c:if test="#{controlAutorizacion.usuario.roles.nombrerol eq 'Coordinador'}">
                                             <h:dataTable id="table3" value="#{beanPerfil.listarArchivos()}" var="archivo" styleClass="table table-striped table-responsive-md btn-table">
@@ -186,8 +182,8 @@
                                                 <h:column>
                                                     <f:facet name="header">Link Descarga</f:facet>
                                                     <h:form>
-                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{fileUploadMBean.getPath(archivo.ruta)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">Descargar</h:outputLink>
-                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{(archivo.estado eq 'S') or ((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                        <h:outputLink class="btn btn-sm btn-purple" value="#{beanPerfil.getRutadeUsuario(archivo.idUsuario, archivo.ruta)}" rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'S') or (beanPerfil.checkEstadoArchivo(archivo) eq 'P')) or ((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">Descargar</h:outputLink>
+                                                        <h:commandButton class="btn btn-sm btn-red" value="Borrar" action="#{fileUploadMBean.deleteFile(archivo)}" rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'S') or (beanPerfil.checkEstadoArchivo(archivo) eq 'P')) or ((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">
                                                             <f:ajax render="@form"/>
                                                         </h:commandButton>
                                                     </h:form>
@@ -195,7 +191,7 @@
                                                 <h:column>
                                                     <f:facet name="header">Estado</f:facet>
                                                     <h:form>
-                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((archivo.estado eq 'N') and (archivo.ruta eq not ''))}">
+                                                        <h:commandButton class="btn btn-sm btn-green col" value="Validar" action="#{beanPerfil.validarArchivo(archivo)}" rendered="#{((beanPerfil.checkEstadoArchivo(archivo) eq 'N') and (beanPerfil.checkRutaArchivo(archivo) ne 'null'))}">
                                                             <f:ajax render="@form"/>
                                                         </h:commandButton>
                                                     </h:form>                                                    

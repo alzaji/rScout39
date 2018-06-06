@@ -86,6 +86,11 @@ public class beanPerfil implements Serializable {
     public List<Archivo> getUserFiles(Usuario u) {
         return gestorArchivos.buscarArchivos(u);
     }
+    
+    public String getRutadeUsuario(Usuario u, String ruta){
+        
+        return FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + gestorArchivos.buscarPath(u, ruta);
+    }
 
     // Para Coordinador.
     public List<Archivo> listarArchivos() {
@@ -109,7 +114,7 @@ public class beanPerfil implements Serializable {
         if (update) {
             return listarArchivosAJAXNombre();
         }
-        return gestorArchivos.listarArchivos();
+        return gestorArchivos.buscarArchivos(ctrl.getUsuario());
     }
 
     // Para Scouter
@@ -140,6 +145,17 @@ public class beanPerfil implements Serializable {
 
     public void validarArchivo(Archivo ar) {
         gestorArchivos.validarArchivo(ar);
+    }
+    
+    public String checkEstadoArchivo(Archivo ar) {
+    
+        return gestorArchivos.getEstadoArchivo(ar);
+        
+    }
+    
+    public String checkRutaArchivo(Archivo ar) {
+        
+        return gestorArchivos.getRuta(ar);
     }
 
     public void nuevaPromesa() {
