@@ -113,7 +113,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     // Muestra los Archivos de los Educando de un grupo
     @Override
     public List<Archivo> listarArchivosScouter(Grupo g) {
-        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where u = ac.Usuario_Grupo and :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL");
+        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where a.idUsuario = u and u = ac.Usuario_Grupo and :grupo = ac.grupo and ac.Fecha_Baja_Grupo IS NULL");
         q.setParameter("grupo", g);
         List<Archivo> archivos = (List<Archivo>) q.getResultList();
         return archivos;
@@ -197,7 +197,7 @@ public class NegocioGestorDocumental implements NegocioGestorDocumentalLocal {
     public List<Archivo> listaArchivosNombreAJAXScouter(Grupo g, String pal) {
         String cadena = "%" + pal.replace(" ", "%") + "%";
 
-        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where a.nombre LIKE :archivo and ac.grupo = :grupo and u = ac.Usuario_Grupo and ac.Fecha_Baja_Grupo IS NULL and u.roles.nombrerol IS NOT :nombrerol");
+        Query q = em.createQuery("Select a from Archivo a, Usuario u, AccesoGrupo ac where a.idUsuario = u and a.nombre LIKE :archivo and ac.grupo = :grupo and u = ac.Usuario_Grupo and ac.Fecha_Baja_Grupo IS NULL and u.roles.nombrerol IS NOT :nombrerol");
         q.setParameter("archivo", cadena);
         q.setParameter("grupo", g);
         q.setParameter("nombrerol", "Scouter");
