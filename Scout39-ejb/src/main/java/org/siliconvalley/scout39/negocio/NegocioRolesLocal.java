@@ -44,6 +44,8 @@ public interface NegocioRolesLocal {
     
     public AccesoRecurso findAr(Roles rol, Objeto o);
     
+    public Objeto findObj(String obj);
+    
     public void modificarRol(AccesoRecurso ar);
 
 }

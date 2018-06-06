@@ -78,7 +78,6 @@
                                         </button>
                                     </div>
                                     <div class="modal-body mx-3">
-                                        <ui:repeat id ="Objeto" value="#{beanRoles.obtenerObjetos()}" var="obj" varStatus="objst">
                                             <h:form id="formModificarRoles">
                                                 <h:outputLabel>#{obj.nombre}</h:outputLabel>
                                                 <div class="md-form">
@@ -108,12 +107,18 @@
                                                         <f:validateRegex pattern="[SN]{1}"/>
                                                     </h:inputText>
                                                     <h:outputLabel>Borrar (S/N)</h:outputLabel>
-                                                </div>                                                    
+                                                </div>
+                                               <div class="md-form">
+                                                <h:selectOneMenu class="custom-select" id="Objeto" >
+                                                    <f:selectItem itemLabel="Objeto"/>
+                                                    <f:selectItems value="#{beanRoles.obtenerObjetos()}" var="objeto"
+                                                                   itemValue="#{objeto.nombre}" itemLabel="#{objeto.nombre}"/>
+                                                </h:selectOneMenu>
+                                            </div>
                                                 <div class="text-center mt-4">
-                                                    <h:commandButton class="btn btn-indigo" value="Modificar" type="submit" action="#{beanRoles.updateRol(r, obj, beanRoles.obtenerRoles().indexOf(r),objst.index)}"/>
+                                                    <h:commandButton class="btn btn-indigo" value="Modificar" type="submit" action="#{beanRoles.updateRol(r, beanRoles.obtenerRoles().indexOf(r))}"/>
                                                 </div>
                                             </h:form>
-                                        </ui:repeat>
                                     </div>
                                 </div>
                             </div>
@@ -148,16 +153,6 @@
                             </div>
                         </div>
                     </h:column>
-
-                    <!--Table head-->
-
-                    <!--FILAS DE LA TABLA, EL CUERPO-->
-
-
-                    <!--Table body-->
-
-
-
                 </h:dataTable>   
 
 

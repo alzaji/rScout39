@@ -133,12 +133,14 @@ public class beanRoles implements Serializable {
         return null;
     }
 
-    public void updateRol(Roles rol, Objeto o, int idxr, int idxo) {
+    public void updateRol(Roles rol, int idxr) {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String cre = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Crear");
-        String rea = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Leer");
-        String upd = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Modificar");
-        String del = request.getParameter("table:" + idxr + ":Objeto:" + idxo + ":formModificarRoles:Borrar");
+        String cre = request.getParameter("table:" + idxr + ":formModificarRoles:Crear");
+        String rea = request.getParameter("table:" + idxr + ":formModificarRoles:Leer");
+        String upd = request.getParameter("table:" + idxr + ":formModificarRoles:Modificar");
+        String del = request.getParameter("table:" + idxr + ":formModificarRoles:Borrar");
+        String obj = request.getParameter("table:" + idxr + ":formModificarRoles:Objeto");
+        Objeto o = roles.findObj(obj);
         AccesoRecurso ar = roles.findAr(rol, o);
         Privilegios p = roles.find(cre, rea, upd, del);
         ar.setIdPrivilegio(p);

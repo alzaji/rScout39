@@ -86,6 +86,17 @@ public class NegocioRoles implements NegocioRolesLocal {
      }
 
     @Override
+    public Objeto findObj(String obj) {
+     
+        Query q = em.createQuery("Select o from Objeto o where o.nombre = :obj");
+        q.setParameter("obj", obj);
+        Objeto o = (Objeto) q.getSingleResult();
+        return o;
+    }
+     
+     
+
+    @Override
     public String getPRead(Roles r, Objeto o) {
         Query q = em.createQuery("select p.leer from Privilegios p, AccesoRecurso ac where ac.idObjeto=:obj and ac.idRol=:rol");
         q.setParameter("rol", r);
