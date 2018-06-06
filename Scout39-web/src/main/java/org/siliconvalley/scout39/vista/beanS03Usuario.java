@@ -180,7 +180,7 @@ public class beanS03Usuario implements Serializable {
     public String obtenerS03(Usuario u) {
         S03 datos = negocioU.buscarS03Usuario(u);
         setUser(u);
-        setS(s);   
+        setS(datos);   
         return "s03.xhtml";
     }
 
