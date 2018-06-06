@@ -127,4 +127,12 @@ public class NegocioUsuario implements NegocioUsuarioLocal {
             throw new RuntimeException(ex);
         }
     }
+    
+    @Override
+    public S03 buscarS03Usuario(Usuario u){
+        Query q = em.createQuery("SELECT s from S03 s, Archivo a where s.archivo=a.id and a.idUsuario=:usuario");
+        q.setParameter("usuario", u);
+        S03 s=(S03) q.getSingleResult();
+        return s;
+    }
 }

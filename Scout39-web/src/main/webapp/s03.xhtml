@@ -1,0 +1,190 @@
+<ui:composition template="templates/principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">S03: #{beanS03Usuario.user.alias}</ui:define>
+    <ui:define name="link1"><h:link class="nav-link text-white" outcome="editarUsuarios.xhtml" value="Editar usuarios"/></ui:define>
+    <ui:define name="link2"><h:link class="nav-link text-white" outcome="documentos.xhtml" value="Gestor Documental"/></ui:define>
+    <ui:define name="link3"><h:link class="nav-link text-white" outcome="editarRoles.xhtml" value="Roles"/></ui:define>
+    <ui:define name="link4"><h:link class="nav-link text-white" outcome="crearUsuario.xhtml" value="Crear nuevo usuario"/></ui:define>
+    <ui:define name="crearUsuario">
+
+        <h:form id="crearUsuarioS03">
+
+            <div class="container">
+                <div class="row mt-4 pt-4">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="nombre" value="#{beanS03Usuario.s.nombre}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="apellido1" value="#{beanS03Usuario.s.apellido1}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="apellido2" value="#{beanS03Usuario.s.apellido2}"/>
+                    </div>
+
+
+
+
+
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="seccion" value="#{beanS03Usuario.s.seccion}"/>
+                    </div>
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="sexo" value="#{beanS03Usuario.s.sexo}"/>
+                    </div>
+                </div>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <div class="row">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="dni" value="#{beanS03Usuario.s.dni}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <!--                    <div class="md-form pr-2">
+                                            <h:inputText class="form-control" id="fechaNacimiento"/>
+                                            <h:outputLabel>Fecha Nacimiento</h:outputLabel>
+                                        </div>-->
+                    <div class="md-form">        
+                        <h:outputText class="form-control" id="fechaNacimiento" value="#{beanS03Usuario.s.fnacimiento}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="direccion" value="#{beanS03Usuario.s.calleynumero}"/>
+                    </div>
+
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="codigopostal" value="#{beanS03Usuario.s.codPostal}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="localidad" value="#{beanS03Usuario.s.localidad}"/>
+                    </div>
+                </div>
+
+
+
+                <!--FILA 3-->
+                <div class="row">
+
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="provincia" value="#{beanS03Usuario.s.provincia}"/>
+                    </div>
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="telefono" value="#{beanS03Usuario.s.telefono}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="movil" value="#{beanS03Usuario.s.movil}"/>
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="cargo" value="#{beanS03Usuario.s.cargo}"/>
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="federal" value="#{beanS03Usuario.s.federal}"/>
+
+                    </div>
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="asociativo" value="#{beanS03Usuario.s.asociativo}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="provincial" value="#{beanS03Usuario.s.provincial}"/>
+
+                    </div>
+                </div>
+
+
+                <br></br>
+                <br></br>
+
+
+                <div class="row mb-4 pb-4">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="nombreResponsable" value="#{beanS03Usuario.s.nombreResponsableLegal}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:inputText class="form-control" id="apellido1Responsable" value="#{beanS03Usuario.s.apellido1ResponsableLegal}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="apellido2Responsable" value="#{beanS03Usuario.s.apellido2ResponsableLegal}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="dniResponsable" value="#{beanS03Usuario.s.dniResponsableLegal}"/>
+                    </div>
+                </div>
+
+                <br></br>
+                <br></br>
+
+
+                <div class="row mb-4 pb-4">
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="nombreResponsableOtro" value="#{beanS03Usuario.s.nombreResponsableLegalOtro}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:inputText class="form-control" id="apellido1ResponsableOtro" value="#{beanS03Usuario.s.apellido1ResponsableLegalOtrol}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="apellido2ResponsableOtro" value="#{beanS03Usuario.s.apellido2ResponsableLegalOtro}"/>
+
+                    </div>
+
+                    <!-- Material input text -->
+                    <div class="md-form pr-2">
+                        <h:outputText class="form-control" id="dniResponsableOtro" value="#{beanS03Usuario.s.dniResponsableLegal2}"/>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+

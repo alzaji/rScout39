@@ -26,6 +26,7 @@ import org.siliconvalley.scout39.modelo.Roles;
 import org.siliconvalley.scout39.modelo.S03;
 import org.siliconvalley.scout39.modelo.Usuario;
 import org.siliconvalley.scout39.negocio.NegocioLogin;
+import org.siliconvalley.scout39.negocio.NegocioUsuario;
 import org.siliconvalley.scout39.negocio.ScoutException;
 
 /**
@@ -40,8 +41,14 @@ public class beanS03Usuario implements Serializable {
     @EJB
     private NegocioLogin usr;
 
+    @EJB
+    private NegocioUsuario negocioU;
+
     @Inject
     private ControlAutorizacion ctrl;
+
+    private S03 s;
+    private Usuario user;
 
     public String createUser() {
         try {
@@ -169,5 +176,32 @@ public class beanS03Usuario implements Serializable {
             return null;
         }
     }
+
+    public String obtenerS03(Usuario u) {
+        S03 datos = negocioU.buscarS03Usuario(u);
+        setUser(u);
+        setS(s);   
+        return "s03.xhtml";
+    }
+
+    public Usuario getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
+
+
+
+    public S03 getS() {
+        return s;
+    }
+
+    public void setS(S03 s) {
+        this.s = s;
+    }
+    
+    
 
 }

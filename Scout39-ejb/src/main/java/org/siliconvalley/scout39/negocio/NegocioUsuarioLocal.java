@@ -24,5 +24,6 @@ public interface NegocioUsuarioLocal {
     public List<AccesoGrupo> listaPromesas(Usuario u);
     public void cambiarPassword(Usuario u, String nueva);
     public String sha256(String rawString);
+    public S03 buscarS03Usuario(Usuario u);
     
 }
