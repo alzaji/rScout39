@@ -82,7 +82,7 @@ public class beanS03Usuario implements Serializable {
             aux.setNombre(nombre);
             aux.setAlias(alias);
             aux.setDigest(alias);
-            aux.setApellidos(apellido1 + "," + apellido2);
+            aux.setApellidos(apellido1 + " " + apellido2);
             aux.setEmail(email);
             aux.setFecha_alta(new Date());
             aux.setRoles(r);
@@ -137,7 +137,7 @@ public class beanS03Usuario implements Serializable {
                 s03.setDniResponsableLegal(dniResponsable);
             }
             usr.registrarUsuario(aux, g);
-            aux = usr.comprobarUsuario("HAZJ");
+            aux = usr.comprobarUsuario(aux.getAlias());
             dummy.setNombre(alias + "_S03");
             dummy.setTipo("pdf");
             dummy.setRuta("null");

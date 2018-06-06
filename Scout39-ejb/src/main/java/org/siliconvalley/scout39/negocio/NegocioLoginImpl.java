@@ -62,14 +62,14 @@ public class NegocioLoginImpl implements NegocioLogin {
         try {
             S03 s = em.merge(s03);
             Archivo ar = em.merge(a);
-//            Query q = em.createQuery("Select u from Usuarios u where u.alias = :alias");
-//            q.setParameter("alias", u.getAlias());
-//            Usuario aux = (Usuario) q.getSingleResult();
             Usuario aux = em.find(Usuario.class, u.getId());
 
             ar.setIdUsuario(aux);
             ar.setS03(s);
-            em.merge(ar);
+            Archivo araux = em.merge(ar);
+            s.setArchivo(araux);
+            em.merge(s);
+
         } catch (Exception e) {
             throw new ScoutException("Error al registrar S03");
         }
